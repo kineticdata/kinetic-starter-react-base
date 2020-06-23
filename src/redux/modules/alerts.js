@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import * as Utils from '@kineticdata/bundle-common/src/utils';
+import { Utils } from '@kineticdata/bundle-common';
 const { noPayload, withPayload } = Utils;
 const ns = Utils.namespaceBuilder('app/alerts');
 

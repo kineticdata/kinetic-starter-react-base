@@ -4,8 +4,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { history } from '@kineticdata/react';
 import reducers from './reducers';
 import { sagas } from './sagas';
-// import commonReducers from '@kineticdata/bundle-common/src/redux/reducers';
-// import commonSagas from '@kineticdata/bundle-common/src/redux/sagas';
 
 console.log('Configuring app package redux store');
 

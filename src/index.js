@@ -29,9 +29,9 @@ ReactDOM.render(
       <ConnectedKineticLib
         components={{
           fields: {
-            ...FormComponents,
+            ...FormComponents.defaults,
           },
-          ...TableComponents,
+          ...TableComponents.defaults,
         }}
       >
         {({ initialized, ...authProps }) =>

@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 import { LOCATION_CHANGE } from 'connected-react-router';
-import * as Utils from '@kineticdata/bundle-common/src/utils';
+import { Utils } from '@kineticdata/bundle-common';
 const { withPayload } = Utils;
 const ns = Utils.namespaceBuilder('app/layout');
 
