@@ -16,13 +16,12 @@ import { Header } from './components/header/Header';
 import { AppProvider } from './AppProvider';
 // Import available packages
 import ServicesApp from '@kineticdata/bundle-services';
-import QueueApp from 'queue';
-import TechBarApp from 'tech-bar';
-import DiscussionsApp from 'discussions';
-import SettingsApp from 'settings';
-import ScaffoldApp from 'scaffold';
-import SurveyApp from 'survey';
-// import { AppProvider } from './AppProvider';
+import QueueApp from '@kineticdata/bundle-queue';
+import TechBarApp from '@kineticdata/bundle-tech-bar';
+import DiscussionsApp from '@kineticdata/bundle-discussions';
+import SettingsApp from '@kineticdata/bundle-settings';
+import ScaffoldApp from '@kineticdata/bundle-scaffold';
+import SurveyApp from '@kineticdata/bundle-survey';
 
 // Mapping of Bundle Package kapp attribute values to App Components
 const BUNDLE_PACKAGE_PROVIDERS = {

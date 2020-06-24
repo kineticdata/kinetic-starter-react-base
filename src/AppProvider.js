@@ -19,7 +19,7 @@ import { TeamsNavigation } from './components/Teams';
 import { About } from './components/About';
 import { Alerts } from './components/alerts/Alerts';
 import { Alert } from './components/alerts/Alert';
-import SettingsApp from 'settings';
+import SettingsApp from '@kineticdata/bundle-settings';
 
 const AppComponent = props => {
   if (props.errors.size > 0) {
