@@ -1,6 +1,6 @@
 {
   "name": "@kineticdata/bundle",
-  "version": "0.1.0",
+  "version": "5.0.8-alpha.0",
   "private": true,
   "scripts": {
     "prestart": "node ./src/setupEnv.js",
@@ -12,17 +12,17 @@
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/react": "5.0.7",
+    "@kineticdata/bundle-common": "5.0.8-alpha.0",
+    "@kineticdata/bundle-discussions": "5.0.8-alpha.0",
+    "@kineticdata/bundle-queue": "5.0.8-alpha.0",
+    "@kineticdata/bundle-services": "5.0.8-alpha.0",
+    "@kineticdata/bundle-settings": "5.0.8-alpha.0",
+    "@kineticdata/bundle-survey": "5.0.8-alpha.0",
+    "@kineticdata/bundle-tech-bar": "5.0.8-alpha.0",
+    "@kineticdata/react": "5.0.8-alpha.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@kineticdata/bundle-common": "0.1.0",
-    "@kineticdata/bundle-discussions": "0.1.0",
-    "@kineticdata/bundle-queue": "0.1.0",
-    "@kineticdata/bundle-services": "0.1.0",
-    "@kineticdata/bundle-settings": "0.1.0",
-    "@kineticdata/bundle-survey": "0.1.0",
-    "@kineticdata/bundle-tech-bar": "0.1.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.5",
