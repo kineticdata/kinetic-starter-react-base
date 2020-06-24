@@ -1,13 +1,15 @@
 {
   "name": "@kineticdata/bundle",
   "version": "0.1.0",
-  "main": "./src/index.js",
+  "private": true,
   "scripts": {
     "prestart": "node ./src/setupEnv.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js",
+    "preversion": "yarn lint"
   },
   "dependencies": {
     "@kineticdata/react": "5.0.7",
@@ -17,7 +19,6 @@
     "@kineticdata/bundle-common": "0.1.0",
     "@kineticdata/bundle-discussions": "0.1.0",
     "@kineticdata/bundle-queue": "0.1.0",
-    "@kineticdata/bundle-scaffold": "0.1.0",
     "@kineticdata/bundle-services": "0.1.0",
     "@kineticdata/bundle-settings": "0.1.0",
     "@kineticdata/bundle-survey": "0.1.0",

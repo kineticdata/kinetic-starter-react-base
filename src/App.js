@@ -20,7 +20,6 @@ import QueueApp from '@kineticdata/bundle-queue';
 import TechBarApp from '@kineticdata/bundle-tech-bar';
 import DiscussionsApp from '@kineticdata/bundle-discussions';
 import SettingsApp from '@kineticdata/bundle-settings';
-import ScaffoldApp from '@kineticdata/bundle-scaffold';
 import SurveyApp from '@kineticdata/bundle-survey';
 
 // Mapping of Bundle Package kapp attribute values to App Components
@@ -28,12 +27,11 @@ const BUNDLE_PACKAGE_PROVIDERS = {
   services: ServicesApp,
   queue: QueueApp,
   'tech-bar': TechBarApp,
-  scaffold: ScaffoldApp,
   survey: SurveyApp,
 };
 
 // List of available static packages
-const STATIC_PACKAGE_PROVIDERS = [SettingsApp, DiscussionsApp, ScaffoldApp];
+const STATIC_PACKAGE_PROVIDERS = [SettingsApp, DiscussionsApp];
 
 // Determine the correct AppProvider based on the kapp/route
 const getAppProvider = ({ kapp, pathname }) => {
