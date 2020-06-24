@@ -1,6 +1,6 @@
 {
   "name": "@kineticdata/bundle",
-  "version": "5.0.8-alpha.2",
+  "version": "5.0.8-alpha.3",
   "private": true,
   "scripts": {
     "prestart": "node ./src/setupEnv.js",
@@ -14,7 +14,7 @@
   "dependencies": {
     "@kineticdata/bundle-common": "5.0.8-alpha.2",
     "@kineticdata/bundle-discussions": "5.0.8-alpha.2",
-    "@kineticdata/bundle-queue": "5.0.8-alpha.2",
+    "@kineticdata/bundle-queue": "5.0.8-alpha.3",
     "@kineticdata/bundle-services": "5.0.8-alpha.2",
     "@kineticdata/bundle-settings": "5.0.8-alpha.2",
     "@kineticdata/bundle-survey": "5.0.8-alpha.2",
