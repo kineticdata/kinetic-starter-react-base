@@ -16,6 +16,12 @@ import { App } from './App';
 // Shared Components
 import { FormComponents, TableComponents } from '@kineticdata/bundle-common';
 
+// Asynchronously import the global dependencies that are used in the embedded
+// forms. Note that we deliberately do this as a const so that it should start
+// immediately without making the application wait but it will likely be ready
+// before users nagivate to the actual forms.
+const globals = import('./globals');
+
 const ConnectedKineticLib = connect(state => ({
   locale: state.app.locale,
 }))(KineticLib);
@@ -27,6 +33,7 @@ ReactDOM.render(
     </Helmet>
     <Provider store={store}>
       <ConnectedKineticLib
+        globals={globals}
         components={{
           fields: {
             ...FormComponents.defaults,

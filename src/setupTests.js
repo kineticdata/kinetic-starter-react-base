@@ -12,5 +12,4 @@ global.bundle = {
   kappSlug: () => 'queue',
 };
 
-jest.mock('@kineticdata/bundle-common/globals', () => {});
 beforeEach(() => jest.addMatchers(matchers));

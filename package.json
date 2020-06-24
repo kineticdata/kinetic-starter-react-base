@@ -25,10 +25,17 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "bootstrap-select": "1.12.4",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.6.1",
+    "datatables.net": "^1.10.16",
+    "datatables.net-dt": "^1.10.16",
+    "datatables.net-responsive": "^2.2.1",
+    "datatables.net-responsive-bs": "^2.2.1",
     "font-awesome": "^4.7.0",
     "immutable": "4.0.0-rc.9",
+    "jquery": "^3.5.0",
+    "mdn-polyfills": "^5.11.0",
     "modularscale-sass": "^3.0.5",
     "moment": "^2.22.2",
     "query-string": "^5.1.1",
@@ -43,7 +50,8 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "semver": "^5.5.0",
-    "typeface-open-sans": "^0.0.54"
+    "typeface-open-sans": "^0.0.54",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "@react-workspaces/react-scripts": "^3.4.0-alpha-01",

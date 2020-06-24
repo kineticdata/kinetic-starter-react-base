@@ -15,12 +15,6 @@ import { parse } from 'query-string';
 
 import { I18n } from '@kineticdata/react';
 
-// Asynchronously import the global dependencies that are used in the embedded
-// forms. Note that we deliberately do this as a const so that it should start
-// immediately without making the application wait but it will likely be ready
-// before users nagivate to the actual forms.
-const globals = import('@kineticdata/bundle-common/globals');
-
 const Layout = ({ authenticated, kapp, isPublic }) => ({ form, content }) => (
   <>
     {!isPublic && (
@@ -78,7 +72,6 @@ export const FormComponent = ({
             {id ? (
               <CoreForm
                 submission={id}
-                globals={globals}
                 loaded={handleLoaded}
                 completed={handleCompleted}
                 public={!authenticated}
@@ -88,7 +81,6 @@ export const FormComponent = ({
               <CoreForm
                 kapp={kappSlug}
                 form={formSlug}
-                globals={globals}
                 loaded={handleLoaded}
                 created={handleCreated}
                 completed={handleCompleted}
