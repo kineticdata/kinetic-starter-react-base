@@ -46,12 +46,12 @@
  * typeahead-user-id-attribute  *OPTIONAL      (If filtering results to not include logged in user (for person searching) bridge attribute for the user's username)
  */
 
-(function($, _, moment) {
+(function ($, _, moment) {
   // On Load Event that Searches the current form for any "typeahead" input attributes
-  typeAheadSearch = function(form) {
+  typeAheadSearch = function (form) {
     $(form.element())
       .find('input[uses-typeahead]:not(.typeahead)')
-      .each(function() {
+      .each(function () {
         var typeaheadForm = form;
         // Setup Config Variables for Typeahead
         var input = $(this);
@@ -117,26 +117,22 @@
         // Check to see if the fields-to-set attribute was provided and should override the config object provided
         if (!_.isEmpty($(input).attr('typeahead-fields-to-set'))) {
           typeaheadConfig['fieldsToSet'] = {};
-          $.each(
-            $(input)
-              .attr('typeahead-fields-to-set')
-              .split(','),
-            function(i, v) {
-              var fname = v.split('=')[0];
-              var fbridgedValue = v.split('=')[1];
-              typeaheadConfig['fieldsToSet'][fname] = fbridgedValue;
-            },
-          );
+          $.each($(input).attr('typeahead-fields-to-set').split(','), function (
+            i,
+            v,
+          ) {
+            var fname = v.split('=')[0];
+            var fbridgedValue = v.split('=')[1];
+            typeaheadConfig['fieldsToSet'][fname] = fbridgedValue;
+          });
         }
 
         // Check to see if any additional parameters were specified to be passed to the bridge search
         if (!_.isEmpty($(input).attr('typeahead-additional-params'))) {
           typeaheadConfig['additionalParams'] = {};
           $.each(
-            $(input)
-              .attr('typeahead-additional-params')
-              .split(','),
-            function(i, v) {
+            $(input).attr('typeahead-additional-params').split(','),
+            function (i, v) {
               var fname = v.split('=')[0];
               var fbridgedValue = v.split('=')[1];
               typeaheadConfig['additionalParams'][fname] = fbridgedValue;
@@ -169,7 +165,7 @@
 
         // If additional Parameters were passed, append them to the bridge URL
         if (!_.isEmpty(typeaheadConfig['additionalParams'])) {
-          $.each(typeaheadConfig['additionalParams'], function(name, value) {
+          $.each(typeaheadConfig['additionalParams'], function (name, value) {
             var addtlParam = '';
             var valToSet = value.split('::')[1];
             if (value.split('::')[0].toLowerCase() === 'string') {
@@ -217,9 +213,7 @@
             ),
           );
         $(input).attr('placeholder', typeaheadConfig['placeholder']);
-        $(input)
-          .attr('data-provide', 'typeahead')
-          .addClass('typeahead');
+        $(input).attr('data-provide', 'typeahead').addClass('typeahead');
 
         // BLOODHOUND Search
         var bridgeSearch = new Bloodhound({
@@ -227,7 +221,7 @@
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
             url: typeaheadConfig['bridgeUrl'],
-            prepare: function(query, settings) {
+            prepare: function (query, settings) {
               // Replace %query string with search value
               settings.url = settings.url.replace(
                 '%QUERY',
@@ -252,8 +246,8 @@
               }
               return settings;
             },
-            filter: function(data) {
-              var dataArrayObjects = _.map(data.records.records, function(
+            filter: function (data) {
+              var dataArrayObjects = _.map(data.records.records, function (
                 record,
               ) {
                 return _.object(data.records.fields, record);
@@ -261,7 +255,7 @@
               if (_.isEmpty(typeaheadConfig['userIdAttribute'])) {
                 return dataArrayObjects;
               } else {
-                return $.grep(dataArrayObjects, function(data) {
+                return $.grep(dataArrayObjects, function (data) {
                   return (
                     data[typeaheadConfig['userIdAttribute']] !==
                     K('identity').username
@@ -291,7 +285,7 @@
                 '<br>',
                 '</div>',
               ].join('\n'),
-              suggestion: function(data) {
+              suggestion: function (data) {
                 suggestion = typeaheadConfig.suggestionHtml(
                   data,
                   typeaheadConfig,
@@ -301,20 +295,18 @@
             },
           },
         );
-        $(input)
-          .siblings('.tt-hint')
-          .removeAttr('data-element-type');
+        $(input).siblings('.tt-hint').removeAttr('data-element-type');
 
         // Typeahead Change and Select Events
-        $(input).bind('typeahead:select', function(ev, suggestion) {
+        $(input).bind('typeahead:select', function (ev, suggestion) {
           // Render the Callback Sepecified in the Configuration
           typeaheadConfig.selectedCallback(suggestion, typeaheadConfig);
         });
-        $(input).bind('typeahead:change', function(ev) {
+        $(input).bind('typeahead:change', function (ev) {
           // Change Event on Typeahead goes here
         });
         // Prevent Submitting of form when hitting enter
-        $(input).keydown(function(event) {
+        $(input).keydown(function (event) {
           if (event.keyCode == 13) {
             event.preventDefault();
             return false;
@@ -326,7 +318,7 @@
 
 // CONFIGURATION Object
 typeaheadConfigurations = {
-  defaultConfiguration: function() {
+  defaultConfiguration: function () {
     return {
       faClass: 'fa-search', // Font awesom icon to append to typeahead search and results
       placeholder: K.translate(
@@ -345,10 +337,10 @@ typeaheadConfigurations = {
       attrsToShow: null, // Comma separated List of Bridge Attributes to Show in Typeahead Search dropdown. (e.g. Login Id,Name)
       attrToSet: null, // Name of Bridge Attribute to Set in Typeahead Search Field
       fieldsToSet: null, // JS Object with name value pairs of Fields on Form to Bridge Attribute (e.g. {"Login Id Field":"Login Id","Name Field"="Name"})
-      suggestionHtml: function(data, config) {
+      suggestionHtml: function (data, config) {
         // Data is the Data Records Returned from the Bridge Call, Config is the typeaheadConfiguration Object
         var suggestionDetails = $('<div class="tt-details"/>');
-        $.each(config['attrsToShow'], function(i, attr) {
+        $.each(config['attrsToShow'], function (i, attr) {
           $(suggestionDetails).append(
             '<div class="tt-attribute col-sm-6">' + data[attr] + '</div>',
           );
@@ -358,10 +350,10 @@ typeaheadConfigurations = {
         );
         return suggestion;
       },
-      selectedCallback: function(data, config) {
+      selectedCallback: function (data, config) {
         // Data is the row that was selected, all attributes returned from the bridge are available
         // Loop over the Fields to Set and Set them
-        $.each(config['fieldsToSet'], function(key, value) {
+        $.each(config['fieldsToSet'], function (key, value) {
           var field = config['typeaheadForm'].select('field[' + key + ']');
           if (field != null) {
             field.value(data[value]);

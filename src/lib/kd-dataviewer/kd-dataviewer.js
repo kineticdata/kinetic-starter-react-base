@@ -6,14 +6,14 @@
 Data Viewer CE
 2017-5-8: Included use of before and complete callbacks in renderFieldValues().
 **/
-(function($) {
+(function ($) {
   // create the dataViewer global object
   DataViewer = typeof DataViewer == 'undefined' ? {} : DataViewer;
 
   /**
    * Code in kd_client.js is preventing the backspace from working on $('.dataTables_filter input'). stopPropigation allows backspace to work.
    */
-  $('body').on('keydown', '.dataTables_filter input', function(event) {
+  $('body').on('keydown', '.dataTables_filter input', function (event) {
     event.stopPropagation();
   });
 
@@ -48,7 +48,7 @@ Data Viewer CE
    * @param {Obj} destination
    * @param {Obj} Search configuration object
    */
-  DataViewer.executeSearch = function(destination, configObj) {
+  DataViewer.executeSearch = function (destination, configObj) {
     //Determine current and Parent form
     setParentChildForms(destination, configObj);
     if (configObj.before) {
@@ -57,7 +57,7 @@ Data Viewer CE
     //Retrieve and set the Bridge parameter values using JQuery
     var parameters = {};
     if (configObj.resource.parameters) {
-      $.each(configObj.resource.parameters, function(i, v) {
+      $.each(configObj.resource.parameters, function (i, v) {
         if (typeof v == 'function') {
           parameters[i] = v();
         } else if (typeof v == 'string') {
@@ -71,7 +71,7 @@ Data Viewer CE
         .load({
           attributes: configObj.resource.attributes,
           values: parameters,
-          success: function(response) {
+          success: function (response) {
             // If Bridge is a "Single" convert it to array to match format of "multiple"
             if (
               configObj.forms.self(
@@ -105,7 +105,7 @@ Data Viewer CE
               configObj.complete(configObj);
             }
           },
-          error: function(response) {
+          error: function (response) {
             // Execute error callback if defined
             if (configObj.error) {
               configObj.error(configObj);
@@ -132,7 +132,7 @@ Data Viewer CE
    * @param {Obj} destination
    * @param {Obj} Search configuration object
    */
-  DataViewer.renderFieldValues = function(destination, configObj) {
+  DataViewer.renderFieldValues = function (destination, configObj) {
     // Initialize the forms obj
     setParentChildForms(destination, configObj);
     // Initialize the response if not defined
@@ -147,7 +147,7 @@ Data Viewer CE
     }
     var fieldValueObj = {};
     // Get Field Values and place into an object
-    $.each(configObj.data, function(i, v) {
+    $.each(configObj.data, function (i, v) {
       if (v['setField'] != '' && typeof v['setField'] != 'undefined') {
         // Set field string (e.g.: "field[First Name]")
         var field = 'field[' + v['setField'] + ']';
@@ -177,7 +177,7 @@ Data Viewer CE
    * @param {Obj} destination
    * @param {Obj} Search configuration object
    */
-  DataViewer.renderResults = function(destination, configObj) {
+  DataViewer.renderResults = function (destination, configObj) {
     // Initialize the forms obj
     setParentChildForms(destination, configObj);
     // The processSingleResult property should not be set to true when using renderFieldValues.
@@ -213,12 +213,12 @@ Data Viewer CE
    * @params {Object} data config object
    * @params {Object} data returned from selection.
    */
-  DataViewer.setFieldsfromResults = function(configData, results, configObj) {
+  DataViewer.setFieldsfromResults = function (configData, results, configObj) {
     //rowCallback
     var self = this;
     self.configObj = configObj;
     //Iterate through the data object defined in the configuration
-    $.each(configData, function(k_data, v_data) {
+    $.each(configData, function (k_data, v_data) {
       // If setField property is set
       if (
         v_data['setField'] != '' &&
@@ -229,12 +229,12 @@ Data Viewer CE
           ? new Array(v_data['setField'])
           : v_data['setField'];
         // Iterate through array of setField values
-        $.each(fldArr, function(k_fld, v_fld) {
+        $.each(fldArr, function (k_fld, v_fld) {
           // Set field string (e.g.: "field[First Name]")
           var field = 'field[' + v_fld + ']';
           var v_fld = v_fld;
           //Iterate through each of the defined forms (ie: self and parent)
-          $.each(self.configObj.forms, function(k_form, v_form) {
+          $.each(self.configObj.forms, function (k_form, v_form) {
             // Set field value if it exists for self and parent
             if (v_form('field[' + v_fld + ']') !== null) {
               v_form('field[' + v_fld + ']').value(results[v_data['name']]);
@@ -260,7 +260,7 @@ Data Viewer CE
    * Returns object
    * @param {Object} table
    */
-  evaluteObjType = function(obj) {
+  evaluteObjType = function (obj) {
     // Append to DOM
     if (obj instanceof $) {
       // if jQuery Obj
@@ -325,7 +325,7 @@ Data Viewer CE
    */
   function convertDataToColumns(obj) {
     obj.columns = [];
-    $.each(obj.data, function(attribute, attributeObject) {
+    $.each(obj.data, function (attribute, attributeObject) {
       attributeObject['data'] = attributeObject.name;
       obj.columns.push(attributeObject);
     });
@@ -356,7 +356,7 @@ Data Viewer CE
    * Returns string with uppercase first letter
    * @param {String} Value to be give uppercase letter
    */
-  DataViewer.ucFirst = function(str) {
+  DataViewer.ucFirst = function (str) {
     var firstLetter = str.substr(0, 1);
     return firstLetter.toUpperCase() + str.substr(1);
   };
@@ -369,7 +369,7 @@ Data Viewer CE
      * Create a TableTable using a Search Object
      * @param {Object} Search Object used to create the DataTable
      */
-    DataTables: function(destination, configObj) {
+    DataTables: function (destination, configObj) {
       // Entend defaults into the configuration
       configObj = $.extend({}, defaultsBridgeDataTable, configObj);
       // Merge Render options into Config Obj
@@ -444,7 +444,7 @@ Data Viewer CE
         dtConfig = $.extend(true, {}, dtConfig, configObj.renderer.options);
         configObj.tableObj = tableContainer.DataTable(dtConfig);
         // Bind Click Event based on where the select attribute extists ie:<tr> or <td>
-        tableContainer.off().on('click', 'td', function(event) {
+        tableContainer.off().on('click', 'td', function (event) {
           // Ensure user has not clicked on an element with control class (Used by the responsive plugin to expand info and allow checkbox and button elements to be clicked)
           if (!$(this).hasClass('control') && configObj.tableObj.data().any()) {
             DataViewer.setFieldsfromResults(
@@ -476,7 +476,7 @@ Data Viewer CE
       }
       return configObj;
     },
-    UnorderedList: function(destination, configObj) {
+    UnorderedList: function (destination, configObj) {
       // Entend defaults into the configuration
       configObj = $.extend({}, defaultsBridgeList, configObj);
       // Merge Render options into Config Obj
@@ -516,14 +516,14 @@ Data Viewer CE
         this.$resultsList = $('<ul/>').attr('id', 'resultList');
         var self = this; // reference to this in current scope
         //Iterate through row results to retrieve data
-        $.each(configObj.response, function(i, record) {
+        $.each(configObj.response, function (i, record) {
           var odd_or_even = i % 2 == 0 ? 'even' : 'odd';
           self.$singleResult = $('<li/>').attr(
             'class',
             'result ' + odd_or_even,
           );
           //Iterate through the configured columns to match with data returned from bridge
-          $.each(configObj.data, function(attribute, attributeObject) {
+          $.each(configObj.data, function (attribute, attributeObject) {
             if (
               typeof record[attributeObject.name] != 'undefined' ||
               typeof attributeObject['defaultContent'] != 'undefined'
@@ -573,23 +573,19 @@ Data Viewer CE
         $(configObj.forms.self('form').element())
           .find('#' + configObj.resultsContainerId)
           .off()
-          .on('click', 'li div', function(event) {
+          .on('click', 'li div', function (event) {
             // Ensure user has not clicked on an element with control class (Used to allow checkbox and button elements to be clicked)
             if (!$(this).hasClass('control')) {
               DataViewer.setFieldsfromResults(
                 configObj.data,
-                $(this)
-                  .parent('li')
-                  .data(),
+                $(this).parent('li').data(),
                 configObj,
               );
               try {
                 if (configObj.clickCallback) {
                   configObj.clickCallback(
                     $(this).parent('li'),
-                    $(this)
-                      .parent('li')
-                      .data(),
+                    $(this).parent('li').data(),
                   );
                 }
               } catch (e) {
@@ -617,14 +613,14 @@ Data Viewer CE
 
   DataViewer.render = {
     // Render using moment.js
-    moment: function(options) {
+    moment: function (options) {
       //Default Options
       var options = options || {};
       var from = options.from || '';
       var to = options.to || 'MMMM Do YYYY, h:mm:ss a';
       var locale = options.locale || 'en';
 
-      return function(d, type, row) {
+      return function (d, type, row) {
         var m = window.moment(d, from, locale, true);
 
         // Order and type get a number value from Moment, everything else
@@ -641,20 +637,20 @@ Data Viewer CE
    * Jquery plugin for Unordered Lists
    * Creates functionality similar to DataTables plugin.
    */
-  $.fn.UnorderedList = function() {
+  $.fn.UnorderedList = function () {
     var self = this;
     /**
      * Returns List as JSON obj
      */
-    var data = function() {
+    var data = function () {
       var array = [];
       $(self)
         .find('li')
-        .each(function(i, v) {
+        .each(function (i, v) {
           var obj = {};
           $(v)
             .find("div:not('.title')")
-            .each(function(i, v) {
+            .each(function (i, v) {
               obj[$(v).data('name')] = $(v).text();
             });
           array.push(obj);
