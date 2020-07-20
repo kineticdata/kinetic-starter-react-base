@@ -119,7 +119,7 @@ export const handleCompleted = props => response => {
   }
 };
 
-export const handleCreated = ({ props }) => response => {
+export const handleCreated = props => response => {
   if (
     response.submission.coreState !== 'Submitted' ||
     response.submission.currentPage
