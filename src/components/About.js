@@ -91,7 +91,9 @@ const AboutComponent = ({ space, users, teams, loading }) => (
                         <Avatar username={user.username} />
                       </td>
                       <td>
-                        <Link to={`/profile/${user.username}`}>
+                        <Link
+                          to={`/profile/${encodeURIComponent(user.username)}`}
+                        >
                           {user.displayName || user.username}
                         </Link>
                       </td>

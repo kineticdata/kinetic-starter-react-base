@@ -231,7 +231,9 @@ export const Profile = compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withProps(({ match: { params: { username } } }) => ({ username })),
+  withProps(({ match: { params: { username } } }) => ({
+    username: decodeURIComponent(username),
+  })),
   lifecycle({
     componentDidMount() {
       this.props.fetchProfileRequest(this.props.username);
