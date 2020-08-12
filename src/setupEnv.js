@@ -35,7 +35,7 @@ if (!fs.existsSync(envFile)) {
     ];
     inquirer.prompt(questions).then(answers => {
       if (answers.apiHost) {
-        fs.writeFileSync(envFile, `REACT_APP_API_HOST=${answers.apiHost}`);
+        fs.writeFileSync(envFile, `REACT_APP_PROXY_HOST=${answers.apiHost}`);
         console.log(
           chalk
             .bgHex('#F36C24')
@@ -64,7 +64,7 @@ if (!fs.existsSync(envFile)) {
 } else {
   const contents = fs
     .readFileSync(envFile, 'utf8')
-    .match(/REACT_APP_API_HOST=(.*?)$/m);
+    .match(/REACT_APP_PROXY_HOST=(.*?)$/m);
   if (contents && contents.length > 1) {
     console.log(
       chalk
