@@ -15,7 +15,7 @@ export const HomeComponent = ({
   pathname,
 }) => (
   <Fragment>
-    <PageTitle parts={[]} />
+    <PageTitle />
     <div className="page-container container">
       <div className="page-panel">
         <h1>

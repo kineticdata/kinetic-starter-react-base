@@ -11,6 +11,7 @@ import {
 import { parse } from 'query-string';
 import { I18n } from '@kineticdata/react';
 
+import { PageTitle } from './components/shared/PageTitle';
 import { Home } from './components/Home';
 import { Form } from './components/Form';
 import { Profile } from './components/Profile';
@@ -31,6 +32,7 @@ const AppComponent = props => {
       main: (
         <I18n>
           <main className={`package-layout package-layout--app`}>
+            <PageTitle parts={['Loading...']} />
             <Switch>
               <Route exact path="/kapps/:kappSlug" component={Home} />
               <Route
@@ -71,6 +73,7 @@ const PublicAppComponent = props => {
     main: (
       <I18n>
         <main className={`package-layout package-layout--app`}>
+          <PageTitle parts={['Loading...']} />
           <Switch>
             {props.kapp && (
               <Route
