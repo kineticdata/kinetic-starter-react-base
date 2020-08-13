@@ -5,9 +5,12 @@ const options = {
   secure: false,
 };
 
-const proxy = require("http-proxy-middleware");
+const proxy = require('http-proxy-middleware');
 module.exports = function(app) {
-  app.use(proxy('/app', options));
-  app.use(proxy('/core*.pack', options));
-  app.use(proxy('/favicon.ico', options));
-}
+  app.use(
+    proxy(
+      ['**', '!/', '!/index.html', '!/static/**', '!/sockjs-node'],
+      options,
+    ),
+  );
+};
