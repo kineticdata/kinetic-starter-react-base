@@ -46,91 +46,86 @@ export const HeaderComponent = ({
   kappDropdownToggle,
 }) => (
   <Navbar color="faded" light>
-    <div className="nav nav-header">
-      <Nav>
-        {typeof toggleSidebarOpen === 'function' &&
-          !isGuest && (
-            <NavItem id="header-sidebar-toggle">
-              <NavLink
-                className="drawer-button"
-                role="button"
-                tabIndex="0"
-                onClick={toggleSidebarOpen}
-                id="toggle-sidebar"
-                aria-label="Toggle Sidebar"
-              >
-                <i className="fa fa-fw fa-bars" aria-hidden="true" />
-              </NavLink>
-            </NavItem>
-          )}
-        <NavItem>
-          {!isGuest ? (
-            <Dropdown
-              id="header-kapp-dropdown"
-              isOpen={kappDropdownOpen}
-              toggle={kappDropdownToggle}
+    <Nav navbar>
+      {typeof toggleSidebarOpen === 'function' &&
+        !isGuest && (
+          <NavItem className="nav-item--border-right">
+            <NavLink
+              role="button"
+              tabIndex="0"
+              onClick={toggleSidebarOpen}
+              id="toggle-sidebar"
+              aria-label="Toggle Sidebar"
             >
-              <DropdownToggle nav role="button">
-                <span>{menuLabel}</span> <i className="fa fa-caret-down" />
-              </DropdownToggle>
-              <DropdownMenu>
-                {visibleKapps.map(thisKapp => (
-                  <BuildKappLink
-                    kapp={thisKapp}
-                    key={thisKapp.slug}
-                    onClick={kappDropdownToggle}
-                  />
-                ))}
-                <DropdownItem divider />
-                <Link
-                  className="dropdown-item"
-                  to="/discussions"
-                  onClick={kappDropdownToggle}
-                  role="menuitem"
-                >
-                  <span className="fa fa-fw fa-comments" />
-                  <I18n>Discussions</I18n>
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="/teams"
-                  onClick={kappDropdownToggle}
-                  role="menuitem"
-                >
-                  <span className="fa fa-fw fa-users" />
-                  <I18n>Teams</I18n>
-                </Link>
-                <Link
-                  className="dropdown-item"
-                  to="/settings"
-                  onClick={kappDropdownToggle}
-                  role="menuitem"
-                >
-                  <span className="fa fa-fw fa-cog" />
-                  <I18n>Settings</I18n>
-                </Link>
-              </DropdownMenu>
-            </Dropdown>
-          ) : (
-            <div id="header-kapp-dropdown">
-              <span className="nav-link nav-link--static">{menuLabel}</span>
-            </div>
-          )}
-        </NavItem>
-      </Nav>
-      <div className="nav-item-right">
-        {!isGuest && <AlertsDropdown />}
-        {authenticated ? (
-          <ProfileDropdown />
-        ) : (
-          <NavItem>
-            <Link className="nav-link" to={authRoute} title="Sign In">
-              <i className="fa fa-fw fa-sign-in" />
-            </Link>
+              <i className="fa fa-fw fa-bars" aria-hidden="true" />
+            </NavLink>
           </NavItem>
         )}
-      </div>
-    </div>
+      <NavItem className="nav-item--border-right mr-auto">
+        {!isGuest ? (
+          <Dropdown
+            className="main-nav-dropdown"
+            isOpen={kappDropdownOpen}
+            toggle={kappDropdownToggle}
+          >
+            <DropdownToggle nav role="button">
+              <span>{menuLabel}</span> <i className="fa fa-caret-down" />
+            </DropdownToggle>
+            <DropdownMenu>
+              {visibleKapps.map(thisKapp => (
+                <BuildKappLink
+                  kapp={thisKapp}
+                  key={thisKapp.slug}
+                  onClick={kappDropdownToggle}
+                />
+              ))}
+              <DropdownItem divider />
+              <Link
+                className="dropdown-item"
+                to="/discussions"
+                onClick={kappDropdownToggle}
+                role="menuitem"
+              >
+                <span className="fa fa-fw fa-comments" />
+                <I18n>Discussions</I18n>
+              </Link>
+              <Link
+                className="dropdown-item"
+                to="/teams"
+                onClick={kappDropdownToggle}
+                role="menuitem"
+              >
+                <span className="fa fa-fw fa-users" />
+                <I18n>Teams</I18n>
+              </Link>
+              <Link
+                className="dropdown-item"
+                to="/settings"
+                onClick={kappDropdownToggle}
+                role="menuitem"
+              >
+                <span className="fa fa-fw fa-cog" />
+                <I18n>Settings</I18n>
+              </Link>
+            </DropdownMenu>
+          </Dropdown>
+        ) : (
+          <div id="header-kapp-dropdown">
+            <span className="nav-link nav-link--static">{menuLabel}</span>
+          </div>
+        )}
+      </NavItem>
+      {!isGuest && <AlertsDropdown />}
+      {authenticated ? (
+        <ProfileDropdown />
+      ) : (
+        <NavItem>
+          <Link className="nav-link" to={authRoute} title="Sign In">
+            <i className="fa fa-fw fa-sign-in" />
+          </Link>
+        </NavItem>
+      )}
+    </Nav>
   </Navbar>
 );
 

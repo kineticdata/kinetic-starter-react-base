@@ -3,12 +3,14 @@
  * Copyright (c) 2017 - 2018 Kinetic Data, Inc.
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Import variables to be used by all below imports
+// Import sass variables and overrides to be used by all below imports
 @import 'variables';
 
-// Import styles from common
+// Import styles from common, which includes all bootstrap styles
 @import '~@kineticdata/bundle-common/assets/styles/master';
+
 // Import styles from all other packages
+// Each of these should be scoped to only the corresponding package
 @import '~@kineticdata/bundle-services/assets/styles/master';
 @import '~@kineticdata/bundle-queue/assets/styles/master';
 @import '~@kineticdata/bundle-tech-bar/assets/styles/master';
@@ -17,14 +19,8 @@
 @import '~@kineticdata/bundle-survey/assets/styles/master';
 // etc.
 
-// Import modularscale
-@import '~modularscale-sass/stylesheets/modularscale';
-
-// Import app styles
-@import 'layout';
-@import 'sidebar';
+// Import app styles and overrides for any above styles
 @import 'authentication';
-@import 'navbar';
 @import 'alerts';
 @import 'profile';
 @import 'temp';

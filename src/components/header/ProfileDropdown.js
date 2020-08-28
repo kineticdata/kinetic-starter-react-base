@@ -4,7 +4,7 @@ import { compose, withHandlers, withState } from 'recompose';
 import { Avatar, openModalForm } from '@kineticdata/bundle-common';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, NavItem } from 'reactstrap';
 import { logout, I18n } from '@kineticdata/react';
 import * as selectors from '../../redux/selectors';
 
@@ -47,78 +47,79 @@ const ProfileDropdownComponent = ({
   isGuest,
   push,
 }) => (
-  <Dropdown isOpen={isOpen} toggle={toggle}>
-    <DropdownToggle
-      nav
-      role="button"
-      className="icon-wrapper"
-      aria-label="Profile Menu"
-      style={{ padding: '0 0.75rem' }}
-    >
-      <Avatar size={24} user={profile} previewable={false} />
-    </DropdownToggle>
-    <DropdownMenu right className="profile-menu">
-      <div className="profile-header">
-        <h6>
-          {profile.displayName}
-          <br />
-          <small>{profile.email}</small>
-        </h6>
-      </div>
-      <div className="profile-links">
-        <div className="dropdown-divider" role="none" />
-        <Link
-          to="/profile/edit"
-          className="dropdown-item"
-          onClick={toggle}
-          role="menuitem"
-        >
-          <I18n>Profile</I18n>
-        </Link>
-        {profile.spaceAdmin && (
-          <button
-            onClick={openInviteOthersForm}
-            className="dropdown-item"
-            role="menuitem"
-          >
-            <I18n>Invite Others</I18n>
-          </button>
-        )}
-        {!isGuest && (
-          <button
-            onClick={openHelpForm}
-            className="dropdown-item"
-            role="menuitem"
-          >
-            <I18n>Get Help</I18n>
-          </button>
-        )}
-        {!isGuest && (
-          <button
-            onClick={openFeedbackForm}
-            className="dropdown-item"
-            role="menuitem"
-          >
-            <I18n>Give Feedback</I18n>
-          </button>
-        )}
-        {!isGuest && (
+  <NavItem>
+    <Dropdown isOpen={isOpen} toggle={toggle}>
+      <DropdownToggle
+        nav
+        role="button"
+        aria-label="Profile Menu"
+        style={{ paddingTop: '0.625rem' }}
+      >
+        <Avatar size={24} user={profile} previewable={false} />
+      </DropdownToggle>
+      <DropdownMenu right className="profile-menu">
+        <div className="profile-header">
+          <h6>
+            {profile.displayName}
+            <br />
+            <small>{profile.email}</small>
+          </h6>
+        </div>
+        <div className="profile-links">
+          <div className="dropdown-divider" role="none" />
           <Link
-            to="/about"
+            to="/profile/edit"
             className="dropdown-item"
             onClick={toggle}
             role="menuitem"
           >
-            <I18n>About My Space</I18n>
+            <I18n>Profile</I18n>
           </Link>
-        )}
-        <div className="dropdown-divider" role="none" />
-        <button onClick={logout} className="dropdown-item" role="menuitem">
-          <I18n>Logout</I18n>
-        </button>
-      </div>
-    </DropdownMenu>
-  </Dropdown>
+          {profile.spaceAdmin && (
+            <button
+              onClick={openInviteOthersForm}
+              className="dropdown-item"
+              role="menuitem"
+            >
+              <I18n>Invite Others</I18n>
+            </button>
+          )}
+          {!isGuest && (
+            <button
+              onClick={openHelpForm}
+              className="dropdown-item"
+              role="menuitem"
+            >
+              <I18n>Get Help</I18n>
+            </button>
+          )}
+          {!isGuest && (
+            <button
+              onClick={openFeedbackForm}
+              className="dropdown-item"
+              role="menuitem"
+            >
+              <I18n>Give Feedback</I18n>
+            </button>
+          )}
+          {!isGuest && (
+            <Link
+              to="/about"
+              className="dropdown-item"
+              onClick={toggle}
+              role="menuitem"
+            >
+              <I18n>About My Space</I18n>
+            </Link>
+          )}
+          <div className="dropdown-divider" role="none" />
+          <button onClick={logout} className="dropdown-item" role="menuitem">
+            <I18n>Logout</I18n>
+          </button>
+        </div>
+      </DropdownMenu>
+    </Dropdown>
+  </NavItem>
 );
 
 const mapStateToProps = state => ({
