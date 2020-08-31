@@ -41,9 +41,11 @@ export const HeaderComponent = ({
   hasAccessToManagement,
   hasAccessToSupport,
   menuLabel,
+  kapp,
   visibleKapps,
-  kappDropdownOpen,
-  kappDropdownToggle,
+  spaceMenuLinks,
+  mainNavDropdownOpen,
+  mainNavDropdownToggle,
 }) => (
   <Navbar color="faded" light>
     <Nav navbar>
@@ -65,25 +67,57 @@ export const HeaderComponent = ({
         {!isGuest ? (
           <Dropdown
             className="main-nav-dropdown"
-            isOpen={kappDropdownOpen}
-            toggle={kappDropdownToggle}
+            isOpen={mainNavDropdownOpen}
+            toggle={mainNavDropdownToggle}
           >
             <DropdownToggle nav role="button">
               <span>{menuLabel}</span> <i className="fa fa-caret-down" />
             </DropdownToggle>
             <DropdownMenu>
+              {/* ALL KAPPS LINKS */}
+              <DropdownItem header>Kapps</DropdownItem>
               {visibleKapps.map(thisKapp => (
                 <BuildKappLink
                   kapp={thisKapp}
                   key={thisKapp.slug}
-                  onClick={kappDropdownToggle}
+                  onClick={mainNavDropdownToggle}
                 />
               ))}
-              <DropdownItem divider />
+
+              {/* SPACE LEVEL LINKS */}
+              <DropdownItem header>Space</DropdownItem>
+              {spaceMenuLinks.map(
+                link =>
+                  link.relative ? (
+                    <Link
+                      key={link.label}
+                      className="dropdown-item"
+                      to={link.path}
+                      onClick={mainNavDropdownToggle}
+                      role="menuitem"
+                    >
+                      <span className={`fa fa-fw ${link.icon}`} />
+                      <I18n>{link.label}</I18n>
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.label}
+                      className="dropdown-item"
+                      href={link.path}
+                      onClick={mainNavDropdownToggle}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      role="menuitem"
+                    >
+                      <span className={`fa fa-fw ${link.icon}`} />
+                      <I18n>{link.label}</I18n>
+                    </a>
+                  ),
+              )}
               <Link
                 className="dropdown-item"
                 to="/discussions"
-                onClick={kappDropdownToggle}
+                onClick={mainNavDropdownToggle}
                 role="menuitem"
               >
                 <span className="fa fa-fw fa-comments" />
@@ -92,7 +126,7 @@ export const HeaderComponent = ({
               <Link
                 className="dropdown-item"
                 to="/teams"
-                onClick={kappDropdownToggle}
+                onClick={mainNavDropdownToggle}
                 role="menuitem"
               >
                 <span className="fa fa-fw fa-users" />
@@ -101,10 +135,10 @@ export const HeaderComponent = ({
               <Link
                 className="dropdown-item"
                 to="/settings"
-                onClick={kappDropdownToggle}
+                onClick={mainNavDropdownToggle}
                 role="menuitem"
               >
-                <span className="fa fa-fw fa-cog" />
+                <span className="fa fa-fw fa-cogs" />
                 <I18n>Settings</I18n>
               </Link>
             </DropdownMenu>
@@ -140,11 +174,12 @@ export const mapStateToProps = state => ({
   hasAccessToManagement: selectors.selectHasAccessToManagement(state),
   hasAccessToSupport: selectors.selectHasAccessToSupport(state),
   isGuest: selectors.selectIsGuest(state),
+  spaceMenuLinks: selectors.selectMenuLinks(state.app.space),
 });
 
 export const Header = compose(
   connect(mapStateToProps),
-  withState('kappDropdownOpen', 'setKappDropdownOpen', false),
+  withState('mainNavDropdownOpen', 'setMainNavDropdownOpen', false),
   withProps(({ kapp, pathname, label }) => ({
     menuLabel:
       label ||
@@ -153,6 +188,7 @@ export const Header = compose(
         : pathname.replace(/^\/([^/]*).*/, '$1').replace('-', ' ') || 'Home'),
   })),
   withHandlers({
-    kappDropdownToggle: props => () => props.setKappDropdownOpen(open => !open),
+    mainNavDropdownToggle: props => () =>
+      props.setMainNavDropdownOpen(open => !open),
   }),
 )(HeaderComponent);

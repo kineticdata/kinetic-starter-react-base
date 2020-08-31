@@ -30,3 +30,30 @@ export const selectIsGuest = state =>
       (state.app.profile.spaceAdmin === false &&
         Utils.getRoles(state.app.profile).length === 0)
     : false;
+
+export const selectMenuLinks = object =>
+  object
+    ? Utils.getAttributeValues(object, 'Menu Link', [])
+        .map(link => {
+          const linkParts = link.split('|');
+          const label = linkParts[0] && linkParts[0].trim();
+          const path = linkParts[1] && linkParts[1].trim();
+          const relative = path && path.startsWith('/');
+          const icon = linkParts[2] && linkParts[2].trim();
+          return !!label && !!path
+            ? {
+                label,
+                path,
+                relative,
+                icon: icon
+                  ? icon.startsWith('fa-')
+                    ? icon
+                    : `fa-${icon}`
+                  : relative
+                    ? 'fa-arrow-circle-right'
+                    : 'fa-external-link-square',
+              }
+            : null;
+        })
+        .filter(Boolean)
+    : [];
