@@ -158,25 +158,41 @@ export const App = compose(
       `${kappSlug !== null ? `/kapps/${kappSlug}` : app.location || '/'}`,
   }),
   withProps(({ authenticated, location, kapp, profile, ...props }) => {
-    const app = getAppProvider({ kapp, pathname: location.pathname });
-    const appLocation = props.getLocation(app);
-    const headerHidden = app
-      ? app.shouldHideHeader &&
-        app.shouldHideHeader({ appLocation, authenticated, location, kapp })
+    const AppProvider = getAppProvider({ kapp, pathname: location.pathname });
+    const appLocation = props.getLocation(AppProvider);
+    const headerHidden = AppProvider
+      ? AppProvider.shouldHideHeader &&
+        AppProvider.shouldHideHeader({
+          appLocation,
+          authenticated,
+          location,
+          kapp,
+        })
       : true;
-    const sidebarHidden = app
-      ? app.shouldHideSidebar &&
-        app.shouldHideSidebar({ appLocation, authenticated, location, kapp })
+    const sidebarHidden = AppProvider
+      ? AppProvider.shouldHideSidebar &&
+        AppProvider.shouldHideSidebar({
+          appLocation,
+          authenticated,
+          location,
+          kapp,
+        })
       : true;
     const shouldSuppressSidebar =
-      app &&
-      app.shouldSuppressSidebar &&
-      app.shouldSuppressSidebar({ appLocation, authenticated, location, kapp });
+      AppProvider &&
+      AppProvider.shouldSuppressSidebar &&
+      AppProvider.shouldSuppressSidebar({
+        appLocation,
+        authenticated,
+        location,
+        kapp,
+      });
     const sidebarOpen = shouldSuppressSidebar
       ? props.suppressedSidebarOpen
       : props.sidebarOpen;
     return {
-      AppProvider: app,
+      AppProvider,
+      bodyClassName: AppProvider.bodyClassName || '',
       headerHidden,
       sidebarHidden,
       shouldSuppressSidebar,
@@ -197,6 +213,9 @@ export const App = compose(
   lifecycle({
     componentDidMount() {
       this.props.authenticated !== null && this.props.loadApp(true);
+      if (this.props.bodyClassName) {
+        document.body.className = this.props.bodyClassName;
+      }
     },
     componentDidUpdate(prevProps) {
       if (this.props.authenticated !== prevProps.authenticated) {
@@ -208,6 +227,9 @@ export const App = compose(
         !this.props.AppProvider.hasPublicRoutes
       ) {
         this.props.push(this.props.authRoute);
+      }
+      if (this.props.bodyClassName !== prevProps.bodyClassName) {
+        document.body.className = this.props.bodyClassName;
       }
     },
   }),
