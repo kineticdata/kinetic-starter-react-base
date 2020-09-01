@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@kineticdata/bundle-common": "5.0.8-alpha.2",
+    "@kineticdata/bundle-components": "5.0.8-alpha.0",
     "@kineticdata/bundle-discussions": "5.0.8-alpha.2",
     "@kineticdata/bundle-queue": "5.0.8-alpha.3",
     "@kineticdata/bundle-services": "5.0.8-alpha.2",
