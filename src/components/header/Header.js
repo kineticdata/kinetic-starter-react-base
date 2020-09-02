@@ -53,8 +53,8 @@ export const HeaderComponent = ({
         !isGuest && (
           <NavItem className="nav-item--border-right">
             <NavLink
+              tag="button"
               role="button"
-              tabIndex="0"
               onClick={toggleSidebarOpen}
               id="toggle-sidebar"
               aria-label="Toggle Sidebar"

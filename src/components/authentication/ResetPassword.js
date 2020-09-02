@@ -120,7 +120,6 @@ const ResetPasswordRequestForm = ({ children }) => {
         </label>
         <input
           type="text"
-          autoFocus
           className="form-control"
           id="username"
           placeholder="wally@kineticdata.com"
@@ -243,7 +242,6 @@ const ResetPasswordForm = connect(
         </label>
         <input
           type="password"
-          autoFocus
           className="form-control"
           id="password"
           placeholder="password"

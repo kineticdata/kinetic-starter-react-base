@@ -163,7 +163,6 @@ const RequestAccountForm = ({ children, email: defaultEmail }) => {
         </label>
         <input
           type="text"
-          autoFocus
           className="form-control"
           id="firstName"
           value={firstName}
@@ -366,7 +365,6 @@ const CreateAccountForm = connect(
         </label>
         <input
           type="text"
-          autoFocus
           className="form-control"
           id="firstName"
           value={firstName}
