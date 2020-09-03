@@ -1,6 +1,6 @@
 {
   "name": "@kineticdata/bundle",
-  "version": "5.0.8-alpha.3",
+  "version": "5.0.8",
   "private": true,
   "scripts": {
     "prestart": "node ./src/setupEnv.js",
@@ -12,20 +12,21 @@
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/bundle-common": "5.0.8-alpha.2",
-    "@kineticdata/bundle-discussions": "5.0.8-alpha.2",
-    "@kineticdata/bundle-queue": "5.0.8-alpha.3",
-    "@kineticdata/bundle-services": "5.0.8-alpha.2",
-    "@kineticdata/bundle-settings": "5.0.8-alpha.2",
-    "@kineticdata/bundle-survey": "5.0.8-alpha.2",
-    "@kineticdata/bundle-tech-bar": "5.0.8-alpha.2",
-    "@kineticdata/react": "5.0.8-alpha.0",
+    "@kineticdata/bundle-common": "5.0.8",
+    "@kineticdata/bundle-components": "5.0.8",
+    "@kineticdata/bundle-discussions": "5.0.8",
+    "@kineticdata/bundle-queue": "5.0.8",
+    "@kineticdata/bundle-services": "5.0.8",
+    "@kineticdata/bundle-settings": "5.0.8",
+    "@kineticdata/bundle-survey": "5.0.8",
+    "@kineticdata/bundle-tech-bar": "5.0.8",
+    "@kineticdata/react": "5.0.8",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
-    "bootstrap-select": "1.12.4",
+    "bootstrap-select": "1.13.6",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.6.1",
     "datatables.net": "^1.10.16",
@@ -77,12 +78,8 @@
     ]
   },
   "eslintConfig": {
-    "plugins": [
-      "jsx-a11y"
-    ],
     "extends": [
-      "react-app",
-      "plugin:jsx-a11y/recommended"
+      "react-app"
     ]
   }
 }

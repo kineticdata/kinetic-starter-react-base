@@ -113,7 +113,6 @@ export const LoginForm = ({
         </label>
         <input
           type="text"
-          autoFocus
           className="form-control"
           id="username"
           placeholder="wally@kineticdata.com"

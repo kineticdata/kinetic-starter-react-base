@@ -63,7 +63,7 @@ export const EditProfileComponent = ({
             </div>
           </div>
           <section>
-            <h2 className="section__title">General</h2>
+            <h2 className="section__title mb-0">General</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group required">
                 <label htmlFor="displayName">
@@ -217,25 +217,26 @@ export const EditProfileComponent = ({
                   <hr />
                 </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={handleTogglePassword}
-                  className="change-password btn btn-secondary btn-sm"
-                >
-                  <I18n>Change Password</I18n>
-                </button>
-              )}
-              <div className="form__footer">
-                <div className="form__footer__right">
+                <div>
                   <button
-                    type="submit"
-                    disabled={!fieldValuesValid(fieldValues)}
-                    className="btn btn-primary"
+                    type="button"
+                    onClick={handleTogglePassword}
+                    className="change-password btn btn-secondary btn-sm"
                   >
-                    {/* // TODO: Disable until a change is made. Save Changes */}
-                    <I18n>Save Changes</I18n>
+                    <I18n>Change Password</I18n>
                   </button>
+                  <hr />
                 </div>
+              )}
+              <div className="text-right">
+                <button
+                  type="submit"
+                  disabled={!fieldValuesValid(fieldValues)}
+                  className="btn btn-primary"
+                >
+                  {/* // TODO: Disable until a change is made. Save Changes */}
+                  <I18n>Save Changes</I18n>
+                </button>
               </div>
             </form>
           </section>

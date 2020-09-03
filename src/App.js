@@ -1,4 +1,3 @@
-import 'bootstrap/scss/bootstrap.scss';
 import 'font-awesome/css/font-awesome.css';
 import 'typeface-open-sans/index.css';
 import './assets/styles/master.scss';
@@ -7,12 +6,13 @@ import { connect } from 'react-redux';
 import { matchPath } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { compose, lifecycle, withHandlers, withProps } from 'recompose';
+import classNames from 'classnames';
 import { Utils } from '@kineticdata/bundle-common';
 import { actions } from './redux/modules/app';
 import { actions as alertsActions } from './redux/modules/alerts';
 import { actions as layoutActions } from './redux/modules/layout';
 
-import { Header } from './components/header/Header';
+import { Header as DefaultHeader } from './components/header/Header';
 import { AppProvider } from './AppProvider';
 // Import available packages
 import ServicesApp from '@kineticdata/bundle-services';
@@ -50,6 +50,40 @@ const getAppProvider = ({ kapp, pathname }) => {
   }
 };
 
+// Default bundle layout
+const DefaultLayout = ({ header, sidebar, main, ...props }) => (
+  <div className="app-wrapper">
+    {header && <div className="app-header">{header}</div>}
+    <div
+      className={classNames('app-body', {
+        'open-sidebar': sidebar && props.sidebarOpen,
+        'closed-sidebar': sidebar && !props.sidebarOpen,
+      })}
+    >
+      {sidebar && (
+        <aside
+          className="app-sidebar-container"
+          aria-labelledby="toggle-sidebar"
+          aria-hidden={props.sidebarOpen ? 'false' : 'true'}
+        >
+          {sidebar}
+        </aside>
+      )}
+
+      <div
+        className="app-main-container"
+        onClick={
+          sidebar && props.sidebarOpen && props.layoutSize === 'small'
+            ? props.toggleSidebarOpen
+            : undefined
+        }
+      >
+        {main}
+      </div>
+    </div>
+  </div>
+);
+
 export const AppComponent = props =>
   !props.loading && (
     <props.AppProvider
@@ -61,53 +95,34 @@ export const AppComponent = props =>
         bundleName: 'request-ce-bundle-kinetic',
       }}
       location={props.location}
-      render={({ main, sidebar, header }) => (
-        <div className="app-wrapper">
-          {!props.headerHidden && (
-            <div className="app-header">
-              <Header
-                toggleSidebarOpen={
-                  sidebar && !props.sidebarHidden && props.toggleSidebarOpen
-                }
-              />
-            </div>
-          )}
-          <div
-            className={`app-body ${
-              sidebar && !props.sidebarHidden
-                ? props.sidebarOpen
-                  ? 'open-sidebar'
-                  : 'closed-sidebar'
-                : ''
-            }`}
-          >
-            {sidebar &&
-              !props.sidebarHidden && (
-                <aside
-                  className="app-sidebar-container"
-                  aria-labelledby="toggle-sidebar"
-                  aria-hidden={props.sidebarOpen ? 'false' : 'true'}
-                >
-                  {sidebar}
-                </aside>
-              )}
+      render={({
+        components: {
+          Layout = DefaultLayout,
+          Header = DefaultHeader,
+          Sidebar,
+          Main,
+        } = {},
+        header: headerContent,
+        sidebar: sidebarContent,
+        main: mainContent,
+      }) => {
+        // Create sidebar content
+        const sidebar =
+          !props.sidebarHidden && Sidebar ? <Sidebar /> : sidebarContent;
+        // Create header content
+        const header = !props.headerHidden ? (
+          <Header toggleSidebarOpen={sidebar && props.toggleSidebarOpen} />
+        ) : (
+          headerContent
+        );
+        // Create main content
+        const main = Main ? <Main /> : mainContent;
 
-            <div
-              className="app-main-container"
-              onClick={
-                sidebar &&
-                !props.sidebarHidden &&
-                props.sidebarOpen &&
-                props.layoutSize === 'small'
-                  ? props.toggleSidebarOpen
-                  : undefined
-              }
-            >
-              {main}
-            </div>
-          </div>
-        </div>
-      )}
+        // Render the laytou with the content
+        return (
+          <Layout {...props} header={header} sidebar={sidebar} main={main} />
+        );
+      }}
     />
   );
 
@@ -142,26 +157,42 @@ export const App = compose(
     getLocation: ({ kappSlug }) => app =>
       `${kappSlug !== null ? `/kapps/${kappSlug}` : app.location || '/'}`,
   }),
-  withProps(({ authenticated, location, kapp, ...props }) => {
-    const app = getAppProvider({ kapp, pathname: location.pathname });
-    const appLocation = props.getLocation(app);
-    const headerHidden = app
-      ? app.shouldHideHeader &&
-        app.shouldHideHeader({ appLocation, authenticated, location, kapp })
+  withProps(({ authenticated, location, kapp, profile, ...props }) => {
+    const AppProvider = getAppProvider({ kapp, pathname: location.pathname });
+    const appLocation = props.getLocation(AppProvider);
+    const headerHidden = AppProvider
+      ? AppProvider.shouldHideHeader &&
+        AppProvider.shouldHideHeader({
+          appLocation,
+          authenticated,
+          location,
+          kapp,
+        })
       : true;
-    const sidebarHidden = app
-      ? app.shouldHideSidebar &&
-        app.shouldHideSidebar({ appLocation, authenticated, location, kapp })
+    const sidebarHidden = AppProvider
+      ? AppProvider.shouldHideSidebar &&
+        AppProvider.shouldHideSidebar({
+          appLocation,
+          authenticated,
+          location,
+          kapp,
+        })
       : true;
     const shouldSuppressSidebar =
-      app &&
-      app.shouldSuppressSidebar &&
-      app.shouldSuppressSidebar({ appLocation, authenticated, location, kapp });
+      AppProvider &&
+      AppProvider.shouldSuppressSidebar &&
+      AppProvider.shouldSuppressSidebar({
+        appLocation,
+        authenticated,
+        location,
+        kapp,
+      });
     const sidebarOpen = shouldSuppressSidebar
       ? props.suppressedSidebarOpen
       : props.sidebarOpen;
     return {
-      AppProvider: app,
+      AppProvider,
+      bodyClassName: AppProvider.bodyClassName || '',
       headerHidden,
       sidebarHidden,
       shouldSuppressSidebar,
@@ -182,6 +213,9 @@ export const App = compose(
   lifecycle({
     componentDidMount() {
       this.props.authenticated !== null && this.props.loadApp(true);
+      if (this.props.bodyClassName) {
+        document.body.className = this.props.bodyClassName;
+      }
     },
     componentDidUpdate(prevProps) {
       if (this.props.authenticated !== prevProps.authenticated) {
@@ -193,6 +227,9 @@ export const App = compose(
         !this.props.AppProvider.hasPublicRoutes
       ) {
         this.props.push(this.props.authRoute);
+      }
+      if (this.props.bodyClassName !== prevProps.bodyClassName) {
+        document.body.className = this.props.bodyClassName;
       }
     },
   }),
