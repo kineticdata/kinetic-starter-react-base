@@ -77,6 +77,16 @@
       "ie 11"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "[./a-zA-Z0-9$_-]+\\.(png|svg)$": "<rootDir>/tests/utils/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/tests/utils/styleMock.js",
+      "@kineticdata/bundle-(.*)": "<rootDir>/../../packages/$1/src/index",
+      "@kineticdata/react": "<rootDir>/../../libs/react/src/index",
+      "@reach/router": "<rootDir>/../../libs/router/src/index",
+      "^lodash-es$": "lodash"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app"
