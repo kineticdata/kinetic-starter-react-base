@@ -13,7 +13,7 @@ This project is the default implementation, and custom starting point, for Kinet
 - [Scripts](#scripts)
   - [`install`](#yarn-install) | [`clean`](#yarn-clean) | [`start`](#yarn-start) | [`build`](#yarn-build) | [`test`](#yarn-test) | [`format`](#yarn-format) | [`lint`](#yarn-lint)
 - [How the App Package Works](#how-the-app-package-works)
-  - [Folder Structure](#folder-structure) | [Rendering Flow](#rendering-flow) | [Global Libraries](#global-libraries)
+  - [Folder Structure](#folder-structure) | [Rendering Flow](#rendering-flow) | [App Provider](#app-provider) | [Global Libraries](#global-libraries)
 - [How the Components Package Works](#how-the-components-package-works)
 - [Adding a Custom Package](#adding-a-custom-package)
 - [Customizing a Pre-Built Kinetic Package](#customizing-a-pre-built-kinetic-package)
@@ -209,7 +209,22 @@ The `src/App.js` file is the React component responsible for rendering the bundl
 
 - Lastly, it renders the correct `AppProvider` (or the default `src/AppProvider.js` defined within this package) and passes in the appropriate props, including the state fetched earlier and a render function so that the `AppProvider` can define its own UI.
 
-  See the [Adding a Custom Package](#adding-a-custom-package) section for details on how the `AppProvider` works.
+### App Provider
+
+An `AppProvider` is a react component that renders the contents of a package. The `scr/App.js` file described in the previous section will render the `AppProvider` and will provide it the following props:
+
+- `appState` - An object containing all of the global state fetched by the `app` package.
+- `render` - A function that should be called by the `AppProvider` to render its content. This function accepts an object as its argument with the below properties (all properties are optional).
+  - `components` - An object of components to be used for rendering.
+    - `Layout` - Defines the layout used to render the content. If not provided. the default layout is used.
+    - `Header` - Defines the header component to be rendered for the package.
+    - `Sidebar` - Defines the sidebar component to be rendered for the package.
+    - `Main` - Defines the main content component to be rendered for the package.
+  - `header` - Dom content to render as the header. Used if `components.Header` is not provided. If also not provided, the default header is used.
+  - `sidebar` - Dom content to render as the sidebar. Used if `components.Sidebar` is not provided. If also not provided, no sidebar is rendered.
+  - `main` - Dom content to render as the main content of the package. Used if `components.Main` is not provided. If also not provided, no main content is rendered.
+
+It is up to each package to define what content it wants rendered. The default layout is used by the pre-built Kinetic packages, and can be used by custom packages as well for consistency, but can also be overridden if needed, to give the package full control of how it renders.
 
 ### Global Libraries
 
@@ -223,12 +238,40 @@ To configure this, we have a `src/globals.js` file where we import any libraries
 
 ## Adding a Custom Package
 
-`TODO`
+The bundle functionality is split across many packages, with each package being designed to provide a specific functionality. Often, a package will be linked to a Kapp (e.g. `@kineticdata/bundle-services` or `@kineticdata/bundle-queue`), but it can also be a static package that only uses space level information (e.g. `@kineticdata/bundle-discussions` or `@kineticdata/bundle-settings`).
+
+You may build your own custom packages by adding a new directory in `bundle/packages`, and populating it with the necessary files.
+
+You can follow the detailed instructions in the [CUSTOM_PACKAGE.md](CUSTOM_PACKAGE.md) file to start building your own custom package.
 
 ## Customizing a Pre-Built Kinetic Package
 
+There are a number of packages that have been built by Kinetic Data and are available to be installed from NPM. Many of these packages are already installed in the `app` package of this bundle.
+
+These packages are meant to be used as they are, and generally not modified. (Some minor modifications will be allowed in the future through the components package.) However, sometimes a customer may want to customize one of these packages, or use one as a starting point for their own custom bundle. This can be accomplished by pulling in the source code of one of the pre-built Kinetic packages and then treating it as a custom package.
+
+_Note: Once you do this and start customizing a pre-built package, any improvements made to that package by Kinetic Data will be more difficult to merge into your bundle. It will be your responsibility to merge in and resolve any conflicts when you want to pull in the latest changes from the pre-built package._
+
+**Currently, only Kinetic Data employees have access to pull in the source code of the pre-built packages, and only the Services package is available for now.**
+
+### Adding Source Code of Pre-Built Package
+
+To add the source code for the services package, run the following command from the root directory of your repository (not inside the `bundle` directory). The `--prefix` argument specifies the path into which we want to pull in the source code. After that we specify the git repo URL and the branch to pull code from. The `split/*` branches are special branches meant to be used for this exact purpose.
+
+```shell
+$ git subtree add --prefix bundle/packages/services https://github.com/kineticdata/kinetic-ui.git split/packages/services
+> git fetch https://github.com/kineticdata/kinetic-ui.git split/packages/services
+> From https://github.com/kineticdata/kinetic-ui
+>  * branch            split/packages/services -> FETCH_HEAD
+> Added dir 'bundle/packages/services'
+```
+
+Once this completes, you should have a `services` folder inside the `bundle/packages` directory. You will also have a large number of commits made, as this command will pull in all of the git history for the source code. This will allow you to later use the `git subtree pull` command to pull in changes from the original package.
+
+Next, you'll just need to run `yarn install` within the `bundle` directory, and then `yarn start` to start up the development server. Any changes you make to the code in the `packages/services` directory will be available when you view the Service Kapp (or any other Kapp you configured to use the services package).
+
+**Note: The pulled in source code has the same package name in `services/package.json` as the published `@kineticdata/bundle-services` NPM module. It is very important that the version of the `@kineticdata/bundle-services` dependency in the `app/package.json` file matches the version in your local services package. Otherwise, the dependency will be fetched from NPM and your local code will not be used.**
+
+### Pulling Source Code of Pre-Built Package
+
 `TODO`
-
-```
-
-```
