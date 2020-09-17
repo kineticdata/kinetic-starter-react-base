@@ -92,7 +92,6 @@ export const AppComponent = props =>
         location: props.appLocation,
         actions: { refreshApp: props.refreshApp },
         layoutSize: props.layoutSize,
-        bundleName: 'request-ce-bundle-kinetic',
       }}
       location={props.location}
       render={({
