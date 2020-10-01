@@ -72,8 +72,9 @@ store.dispatch(actions.setKappSlug(match && match.params.kappSlug));
 // Add global listeners
 [
   ['small', window.matchMedia('(max-width: 767px)')],
-  ['medium', window.matchMedia('(min-width: 768px) and (max-width: 1200px)')],
-  ['large', window.matchMedia('(min-width: 1201px)')],
+  ['medium', window.matchMedia('(min-width: 768px) and (max-width: 991px)')],
+  ['large', window.matchMedia('(min-width: 992px) and (max-width: 1200px)')],
+  ['xlarge', window.matchMedia('(min-width: 1201px)')],
 ].forEach(([size, mql]) => {
   mql.addListener(event => {
     if (event.matches) {
