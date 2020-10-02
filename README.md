@@ -112,14 +112,19 @@ $ git push origin master
 
 ```shell
   .
+  ├─ artifacts               # Contains artifacts generated for the project
   ├─ bundle                  # Contains the bundle React code
   │  ├─ packages             # Individual packages that define different parts of the bundle
   │  │  ├─ app               # Entry point to the bundle application
   │  │  ├─ components        # Package that allows for overriding common components
   │  │  └─ ...               # Other custom packages may be added
   │  └─ package.json         # Monorepo configuration file
-  └─ ...                     # Other supporting directories may be added
+  └─ plugins                 # Contains custom plugins for the project
 ```
+
+- #### artifacts
+
+  Directory containing artifacts for the project, such as space exports generated from the SDK, or special documentation such as ADRs.
 
 - #### bundle
 
@@ -137,11 +142,11 @@ $ git push origin master
 
       The components package exists to allow for overriding of common layout components used by other packages. _This package is currently a work in progress._
 
-    - #### other packages
+    - #### _other packages_
 
       The majority of the prebuilt Kinetic packages are deployed to NPM, and are installed into the App package from NPM, so their code isn't part of this bundle.
       New packages may be added and connected into the App package to provide custom functionality.
 
-- #### other content
+- #### plugins
 
-  In addition to the bundle code, this repository structure allows for adding other directories with content to support a custom bundle implementation. For example, an implementation may include custom handlers or bridge adapters, which may be stored within a new directory in this repo, in order to keep all relevant content together.
+  Directory containing all of the custom plugins (such as handlers, bridge adapters, etc.) created for the project.

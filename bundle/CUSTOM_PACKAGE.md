@@ -1,4 +1,4 @@
-# Customer Project Default - Adding a Custom Package
+# Customer Project Default - Bundle: Adding a Custom Package
 
 In order to create your own custom package, you will need to create a new package folder with the appropriate structure and files. This document will define the steps needed to get a new package up and running.
 
