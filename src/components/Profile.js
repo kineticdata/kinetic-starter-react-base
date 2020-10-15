@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withProps } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
-  Avatar,
+  EmptyMessage,
   ErrorMessage,
   LoadingMessage,
+  ProfileCard,
   TeamCard,
   Utils,
 } from '@kineticdata/bundle-common';
@@ -33,7 +34,7 @@ const ProfileComponent = ({
       <ErrorMessage title="Could not load profile" message={error.message} />
     )}
     {profile && (
-      <div className="page-panel page-panel--white">
+      <div className="page-panel">
         <div className="page-title">
           <h1>
             <I18n>Profile</I18n>
@@ -47,147 +48,114 @@ const ProfileComponent = ({
             </div>
           ) : null}
         </div>
-        <div className="card card--profile">
-          <Avatar user={profile} size={96} previewable={false} />
-          <h3>{profile.displayName}</h3>
-          {profile.email ? (
-            <p>{profile.email}</p>
-          ) : (
-            <p className="text-muted">
-              <em>
-                <I18n>No Email Address</I18n>
-              </em>
-            </p>
-          )}
-          {profile.profileAttributesMap['Phone Number'].length > 0 ? (
-            <p>{profile.profileAttributesMap['Phone Number'].join(', ')}</p>
-          ) : (
-            <p className="text-muted">
-              <em>
-                <I18n>No Phone Number</I18n>
-              </em>
-            </p>
-          )}
-          <UserRoles roles={profile.memberships} />
-          {(managerEnabled ||
-            siteEnabled ||
-            departmentEnabled ||
-            organizationEnabled) && (
-            <dl className="row">
-              {managerEnabled && (
-                <>
-                  <dt className="col-6">
-                    <I18n>Manager</I18n>
-                  </dt>
-                  <dd className="col-6">
-                    {manager ? (
-                      <I18n>{manager}</I18n>
-                    ) : (
-                      <em className="text-muted">
-                        <I18n>No Manager</I18n>
-                      </em>
+
+        <div className="cards">
+          <ProfileCard user={profile} hideProfileLink={true}>
+            <>
+              <div className="card__row-multi py-3">
+                {Utils.getRoles(profile).map(role => (
+                  <span
+                    className="badge badge-subtle badge-pill"
+                    key={role.slug}
+                  >
+                    <I18n>{role.name.replace(/^Role::(.*?)/, '$1')}</I18n>
+                  </span>
+                ))}
+              </div>
+              {(managerEnabled ||
+                siteEnabled ||
+                departmentEnabled ||
+                organizationEnabled) && (
+                <div className="card__row-meta">
+                  <dl>
+                    {managerEnabled && (
+                      <div>
+                        <dt>
+                          <I18n>Manager</I18n>
+                        </dt>
+                        <dd>
+                          {manager ? (
+                            <I18n>{manager}</I18n>
+                          ) : (
+                            <em className="text-muted">
+                              <I18n>No Manager</I18n>
+                            </em>
+                          )}
+                        </dd>
+                      </div>
                     )}
-                  </dd>
-                </>
-              )}
-              {departmentEnabled && (
-                <>
-                  <dt className="col-6">
-                    <I18n>Department</I18n>
-                  </dt>
-                  <dd className="col-6">
-                    {department ? (
-                      <I18n>{department}</I18n>
-                    ) : (
-                      <em className="text-muted">
-                        <I18n>No Department</I18n>
-                      </em>
+                    {departmentEnabled && (
+                      <div>
+                        <dt>
+                          <I18n>Department</I18n>
+                        </dt>
+                        <dd>
+                          {department ? (
+                            <I18n>{department}</I18n>
+                          ) : (
+                            <em className="text-muted">
+                              <I18n>No Department</I18n>
+                            </em>
+                          )}
+                        </dd>
+                      </div>
                     )}
-                  </dd>
-                </>
-              )}
-              {organizationEnabled && (
-                <>
-                  <dt className="col-6">
-                    <I18n>Organization</I18n>
-                  </dt>
-                  <dd className="col-6">
-                    {organization ? (
-                      <I18n>{organization}</I18n>
-                    ) : (
-                      <em className="text-muted">
-                        <I18n>No Organization</I18n>
-                      </em>
+                    {organizationEnabled && (
+                      <div>
+                        <dt>
+                          <I18n>Organization</I18n>
+                        </dt>
+                        <dd>
+                          {organization ? (
+                            <I18n>{organization}</I18n>
+                          ) : (
+                            <em className="text-muted">
+                              <I18n>No Organization</I18n>
+                            </em>
+                          )}
+                        </dd>
+                      </div>
                     )}
-                  </dd>
-                </>
-              )}
-              {siteEnabled && (
-                <>
-                  <dt className="col-6">
-                    <I18n>Site</I18n>
-                  </dt>
-                  <dd className="col-6">
-                    {site ? (
-                      <I18n>{site}</I18n>
-                    ) : (
-                      <em className="text-muted">
-                        <I18n>No Site</I18n>
-                      </em>
+                    {siteEnabled && (
+                      <div>
+                        <dt>
+                          <I18n>Site</I18n>
+                        </dt>
+                        <dd>
+                          {site ? (
+                            <I18n>{site}</I18n>
+                          ) : (
+                            <em className="text-muted">
+                              <I18n>No Site</I18n>
+                            </em>
+                          )}
+                        </dd>
+                      </div>
                     )}
-                  </dd>
-                </>
+                  </dl>
+                </div>
               )}
-            </dl>
-          )}
+            </>
+          </ProfileCard>
         </div>
+
         <section>
           <h2 className="section__title">
             <I18n>Teams</I18n>
           </h2>
-          <UserTeams teams={profile.memberships} />
+          <div className="cards">
+            {Utils.getTeams(profile).map(team => (
+              <TeamCard key={team.slug} team={team} components={{ Link }} />
+            ))}
+            {Utils.getTeams(profile).length === 0 && (
+              <EmptyMessage title="User is not a member of any teams" />
+            )}
+          </div>
         </section>
       </div>
     )}
   </div>
 );
-
-const UserRoles = ({ roles }) => {
-  const filteredTeams = roles.filter(item =>
-    item.team.name.startsWith('Role::'),
-  );
-
-  return filteredTeams.length > 0 ? (
-    <div className="profile-roles-wrapper">
-      {filteredTeams.map(item => (
-        <span className="profile-role" key={item.team.name}>
-          <I18n>{item.team.name.replace(/^Role::(.*?)/, '$1')}</I18n>
-        </span>
-      ))}
-    </div>
-  ) : (
-    <p>
-      <I18n>No user roles assigned</I18n>
-    </p>
-  );
-};
-
-const UserTeams = ({ teams }) => {
-  const filteredTeams = teams.filter(
-    item => !item.team.name.startsWith('Role::'),
-  );
-  return filteredTeams.length > 0 ? (
-    <div className="cards__wrapper cards__wrapper--thirds">
-      {filteredTeams.map(item => (
-        <TeamCard key={item.team.name} team={item.team} components={{ Link }} />
-      ))}
-    </div>
-  ) : (
-    <p>
-      <I18n>No teams assigned</I18n>
-    </p>
-  );
-};
 
 const selectAttributes = profile =>
   profile

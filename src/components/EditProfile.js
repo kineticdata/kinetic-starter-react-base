@@ -4,6 +4,7 @@ import { compose, lifecycle, withHandlers, withState } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
   TeamCard,
+  EmptyMessage,
   ErrorMessage,
   LoadingMessage,
   Utils,
@@ -52,7 +53,7 @@ export const EditProfileComponent = ({
               className="page-title__breadcrumbs"
             >
               <span className="breadcrumb-item">
-                <Link to="/profile">
+                <Link to={`/profile/${encodeURIComponent(profile.username)}`}>
                   <I18n>profile</I18n>
                 </Link>
               </span>
@@ -244,7 +245,7 @@ export const EditProfileComponent = ({
             siteEnabled ||
             departmentEnabled ||
             organizationEnabled) && (
-            <section>
+            <section className="mt-3">
               <h2 className="section__title">User Attributes</h2>
               <div className="user-attributes-wrapper">
                 <table className="table table--user-attributes">
@@ -316,55 +317,38 @@ export const EditProfileComponent = ({
               </div>
             </section>
           )}
-          <section>
+          <section className="mt-5">
             <h2 className="section__title">Roles</h2>
-
-            <UserRoles
-              roles={profile.memberships.filter(item =>
-                item.team.name.startsWith('Role::'),
+            <div className="cards cards--fourths">
+              {Utils.getRoles(profile).length > 0 ? (
+                Utils.getRoles(profile).map(role => (
+                  <div className="card card--subtle" key={role.slug}>
+                    <div className="card__row py-1">
+                      <strong>
+                        <I18n>{role.name}</I18n>
+                      </strong>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <EmptyMessage title="No Roles Assigned" />
               )}
-            />
+            </div>
           </section>
           <section>
             <h2 className="section__title">Teams</h2>
-            <UserTeams
-              teams={profile.memberships.filter(
-                item => !item.team.name.startsWith('Role::'),
+            <div className="cards">
+              {Utils.getTeams(profile).length > 0 ? (
+                Utils.getTeams(profile).map(team => (
+                  <TeamCard key={team.slug} team={team} components={{ Link }} />
+                ))
+              ) : (
+                <EmptyMessage title="No Teams Assigned" />
               )}
-            />
+            </div>
           </section>
         </div>
       </Fragment>
-    )}
-  </div>
-);
-
-const UserTeams = ({ teams }) => (
-  <div className="cards__wrapper cards__wrapper--thirds">
-    {Object.keys(teams).length > 0 ? (
-      teams.map(item => (
-        <TeamCard key={item.team.name} team={item.team} components={{ Link }} />
-      ))
-    ) : (
-      <p>
-        <I18n>No teams assigned</I18n>
-      </p>
-    )}
-  </div>
-);
-
-const UserRoles = ({ roles }) => (
-  <div className="profile-roles-wrapper">
-    {Object.keys(roles).length > 0 ? (
-      roles.map(item => (
-        <span className="profile-role" key={item.team.name}>
-          <I18n>{item.team.name.replace(/^Role::(.*?)/, '$1')}</I18n>
-        </span>
-      ))
-    ) : (
-      <p>
-        <I18n>No roles assigned</I18n>
-      </p>
     )}
   </div>
 );

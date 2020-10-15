@@ -4,7 +4,7 @@ import { compose, withHandlers, withProps, withState } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
   openModalForm,
-  Avatar,
+  AvatarList,
   DiscussionsPanel,
   ErrorMessage,
   LoadingMessage,
@@ -55,7 +55,7 @@ const TeamComponent = ({
     {team && (
       <Fragment>
         <div
-          className={`page-panel page-panel--white page-panel--three-fifths`}
+          className={`page-panel page-panel--three-fifths`}
         >
           <div className="page-title">
             <div
@@ -91,70 +91,62 @@ const TeamComponent = ({
               <I18n>View Discussions</I18n>
             </button>
           )}
-          <div className="card card--team">
-            <div
-              className="card--team__header"
-              style={{ backgroundColor: Utils.getColor(team) }}
-            >
-              <span />
-              <i
-                className={`fa fa-${Utils.getIcon(team, 'users')} card-icon`}
-              />
-              <span />
-            </div>
-            <div className="card--team__body">
-              <h1>
-                <I18n>{team.name}</I18n>
-              </h1>
-
-              {team.description && (
-                <pre>
-                  <I18n>{team.description}</I18n>
-                </pre>
-              )}
-
-              {userIsMember ? (
-                <button
-                  onClick={openRequestToLeaveForm}
-                  className="btn btn-primary btn-sm"
-                >
-                  <I18n>Request to Leave</I18n>
-                </button>
-              ) : (
-                <button
-                  onClick={openRequestToJoinForm}
-                  className="btn btn-primary btn-sm"
-                >
-                  <I18n>Request to Join</I18n>
-                </button>
-              )}
-
-              {team.memberships.length === 0 && (
-                <p>
-                  <I18n>No members</I18n>
-                </p>
-              )}
-            </div>
-            {team.memberships.length > 0 && (
-              <div className="card--team__footer">
-                <h1>
-                  <I18n>Members</I18n>
-                </h1>
-                <div className="card--team__footer__members">
-                  {team.memberships.map(m => (
-                    <Avatar user={m.user} key={m.user.username} />
-                  ))}
+          <div className="cards">
+            <div className="card">
+              <div className="card__bar card__bar--primary">
+                <div className="card__bar-icon">
+                  <span className={`fa fa-${Utils.getIcon(team, 'users')}`} />
                 </div>
               </div>
-            )}
+              <div className="card__col card__col--center">
+                <div className="card__row-title">
+                  <I18n>{team.name}</I18n>
+                </div>
+                <div className="card__row">
+                  <I18n>{team.description}</I18n>
+                </div>
+                <div className="card__row">
+                  {userIsMember ? (
+                    <button
+                      onClick={openRequestToLeaveForm}
+                      className="btn btn-primary btn-sm"
+                    >
+                      <I18n>Request to Leave</I18n>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={openRequestToJoinForm}
+                      className="btn btn-primary btn-sm"
+                    >
+                      <I18n>Request to Join</I18n>
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="card__col card__col--center">
+                {team.memberships.length === 0 ? (
+                  <div className="card__row text-muted">
+                    <I18n>No members</I18n>
+                  </div>
+                ) : (
+                  <div className="card__row">
+                    <AvatarList
+                      users={team.memberships.map(m => m.user)}
+                      className="justify-content-center"
+                      all={true}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           {parent && (
-            <section className="mt-5">
+            <section>
               <h3 className="section__title">
                 <I18n>Parent Team</I18n>
               </h3>
-              <div className="parent">
+              <div className="cards">
                 <TeamCard
                   key={parent.slug}
                   team={parent}
@@ -164,11 +156,11 @@ const TeamComponent = ({
             </section>
           )}
           {subteams.size > 0 && (
-            <section className="mt-5">
+            <section>
               <h3 className="section__title">
                 <I18n>Subteams</I18n>
               </h3>
-              <div className="subteams">
+              <div className="cards">
                 {subteams.map(subteam => (
                   <TeamCard
                     key={subteam.slug}
