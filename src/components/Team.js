@@ -54,9 +54,7 @@ const TeamComponent = ({
     {!error && teams && !team && <ErrorMessage title="Team not found" />}
     {team && (
       <Fragment>
-        <div
-          className={`page-panel page-panel--three-fifths`}
-        >
+        <div className={`page-panel page-panel--three-fifths`}>
           <div className="page-title">
             <div
               role="navigation"
@@ -184,13 +182,15 @@ const TeamComponent = ({
                 me={me}
               />
             )}
-          <DiscussionsPanel
-            itemType="Team"
-            itemKey={team.slug}
-            creationFields={creationFields}
-            CreationForm={CreationForm}
-            me={me}
-          />
+          {!isSmallLayout && (
+            <DiscussionsPanel
+              itemType="Team"
+              itemKey={team.slug}
+              creationFields={creationFields}
+              CreationForm={CreationForm}
+              me={me}
+            />
+          )}
         </Fragment>
       </Fragment>
     )}
