@@ -22,6 +22,13 @@ import DiscussionsApp from '@kineticdata/bundle-discussions';
 import SettingsApp from '@kineticdata/bundle-settings';
 import SurveyApp from '@kineticdata/bundle-survey';
 
+/**
+ * The git repo name to be used for fetching deployed versions of this bundle.
+ * Set if this repo is connected to the codefresh pipeline for auto building and
+ * publishing the bundle. Otherwise, set to undefined.
+ */
+const BUNDLE_NAME = 'customer-project-default';
+
 // Mapping of Bundle Package kapp attribute values to App Components
 const BUNDLE_PACKAGE_PROVIDERS = {
   services: ServicesApp,
@@ -92,6 +99,7 @@ export const AppComponent = props =>
         location: props.appLocation,
         actions: { refreshApp: props.refreshApp },
         layoutSize: props.layoutSize,
+        bundleName: BUNDLE_NAME,
       }}
       location={props.location}
       render={({
