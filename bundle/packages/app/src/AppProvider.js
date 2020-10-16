@@ -59,6 +59,14 @@ const AppComponent = props => {
                 path="/datastore/forms/:formSlug"
                 to={`${SettingsApp.location}/datastore/:formSlug/new`}
               />
+              <Redirect
+                path="/forms/:formSlug/submissions/:id"
+                to={`${SettingsApp.location}/datastore/:formSlug/:id`}
+              />
+              <Redirect
+                path="/forms/:formSlug"
+                to={`${SettingsApp.location}/datastore/:formSlug/new`}
+              />
               <Route default component={Home} />
             </Switch>
           </main>

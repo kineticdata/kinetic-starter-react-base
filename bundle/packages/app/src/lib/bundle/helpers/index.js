@@ -7,6 +7,9 @@ import {
   PeopleSelect,
   SchedulerWidget,
   Calendar,
+  addToast,
+  addToastAlert,
+  openConfirm,
 } from '@kineticdata/bundle-common';
 import {
   validateNotificationOptions,
@@ -17,6 +20,54 @@ import {
 const bundle = typeof window.bundle !== 'undefined' ? window.bundle : {};
 // Create helpers namespace
 bundle.helpers = bundle.helpers || {};
+
+/**
+ * Displays a toast message (bottom of the screen - disappears on its own after
+ * 5 seconds). Multiple toasts can be displayed at the same time.
+ *
+ * Accepts either a string or options object as a parameter.
+ *   If a string is passed, it defaults to a success toast.
+ *   If an object is passed, the following properties can be provided:
+ *     - message:   String message to display.
+ *     - severity:  Bootstrap severity class (success, danger, etc)
+ *     - icon:      Font Awesome icon class (without the 'fa-' part)
+ */
+bundle.helpers.addToast = addToast;
+
+/**
+ * Displays a toast alert message (top left corner of screen - persists until
+ * closed). Only one visible at a time.
+ *
+ * Accepts either a string or options object as a parameter.
+ *   If a string is passed, it defaults to a danger alert.
+ *   If an object is passed, the following properties can be provided:
+ *     - title:     String heading to display.
+ *     - message:   String message to display.
+ *     - severity:  Bootstrap severity class (success, danger, etc)
+ *     - actions:   Array of objects defining button actions.
+ *                  Each action object must have the following properties:
+ *                   - label:     The label of the action button
+ *                   - onClick:   The function to trigger when clicked
+ */
+bundle.helpers.addToastAlert = addToastAlert;
+
+/**
+ * Displays a confirmation modal. Only one visible at a time.
+ *
+ * Accepts an options object as a parameter.
+ *   The options object can provide the following properties:
+ *     - title:       String heading to display.
+ *     - body:        String message to display.
+ *     - actionName:  Label of the confirmation button
+ *     - actionType:  Bootstrap severity class (success, danger, etc)
+ *     - ok:          Function that triggers when confirmed
+ *     - cancel:      Function that triggers when cancelled
+ *     - confirmationText:       Optional string of text the user must exactly
+ *                               type in before they can confirm
+ *     - confirmationTextLabel:  String describing what type of value
+ *                               'confirmationText' is (text, slug, username, etc)
+ */
+bundle.helpers.openConfirm = openConfirm;
 
 /**
  * Displays an alert to the user.
@@ -100,20 +151,6 @@ bundle.helpers.alert = (options = {}) => {
     />,
     div,
   );
-  // Add exitEvents to the element
-  if (
-    opts.exitEvents &&
-    typeof opts.exitEvents === 'string' &&
-    typeof alert.closeAlert === 'function'
-  ) {
-    opts.element.addEventListener(
-      opts.exitEvents,
-      e => {
-        ReactDOM.unmountComponentAtNode(div);
-      },
-      { once: true },
-    );
-  }
 };
 
 /**
