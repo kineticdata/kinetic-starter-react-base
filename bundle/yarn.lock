@@ -1431,18 +1431,18 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@kineticdata/bundle-common@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.0.8.tgz#9bf7855eb5f07412c42153391fa57c96fac0e25c"
-  integrity sha512-aLsuA7wEeSCwzflVqbczp42mdcowEGKEvgRqx5pBx959cWq0/XilSjRLbzCTl719ILzQG+xc/KGjhXPRg3H3ew==
+"@kineticdata/bundle-common@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.0.10.tgz#a6d204c54eeb1194405fb5e3f78eb1d2a07d2871"
+  integrity sha512-NZfNzoUWTZTNFABtbiRwKnoIij/sElQYxI2ZcKHF7szmvs0Cf5zuu8PGd9QVbimgvKt3yZp3PnwRFP1o54+Deg==
   dependencies:
     "@fullcalendar/daygrid" "^4.4.0"
     "@fullcalendar/list" "^4.4.0"
     "@fullcalendar/moment-timezone" "^4.4.0"
     "@fullcalendar/react" "^4.4.0"
     "@fullcalendar/timegrid" "^4.4.0"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     axios "^0.18.0"
     classnames "^2.2.5"
@@ -1474,12 +1474,12 @@
     typeahead.js "^0.11.1"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-components@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.0.8.tgz#9bb84231dec18348becffe4c411960b814d320ae"
-  integrity sha512-YZ11WPeHLTirv4MjHtXjwa9/34zkvUwzJyWIaIirwkItxOWFAFYU6ppf6h5BfQ/znRHB0hlNCEuTczwEzcajgg==
+"@kineticdata/bundle-components@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.0.10.tgz#52e137661fca4bd88664bd5a8b573cb3b5d651e5"
+  integrity sha512-JIoFNImyCbQu1PD/gM0ylksFJFTq0Rat7vttZXNguHn69hWzquTZZ94bEE2OSjEQIJ/CyOQz2ebK6hmRgFwNdg==
   dependencies:
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/react" "5.0.10"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
     immutable "4.0.0-rc.9"
@@ -1493,14 +1493,14 @@
     recompose "^0.30.0"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-discussions@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.0.8.tgz#99a2921bb20f0d9fc82a483802184fac43984483"
-  integrity sha512-wySuuxSw4tMX+IoFgPL/+TVmwwxc7U8gj+SE5fRzqche0u9oWpfeVP5ckr5gwzcNYLv1s1CYrdclTXoeldDKIA==
+"@kineticdata/bundle-discussions@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.0.10.tgz#7147e4c952bf0e677622fba55ad191abee6bc726"
+  integrity sha512-hqekwogpPpe5SZm7dJJitWEXo21HzU596GHzsASRF4EEQQBdqqI3dCzuhJ7CxvxFomr2witRE99WpA0z+v8e7A==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1518,14 +1518,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-queue@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.0.8.tgz#1611d75ba63b84a88c0aa8ef4cefad77423c7521"
-  integrity sha512-fSa18uuYIJFrme9Y1UBwj7/Yt248rzrUbMjW5xKfxzDomc4zqmNfv+Ybrf5wNTRFsTYjehFfZcldm/+tw+5RVg==
+"@kineticdata/bundle-queue@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.0.10.tgz#9ac27ccde5b1bd69a7caa282f5a8bce260ce8d5d"
+  integrity sha512-XwvlSmt0+Kjc9BPaD1qKl4Z2cUJhxIRdW+0KJi6jJJEU8l3/VixYsAKtmBZCVnlsFZXY9H0At1cOK+2QC75XIw==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     axios "^0.18.0"
     bootstrap "^4.3.1"
@@ -1551,14 +1551,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-services@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.0.8.tgz#e368825deab6e8809148ef575ebe57cf3f1d3755"
-  integrity sha512-9rautA0C9tER4cGvvJe6d0Hgu6gPgvJCZsT05fr/KWZ9SCkOezylapef7WybmRoBYs4Gm0YGJfYmo6Qa5l+0yg==
+"@kineticdata/bundle-services@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.0.10.tgz#7678753b94dd645ad3149ab9281f43d73bc43693"
+  integrity sha512-6X4WWbdyd/7WduiZTvrkFerHu459HdLuBmTwcCegKVaYIWMHfqPfOV2kglz/qLNgOm9LtiZvnXjDOt1z6YFrMA==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1581,14 +1581,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-settings@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.0.8.tgz#9f0924fea426a1e8ed0b3802f7693aca0cb163d7"
-  integrity sha512-xy9gYu4Pp7o+BZQZsdtKHTTq5Zv1r1vcRA1MrPBlnIhx99QqYtAvc0OqwWpSmelbLtDmrLgA5MnT+JuEgs8u/Q==
+"@kineticdata/bundle-settings@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.0.10.tgz#faef70d1e94c0f550a8bc3d9dac5aace54cee022"
+  integrity sha512-7VE29bA6v/m7u/PSofYVAp1e7N8PhgkhovDmMRMC4GVsY1wlVPmv9asMbrS4gEt2m9qTX0uRjswLffpJ9+V6Ng==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     axios "^0.18.0"
     bootstrap "^4.3.1"
@@ -1617,14 +1617,14 @@
     rudy-match-path "^0.3.0"
     semver "^5.5.0"
 
-"@kineticdata/bundle-survey@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.0.8.tgz#462881539bd02e72b3a918f6fb7becf7c5145cec"
-  integrity sha512-cgC4JQFoF++g+CHjw2KWIDE4KsXup4WiMQLAJNG+E+q6jeriNo2cYBgX60hTMA4KCLfaASt0m2Rc0LNIE2T6aw==
+"@kineticdata/bundle-survey@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.0.10.tgz#afca90fa61fa03e044491d6be046c33f55bcf8f8"
+  integrity sha512-R6Ft7s825eSdGtD45VXoOHwdyLEkng4dhKrAYty2DjXOYWFGb19nV5z9Va8KCU++/CEzQppXSuK6ZWWwDNq8wQ==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1646,14 +1646,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-tech-bar@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.0.8.tgz#66e5786f7d601ca0833a94154f2277d415208036"
-  integrity sha512-pn0VNtKUAy4GDPwpIgnhuWdgiSFwn/gHIM60rOKVv8KbX52+lnZuFnjDpdVylir71qyM5PWdbbKdNTXhPFXrOA==
+"@kineticdata/bundle-tech-bar@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.0.10.tgz#b1b91d999cf8af3eff52a5808cde1b56f3d8e169"
+  integrity sha512-on7TRbPsxKq+7qF5tX/r1JFBO9Y0ztG1z5B+k5t/f0FSLoQUUMcy5EzCl/ZfkTzPmcXEKcYMpdC7rNP0cCVKbA==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.8"
-    "@kineticdata/bundle-components" "5.0.8"
-    "@kineticdata/react" "5.0.8"
+    "@kineticdata/bundle-common" "5.0.10"
+    "@kineticdata/bundle-components" "5.0.10"
+    "@kineticdata/react" "5.0.10"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1676,10 +1676,10 @@
     rudy-match-path "^0.3.0"
     victory "^31.2.0"
 
-"@kineticdata/react@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.0.8.tgz#0d4d0ea6087afdd20842cee28df939baabf955dc"
-  integrity sha512-nP5n3HL7Y4A/8zdOCr6aCMjWMi5ueUfIp0FxL7xKB01P6B3qY2gPxTx8x99BNBzfvjrOT0p38y8ddOvb1nVCdg==
+"@kineticdata/react@5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.0.10.tgz#0e08b95d2ef2b29dfa2f87d30de4affc5f0986d7"
+  integrity sha512-vbRhOIydoVGkhcIemSq9iJE9Zf51Lm9Q4P2G0jUjqSvX1TnruVHqzVu5K7RtjdU8GqVeTFPI1TjJAdO1JtgRjg==
   dependencies:
     axios "^0.18.0"
     classnames "^2.2.6"
