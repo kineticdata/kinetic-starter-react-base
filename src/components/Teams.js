@@ -58,7 +58,7 @@ const TeamsComponent = ({ error, teams, me, openRequestNewTeam }) => (
         emptyMessage=""
       >
         {data => (
-          <div className="cards__wrapper cards__wrapper--thirds">
+          <div className="cards">
             {teams.map(team => {
               return (
                 <TeamCard key={team.slug} team={team} components={{ Link }} />
