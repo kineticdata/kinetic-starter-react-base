@@ -248,30 +248,6 @@ You can follow the detailed instructions in the [CUSTOM_PACKAGE.md](CUSTOM_PACKA
 
 There are a number of packages that have been built by Kinetic Data and are available to be installed from NPM. Many of these packages are already installed in the `app` package of this bundle.
 
-These packages are meant to be used as they are, and generally not modified. (Some minor modifications will be allowed in the future through the components package.) However, sometimes a customer may want to customize one of these packages, or use one as a starting point for their own custom bundle. This can be accomplished by pulling in the source code of one of the pre-built Kinetic packages and then treating it as a custom package.
+These packages are meant to be used as they are, and generally not modified. (Some minor modifications will be allowed in the future through the components package.) However, sometimes a customer may want to customize one of these packages, or use one as a starting point for their own custom package. This can be accomplished by pulling in the source code of one of the pre-built Kinetic packages and then treating it as a custom package.
 
-_Note: Once you do this and start customizing a pre-built package, any improvements made to that package by Kinetic Data will be more difficult to merge into your bundle. It will be your responsibility to merge in and resolve any conflicts when you want to pull in the latest changes from the pre-built package._
-
-**Currently, only Kinetic Data employees have access to pull in the source code of the pre-built packages, and only the Services package is available for now.**
-
-### Adding Source Code of Pre-Built Package
-
-To add the source code for the services package, run the following command from the root directory of your repository (not inside the `bundle` directory). The `--prefix` argument specifies the path into which we want to pull in the source code. After that we specify the git repo URL and the branch to pull code from. The `split/*` branches are special branches meant to be used for this exact purpose.
-
-```shell
-$ git subtree add --prefix bundle/packages/services https://github.com/kineticdata/kinetic-ui.git split/packages/services
-> git fetch https://github.com/kineticdata/kinetic-ui.git split/packages/services
-> From https://github.com/kineticdata/kinetic-ui
->  * branch            split/packages/services -> FETCH_HEAD
-> Added dir 'bundle/packages/services'
-```
-
-Once this completes, you should have a `services` folder inside the `bundle/packages` directory. You will also have a large number of commits made, as this command will pull in all of the git history for the source code. This will allow you to later use the `git subtree pull` command to pull in changes from the original package.
-
-Next, you'll just need to run `yarn install` within the `bundle` directory, and then `yarn start` to start up the development server. Any changes you make to the code in the `packages/services` directory will be available when you view the Service Kapp (or any other Kapp you configured to use the services package).
-
-**Note: The pulled in source code has the same package name in `services/package.json` as the published `@kineticdata/bundle-services` NPM module. It is very important that the version of the `@kineticdata/bundle-services` dependency in the `app/package.json` file matches the version in your local services package. Otherwise, the dependency will be fetched from NPM and your local code will not be used.**
-
-### Pulling Source Code of Pre-Built Package
-
-`TODO`
+The [kinetic-ui-packages](https://github.com/kineticdata/kinetic-ui-packages) repository contains branches with the source code for the packages that are available. You can follow the detailed instructions in the [README.md](https://github.com/kineticdata/kinetic-ui-packages/blob/master/README.md) file in that repo to add the source code of these pre-built packages into your bundle.
