@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withHandlers, withState } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
+  Card,
+  CardRow,
   TeamCard,
   EmptyMessage,
   ErrorMessage,
@@ -322,13 +324,13 @@ export const EditProfileComponent = ({
             <div className="cards cards--fourths">
               {Utils.getRoles(profile).length > 0 ? (
                 Utils.getRoles(profile).map(role => (
-                  <div className="card card--subtle" key={role.slug}>
-                    <div className="card__row py-1">
+                  <Card key={role.slug} color="subtle">
+                    <CardRow className="py-1">
                       <strong>
                         <I18n>{role.name}</I18n>
                       </strong>
-                    </div>
-                  </div>
+                    </CardRow>
+                  </Card>
                 ))
               ) : (
                 <EmptyMessage title="No Roles Assigned" />
