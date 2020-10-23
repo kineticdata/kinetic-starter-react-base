@@ -4,6 +4,9 @@ import { compose, withHandlers, withProps, withState } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
   openModalForm,
+  Card,
+  CardCol,
+  CardRow,
   AvatarList,
   DiscussionsPanel,
   ErrorMessage,
@@ -90,20 +93,19 @@ const TeamComponent = ({
             </button>
           )}
           <div className="cards">
-            <div className="card">
-              <div className="card__bar card__bar--primary">
-                <div className="card__bar-icon">
-                  <span className={`fa fa-${Utils.getIcon(team, 'users')}`} />
-                </div>
-              </div>
-              <div className="card__col card__col--center">
-                <div className="card__row-title">
+            <Card
+              bar={true}
+              barColor="primary"
+              barIcon={Utils.getIcon(team, 'users')}
+            >
+              <CardCol center={true}>
+                <CardRow type="title">
                   <I18n>{team.name}</I18n>
-                </div>
-                <div className="card__row">
+                </CardRow>
+                <CardRow>
                   <I18n>{team.description}</I18n>
-                </div>
-                <div className="card__row">
+                </CardRow>
+                <CardRow>
                   {userIsMember ? (
                     <button
                       onClick={openRequestToLeaveForm}
@@ -119,24 +121,24 @@ const TeamComponent = ({
                       <I18n>Request to Join</I18n>
                     </button>
                   )}
-                </div>
-              </div>
-              <div className="card__col card__col--center">
+                </CardRow>
+              </CardCol>
+              <CardCol center={true}>
                 {team.memberships.length === 0 ? (
-                  <div className="card__row text-muted">
+                  <CardRow className="text-muted">
                     <I18n>No members</I18n>
-                  </div>
+                  </CardRow>
                 ) : (
-                  <div className="card__row">
+                  <CardRow>
                     <AvatarList
                       users={team.memberships.map(m => m.user)}
                       className="justify-content-center"
                       all={true}
                     />
-                  </div>
+                  </CardRow>
                 )}
-              </div>
-            </div>
+              </CardCol>
+            </Card>
           </div>
 
           {parent && (
