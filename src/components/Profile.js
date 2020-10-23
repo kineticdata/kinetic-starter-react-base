@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose, lifecycle, withProps } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
+  CardRow,
   EmptyMessage,
   ErrorMessage,
   LoadingMessage,
@@ -52,7 +53,7 @@ const ProfileComponent = ({
         <div className="cards">
           <ProfileCard user={profile} hideProfileLink={true}>
             <>
-              <div className="card__row-multi py-3">
+              <CardRow type="multi" className="py-3">
                 {Utils.getRoles(profile).map(role => (
                   <span
                     className="badge badge-subtle badge-pill"
@@ -61,12 +62,12 @@ const ProfileComponent = ({
                     <I18n>{role.name.replace(/^Role::(.*?)/, '$1')}</I18n>
                   </span>
                 ))}
-              </div>
+              </CardRow>
               {(managerEnabled ||
                 siteEnabled ||
                 departmentEnabled ||
                 organizationEnabled) && (
-                <div className="card__row-meta">
+                <CardRow type="meta">
                   <dl>
                     {managerEnabled && (
                       <div>
@@ -133,7 +134,7 @@ const ProfileComponent = ({
                       </div>
                     )}
                   </dl>
-                </div>
+                </CardRow>
               )}
             </>
           </ProfileCard>
