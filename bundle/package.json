@@ -1,6 +1,6 @@
 {
   "name": "customer-project-default",
-  "version": "5.0.0",
+  "version": "5.0.2",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -16,6 +16,9 @@
   },
   "engines": {
     "node": "12.x || 14.x"
+  },
+  "resolutions": {
+    "**/@kineticdata/bundle-components": "5.x"
   },
   "devDependencies": {
     "husky": "^0.14.3",
