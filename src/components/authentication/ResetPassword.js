@@ -162,7 +162,7 @@ const ResetPasswordRequestForm = ({ children }) => {
         </p>
         <p>
           <I18n>
-            If you don't receieve an email, contact your kinops administrator.
+            If you don't receive an email, contact your kinops administrator.
           </I18n>
         </p>
       </div>
