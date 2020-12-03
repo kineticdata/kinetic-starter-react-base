@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { actions, types } from '../modules/profile';
 import { actions as appActions } from '../modules/app';
 import { addToast, addToastAlert } from '@kineticdata/bundle-common';
@@ -34,6 +34,10 @@ export function* fetchProfileRequestSaga({ payload }) {
 }
 
 export function* updateProfileRequestSaga({ payload }) {
+  const preferredLocale = yield select(
+    state => state.profile.data.preferredLocale,
+  );
+
   const { profile, error } = yield call(updateProfile, {
     include: PROFILE_INCLUDES,
     profile: payload,
@@ -47,7 +51,9 @@ export function* updateProfileRequestSaga({ payload }) {
   } else {
     addToast('Profile updated successfully');
     yield put(actions.updateProfileSuccess(profile));
-    yield put(appActions.fetchProfileRequest());
+    if (profile.preferredLocale !== preferredLocale) {
+      yield put(appActions.fetchApp());
+    }
   }
 }
 
