@@ -232,7 +232,7 @@ const ResetPasswordForm = connect(
         <label htmlFor="email">
           <I18n>Email Address</I18n>
         </label>
-        <span className="form-control-static">{username}</span>
+        <span className="form-control-plaintext">{username}</span>
       </div>
     ),
     password: (

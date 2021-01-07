@@ -157,10 +157,11 @@
           color: $red;
         }
       }
-      p.form-control-static {
+      .form-control-plaintext {
         color: $gray80;
         font-size: 13px;
         line-height: 18px;
+        padding: 0.125rem 0;
       }
       input.form-control {
         height: 30px;
