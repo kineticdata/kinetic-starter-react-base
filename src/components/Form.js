@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { CoreForm } from '@kineticdata/react';
-import {
-  ErrorNotFound,
-  ErrorUnauthorized,
-  ErrorUnexpected,
-  addToast,
-} from '@kineticdata/bundle-common';
+import { addToast } from '@kineticdata/bundle-common';
 import { PageTitle } from './shared/PageTitle';
 import { Link } from 'react-router-dom';
 import { parse } from 'query-string';
@@ -85,9 +80,6 @@ export const FormComponent = ({
                 created={handleCreated}
                 completed={handleCompleted}
                 values={values}
-                notFoundComponent={ErrorNotFound}
-                unauthorizedComponent={ErrorUnauthorized}
-                unexpectedErrorComponent={ErrorUnexpected}
                 public={!authenticated}
                 layoutComponent={Layout}
               />
