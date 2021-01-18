@@ -10,6 +10,8 @@ import {
   addToast,
   addToastAlert,
   openConfirm,
+  openModalForm,
+  closeModalForm,
 } from '@kineticdata/bundle-common';
 import {
   validateNotificationOptions,
@@ -68,6 +70,40 @@ bundle.helpers.addToastAlert = addToastAlert;
  *                               'confirmationText' is (text, slug, username, etc)
  */
 bundle.helpers.openConfirm = openConfirm;
+
+/**
+ * Opens a Kinetic form in a modal.
+ *
+ * @param options {
+ *    submissionId:         string
+ *        Id of the submission to render. Required if formSlug is not provided.
+ *
+ *    formSlug:             string
+ *        Slug of form to render. Required if submissionId is not provided.
+ *
+ *    kappSlug:             string
+ *        Slug of kapp in which the form exists. Omit if rendering a datastore
+ *        form or a submission.
+ *
+ *    values:               object
+ *        Map of values to pas to the Kinetic form.
+ *
+ *    title:                string
+ *        TItle text to show in the modal header.
+ *
+ *    confirmationMessage:  string [Default: 'Your form has been submitted.']
+ *        Confirmation message to show in the modal when the form is completed.
+ *
+ *    duration:             number
+ *        Number of milliseconds until the modal will autmoatically close once
+ *        the form has been completed. The modal stays open if omitted.
+ */
+bundle.helpers.openModalForm = openModalForm;
+
+/**
+ * Closes the modal opened by the openModalForm function.
+ */
+bundle.helpers.closeModalForm = closeModalForm;
 
 /**
  * Displays an alert to the user.
