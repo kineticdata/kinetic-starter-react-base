@@ -17,11 +17,15 @@ import {
   validateNotificationOptions,
   processNotificationExits,
 } from './notifications';
+import { Typeahead } from './typeahead';
 
 // Ensure the bundle global object exists
 const bundle = typeof window.bundle !== 'undefined' ? window.bundle : {};
 // Create helpers namespace
 bundle.helpers = bundle.helpers || {};
+
+// Renders a typeahead component into the form
+bundle.helpers.Typeahead = Typeahead;
 
 /**
  * Displays a toast message (bottom of the screen - disappears on its own after
