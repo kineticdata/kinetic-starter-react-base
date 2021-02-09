@@ -3,11 +3,12 @@
  * Copyright (c) 2017 - 2018 Kinetic Data, Inc.
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Import sass variables and overrides to be used by all below imports
-@import 'variables';
-
 // Import styles from common, which includes all bootstrap styles
-@import '~@kineticdata/bundle-common/assets/styles/master';
+@import '~@kineticdata/bundle-common/assets/styles/common-functions';
+@import '~@kineticdata/bundle-common/assets/styles/common-variables';
+@import 'variables'; // Import variable overrides from this package
+@import '~@kineticdata/bundle-common/assets/styles/common-mixins';
+@import '~@kineticdata/bundle-common/assets/styles/common-styles';
 
 // Import styles from all other packages
 // Each of these should be scoped to only the corresponding package
