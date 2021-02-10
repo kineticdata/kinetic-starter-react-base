@@ -14,7 +14,11 @@ import { Authentication } from './components/authentication/Authentication';
 import { App } from './App';
 
 // Shared Components
-import { FormComponents, TableComponents } from '@kineticdata/bundle-common';
+import {
+  FormComponents,
+  TableComponents,
+  CoreFormComponents,
+} from '@kineticdata/bundle-common';
 
 // Asynchronously import the global dependencies that are used in the embedded
 // forms. Note that we deliberately do this as a const so that it should start
@@ -44,6 +48,7 @@ ReactDOM.render(
             ...FormComponents.defaults,
           },
           ...TableComponents.defaults,
+          coreForm: { ...CoreFormComponents.defaults },
         }}
       >
         {({ initialized, ...authProps }) =>
