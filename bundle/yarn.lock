@@ -1448,20 +1448,20 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@kineticdata/bundle-common@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.0.11.tgz#0834c602c4fba0b65d23f0f52adf9d61898b8edb"
-  integrity sha512-aqEF5txuhsVqcWHVjPZNhQpINK2lVGRzxk91eu9RJexR0UaOwMJ+w65q49jsu5RuFq2F9GBbRCA7rV+iZ0JykQ==
+"@kineticdata/bundle-common@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.0.14.tgz#0593b8af3dbd778b3b7d7214035beec958c8263d"
+  integrity sha512-biq4OrT43EQTswx9hKhEKUlXcZzy0dtTDSS8WemHYqHqHOOsTHaDlOt2vDNN08A1XACkZ5liIAAqF5sUFiNeOA==
   dependencies:
     "@fullcalendar/daygrid" "^4.4.0"
     "@fullcalendar/list" "^4.4.0"
     "@fullcalendar/moment-timezone" "^4.4.0"
     "@fullcalendar/react" "^4.4.0"
     "@fullcalendar/timegrid" "^4.4.0"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-components" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
-    axios "^0.18.0"
+    axios "^0.21.1"
     classnames "^2.2.5"
     connected-react-router "^6.6.1"
     font-awesome "^4.7.0"
@@ -1474,12 +1474,10 @@
     moment-timezone "^0.5.23"
     prop-types "^15.7.2"
     query-string "^5.1.1"
-    react "^16.12.0"
     react-avatar "^3.5.0"
     react-bootstrap-typeahead "^3.2.4"
     react-dates "^21.8.0"
     react-document-title "^2.0.3"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
@@ -1491,31 +1489,29 @@
     typeahead.js "^0.11.1"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-components-default@npm:@kineticdata/bundle-components":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.0.11.tgz#3f61723585f0892d340262632dc6bfb7008ded9c"
-  integrity sha512-Ak7yfASOqVK7o/C+YOs7seSb3NVQMhYid69+bUlGQWMGgekK1Y4R42xAifWk7a1Y18zxJ1TdOoKIO2/nhmc1xQ==
+"@kineticdata/bundle-components-default@npm:@kineticdata/bundle-components@latest":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.0.14.tgz#475b531381b92a59d4129815ae3be6fd0fc2e4a7"
+  integrity sha512-0VkBhxY6NoCFpgD+s6j2DqQKw3irQutvojkCbl3LMaWxV6Yf5jVQEDVkg+ax6QTH4iXxK2rtyq/zp4azxW0M0A==
   dependencies:
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/react" "^5.0.14"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
     immutable "4.0.0-rc.9"
     moment "^2.22.2"
     prop-types "^15.7.2"
-    react "^16.12.0"
-    react-dom "^16.12.0"
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
     reactstrap "^7.1.0"
     recompose "^0.30.0"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-components@5.0.11":
+"@kineticdata/bundle-components@^5.0.14":
   version "5.0.0"
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components-default" "npm:@kineticdata/bundle-components"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/bundle-components-default" "npm:@kineticdata/bundle-components@latest"
+    "@kineticdata/react" "^5.0.14"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
     immutable "4.0.0-rc.9"
@@ -1529,14 +1525,13 @@
     recompose "^0.30.0"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-discussions@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.0.11.tgz#e7fccb53251a7cbb6b04b80ec200e895ac377bfc"
-  integrity sha512-yhOWSVYUp5GFAwI/9KybpiKd50SN9PtCI7vuSPXAXaEp6Qab3OqNSnX7aFJvFYJrqWW+Wml4Q4ItN4Vj6DmxVQ==
+"@kineticdata/bundle-discussions@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.0.14.tgz#8f8308171915a051a56e8fc427c1a102de52c268"
+  integrity sha512-2HP5Mr7bsd1/18H/RJz32BEtj/YVTn+SeGT5DS47yQLTuYVJ1fm3T8MuPSZ2mfWMJdJuMnRYQ2R4cUkONXoE7w==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1544,8 +1539,6 @@
     immutable "4.0.0-rc.9"
     moment "^2.22.2"
     query-string "^5.1.1"
-    react "^16.12.0"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
     recompose "^0.30.0"
@@ -1554,16 +1547,15 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-queue@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.0.11.tgz#76189672c0caeb06211dc1385183bb50a9a96411"
-  integrity sha512-4VuwK2Dw8veTKWHnOVNebh5rCEl6pHdtg8fhGb1T5HmNHAGLHyIbs1CIRnb1vfBpbNxM0iL8+jZJ2MwOKi+14Q==
+"@kineticdata/bundle-queue@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.0.14.tgz#66fae2013a4d3c9fa8e78ab819f576fa8a3d66b9"
+  integrity sha512-gXd7QZQHKMU2+gcnd2Eqd3LSFWGcthVefQrnsNVKC80kdJi7ut273Rttorz6w917ll4iv3f1yeRvOkyZsm819A==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
-    axios "^0.18.0"
+    axios "^0.21.1"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     downloadjs "^1.4.7"
@@ -1575,10 +1567,8 @@
     moment "^2.22.2"
     papaparse "^5.2.0"
     query-string "^5.1.1"
-    react "^16.12.0"
     react-autocomplete "^1.8.1"
     react-beautiful-dnd "^11.0.5"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
     recompose "^0.30.0"
@@ -1587,14 +1577,13 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-services@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.0.11.tgz#1d301421f647eefff95f64db651af37a231eaa01"
-  integrity sha512-463RGtV7ZO/LP8V2zUg6UknYk6rlYlQs5hlQ6NyDJFfs8Z4rh8gDK69dX8A+LU0Gbn56XQ78CXUyzxGe/PM41Q==
+"@kineticdata/bundle-services@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.0.14.tgz#9469a94d3b8e879488c79355d01912e420af95f3"
+  integrity sha512-ARIOEJw0mgOfoDr+BUDF0h93f5OL92tX3rGuiS5nlgCoGTb2f3g+Skr4U2Ri6UNupqJMCRkvOG9Qe/nXCHcAHA==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1605,9 +1594,7 @@
     moment "^2.22.2"
     papaparse "^5.2.0"
     query-string "^5.1.1"
-    react "^16.12.0"
     react-beautiful-dnd "^11.0.5"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     react-sortable-tree "^2.6.2"
     reactstrap "^7.1.0"
@@ -1617,16 +1604,15 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-settings@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.0.11.tgz#cef04868dc0e06dd40127994e30d0c8f2b830d25"
-  integrity sha512-xyreIEmXGsWQ5wq2rHpGuZ5GlMdnrUSzSKbWi4Z6veqKiPAqQdmKTBRY6gyAVF3bNicjY+8xjDHtxgP1y1S4/w==
+"@kineticdata/bundle-settings@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.0.14.tgz#98c3e9a242d1d56c966eaff34de0afb962714eb4"
+  integrity sha512-rioUZB60cOi4JMGOMveHULPiesP7NnekZwtCLrgRLNh8AWoC8MSuZwHT9Yoq0SxkZbY1OW9U9oUEizqvPpxymA==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
-    axios "^0.18.0"
+    axios "^0.21.1"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     downloadjs "^1.4.7"
@@ -1639,10 +1625,8 @@
     papaparse "^5.2.0"
     query-string "^5.1.1"
     rc-progress "^2.2.5"
-    react "^16.12.0"
     react-autocomplete "^1.8.1"
     react-beautiful-dnd "^11.0.5"
-    react-dom "^16.12.0"
     react-dropzone "^7.0.1"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
@@ -1653,14 +1637,13 @@
     rudy-match-path "^0.3.0"
     semver "^5.5.0"
 
-"@kineticdata/bundle-survey@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.0.11.tgz#e8804078ec738b91caf8f415fc3f86827740ead1"
-  integrity sha512-0STd4COiMiTS+0voH8bf6zKhYUyla7prZrME4CkcePBxbbUTqhJsmM0P4Mbk7V6d9Ncupa9MGgEI20sicvlowQ==
+"@kineticdata/bundle-survey@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.0.14.tgz#722cc2dccf4fdabde8781cf7b4c454eb84879402"
+  integrity sha512-jyAmHvdQw+mP3lSjbCggHnGp6EsSESiqJo32a2+8L0/SumvNtXjD+6vxAPsmZ8O4MW/Tf0XEtumMoFpOeObYng==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1672,8 +1655,6 @@
     moment "^2.22.2"
     papaparse "^5.2.0"
     query-string "^5.1.1"
-    react "^16.12.0"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
     recompose "^0.30.0"
@@ -1682,14 +1663,13 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-tech-bar@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.0.11.tgz#0260884e7d507d189ab7f60b90471ac2f2d331fb"
-  integrity sha512-fSEW8iXISr6rAHK8KyHuGEGss9MfsPkHDFSuAD69OMxch2kx5lD5JxAGpkTId0wHfcB0p/rgww35mz1X4wVFjg==
+"@kineticdata/bundle-tech-bar@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.0.14.tgz#c22e5a9f43bce336863137b311f42aab4b5c8dff"
+  integrity sha512-1cQVgttV+Pvdqhr/Vv0BN2w5w3SvShvqeAiX/EtFOTF1vxHUCttQrs/nS55X+bwyGcm2XR7GA+d4tE0zspb3Jw==
   dependencies:
-    "@kineticdata/bundle-common" "5.0.11"
-    "@kineticdata/bundle-components" "5.0.11"
-    "@kineticdata/react" "5.0.10"
+    "@kineticdata/bundle-common" "^5.0.14"
+    "@kineticdata/react" "^5.0.14"
     "@reach/router" "git://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1701,8 +1681,6 @@
     moment "^2.22.2"
     papaparse "^5.2.0"
     query-string "^5.1.1"
-    react "^16.12.0"
-    react-dom "^16.12.0"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
     recompose "^0.30.0"
@@ -1712,12 +1690,12 @@
     rudy-match-path "^0.3.0"
     victory "^31.2.0"
 
-"@kineticdata/react@5.0.10":
-  version "5.0.10"
-  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.0.10.tgz#0e08b95d2ef2b29dfa2f87d30de4affc5f0986d7"
-  integrity sha512-vbRhOIydoVGkhcIemSq9iJE9Zf51Lm9Q4P2G0jUjqSvX1TnruVHqzVu5K7RtjdU8GqVeTFPI1TjJAdO1JtgRjg==
+"@kineticdata/react@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.0.14.tgz#dc7883383b816c8cceaa425cba619555445f05e8"
+  integrity sha512-VksJ/MVlijzHaFhEasfq0Od9CPcmcbWLBC7N86rrjk5+Go/N8zSxG9uaVUY5CIJW27WeUSpxT398B0binNWORw==
   dependencies:
-    axios "^0.18.0"
+    axios "^0.21.1"
     classnames "^2.2.6"
     deepequal "^0.0.1"
     draft-js "^0.11.0"
@@ -2900,13 +2878,12 @@ axe-core@^3.3.2, axe-core@^3.5.4:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.5.5.tgz#84315073b53fa3c0c51676c588d59da09a192227"
   integrity sha512-5P0QZ6J5xGikH780pghEdbEKijCTrruK9KxtPZCFWUpef0f6GipO+xEZ5GKCb020mmqgbiNO6TcA55CriL784Q==
 
-axios@^0.18.0:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
-  integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
-    follow-redirects "1.5.10"
-    is-buffer "^2.0.2"
+    follow-redirects "^1.10.0"
 
 axobject-query@^2.0.2, axobject-query@^2.1.2:
   version "2.2.0"
@@ -4621,13 +4598,6 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@=3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
-  dependencies:
-    ms "2.0.0"
-
 debug@^3.1.0, debug@^3.1.1, debug@^3.2.5:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -6008,17 +5978,15 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@1.5.10:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
-  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
-  dependencies:
-    debug "=3.1.0"
-
 follow-redirects@^1.0.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+
+follow-redirects@^1.10.0:
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.2.tgz#dd73c8effc12728ba5cf4259d760ea5fb83e3147"
+  integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
 
 font-awesome@^4.7.0:
   version "4.7.0"
@@ -7122,11 +7090,6 @@ is-buffer@^1.0.2, is-buffer@^1.1.4, is-buffer@^1.1.5, is-buffer@~1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-
-is-buffer@^2.0.2:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
-  integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
 
 is-callable@^1.1.4, is-callable@^1.1.5, is-callable@^1.2.0:
   version "1.2.0"
@@ -11164,6 +11127,16 @@ react-dom@^16.12.0, react-dom@^16.3.0:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-dom@^16.13.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
+
 react-dropzone@^4.2.3:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.3.0.tgz#facdd7db16509772633c9f5200621ac01aa6706f"
@@ -11430,6 +11403,15 @@ react@^16.12.0, react@^16.3.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
+react@^16.13.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
