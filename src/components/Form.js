@@ -104,7 +104,14 @@ const valuesFromQueryParams = queryParams => {
 
 export const handleCompleted = props => response => {
   if (props.authenticated) {
-    if (!response.submission.currentPage) {
+    // Check if either currentPage is null (pre form consolidation) or
+    // displayedPage.type is not 'confirmation' (post form-consolidation)
+    // to determine that there is no confirmation page and we should redirect.
+    if (
+      !response.submission.currentPage ||
+      (response.submission.displayedPage &&
+        response.submission.displayedPage.type !== 'confirmation')
+    ) {
       props.push(`/kapps/${props.kappSlug}`);
       addToast('The form was submitted successfully');
     }
@@ -112,9 +119,15 @@ export const handleCompleted = props => response => {
 };
 
 export const handleCreated = props => response => {
+  // Redirect to route with submission id if submission is not submitted or
+  // there is a confirmation page to render, defined as currentPage is set and
+  // displayedPage is undefined (pre form consolidation) or displayedPage.type
+  // is 'confirmation' (post form-consolidation).
   if (
     response.submission.coreState !== 'Submitted' ||
-    response.submission.currentPage
+    (response.submission.currentPage &&
+      (!response.submission.displayedPage ||
+        response.submission.displayedPage.type === 'confirmation'))
   ) {
     /*
      * Only modify the route if the router location does not
@@ -128,11 +141,14 @@ export const handleCreated = props => response => {
      * JSESSIONID cookie which is used to validate the submitter
      * access with an unauthenticated form.
      */
-    if (props.authenticated || (!props.isEmbedded && !props.isCrossDomain)) {
+    if (
+      (props.authenticated || (!props.isEmbedded && !props.isCrossDomain)) &&
+      props.match
+    ) {
       props.push(
-        `/kapps/${props.kappSlug}/forms/${props.formSlug}/submissions/${
-          response.submission.id
-        }`,
+        `/kapps/${props.kappSlug}/forms/${
+          props.match.params.formSlug
+        }/submissions/${response.submission.id}`,
       );
     }
   }
