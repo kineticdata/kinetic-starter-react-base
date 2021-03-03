@@ -1,0 +1,27 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * kinops v0.1
+ * Copyright (c) 2017 - 2018 Kinetic Data, Inc.
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+// Import styles from common, which includes all bootstrap styles
+@import '~@kineticdata/bundle-common/assets/styles/common-functions';
+@import '~@kineticdata/bundle-common/assets/styles/common-variables';
+@import 'variables'; // Import variable overrides from this package
+@import '~@kineticdata/bundle-common/assets/styles/common-mixins';
+@import '~@kineticdata/bundle-common/assets/styles/common-styles';
+
+// Import styles from all other packages
+// Each of these should be scoped to only the corresponding package
+@import '~@kineticdata/bundle-services/assets/styles/master';
+@import '~@kineticdata/bundle-queue/assets/styles/master';
+@import '~@kineticdata/bundle-tech-bar/assets/styles/master';
+@import '~@kineticdata/bundle-discussions/assets/styles/master';
+@import '~@kineticdata/bundle-settings/assets/styles/master';
+@import '~@kineticdata/bundle-survey/assets/styles/master';
+// etc.
+
+// Import app styles and overrides for any above styles
+@import 'authentication';
+@import 'alerts';
+@import 'profile';
+@import 'temp';
