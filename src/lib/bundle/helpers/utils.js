@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 /**
  * Builds React elements based on a JSON configuration.
@@ -15,12 +15,27 @@ import { Map } from 'immutable';
  * rendered inside a fragment.
  */
 export const evaluateRenderer = config => {
+  // If config is already a React element, render it
+  if (React.isValidElement(config)) {
+    return config;
+  }
   // If config is an array, render a fragment with all array items as children.
-  if (Array.isArray(config)) {
+  else if (Array.isArray(config)) {
     return React.createElement(
       React.Fragment,
       null,
       ...config.filter(Boolean).map(evaluateRenderer),
+    );
+  }
+  // If config is an immutable List, render a fragment with all List items as children.
+  else if (List.isList(config)) {
+    return React.createElement(
+      React.Fragment,
+      null,
+      ...config
+        .toArray()
+        .filter(Boolean)
+        .map(evaluateRenderer),
     );
   }
   // If config is an object, render the element using tag and props properties.
@@ -40,7 +55,7 @@ export const evaluateRenderer = config => {
       ).map(evaluateRenderer),
     );
   }
-  // Otherwise return the config to allow for justa  string value to be passed.
+  // Otherwise return the config to allow for just a string value to be passed.
   else {
     return config;
   }
@@ -52,12 +67,12 @@ export const evaluateRenderer = config => {
  * with the the structure `{ tag: '', props: {}, children: [] }` where children
  * is an array of objects of the same structure.
  */
-export const generateComponentsFromRenderers = (renderers = {}) =>
+export const generateComponentsFromRenderers = (renderers = {}, options = {}) =>
   Map(renderers)
     .map(
       renderer =>
         typeof renderer === 'function'
-          ? props => evaluateRenderer(renderer(props))
+          ? props => evaluateRenderer(renderer(props, options))
           : typeof renderer === 'object'
             ? evaluateRenderer(renderer)
             : null,

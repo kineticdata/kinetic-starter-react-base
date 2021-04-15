@@ -53,7 +53,30 @@ class TypeaheadWrapper extends React.Component {
   // Build a return object to allow the user to interact with this component
   _api = {
     clear: () => !this._unmounted && this.onChange(this.state.emptyValue),
+    reset: () =>
+      !this._unmounted &&
+      this.onChange(
+        this.props.value ? fromJS(this.props.value) : this.state.emptyValue,
+      ),
     value: () => (!this._unmounted ? toJS(this.state.value) : undefined),
+    // Set the value. Validates that the type of the provided newValue is valid
+    setValue: newValue => {
+      if (!this._unmounted) {
+        if (
+          !newValue ||
+          (this.props.multiple && Array.isArray(newValue)) ||
+          (!this.props.multiple &&
+            typeof newValue === 'object' &&
+            !Array.isArray(newValue))
+        ) {
+          this.onChange(newValue ? fromJS(newValue) : this.state.emptyValue);
+        } else {
+          console.error(
+            "Typeahead Error: Invalid parameter type provided to 'setValue' function.",
+          );
+        }
+      }
+    },
   };
 
   // Reset initial state if the render key changes
@@ -77,13 +100,12 @@ class TypeaheadWrapper extends React.Component {
       component: Component,
       fieldWrapper = true,
       fieldLabel,
-      required = false,
       renderers = {},
       ...props
     } = this.props;
 
     // Convert renderers into components
-    const components = generateComponentsFromRenderers(renderers);
+    const components = generateComponentsFromRenderers(renderers, props);
 
     const component = (
       <Component
@@ -96,14 +118,14 @@ class TypeaheadWrapper extends React.Component {
 
     return !!fieldWrapper ? (
       <div
-        className={classNames('form-group', { required })}
+        className={classNames('form-group', { required: props.required })}
         data-element-type="wrapper"
       >
         {fieldLabel && (
           <label
             htmlFor={props.id}
             className="field-label"
-            aria-required={!!required}
+            aria-required={!!props.required}
           >
             {fieldLabel}
           </label>
@@ -137,7 +159,7 @@ const validateOptions = options => {
   } else {
     let valid = true;
 
-    // Validate options for BridgeTypeahead
+    // Validate options for specific types of typeahead
     if (options.type === 'bridge') {
       if (!options.search || typeof options.search !== 'object') {
         console.error(
@@ -189,6 +211,33 @@ const validateOptions = options => {
           "Typeahead Error: The 'options' option must be an array of objects.",
         );
         valid = false;
+      }
+    }
+
+    // Validate initial value
+    if (options.value) {
+      // If single value typeahead, value must be an object and can't be an array
+      if (!options.multiple) {
+        if (typeof options.value !== 'object' || Array.isArray(options.value)) {
+          console.error(
+            "Typeahead Error: The 'value' option must be an object.",
+          );
+          valid = false;
+        }
+      }
+      // If multi value typeahead, value must be an array and any children must be objects
+      else {
+        if (!Array.isArray(options.value)) {
+          console.error(
+            "Typeahead Error: The 'value' option must be an array when the 'multiple' option is true.",
+          );
+          valid = false;
+        } else if (options.value.some(v => typeof v !== 'object')) {
+          console.error(
+            "Typeahead Error: The 'value' option must be an array of objects when the 'multiple' option is true.",
+          );
+          valid = false;
+        }
       }
     }
 
