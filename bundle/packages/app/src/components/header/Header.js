@@ -71,7 +71,10 @@ export const HeaderComponent = ({
             toggle={mainNavDropdownToggle}
           >
             <DropdownToggle nav role="button">
-              <span>{menuLabel}</span> <i className="fa fa-caret-down" />
+              <span>
+                <I18n>{menuLabel}</I18n>
+              </span>{' '}
+              <i className="fa fa-caret-down" />
             </DropdownToggle>
             <DropdownMenu>
               {/* ALL KAPPS LINKS */}
@@ -145,7 +148,9 @@ export const HeaderComponent = ({
           </Dropdown>
         ) : (
           <div id="header-kapp-dropdown">
-            <span className="nav-link nav-link--static">{menuLabel}</span>
+            <span className="nav-link nav-link--static">
+              <I18n>{menuLabel}</I18n>
+            </span>
           </div>
         )}
       </NavItem>
