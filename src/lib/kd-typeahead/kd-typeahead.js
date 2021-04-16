@@ -222,6 +222,7 @@
           remote: {
             url: typeaheadConfig['bridgeUrl'],
             prepare: function (query, settings) {
+              settings.type = 'POST';
               // Replace %query string with search value
               settings.url = settings.url.replace(
                 '%QUERY',
