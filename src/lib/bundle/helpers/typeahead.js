@@ -79,10 +79,26 @@ class TypeaheadWrapper extends React.Component {
     },
   };
 
+  // Trigger onChange event if an initial value was provided
+  componentDidMount() {
+    if (
+      this.state.value &&
+      (!this.props.multiple || this.state.value.size > 0) &&
+      typeof this.props.onChange === 'function'
+    ) {
+      this.props.onChange(toJS(this.state.value));
+    }
+  }
+
   // Reset initial state if the render key changes
   componentDidUpdate(prevProps) {
     if (this.props.renderKey !== prevProps.renderKey) {
-      this.setState(initState(this.props));
+      const newState = initState(this.props);
+      this.setState(newState);
+      // Trigger onChange event
+      if (typeof this.props.onChange === 'function') {
+        this.props.onChange(toJS(newState.value));
+      }
     }
   }
 
