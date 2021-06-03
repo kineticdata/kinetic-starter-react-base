@@ -27,6 +27,7 @@ bundle.helpers = bundle.helpers || {};
 // Renders a typeahead component into the form
 bundle.helpers.Typeahead = Widgets.Typeahead;
 bundle.helpers.Signature = Widgets.Signature;
+bundle.helpers.PDF = Widgets.PDF;
 
 /**
  * Displays a toast message (bottom of the screen - disappears on its own after
