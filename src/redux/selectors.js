@@ -23,12 +23,12 @@ export const selectHasAccessToSupport = state =>
     ? state.app.authenticated &&
       (state.app.profile.spaceAdmin || selectHasRoleSubmissionSupport(state))
     : false;
-
-export const selectIsGuest = state =>
+export const selectHasUserAccess = state =>
   !state.app.loading
-    ? !state.app.authenticated ||
-      (state.app.profile.spaceAdmin === false &&
-        Utils.getRoles(state.app.profile).length === 0)
+    ? state.app.authenticated &&
+      (state.app.profile.spaceAdmin ||
+        (state.app.space.authorization &&
+          state.app.space.authorization['Users Access']))
     : false;
 
 export const selectMenuLinks = object =>

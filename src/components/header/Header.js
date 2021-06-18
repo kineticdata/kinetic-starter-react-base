@@ -37,7 +37,6 @@ export const HeaderComponent = ({
   toggleSidebarOpen,
   authenticated,
   authRoute,
-  isGuest,
   hasAccessToManagement,
   hasAccessToSupport,
   menuLabel,
@@ -50,7 +49,7 @@ export const HeaderComponent = ({
   <Navbar color="faded" light>
     <Nav navbar>
       {typeof toggleSidebarOpen === 'function' &&
-        !isGuest && (
+        authenticated && (
           <NavItem className="nav-item--border-right">
             <NavLink
               tag="button"
@@ -64,14 +63,17 @@ export const HeaderComponent = ({
           </NavItem>
         )}
       <NavItem className="nav-item--border-right mr-auto">
-        {!isGuest ? (
+        {authenticated ? (
           <Dropdown
             className="main-nav-dropdown"
             isOpen={mainNavDropdownOpen}
             toggle={mainNavDropdownToggle}
           >
             <DropdownToggle nav role="button">
-              <span>{menuLabel}</span> <i className="fa fa-caret-down" />
+              <span>
+                <I18n>{menuLabel}</I18n>
+              </span>{' '}
+              <i className="fa fa-caret-down" />
             </DropdownToggle>
             <DropdownMenu>
               {/* ALL KAPPS LINKS */}
@@ -145,11 +147,13 @@ export const HeaderComponent = ({
           </Dropdown>
         ) : (
           <div id="header-kapp-dropdown">
-            <span className="nav-link nav-link--static">{menuLabel}</span>
+            <span className="nav-link nav-link--static">
+              <I18n>{menuLabel}</I18n>
+            </span>
           </div>
         )}
       </NavItem>
-      {!isGuest && <AlertsDropdown />}
+      {authenticated && <AlertsDropdown />}
       {authenticated ? (
         <ProfileDropdown />
       ) : (
@@ -173,7 +177,6 @@ export const mapStateToProps = state => ({
   visibleKapps: selectVisibleKapps(state),
   hasAccessToManagement: selectors.selectHasAccessToManagement(state),
   hasAccessToSupport: selectors.selectHasAccessToSupport(state),
-  isGuest: selectors.selectIsGuest(state),
   spaceMenuLinks: selectors.selectMenuLinks(state.app.space),
 });
 

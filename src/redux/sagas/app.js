@@ -17,7 +17,12 @@ import { actions, types } from '../modules/app';
 import { actions as alertsActions } from '../modules/alerts';
 
 const MINIMUM_CE_VERSION = '5.0.0';
-const SPACE_INCLUDES = ['details', 'attributes', 'attributesMap'];
+const SPACE_INCLUDES = [
+  'details',
+  'attributes',
+  'attributesMap',
+  'authorization',
+];
 const KAPP_INCLUDES = ['details', 'attributes', 'attributesMap'];
 const PROFILE_INCLUDES = [
   'details',

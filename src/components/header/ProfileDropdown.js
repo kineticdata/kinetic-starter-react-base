@@ -44,7 +44,7 @@ const ProfileDropdownComponent = ({
   openInviteOthersForm,
   isOpen,
   toggle,
-  isGuest,
+  hasUserAccess,
   push,
 }) => (
   <NavItem>
@@ -84,25 +84,21 @@ const ProfileDropdownComponent = ({
               <I18n>Invite Others</I18n>
             </button>
           )}
-          {!isGuest && (
-            <button
-              onClick={openHelpForm}
-              className="dropdown-item"
-              role="menuitem"
-            >
-              <I18n>Get Help</I18n>
-            </button>
-          )}
-          {!isGuest && (
-            <button
-              onClick={openFeedbackForm}
-              className="dropdown-item"
-              role="menuitem"
-            >
-              <I18n>Give Feedback</I18n>
-            </button>
-          )}
-          {!isGuest && (
+          <button
+            onClick={openHelpForm}
+            className="dropdown-item"
+            role="menuitem"
+          >
+            <I18n>Get Help</I18n>
+          </button>
+          <button
+            onClick={openFeedbackForm}
+            className="dropdown-item"
+            role="menuitem"
+          >
+            <I18n>Give Feedback</I18n>
+          </button>
+          {hasUserAccess && (
             <Link
               to="/about"
               className="dropdown-item"
@@ -124,7 +120,7 @@ const ProfileDropdownComponent = ({
 
 const mapStateToProps = state => ({
   profile: state.app.profile,
-  isGuest: selectors.selectIsGuest(state),
+  hasUserAccess: selectors.selectHasUserAccess(state),
 });
 
 const mapDispatchToProps = { push };

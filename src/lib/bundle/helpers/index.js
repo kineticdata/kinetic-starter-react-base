@@ -7,6 +7,7 @@ import {
   PeopleSelect,
   SchedulerWidget,
   Calendar,
+  Widgets,
   addToast,
   addToastAlert,
   openConfirm,
@@ -17,7 +18,6 @@ import {
   validateNotificationOptions,
   processNotificationExits,
 } from './notifications';
-import { Typeahead } from './typeahead';
 
 // Ensure the bundle global object exists
 const bundle = typeof window.bundle !== 'undefined' ? window.bundle : {};
@@ -25,7 +25,9 @@ const bundle = typeof window.bundle !== 'undefined' ? window.bundle : {};
 bundle.helpers = bundle.helpers || {};
 
 // Renders a typeahead component into the form
-bundle.helpers.Typeahead = Typeahead;
+bundle.helpers.Typeahead = Widgets.Typeahead;
+bundle.helpers.Signature = Widgets.Signature;
+bundle.helpers.PDF = Widgets.PDF;
 
 /**
  * Displays a toast message (bottom of the screen - disappears on its own after
