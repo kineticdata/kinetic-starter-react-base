@@ -17,7 +17,12 @@ import { actions, types } from '../modules/app';
 import { actions as alertsActions } from '../modules/alerts';
 
 const MINIMUM_CE_VERSION = '5.0.0';
-const SPACE_INCLUDES = ['details', 'attributes', 'attributesMap'];
+const SPACE_INCLUDES = [
+  'details',
+  'attributes',
+  'attributesMap',
+  'authorization',
+];
 const KAPP_INCLUDES = ['details', 'attributes', 'attributesMap'];
 const PROFILE_INCLUDES = [
   'details',
@@ -118,9 +123,7 @@ export function* fetchAppTask({ payload }) {
     }
   } else {
     window.alert(
-      `You must be running Kinetic Request v${MINIMUM_CE_VERSION} or later in order to use this app. You are currently running v${
-        version.version
-      }.`,
+      `You must be running Kinetic Request v${MINIMUM_CE_VERSION} or later in order to use this app. You are currently running v${version.version}.`,
     );
   }
 }
