@@ -37,7 +37,6 @@ export const HeaderComponent = ({
   toggleSidebarOpen,
   authenticated,
   authRoute,
-  isGuest,
   hasAccessToManagement,
   hasAccessToSupport,
   menuLabel,
@@ -49,22 +48,21 @@ export const HeaderComponent = ({
 }) => (
   <Navbar color="faded" light>
     <Nav navbar>
-      {typeof toggleSidebarOpen === 'function' &&
-        !isGuest && (
-          <NavItem className="nav-item--border-right">
-            <NavLink
-              tag="button"
-              role="button"
-              onClick={toggleSidebarOpen}
-              id="toggle-sidebar"
-              aria-label="Toggle Sidebar"
-            >
-              <i className="fa fa-fw fa-bars" aria-hidden="true" />
-            </NavLink>
-          </NavItem>
-        )}
+      {typeof toggleSidebarOpen === 'function' && authenticated && (
+        <NavItem className="nav-item--border-right">
+          <NavLink
+            tag="button"
+            role="button"
+            onClick={toggleSidebarOpen}
+            id="toggle-sidebar"
+            aria-label="Toggle Sidebar"
+          >
+            <i className="fa fa-fw fa-bars" aria-hidden="true" />
+          </NavLink>
+        </NavItem>
+      )}
       <NavItem className="nav-item--border-right mr-auto">
-        {!isGuest ? (
+        {authenticated ? (
           <Dropdown
             className="main-nav-dropdown"
             isOpen={mainNavDropdownOpen}
@@ -89,33 +87,32 @@ export const HeaderComponent = ({
 
               {/* SPACE LEVEL LINKS */}
               <DropdownItem header>Space</DropdownItem>
-              {spaceMenuLinks.map(
-                link =>
-                  link.relative ? (
-                    <Link
-                      key={link.label}
-                      className="dropdown-item"
-                      to={link.path}
-                      onClick={mainNavDropdownToggle}
-                      role="menuitem"
-                    >
-                      <span className={`fa fa-fw ${link.icon}`} />
-                      <I18n>{link.label}</I18n>
-                    </Link>
-                  ) : (
-                    <a
-                      key={link.label}
-                      className="dropdown-item"
-                      href={link.path}
-                      onClick={mainNavDropdownToggle}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      role="menuitem"
-                    >
-                      <span className={`fa fa-fw ${link.icon}`} />
-                      <I18n>{link.label}</I18n>
-                    </a>
-                  ),
+              {spaceMenuLinks.map(link =>
+                link.relative ? (
+                  <Link
+                    key={link.label}
+                    className="dropdown-item"
+                    to={link.path}
+                    onClick={mainNavDropdownToggle}
+                    role="menuitem"
+                  >
+                    <span className={`fa fa-fw ${link.icon}`} />
+                    <I18n>{link.label}</I18n>
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    className="dropdown-item"
+                    href={link.path}
+                    onClick={mainNavDropdownToggle}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
+                    <span className={`fa fa-fw ${link.icon}`} />
+                    <I18n>{link.label}</I18n>
+                  </a>
+                ),
               )}
               <Link
                 className="dropdown-item"
@@ -154,7 +151,7 @@ export const HeaderComponent = ({
           </div>
         )}
       </NavItem>
-      {!isGuest && <AlertsDropdown />}
+      {authenticated && <AlertsDropdown />}
       {authenticated ? (
         <ProfileDropdown />
       ) : (
@@ -178,7 +175,6 @@ export const mapStateToProps = state => ({
   visibleKapps: selectVisibleKapps(state),
   hasAccessToManagement: selectors.selectHasAccessToManagement(state),
   hasAccessToSupport: selectors.selectHasAccessToSupport(state),
-  isGuest: selectors.selectIsGuest(state),
   spaceMenuLinks: selectors.selectMenuLinks(state.app.space),
 });
 
