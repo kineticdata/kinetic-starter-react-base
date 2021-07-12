@@ -1,0 +1,502 @@
+/**
+ * Layout - App
+ ******************************************************************************/
+
+html {
+  @include ms-respond(font-size, 0);
+  box-sizing: border-box;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  position: relative;
+  z-index: 0;
+}
+
+.app-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: $body-bg;
+}
+
+.app-sidebar {
+  // Color sidebar variables
+  $bg: $primary;
+  $bgCmpl: color-yiq($primary);
+  $bgHover: mix($bg, $bgCmpl, 95%);
+  $bgHoverCmpl: color-yiq($bgHover);
+  $borderColor: mix($bg, $bgCmpl, 85%);
+  // Width/x sidebar variables
+  $width: 14rem;
+  $widthClosed: 3.5rem;
+  $paddingX: 0.5rem;
+  $btnPaddingX: 0.25rem;
+  // Height/y sidebar vairables
+  $paddingY: 0.5rem;
+  $btnHeight: 3rem;
+  $btnPaddingY: 0rem;
+
+  flex: 0 0 $width;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg;
+  color: $bgCmpl;
+  transition: all 0.3s;
+  z-index: 1032;
+
+  > .app-sidebar__group {
+    position: relative;
+    flex: 0 1 auto;
+    padding: $paddingY $paddingX;
+    overflow: hidden;
+    min-height: (2 * $btnHeight) + (2 * $paddingY);
+
+    // Styling for groups that have overflow and must scroll
+    &.scrollable {
+      &:not(:first-child) {
+        border-top: 1px solid $borderColor;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid $borderColor;
+      }
+      + .scrollable {
+        border-top: none;
+      }
+    }
+
+    // Non scrolling groups, such as for toggle
+    &.app-sidebar__group--toggle,
+    &.app-sidebar__group--static {
+      flex: 0 0 auto;
+      min-height: $btnHeight + (2 * $paddingY);
+    }
+    &.app-sidebar__group--toggle {
+      border-bottom: 1px solid $borderColor;
+      + .scrollable {
+        border-top: none;
+      }
+    }
+
+    // Show scrollbar on hover of scrolling group if needed
+    &:hover:not(.app-sidebar__group--toggle),
+    &:hover:not(.app-sidebar__group--static) {
+      overflow: auto;
+    }
+
+    // Scrollbar Styling
+    @include scrollbar($borderColor);
+
+    // Buttons and links
+    > a,
+    > button {
+      display: flex;
+      align-items: center;
+      padding: $btnPaddingY $btnPaddingX;
+      min-height: $btnHeight;
+      width: 100%;
+      background-color: $bg;
+      color: $bgCmpl;
+      border: none;
+      border-radius: $border-radius;
+      transition: all 0.3s;
+      overflow: hidden;
+
+      &:hover {
+        background-color: $bgHover;
+        color: $bgHoverCmpl;
+        text-decoration: none;
+      }
+
+      &.toggle {
+        width: $widthClosed - ($paddingX * 2);
+        margin-left: calc(100% - (#{$widthClosed} - (#{$paddingX} * 2)));
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
+
+      > span.fa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 $widthClosed - ($paddingX * 2) - ($btnPaddingX * 2);
+        font-size: 1.125rem;
+        line-height: 0.875rem * 1.5;
+        transition: all 0.5s;
+
+        + span.title {
+          flex: 1 1 auto;
+          margin-left: 0.25rem;
+          font-size: 0.875rem;
+          min-width: $width - $widthClosed;
+          transition: all 0.3s;
+        }
+      }
+    }
+
+    &--divider {
+      margin: $paddingY ($paddingX + $btnPaddingX);
+      height: 1px;
+      background-color: $borderColor;
+    }
+  }
+
+  &.closed:hover {
+    margin-right: $widthClosed - $width;
+  }
+  &.closing,
+  &.closed:not(:hover) {
+    flex-basis: $widthClosed;
+    overflow: hidden;
+
+    a,
+    button {
+      width: $widthClosed - 1rem;
+      > span.fa {
+        + span.title {
+          opacity: 0;
+        }
+      }
+    }
+  }
+  &.closing,
+  &.closed {
+    button.toggle {
+      margin-left: 0;
+      > span.fa {
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  @media all and (max-width: 767px) {
+    margin-left: -$width;
+    margin-right: 0;
+
+    &.open {
+      margin-left: 0;
+      margin-right: -$width;
+
+      > .app-sidebar__group {
+        &:not(.app-sidebar__group--toggle),
+        &:not(.app-sidebar__group--static) {
+          overflow: auto;
+        }
+      }
+    }
+  }
+}
+
+.app-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.app-header {
+  // Color header variables
+  $bg: $body-bg;
+  // Width/x header variables
+  $paddingX: 0.5rem;
+  $btnWidth: 3rem;
+  $btnPaddingX: 0.25rem;
+  // Height/y header vairables
+  $paddingY: 0.5rem;
+  $btnHeight: 3rem;
+  $btnPaddingY: 0.25rem;
+
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: $paddingY $paddingX;
+  min-height: $btnHeight + (2 * $paddingY);
+  // line-height: $btnHeight;
+  background-color: $bg;
+  border-bottom: 1px solid transparent;
+  color: $gray-700;
+  transition: border 0.5s, box-shadow 0.5s;
+  z-index: 1024;
+
+  &--sticky {
+    border-bottom: 1px solid $border-color;
+    + .app-main {
+      overflow: auto;
+    }
+  }
+
+  // Styles for header shown over content, when page is scrolled
+  &.scrolled {
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+  }
+
+  > * {
+    flex: 0 0 auto;
+  }
+
+  // Styles for the buttons
+  > a,
+  > button,
+  > .dropdown > a,
+  > .dropdown > button,
+  > .kinetic-typeahead > .search,
+  > .kinetic-typeahead > .goto-search {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $btnPaddingY $btnPaddingX;
+    height: $btnHeight;
+    width: $btnWidth;
+    background-color: transparent;
+    color: $gray-700;
+    border: none;
+    border-radius: $border-radius;
+    transition: all 0.3s;
+    overflow: hidden;
+
+    &:disabled {
+      opacity: 0.7;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &.logo {
+      width: auto;
+      padding: 0.375rem;
+      > img {
+        flex: 0 0 auto;
+        height: 100%;
+      }
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  > .kinetic-typeahead > span.search:hover {
+    background-color: transparent;
+  }
+
+  .kinetic-typeahead {
+    flex: 0 1 3rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    max-width: 50rem;
+
+    > div {
+      width: 100%;
+    }
+
+    input {
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $border-color;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      padding: 0.28125rem 0;
+      transition: padding 0.1s;
+      width: 100%;
+      height: $btnHeight;
+    }
+
+    &.open {
+      flex-grow: 1;
+      padding: 0 1rem;
+
+      input {
+        padding: 0.28125rem 0.75rem;
+      }
+    }
+    &:not(.open) {
+      > .goto-search {
+        padding: 0;
+        width: 0;
+        opacity: 0;
+      }
+    }
+
+    .suggestions {
+      left: $btnWidth + 1rem;
+      right: $btnWidth + 1rem;
+      box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+      border: none;
+
+      // Scrollbar Styling
+      @include scrollbar(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.04));
+    }
+  }
+}
+
+.app-search--modal {
+  .modal-content {
+    position: relative;
+
+    .kinetic-typeahead {
+      display: flex;
+      flex-direction: row;
+      position: initial;
+
+      button {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.25rem;
+        height: 3rem;
+        width: 3rem;
+        background-color: transparent;
+        color: $gray-700;
+        border: none;
+        border-radius: $border-radius;
+        transition: all 0.3s;
+        overflow: hidden;
+
+        &:disabled {
+          opacity: 0.7;
+        }
+      }
+
+      .divider {
+        height: 2rem;
+        margin: 0.5rem 0.25rem;
+        border-left: 1px solid $border-color;
+      }
+
+      > div {
+        flex: 1 1 auto;
+
+        input {
+          height: 3rem;
+          border: none;
+          border-radius: 0;
+        }
+      }
+
+      .suggestions {
+        left: 0;
+        right: 0;
+        top: 3rem;
+        bottom: 0;
+        max-height: none;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid $border-color;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.app-search--inline {
+  .kinetic-typeahead {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      height: 3rem;
+      width: 3rem;
+      background-color: transparent;
+      color: $gray-700;
+      border: none;
+      border-radius: $border-radius;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    > div {
+      flex: 1 1 auto;
+      margin-right: 1.5rem;
+
+      input {
+        height: 3rem;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .suggestions {
+      margin-top: 1.5rem;
+      max-height: none;
+      box-shadow: none;
+      border: none;
+      left: 3rem;
+      right: 1.5rem;
+    }
+  }
+}
+
+.app-header,
+.app-search--modal,
+.app-search--inline {
+  .kinetic-typeahead .suggestions {
+    .suggestion {
+      padding: 0.75rem;
+      background: linear-gradient(to right, $gray-100, transparent);
+
+      .small {
+        font-size: 0.875rem;
+        color: $gray-600;
+      }
+      .large {
+        font-size: 1rem;
+      }
+      .icon .fa {
+        font-size: 1.5rem;
+        color: $gray-500;
+        margin-right: 0.75rem;
+      }
+
+      &:hover,
+      &.active {
+        background: $gray-100;
+        color: $link-color;
+        .small {
+          color: mix($gray-600, $link-color, 70%);
+        }
+        .icon .fa {
+          color: mix($gray-500, $link-color, 70%);
+        }
+      }
+    }
+
+    &.inline > ul > li {
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .suggestion {
+        border-radius: $border-radius;
+      }
+    }
+  }
+}
+
+.app-main {
+  flex: 1 1 auto;
+}

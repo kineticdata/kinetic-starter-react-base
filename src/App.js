@@ -1,3 +1,5 @@
+// import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/css/v4-shims.css';
 import 'font-awesome/css/font-awesome.css';
 import 'typeface-open-sans/index.css';
 import './assets/styles/master.scss';
@@ -6,13 +8,11 @@ import { connect } from 'react-redux';
 import { matchPath } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { compose, lifecycle, withHandlers, withProps } from 'recompose';
-import classNames from 'classnames';
 import { Utils } from '@kineticdata/bundle-common';
 import { actions } from './redux/modules/app';
 import { actions as alertsActions } from './redux/modules/alerts';
-import { actions as layoutActions } from './redux/modules/layout';
 
-import { Header as DefaultHeader } from './components/header/Header';
+import LayoutRenderer from './components/layout';
 import { AppProvider } from './AppProvider';
 // Import available packages
 import ServicesApp from '@kineticdata/bundle-services';
@@ -50,40 +50,6 @@ const getAppProvider = ({ kapp, pathname }) => {
   }
 };
 
-// Default bundle layout
-const DefaultLayout = ({ header, sidebar, main, ...props }) => (
-  <div className="app-wrapper">
-    {header && <div className="app-header">{header}</div>}
-    <div
-      className={classNames('app-body', {
-        'open-sidebar': sidebar && props.sidebarOpen,
-        'closed-sidebar': sidebar && !props.sidebarOpen,
-      })}
-    >
-      {sidebar && (
-        <aside
-          className="app-sidebar-container"
-          aria-labelledby="toggle-sidebar"
-          aria-hidden={props.sidebarOpen ? 'false' : 'true'}
-        >
-          {sidebar}
-        </aside>
-      )}
-
-      <div
-        className="app-main-container"
-        onClick={
-          sidebar && props.sidebarOpen && props.layoutSize === 'small'
-            ? props.toggleSidebarOpen
-            : undefined
-        }
-      >
-        {main}
-      </div>
-    </div>
-  </div>
-);
-
 export const AppComponent = props =>
   !props.loading && (
     <props.AppProvider
@@ -94,34 +60,15 @@ export const AppComponent = props =>
         layoutSize: props.layoutSize,
       }}
       location={props.location}
-      render={({
-        components: {
-          Layout = DefaultLayout,
-          Header = DefaultHeader,
-          Sidebar,
-          Main,
-        } = {},
-        header: headerContent,
-        sidebar: sidebarContent,
-        main: mainContent,
-      }) => {
-        // Create sidebar content
-        const sidebar =
-          !props.sidebarHidden && Sidebar ? <Sidebar /> : sidebarContent;
-        // Create header content
-        const header = !props.headerHidden ? (
-          <Header toggleSidebarOpen={sidebar && props.toggleSidebarOpen} />
-        ) : (
-          headerContent
-        );
-        // Create main content
-        const main = Main ? <Main /> : mainContent;
-
-        // Render the laytou with the content
-        return (
-          <Layout {...props} header={header} sidebar={sidebar} main={main} />
-        );
-      }}
+      render={appProps => (
+        <LayoutRenderer
+          mobile={props.layoutSize === 'small'}
+          shouldHideHeader={props.shouldHideHeader}
+          shouldHideSidebar={props.shouldHideSidebar}
+          shouldSuppressSidebar={props.shouldSuppressSidebar}
+          {...appProps}
+        />
+      )}
     />
   );
 
@@ -130,8 +77,6 @@ export const mapStateToProps = state => ({
   authenticated: state.app.authenticated,
   authRoute: state.app.authRoute,
   kapps: state.app.kapps,
-  sidebarOpen: state.layout.sidebarOpen,
-  suppressedSidebarOpen: state.layout.suppressedSidebarOpen,
   layoutSize: state.layout.size,
   kappSlug: state.app.kappSlug,
   kapp: state.app.kapp,
@@ -143,8 +88,6 @@ export const mapDispatchToProps = {
   push,
   loadApp: actions.fetchApp,
   fetchAlertsRequest: alertsActions.fetchAlertsRequest,
-  setSidebarOpen: layoutActions.setSidebarOpen,
-  setSuppressedSidebarOpen: layoutActions.setSuppressedSidebarOpen,
 };
 
 export const App = compose(
@@ -159,18 +102,18 @@ export const App = compose(
   withProps(({ authenticated, location, kapp, profile, ...props }) => {
     const AppProvider = getAppProvider({ kapp, pathname: location.pathname });
     const appLocation = props.getLocation(AppProvider);
-    const headerHidden = AppProvider
+    const shouldHideHeader = AppProvider
       ? AppProvider.shouldHideHeader &&
-        AppProvider.shouldHideHeader({
+        !!AppProvider.shouldHideHeader({
           appLocation,
           authenticated,
           location,
           kapp,
         })
       : true;
-    const sidebarHidden = AppProvider
+    const shouldHideSidebar = AppProvider
       ? AppProvider.shouldHideSidebar &&
-        AppProvider.shouldHideSidebar({
+        !!AppProvider.shouldHideSidebar({
           appLocation,
           authenticated,
           location,
@@ -180,33 +123,22 @@ export const App = compose(
     const shouldSuppressSidebar =
       AppProvider &&
       AppProvider.shouldSuppressSidebar &&
-      AppProvider.shouldSuppressSidebar({
+      !!AppProvider.shouldSuppressSidebar({
         appLocation,
         authenticated,
         location,
         kapp,
       });
-    const sidebarOpen = shouldSuppressSidebar
-      ? props.suppressedSidebarOpen
-      : props.sidebarOpen;
     return {
       AppProvider,
       bodyClassName: AppProvider.bodyClassName || '',
-      headerHidden,
-      sidebarHidden,
+      shouldHideHeader,
+      shouldHideSidebar,
       shouldSuppressSidebar,
-      sidebarOpen,
       appLocation,
     };
   }),
   withHandlers({
-    toggleSidebarOpen: props =>
-      !props.sidebarHidden
-        ? () =>
-            props.shouldSuppressSidebar
-              ? props.setSuppressedSidebarOpen(!props.sidebarOpen)
-              : props.setSidebarOpen(!props.sidebarOpen)
-        : undefined,
     refreshApp: props => () => props.loadApp(),
   }),
   lifecycle({
