@@ -23,7 +23,12 @@ const SPACE_INCLUDES = [
   'attributesMap',
   'authorization',
 ];
-const KAPP_INCLUDES = ['details', 'attributes', 'attributesMap'];
+const KAPP_INCLUDES = [
+  'details',
+  'attributes',
+  'attributesMap',
+  'authorization',
+];
 const PROFILE_INCLUDES = [
   'details',
   'attributes',
@@ -41,7 +46,6 @@ const PROFILE_INCLUDES = [
 export function* fetchAppTask({ payload }) {
   const authenticated = yield select(state => state.app.authenticated);
   const { version } = yield call(fetchVersion, { public: !authenticated });
-  const initialLoad = payload;
   // Check to make sure the version is compatible with this bundle.
   if (
     semver.satisfies(semver.coerce(version.version), `>=${MINIMUM_CE_VERSION}`)
@@ -56,15 +60,11 @@ export function* fetchAppTask({ payload }) {
     ]);
 
     // Fetch data needed for initialization from redux
-    const { currentRoute, space, profile, kapps, errors } = yield select(
-      state => ({
-        errors: state.app.errors,
-        currentRoute: state.router.location.pathname,
-        space: state.app.space,
-        profile: state.app.profile,
-        kapps: state.app.kapps,
-      }),
-    );
+    const { profile, kapps, errors } = yield select(state => ({
+      profile: state.app.profile,
+      kapps: state.app.kapps,
+      errors: state.app.errors,
+    }));
 
     // Make sure there were no errors fetching metadata
     if (errors.isEmpty()) {
@@ -92,30 +92,6 @@ export function* fetchAppTask({ payload }) {
         yield put(actions.setUserLocale(defaultLocale && defaultLocale.code));
       }
 
-      // Determine default kapp route
-      // if (initialLoad && currentRoute === '/') {
-      //   const defaultUserKapp = Utils.getProfileAttributeValue(
-      //     profile,
-      //     'Default Kapp Display',
-      //   );
-      //   const defaultSpaceKapp = Utils.getAttributeValue(
-      //     space,
-      //     'Default Kapp Display',
-      //   );
-      //   if (defaultUserKapp && kapps.find(k => k.slug === defaultUserKapp)) {
-      //     yield put(push(`/kapps/${defaultUserKapp}`));
-      //   } else if (
-      //     defaultUserKapp &&
-      //     ['discussions'].includes(defaultUserKapp)
-      //   ) {
-      //     yield put(push(`/${defaultUserKapp}`));
-      //   } else if (
-      //     defaultSpaceKapp &&
-      //     kapps.find(k => k.slug === defaultSpaceKapp)
-      //   ) {
-      //     yield put(push(`/kapps/${defaultSpaceKapp}`));
-      //   }
-      // }
       yield put(actions.fetchAppSuccess());
       if (authenticated) {
         yield put(alertsActions.fetchAlertsRequest());
@@ -134,6 +110,7 @@ export function* fetchAppTask({ payload }) {
 export function* fetchKappsTask(authenticated) {
   const { kapps, error } = yield call(fetchKapps, {
     include: KAPP_INCLUDES.join(','),
+    limit: 1000,
     public: !authenticated,
   });
   if (error) {

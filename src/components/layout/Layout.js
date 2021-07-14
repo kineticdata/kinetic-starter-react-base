@@ -8,9 +8,13 @@ export const Layout = ({
   sidebarRef,
   headerRef,
   bodyRef,
+  asideRef,
   mobile,
   sidebarOpen,
   toggleSidebar,
+  resizeAside,
+  toggleAside,
+  asideWidth,
 }) => {
   return (
     <div className="app-wrapper">
@@ -35,13 +39,57 @@ export const Layout = ({
         }
       >
         {!!header && (
-          <header className="app-header app-header--sticky" ref={headerRef}>
+          <header
+            className="app-header"
+            ref={headerRef}
+            style={
+              asideWidth && !mobile
+                ? { marginRight: `-${asideWidth[1]}px` }
+                : undefined
+            }
+          >
             {header}
           </header>
         )}
 
-        <main className="app-main">{main}</main>
+        <main
+          className="app-main"
+          style={
+            asideWidth && !mobile
+              ? { marginRight: `-${asideWidth[1]}px` }
+              : undefined
+          }
+        >
+          {main}
+        </main>
       </div>
+      <aside
+        className="app-aside"
+        id="app-aside"
+        ref={asideRef}
+        style={
+          asideWidth && !mobile
+            ? { flexBasis: `${asideWidth[0]}px` }
+            : undefined
+        }
+      >
+        <div className="controls">
+          <button
+            className="aside-toggle"
+            aria-label="Toggle Aside"
+            onClick={toggleAside}
+          >
+            <span className="fa fa-chevron-right" />
+          </button>
+          <button
+            className="aside-handle"
+            aria-label="Resize Aside"
+            onMouseDown={resizeAside}
+          >
+            <span className="fa fa-bars fa-rotate-90" />
+          </button>
+        </div>
+      </aside>
     </div>
   );
 };
