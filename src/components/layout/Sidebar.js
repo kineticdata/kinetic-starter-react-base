@@ -69,7 +69,7 @@ const SidebarComponent = props => {
         )}
         {Utils.isKappVisible(props.surveyKapp) && (
           <SidebarLink
-            to={`/kapps/${props.surveyKapp.slug}`}
+            to={`/kapps/${props.surveyKapp.slug}/admin`}
             icon="fa fa-clipboard"
           >
             <I18n>Survey</I18n>
@@ -87,7 +87,10 @@ const SidebarComponent = props => {
           </SidebarLink>
         )}
         {props.surveyKapp && (
-          <SidebarLink to="/surveys" icon="fa fa-pencil-square-o">
+          <SidebarLink
+            to={`/kapps/${props.surveyKapp.slug}`}
+            icon="fa fa-pencil-square-o"
+          >
             <I18n>My Surveys</I18n>
           </SidebarLink>
         )}
