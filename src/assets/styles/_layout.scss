@@ -40,6 +40,7 @@ body {
   $bgHover: mix($bg, $bgCmpl, 95%);
   $bgHoverCmpl: color-yiq($bgHover);
   $borderColor: mix($bg, $bgCmpl, 85%);
+  $scrollbarColor: mix($bg, $bgCmpl, 50%);
   // Width/x sidebar variables
   $width: 14rem;
   $widthClosed: 3.5rem;
@@ -98,7 +99,7 @@ body {
     }
 
     // Scrollbar Styling
-    @include scrollbar($borderColor);
+    @include scrollbar($scrollbarColor);
 
     // Buttons and links
     > a,
@@ -110,7 +111,7 @@ body {
       width: 100%;
       background-color: $bg;
       color: $bgCmpl;
-      border: none;
+      border: 1px solid transparent;
       border-radius: $border-radius;
       transition: all 0.3s;
       overflow: hidden;
@@ -124,6 +125,11 @@ body {
       &.toggle {
         width: $widthClosed - ($paddingX * 2);
         margin-left: calc(100% - (#{$widthClosed} - (#{$paddingX} * 2)));
+      }
+
+      &.active {
+        background-color: $bgHover;
+        border-color: $borderColor;
       }
 
       &:not(:last-child) {
@@ -141,7 +147,7 @@ body {
 
         + span.title {
           flex: 1 1 auto;
-          margin-left: 0.25rem;
+          margin-left: 0.5rem;
           font-size: 0.875rem;
           min-width: $width - $widthClosed;
           transition: all 0.3s;
@@ -207,6 +213,12 @@ body {
   display: flex;
   flex-direction: column;
   overflow: auto;
+
+  > * {
+    transition: margin-right 0.3s;
+  }
+
+  @include scrollbar();
 }
 
 .app-header {
@@ -342,7 +354,7 @@ body {
       border: none;
 
       // Scrollbar Styling
-      @include scrollbar(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.04));
+      @include scrollbar();
     }
   }
 }
@@ -499,4 +511,153 @@ body {
 
 .app-main {
   flex: 1 1 auto;
+}
+
+.app-aside {
+  $width: 23.5rem;
+
+  position: relative;
+  flex: 0 0 0px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+  z-index: 1032;
+  background-color: #fafafd;
+
+  .controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    &:only-child {
+      display: none;
+    }
+
+    button {
+      position: absolute;
+      width: 1.25rem;
+      height: 2rem;
+      border: none;
+      border-radius: 0 $border-radius $border-radius 0;
+      background-color: $primary;
+      color: color-yiq($primary);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: border-radius 0.3s;
+
+      &.aside-toggle {
+        top: 3rem;
+        > .fa {
+          transition: transform 0.3s;
+        }
+      }
+      &.aside-handle {
+        top: calc(50% - 1rem);
+        cursor: grab;
+      }
+    }
+  }
+
+  .content {
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    @include scrollbar();
+
+    > button.btn {
+      flex: 0 0 auto;
+      align-self: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    + .content {
+      border-top: 1px solid $border-color;
+    }
+  }
+
+  @media (max-width: 767px) {
+    border-left: none;
+
+    .controls {
+      display: none;
+    }
+
+    .content {
+      padding: 1.5rem;
+    }
+  }
+}
+
+.app-wrapper:not(.aside--open) {
+  $width: 23.5rem;
+
+  > .app-body > * {
+    margin-right: 0 !important;
+  }
+
+  > .app-aside {
+    flex-basis: $width !important;
+    margin-right: -$width !important;
+  }
+}
+
+.app-wrapper.aside--open {
+  > .app-aside {
+    box-shadow: 0.25rem 0 1.25rem rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 767px) {
+      flex-basis: 100% !important;
+      margin-left: -100%;
+
+      .controls {
+        display: none;
+      }
+    }
+  }
+
+  &.aside--collapsed {
+    $width: 23.5rem;
+    $visibleWidth: 1.5rem;
+
+    > .app-body > * {
+      margin-right: 0 !important;
+    }
+
+    > .app-aside {
+      flex-basis: $width !important;
+      box-shadow: 0.25rem 0 1.25rem rgba(0, 0, 0, 0.5);
+      margin-right: -($width - $visibleWidth) !important;
+
+      .controls button {
+        left: 0.25rem;
+        border-radius: $border-radius 0 0 $border-radius;
+
+        &.aside-toggle > .fa {
+          transform: rotate(180deg);
+        }
+        &.aside-handle {
+          display: none;
+        }
+      }
+
+      @media (max-width: 767px) {
+        border-left: none;
+      }
+    }
+  }
+
+  &.aside--resizing {
+    > .app-body > * {
+      transition: none;
+    }
+    > .app-aside {
+      transition: none;
+    }
+  }
 }

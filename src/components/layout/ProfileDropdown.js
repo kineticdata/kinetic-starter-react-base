@@ -45,6 +45,7 @@ const ProfileDropdownComponent = ({
   isOpen,
   toggle,
   hasUserAccess,
+  hasTeamAccess,
   push,
 }) => (
   <Dropdown isOpen={isOpen} toggle={toggle} className="profile-dropdown">
@@ -99,6 +100,16 @@ const ProfileDropdownComponent = ({
             <I18n>About My Space</I18n>
           </Link>
         )}
+        {hasTeamAccess && (
+          <Link
+            to="/teams"
+            className="dropdown-item"
+            onClick={toggle}
+            role="menuitem"
+          >
+            <I18n>Teams</I18n>
+          </Link>
+        )}
         <hr />
         <button onClick={logout} className="dropdown-item" role="menuitem">
           <I18n>Logout</I18n>
@@ -111,6 +122,7 @@ const ProfileDropdownComponent = ({
 const mapStateToProps = state => ({
   profile: state.app.profile,
   hasUserAccess: selectors.selectHasUserAccess(state),
+  hasTeamAccess: selectors.selectHasTeamAccess(state),
 });
 
 const mapDispatchToProps = { push };

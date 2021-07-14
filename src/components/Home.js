@@ -4,7 +4,6 @@ import { compose, lifecycle, withHandlers, withState } from 'recompose';
 import { Link } from 'react-router-dom';
 import { PageTitle } from './shared/PageTitle';
 import {
-  addToast,
   selectQueueKapp,
   selectServicesKapp,
   selectSurveyKapp,
@@ -23,11 +22,11 @@ export const HomeComponent = ({
   <div className="page-container">
     <div className="page-panel">
       <PageTitle />
-      <div class="page-title-heading">
+      <div className="page-title-heading">
         <div className="page-title__content">
           <h1>Welcome!</h1>
         </div>
-      </div>{' '}
+      </div>
     </div>
   </div>
 );
