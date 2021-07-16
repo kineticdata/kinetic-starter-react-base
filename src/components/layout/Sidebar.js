@@ -86,6 +86,14 @@ const SidebarComponent = props => {
             <I18n>My Requests</I18n>
           </SidebarLink>
         )}
+        {Utils.isKappVisible(props.servicesKapp) && (
+          <SidebarLink
+            to={`/kapps/${props.servicesKapp.slug}/favorites`}
+            icon="fa fa-star-o"
+          >
+            <I18n>My Favorites</I18n>
+          </SidebarLink>
+        )}
         {props.surveyKapp && (
           <SidebarLink
             to={`/kapps/${props.surveyKapp.slug}`}
