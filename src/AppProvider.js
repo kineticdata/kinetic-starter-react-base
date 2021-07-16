@@ -12,7 +12,7 @@ import { parse } from 'query-string';
 import { I18n } from '@kineticdata/react';
 
 import { PageTitle } from './components/shared/PageTitle';
-import { Home } from './components/Home';
+import { Home } from './components/home/Home';
 import { SearchResults } from './components/SearchResults';
 import { Form } from './components/Form';
 import { Profile } from './components/Profile';
