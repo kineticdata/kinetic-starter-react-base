@@ -28,6 +28,10 @@ const KAPP_INCLUDES = [
   'attributes',
   'attributesMap',
   'authorization',
+  'categories',
+  'categories.attributesMap',
+  'categories.categorizations.form',
+  'categories.categorizations.form.attributes[Icon]',
 ];
 const PROFILE_INCLUDES = [
   'details',
