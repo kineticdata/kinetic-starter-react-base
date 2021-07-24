@@ -14,9 +14,12 @@ const HeaderComponent = props => (
         <span className="fa fa-bars" />
       </button>
     )}
-    <Link className="logo" to="/">
-      <img src={logo} alt="Logo" />
-    </Link>
+    {props.logo &&
+      props.logo !== 'Disabled' && (
+        <Link className="logo" to="/">
+          <img src={props.logo} alt="Logo" />
+        </Link>
+      )}
 
     <div className="mr-auto" aria-hidden="true" />
 
@@ -33,5 +36,5 @@ const HeaderComponent = props => (
 export const Header = connect(state => ({
   authenticated: state.app.authenticated,
   authRoute: state.app.authRoute,
-  logo: Utils.getAttributeValue(state.app.space, 'Logo'),
+  logo: Utils.getAttributeValue(state.app.space, 'Logo', logo),
 }))(HeaderComponent);

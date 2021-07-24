@@ -73,20 +73,14 @@ export const Layout = ({
             : undefined
         }
       >
-        <div className="controls">
+        <div className="controls" onMouseDown={resizeAside}>
           <button
             className="aside-toggle"
             aria-label="Toggle Aside"
             onClick={toggleAside}
+            onMouseDown={e => e.stopPropagation()}
           >
             <span className="fa fa-chevron-right" />
-          </button>
-          <button
-            className="aside-handle"
-            aria-label="Resize Aside"
-            onMouseDown={resizeAside}
-          >
-            <span className="fa fa-bars fa-rotate-90" />
           </button>
         </div>
       </aside>
