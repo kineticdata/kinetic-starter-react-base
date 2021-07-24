@@ -209,15 +209,20 @@ export default connect(
 
   // Event handler for mouseDown for starting the aside resize
   const resizeAside = e => {
-    asideX.current = e.clientX;
-    asideRef.current.parentElement.classList.add('aside--resizing');
-    asideRef.current.parentElement.classList.remove('aside--collapsed');
-    document.body.addEventListener('mousemove', onResizeAside);
-    document.body.addEventListener('mouseup', onResizeAsideEnd, { once: true });
+    if (
+      !asideRef.current.parentElement.classList.contains('aside--collapsed')
+    ) {
+      asideX.current = e.clientX;
+      asideRef.current.parentElement.classList.add('aside--resizing');
+      document.body.addEventListener('mousemove', onResizeAside);
+      document.body.addEventListener('mouseup', onResizeAsideEnd, {
+        once: true,
+      });
+    }
   };
 
   // Toggle collapsed state of the aside
-  const toggleAside = () => {
+  const toggleAside = e => {
     if (asideRef.current) {
       if (
         asideRef.current.parentElement.classList.contains('aside--collapsed')

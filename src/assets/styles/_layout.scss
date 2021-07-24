@@ -35,12 +35,13 @@ body {
 
 .app-sidebar {
   // Color sidebar variables
-  $bg: $primary;
-  $bgCmpl: color-yiq($primary);
+  $bg: $dark;
+  $bgCmpl: color-yiq($bg);
   $bgHover: mix($bg, $bgCmpl, 95%);
   $bgHoverCmpl: color-yiq($bgHover);
-  $borderColor: mix($bg, $bgCmpl, 85%);
+  $borderColor: mix($bg, $bgCmpl, 80%);
   $scrollbarColor: mix($bg, $bgCmpl, 50%);
+  $activeColor: #26cad3;
   // Width/x sidebar variables
   $width: 14rem;
   $widthClosed: 3.5rem;
@@ -130,6 +131,7 @@ body {
       &.active {
         background-color: $bgHover;
         border-color: $borderColor;
+        color: $activeColor;
       }
 
       &:not(:last-child) {
@@ -143,7 +145,7 @@ body {
         flex: 0 0 $widthClosed - ($paddingX * 2) - ($btnPaddingX * 2);
         font-size: 1.125rem;
         line-height: 0.875rem * 1.5;
-        transition: all 0.5s;
+        transition: all 0.3s;
 
         + span.title {
           flex: 1 1 auto;
@@ -244,7 +246,7 @@ body {
   background-color: $bg;
   border-bottom: 1px solid transparent;
   color: $gray-700;
-  transition: border 0.5s, box-shadow 0.5s;
+  transition: border 0.3s, box-shadow 0.3s;
   z-index: 1024;
 
   &--sticky {
@@ -529,6 +531,9 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
+    width: 0.75rem;
+    z-index: 1;
+    transition: background-color 0.3s;
 
     &:only-child {
       display: none;
@@ -540,8 +545,8 @@ body {
       height: 2rem;
       border: none;
       border-radius: 0 $border-radius $border-radius 0;
-      background-color: $primary;
-      color: color-yiq($primary);
+      background-color: $dark;
+      color: color-yiq($dark);
       font-size: 0.75rem;
       display: flex;
       align-items: center;
@@ -550,15 +555,26 @@ body {
       transition: border-radius 0.3s;
 
       &.aside-toggle {
-        top: 3rem;
+        top: 0.5rem;
         > .fa {
           transition: transform 0.3s;
         }
       }
-      &.aside-handle {
-        top: calc(50% - 1rem);
-        cursor: grab;
-      }
+    }
+
+
+    &:after {
+      content: '\f0c9';
+      font-family: FontAwesome;
+      display: block;
+      position: relative;
+      top: calc(50% - 1rem);
+      transform: rotate(90deg) scaleX(2);
+      font-size: 0.625rem;
+      line-height: 1;
+      color: $dark;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
   }
 
@@ -569,11 +585,31 @@ body {
     display: flex;
     flex-direction: column;
     @include scrollbar();
+    transition: opacity 0.3s;
 
-    > button.btn {
-      flex: 0 0 auto;
-      align-self: flex-end;
-      margin-bottom: 1rem;
+    > .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: -1.5rem -1.5rem 1.5rem -2.5rem;
+      padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+      border-bottom: 1px solid $border-color;
+      position: sticky;
+      top: -1.5rem;
+
+      > .title {
+        flex: 1 1 auto;
+        font-weight: 600;
+        min-height: 2.25rem;
+        display: flex;
+        align-items: center;
+      }
+
+      > button.btn {
+        flex: 0 0 auto;
+        align-self: flex-end;
+        margin-left: auto;
+      }
     }
 
     + .content {
@@ -590,6 +626,11 @@ body {
 
     .content {
       padding: 1.5rem;
+
+      > .header {
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+        padding: 0.5rem 1.5rem;
+      }
     }
   }
 }
@@ -641,9 +682,11 @@ body {
         &.aside-toggle > .fa {
           transform: rotate(180deg);
         }
-        &.aside-handle {
-          display: none;
-        }
+      }
+
+      .content {
+        opacity: 0;
+        pointer-events: none;
       }
 
       @media (max-width: 767px) {
@@ -652,12 +695,29 @@ body {
     }
   }
 
+  &:not(.aside--collapsed) {
+    > .app-aside {
+      .controls {
+        @media (min-width: 768px) {
+          &:hover {
+            background-color: rgba(0, 0, 31, 0.05);
+            cursor: col-resize;
+
+            &:after {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
   &.aside--resizing {
     > .app-body > * {
       transition: none;
     }
     > .app-aside {
       transition: none;
+      user-select: none;
     }
   }
 }

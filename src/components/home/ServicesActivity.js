@@ -61,7 +61,7 @@ export const ServicesActivity = compose(
       <RequestCard
         key={record.id}
         submission={record}
-        path={Utils.getSubmissionPath(props.appLocation, record)}
+        path={Utils.getSubmissionPath(`/kapps/${props.kapp.slug}`, record)}
         components={{ Link }}
       />
     ),
