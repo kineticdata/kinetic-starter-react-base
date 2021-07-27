@@ -152,7 +152,7 @@ const SidebarComponent = props => {
           )}
         {props.surveyKapp && (
           <SidebarLink
-            to={`/kapps/${props.surveyKapp.slug}`}
+            to={`/kapps/${props.surveyKapp.slug}/my-surveys`}
             icon="fa fa-pencil-square-o"
           >
             <I18n>My Surveys</I18n>
