@@ -5,6 +5,7 @@ export const Layout = ({
   sidebar,
   header,
   main,
+  classNames: classes = {},
   sidebarRef,
   headerRef,
   bodyRef,
@@ -32,7 +33,7 @@ export const Layout = ({
       )}
 
       <div
-        className="app-body"
+        className={classNames('app-body', classes.body)}
         ref={bodyRef}
         onClick={
           mobile && !!sidebar && sidebarOpen > 0 ? toggleSidebar : undefined
@@ -40,7 +41,7 @@ export const Layout = ({
       >
         {!!header && (
           <header
-            className="app-header"
+            className={classNames('app-header', classes.header)}
             ref={headerRef}
             style={
               asideWidth && !mobile
@@ -53,7 +54,7 @@ export const Layout = ({
         )}
 
         <main
-          className="app-main"
+          className={classNames('app-main', classes.main)}
           style={
             asideWidth && !mobile
               ? { marginRight: `-${asideWidth[1]}px` }

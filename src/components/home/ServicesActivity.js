@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const buildSearch = username => {
   const searcher = defineKqlQuery();
   // Add static query parts
-  // searcher.equals('type', 'type'); TODO uncomment
+  searcher.equals('type', 'type');
   // Add value query parts
   searcher
     .or()
@@ -44,7 +44,7 @@ const ServicesActivityComponent = ({ hidePaging = true, ...props }) => (
     contentProps={{
       hidePaging: hidePaging,
       emptyMessage: {
-        title: 'No s found.',
+        title: 'No requests found.',
         message: 'Submit a service and it will show up here!',
       },
     }}
