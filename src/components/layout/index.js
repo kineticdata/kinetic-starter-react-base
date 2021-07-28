@@ -90,7 +90,10 @@ export default connect(
         }
         // If header isn't visible, move it into view
         if (headerRects.bottom < 0) {
-          headerEl.style.top = `${previousScrollTop - headerRects.height}px`;
+          headerEl.style.top = `${Math.min(
+            previousScrollTop - headerRects.height,
+            bodyEl.scrollTop,
+          )}px`;
         }
         // If header is straddling the top, scroll with the page
         else if (headerRects.top < 0) {
@@ -121,7 +124,7 @@ export default connect(
     const asideEl = asideRef.current;
 
     const handleResize = () => {
-      // CHeck if any of the sidebar children overflow
+      // Check if any of the sidebar children overflow
       if (sidebarEl) {
         [...sidebarEl.children].forEach(el => {
           if (el.scrollHeight > el.clientHeight) {
@@ -260,6 +263,7 @@ export default connect(
       sidebar={sidebar}
       header={header}
       main={main}
+      classNames={props.classNames}
       sidebarRef={sidebarRef}
       headerRef={headerRef}
       bodyRef={bodyRef}

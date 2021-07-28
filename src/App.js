@@ -56,7 +56,10 @@ export const AppComponent = props =>
       appState={{
         ...props.app.toObject(),
         location: props.appLocation,
-        actions: { refreshApp: props.refreshApp },
+        actions: {
+          refreshApp: props.refreshApp,
+          refreshProfile: props.refreshProfile,
+        },
         layoutSize: props.layoutSize,
       }}
       location={props.location}
@@ -87,6 +90,7 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = {
   push,
   loadApp: actions.fetchApp,
+  loadProfile: actions.fetchProfileRequest,
   fetchAlertsRequest: alertsActions.fetchAlertsRequest,
 };
 
@@ -140,6 +144,7 @@ export const App = compose(
   }),
   withHandlers({
     refreshApp: props => () => props.loadApp(),
+    refreshProfile: props => () => props.loadProfile(),
   }),
   lifecycle({
     componentDidMount() {

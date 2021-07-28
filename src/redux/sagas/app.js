@@ -22,6 +22,7 @@ const SPACE_INCLUDES = [
   'attributes',
   'attributesMap',
   'authorization',
+  'userProfileAttributeDefinitions',
 ];
 const KAPP_INCLUDES = [
   'details',
@@ -137,6 +138,13 @@ export function* fetchSpaceTask(authenticated) {
   }
 }
 
+// Fetch Profile Task called via action. Triggers fetchProfileTask
+export function* fetchOnlyProfileTask() {
+  const authenticated = yield select(state => state.app.authenticated);
+
+  yield call(fetchProfileTask, authenticated);
+}
+
 // Fetch Profile Task
 export function* fetchProfileTask(authenticated) {
   const { profile, error } = yield call(fetchProfile, {
@@ -173,5 +181,6 @@ export function* setAuthenticatedTask() {
 
 export function* watchApp() {
   yield takeEvery(types.FETCH_APP_REQUEST, fetchAppTask);
+  yield takeEvery(types.FETCH_PROFILE_REQUEST, fetchOnlyProfileTask);
   yield takeEvery(types.SET_AUTHENTICATED, setAuthenticatedTask);
 }
