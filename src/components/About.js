@@ -9,18 +9,19 @@ import { PageTitle } from './shared/PageTitle';
 
 const AboutComponent = ({ space, users, teams, loading }) => (
   <div className="page-container">
-    <PageTitle parts={['About']} />
     {!loading && (
       <div className="page-panel">
-        <div className="page-title">
-          <h1>
-            <I18n>About My Space</I18n>
-          </h1>
-        </div>
+        <PageTitle
+          parts={['About']}
+          breadcrumbs={[{ label: 'Home', to: '/' }]}
+          title="About My Space"
+        />
         <div className="page-content">
           <section>
             <h2 className="section__title">
-              <I18n>General</I18n>
+              <span className="title">
+                <I18n>General</I18n>
+              </span>
             </h2>
             <div className="data-list-row">
               <dl className="data-list-row__col">
@@ -69,7 +70,9 @@ const AboutComponent = ({ space, users, teams, loading }) => (
           {users && (
             <section className="mt-4">
               <h2 className="section__title">
-                <I18n>Space Admins</I18n>
+                <span className="title">
+                  <I18n>Space Admins</I18n>
+                </span>
               </h2>
 
               <table className="table table-responsive-sm">

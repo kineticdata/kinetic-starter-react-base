@@ -9,6 +9,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import {
+  selectDiscussionsEnabled,
   selectQueueKapp,
   selectServicesKapp,
   selectSurveyKapp,
@@ -158,9 +159,11 @@ const SidebarComponent = props => {
             <I18n>My Surveys</I18n>
           </SidebarLink>
         )}
-        <SidebarLink to="/discussions" icon="fa fa-comments-o">
-          <I18n>My Discussions</I18n>
-        </SidebarLink>
+        {props.discussionsEnabled && (
+          <SidebarLink to="/discussions" icon="fa fa-comments-o">
+            <I18n>My Discussions</I18n>
+          </SidebarLink>
+        )}
       </div>
       <div className="app-sidebar__group app-sidebar__group--static mt-auto">
         <div className="action-wrapper">
@@ -203,4 +206,5 @@ export const Sidebar = connect(state => ({
   techBarKapp: selectTechBarKapp(state),
   pathname: state.router.location.pathname,
   isSmallLayout: state.layout.size === 'small',
+  discussionsEnabled: selectDiscussionsEnabled(state),
 }))(SidebarComponent);

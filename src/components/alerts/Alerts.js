@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
-import { Link } from 'react-router-dom';
 import { List } from 'immutable';
 import moment from 'moment';
 import { AlertRow } from './AlertRow';
@@ -36,21 +35,21 @@ const AlertsComponent = ({
   const selectedAlert = id;
   return (
     <div className="page-container page-container--space-alerts">
-      <PageTitle parts={['Alerts']} />
-
       {!loading && (
         <div className="page-panel page-panel--space-alerts">
-          <div className="page-title">
-            <h1>
-              <I18n>Alerts</I18n>
-            </h1>
+          <PageTitle
+            parts={['Alerts']}
+            breadcrumbs={[{ label: 'Home', to: '/' }]}
+            title="Alerts"
+            actions={[
+              canEdit && {
+                label: 'Create Alert',
+                icon: 'plus',
+                to: 'alerts/new',
+              },
+            ]}
+          />
 
-            {canEdit && (
-              <Link to="/alerts/new" className="btn btn-secondary">
-                <I18n>New Alert</I18n>
-              </Link>
-            )}
-          </div>
           {error && (
             <h3>
               <I18n>There was a problem loading the alerts.</I18n>

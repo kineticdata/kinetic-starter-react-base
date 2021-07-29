@@ -94,7 +94,6 @@ const buildFormQuery = value => {
 
 class SearchBarComponent extends React.Component {
   constructor(props) {
-    console.log('INIT SEARCH BAR');
     super(props);
     this.state = {
       // Current value
@@ -264,7 +263,7 @@ class SearchBarComponent extends React.Component {
 
   // Open suggestions container on focus
   onFocus = () => {
-    console.log('onFocus', { ...this.state });
+    // console.log('onFocus', { ...this.state });
     if (!this.props.modal && !this.inline) {
       this.setState({ active: true });
       this.toggleOpen();
@@ -273,7 +272,7 @@ class SearchBarComponent extends React.Component {
 
   // Close suggestions container on blur
   onBlur = () => {
-    console.log('onBlur', { ...this.state });
+    // console.log('onBlur', { ...this.state });
     if (!this.props.modal && !this.inline) {
       this.setState({ active: false });
       this.toggleClose();
@@ -283,12 +282,12 @@ class SearchBarComponent extends React.Component {
   // Initiate search on press of Enter key if query is valid
   onKeyDown = event => {
     if (event.keyCode === 13) {
-      console.log(
-        'onKeyDown',
-        { ...this.state },
-        event.keyCode,
-        this.state.active,
-      );
+      // console.log(
+      //   'onKeyDown',
+      //   { ...this.state },
+      //   event.keyCode,
+      //   this.state.active,
+      // );
       if (!this.state.short) {
         this.goToAllResults();
       }
@@ -298,7 +297,7 @@ class SearchBarComponent extends React.Component {
   // When a suggestion is selected, close suggestions container and take
   // appropriate action based on type of suggestion
   onSuggestionSelected = (event, { suggestion }) => {
-    console.log('onSuggestionSelected', suggestion);
+    // console.log('onSuggestionSelected', suggestion);
     if (suggestion) {
       this.navigate(suggestion.path);
       if (this.autosuggestRef.current) {
@@ -353,7 +352,7 @@ class SearchBarComponent extends React.Component {
   // When the value changes, validate the query and reset state. This will hide
   // suggestions and re-show the help text if a user modifies their query.
   onSuggestionsFetchRequested = ({ value, reason }) => {
-    console.log('onSuggestionsFetchRequested', value, this.state.value, reason);
+    // console.log('onSuggestionsFetchRequested', value, this.state.value, reason);
 
     if (reason !== 'input-focused' || (!this.props.modal && !this.inline)) {
       const short = value.length < MIN_SEARCH_LENGTH;
@@ -385,7 +384,7 @@ class SearchBarComponent extends React.Component {
 
   // When the search bar is blurred or a suggestion is selected, reset state
   onSuggestionsClearRequested = (...args) => {
-    console.log('onSuggestionsClearRequested', args);
+    // console.log('onSuggestionsClearRequested', args);
     if (!this.props.modal && !this.inline) {
       this.setState({
         suggestions: [],

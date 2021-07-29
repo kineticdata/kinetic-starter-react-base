@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AlertsDropdown } from './AlertsDropdown';
 import { ProfileDropdown } from './ProfileDropdown';
 import { SearchBar } from './SearchBar';
 import { Utils } from '@kineticdata/bundle-common';
@@ -24,6 +25,7 @@ const HeaderComponent = props => (
     <div className="mr-auto" aria-hidden="true" />
 
     <SearchBar modal={props.mobile} />
+    {props.authenticated && !props.alertsDisabled && <AlertsDropdown />}
     {props.authenticated && <ProfileDropdown />}
     {!props.authenticated && (
       <Link className="nav-link" to={props.authRoute} title="Sign In">
@@ -37,4 +39,5 @@ export const Header = connect(state => ({
   authenticated: state.app.authenticated,
   authRoute: state.app.authRoute,
   logo: Utils.getAttributeValue(state.app.space, 'Logo', logo),
+  alertsDisabled: !Utils.getAttributeValue(state.app.space, 'Alerts Form Slug'),
 }))(HeaderComponent);

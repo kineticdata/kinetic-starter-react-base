@@ -7,7 +7,7 @@ import { EmptyMessage } from '@kineticdata/bundle-common';
 import { actions } from '../../redux/modules/layout';
 
 const INITIAL_ASIDE_WIDTH = 376;
-const MIN_ASIDE_WIDTH = 224;
+const MIN_ASIDE_WIDTH = 320;
 const MAX_ASIDE_BUFFER = 448;
 const MIN_CONTENT_WIDTH = 1400;
 
