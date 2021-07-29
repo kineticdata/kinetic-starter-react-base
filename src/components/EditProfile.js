@@ -40,34 +40,31 @@ export const EditProfileComponent = ({
   timezones,
 }) => (
   <div className="page-container">
-    <PageTitle parts={['Edit Profile']} />
     {!error && !profile && <LoadingMessage />}
     {error && (
       <ErrorMessage title="Could not load profile" message={error.message} />
     )}
     {profile && (
       <Fragment>
-        <div className="page-panel page-panel--white">
-          <div className="page-title">
-            <div
-              role="navigation"
-              aria-label="breadcrumbs"
-              className="page-title__breadcrumbs"
-            >
-              <span className="breadcrumb-item">
-                <Link to={`/profile/${encodeURIComponent(profile.username)}`}>
-                  <I18n>profile</I18n>
-                </Link>
-              </span>
-              <span aria-hidden="true">/ </span>
-              <h1>
-                <I18n>Edit Profile</I18n>
-              </h1>
-            </div>
-          </div>
+        <div className="page-panel">
+          <PageTitle
+            parts={['Edit Profile']}
+            breadcrumbs={[
+              { label: 'Home', to: '/' },
+              {
+                label: 'Profile',
+                to: `/profile/${encodeURIComponent(profile.username)}`,
+              },
+            ]}
+            title="Edit Profile"
+          />
           <section>
-            <h2 className="section__title mb-0">General</h2>
-            <form onSubmit={handleSubmit}>
+            <h2 className="section__title">
+              <span className="title">
+                <I18n>General</I18n>
+              </span>
+            </h2>
+            <form onSubmit={handleSubmit} className="form-unstyled">
               <div className="form-group required">
                 <label htmlFor="displayName">
                   <I18n>Display Name</I18n>
@@ -243,12 +240,17 @@ export const EditProfileComponent = ({
               </div>
             </form>
           </section>
+
           {(managerEnabled ||
             siteEnabled ||
             departmentEnabled ||
             organizationEnabled) && (
-            <section className="mt-3">
-              <h2 className="section__title">User Attributes</h2>
+            <section className="mt-5">
+              <h2 className="section__title">
+                <span className="title">
+                  <I18n>User Attributes</I18n>
+                </span>
+              </h2>
               <div className="user-attributes-wrapper">
                 <table className="table table--user-attributes">
                   <tbody>
@@ -319,8 +321,13 @@ export const EditProfileComponent = ({
               </div>
             </section>
           )}
+          
           <section className="mt-5">
-            <h2 className="section__title">Roles</h2>
+            <h2 className="section__title">
+              <span className="title">
+                <I18n>Roles</I18n>
+              </span>
+            </h2>
             <div className="cards cards--fourths">
               {Utils.getRoles(profile).length > 0 ? (
                 Utils.getRoles(profile).map(role => (
@@ -338,7 +345,11 @@ export const EditProfileComponent = ({
             </div>
           </section>
           <section>
-            <h2 className="section__title">Teams</h2>
+            <h2 className="section__title">
+              <span className="title">
+                <I18n>Teams</I18n>
+              </span>
+            </h2>
             <div className="cards">
               {Utils.getTeams(profile).length > 0 ? (
                 Utils.getTeams(profile).map(team => (

@@ -5,6 +5,7 @@
 
 // Import styles from common, which includes all bootstrap styles
 @import '~@kineticdata/bundle-common/assets/styles/common-functions';
+@import 'colors'; // Import color overrides from this package
 @import '~@kineticdata/bundle-common/assets/styles/common-variables';
 @import 'variables'; // Import variable overrides from this package
 @import '~@kineticdata/bundle-common/assets/styles/common-mixins';

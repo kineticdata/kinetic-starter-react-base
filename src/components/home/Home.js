@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, lifecycle, withProps, withState } from 'recompose';
 import { Link } from 'react-router-dom';
@@ -95,7 +95,7 @@ export const HomeComponent = ({
                 </span>
                 <Link
                   className="btn btn-link"
-                  to={`/kapps/${queueKapp.slug}/requests`}
+                  to={`/kapps/${queueKapp.slug}`}
                 >
                   <I18n>View All</I18n>
                 </Link>

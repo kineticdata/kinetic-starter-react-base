@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { compose, withHandlers, withProps, withState } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { Link } from 'react-router-dom';
 import {
   openModalForm,
@@ -13,7 +13,7 @@ import {
   LoadingMessage,
   TeamCard,
   Utils,
-  ViewDiscussionsModal,
+  selectDiscussionsEnabled,
 } from '@kineticdata/bundle-common';
 import { PageTitle } from './shared/PageTitle';
 import { I18n } from '@kineticdata/react';
@@ -41,160 +41,152 @@ const TeamComponent = ({
   parent,
   subteams,
   creationFields,
-  openDiscussions,
-  closeDiscussions,
-  viewDiscussionsModal,
-  isSmallLayout,
+  discussionsEnabled,
   me,
   userIsMember,
   openRequestToJoinForm,
   openRequestToLeaveForm,
 }) => (
-  <div className="page-container page-container--panels page-container--space-team">
-    <PageTitle parts={[team && team.name, 'Teams']} />
+  <div className="page-container page-container--space-team">
     {error && <ErrorMessage />}
     {!error && !teams && <LoadingMessage />}
     {!error && teams && !team && <ErrorMessage title="Team not found" />}
     {team && (
-      <Fragment>
-        <div className={`page-panel page-panel--three-fifths`}>
-          <div className="page-title">
-            <div
-              role="navigation"
-              aria-label="breadcrumbs"
-              className="page-title__breadcrumbs"
-            >
-              <span className="breadcrumb-item">
-                <Link to="/teams">
-                  <I18n>teams</I18n>
-                </Link>{' '}
-              </span>
-              <span aria-hidden="true">/ </span>
-              <h1>
-                <I18n>Team Profile</I18n>
-              </h1>
-            </div>
-            {me.spaceAdmin && (
-              <Link
-                to={`/settings/teams/${team.slug}`}
-                className="btn btn-secondary"
-              >
-                <I18n>Edit Team</I18n>
-              </Link>
-            )}
-          </div>
-          {userIsMember && (
-            <button
-              onClick={openDiscussions}
-              className="btn btn-inverse btn-block mb-3 d-md-none d-lg-none d-xl-none"
-            >
-              <span className="fa fa-comments fa-fw icon" />
-              <I18n>View Discussions</I18n>
-            </button>
-          )}
-          <div className="cards">
-            <Card
-              bar={true}
-              barColor="primary"
-              barIcon={Utils.getIcon(team, 'users')}
-            >
-              <CardCol center={true}>
-                <CardRow type="title">
-                  <I18n>{team.name}</I18n>
-                </CardRow>
-                <CardRow>
-                  <I18n>{team.description}</I18n>
-                </CardRow>
-                <CardRow>
-                  {userIsMember ? (
-                    <button
-                      onClick={openRequestToLeaveForm}
-                      className="btn btn-primary btn-sm"
-                    >
-                      <I18n>Request to Leave</I18n>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={openRequestToJoinForm}
-                      className="btn btn-primary btn-sm"
-                    >
-                      <I18n>Request to Join</I18n>
-                    </button>
-                  )}
-                </CardRow>
-              </CardCol>
-              <CardCol center={true}>
-                {team.memberships.length === 0 ? (
-                  <CardRow className="text-muted">
-                    <I18n>No members</I18n>
-                  </CardRow>
-                ) : (
-                  <CardRow>
-                    <AvatarList
-                      users={team.memberships.map(m => m.user)}
-                      className="justify-content-center"
-                      all={true}
-                    />
-                  </CardRow>
-                )}
-              </CardCol>
-            </Card>
-          </div>
+      <div className={`page-panel`}>
+        <PageTitle
+          parts={[team && team.name, 'Teams']}
+          breadcrumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Teams', to: '/teams' },
+          ]}
+          title="Team Profile"
+          actions={[
+            me.spaceAdmin && {
+              label: 'Edit Team',
+              icon: 'pencil',
+              to: `/settings/teams/${team.slug}`,
+            },
+          ]}
+        />
 
-          {parent && (
-            <section>
-              <h3 className="section__title">
+        <div className="cards">
+          <Card
+            bar={true}
+            barColor="primary"
+            barIcon={Utils.getIcon(team, 'users')}
+          >
+            <CardCol center={true}>
+              <CardRow type="title">
+                <I18n>{team.name}</I18n>
+              </CardRow>
+              <CardRow>
+                <I18n>{team.description}</I18n>
+              </CardRow>
+              <CardRow>
+                {userIsMember ? (
+                  <button
+                    onClick={openRequestToLeaveForm}
+                    className="btn btn-primary btn-sm"
+                  >
+                    <I18n>Request to Leave</I18n>
+                  </button>
+                ) : (
+                  <button
+                    onClick={openRequestToJoinForm}
+                    className="btn btn-primary btn-sm"
+                  >
+                    <I18n>Request to Join</I18n>
+                  </button>
+                )}
+              </CardRow>
+            </CardCol>
+            <CardCol center={true}>
+              {team.memberships.length === 0 ? (
+                <CardRow className="text-muted">
+                  <I18n>No members</I18n>
+                </CardRow>
+              ) : (
+                <CardRow>
+                  <AvatarList
+                    users={team.memberships.map(m => m.user)}
+                    className="justify-content-center"
+                    all={true}
+                  />
+                </CardRow>
+              )}
+            </CardCol>
+          </Card>
+        </div>
+
+        {parent && (
+          <section>
+            <h3 className="section__title">
+              <span className="title">
                 <I18n>Parent Team</I18n>
-              </h3>
-              <div className="cards">
+              </span>
+            </h3>
+            <div className="cards">
+              <TeamCard key={parent.slug} team={parent} components={{ Link }} />
+            </div>
+          </section>
+        )}
+        {subteams.size > 0 && (
+          <section>
+            <h3 className="section__title">
+              <span className="title">
+                <I18n>Subteams</I18n>
+              </span>
+            </h3>
+            <div className="cards">
+              {subteams.map(subteam => (
                 <TeamCard
-                  key={parent.slug}
-                  team={parent}
+                  key={subteam.slug}
+                  team={subteam}
                   components={{ Link }}
                 />
-              </div>
-            </section>
-          )}
-          {subteams.size > 0 && (
-            <section>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {userIsMember &&
+          discussionsEnabled && (
+            <section className="mt-5">
               <h3 className="section__title">
-                <I18n>Subteams</I18n>
+                <span className="title">
+                  <I18n>Discussions</I18n>
+                </span>
               </h3>
-              <div className="cards">
-                {subteams.map(subteam => (
-                  <TeamCard
-                    key={subteam.slug}
-                    team={subteam}
-                    components={{ Link }}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-        <Fragment>
-          {viewDiscussionsModal &&
-            isSmallLayout && (
-              <ViewDiscussionsModal
-                close={closeDiscussions}
+              <DiscussionsPanel
+                withAside={true}
                 itemType="Team"
                 itemKey={team.slug}
+                overrideClassName="discussions-container"
+                me={me}
+                pageSize={5}
                 creationFields={creationFields}
                 CreationForm={CreationForm}
-                me={me}
+                renderDiscussionsListHeader={({
+                  handleCreateDiscussionClick,
+                }) =>
+                  handleCreateDiscussionClick ? (
+                    <div className="d-flex justify-content-end mt-n4 mb-2">
+                      <button
+                        className="btn btn-white btn-sticky-top"
+                        onClick={handleCreateDiscussionClick}
+                      >
+                        <span className="fa fa-fw fa-plus" />
+                        <span>
+                          <I18n>Create Discussion</I18n>
+                        </span>
+                      </button>
+                    </div>
+                  ) : null
+                }
               />
-            )}
-          {!isSmallLayout && (
-            <DiscussionsPanel
-              itemType="Team"
-              itemKey={team.slug}
-              creationFields={creationFields}
-              CreationForm={CreationForm}
-              me={me}
-            />
+            </section>
           )}
-        </Fragment>
-      </Fragment>
+      </div>
     )}
   </div>
 );
@@ -230,7 +222,7 @@ const mapStateToProps = (state, props) => {
         t =>
           t.name !== team.name && t.name.replace(/::[^:]+$/, '') === team.name,
       ),
-    isSmallLayout: state.layout.size === 'small',
+    discussionsEnabled: selectDiscussionsEnabled(state),
   };
 };
 
@@ -256,18 +248,11 @@ const openRequestToLeaveForm = ({ space, adminKappSlug, team }) => config =>
     },
   });
 
-const openDiscussions = props => () => props.setViewDiscussionsModal(true);
-
-const closeDiscussions = props => () => props.setViewDiscussionsModal(false);
-
 export const Team = compose(
   connect(mapStateToProps),
-  withState('viewDiscussionsModal', 'setViewDiscussionsModal', false),
   withHandlers({
     openRequestToJoinForm,
     openRequestToLeaveForm,
-    openDiscussions,
-    closeDiscussions,
   }),
   withProps(
     props =>

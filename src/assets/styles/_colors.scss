@@ -1,0 +1,46 @@
+/**
+ * Colors - App
+ *
+ * This bundle uses Bootstrap styling, with some defaults overwritten by the
+ * common package.
+ *
+ * The commented out variables below show some of the common color variables you
+ * may want to overwrite, along with their initial default values.
+ *
+ * You can also add additional colors to the $theme-colors map.
+ ******************************************************************************/
+
+/** Color system **************************************************************/
+
+/**-- Grays ------------------------------------------------------------------*/
+// $white:     rgb(255, 255, 255);  // #ffffff
+// $gray-100:  rgb(246, 247, 248);  // #f6f7f8 ($gray3)
+// $gray-200:  rgb(237, 238, 239);  // #edeeef ($gray8)
+// $gray-300:  rgb(228, 229, 230);  // #e4e5e6 ($gray10)
+// $gray-400:  rgb(212, 213, 214);  // #d4d5d6 ($gray16)
+// $gray-500:  rgb(178, 179, 181);  // #b2b3b5 ($gray30)
+// $gray-600:  rgb(109, 111, 113);  // #6d6f71 ($gray50/60)
+// $gray-700:  rgb(79, 80, 81);     // #4f5051 ($gray70)
+// $gray-800:  rgb(54, 55, 56);     // #363738 ($gray80)
+// $gray-900:  rgb(27, 28, 29);     // #1B1C1D ($gray90)
+// $black:     rgb(0, 0, 0);        // #000000
+
+/**-- Theme Colors -----------------------------------------------------------*/
+// $primary:    $blue-lake; // #095482
+// $secondary:  $orange-kinops; // #f36c24
+// $tertiary:   $blue-gray; // #a8b7c7
+// $success:    $green; // #00d46a
+// $info:       $cyan; // #0ba8e0
+// $warning:    $yellow; // #fee94e
+// $danger:     $red; // #fa3a37
+// $light:      $gray-100;
+// $subtle:     $gray-400;
+// $dark:       $gray-800;
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    // 'tertiary': $tertiary,
+  ),
+  $theme-colors
+);

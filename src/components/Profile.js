@@ -29,29 +29,27 @@ const ProfileComponent = ({
   managerEnabled,
 }) => (
   <div className="page-container">
-    <PageTitle parts={['Profile']} />
     {!error && !profile && <LoadingMessage />}
     {error && (
       <ErrorMessage title="Could not load profile" message={error.message} />
     )}
     {profile && (
       <div className="page-panel">
-        <div className="page-title">
-          <h1>
-            <I18n>Profile</I18n>
-          </h1>
-
-          {profile.username === me.username ? (
-            <div className="page-title__actions">
-              <Link to="/profile/edit" className="btn btn-secondary">
-                <I18n>Edit Profile</I18n>
-              </Link>
-            </div>
-          ) : null}
-        </div>
+        <PageTitle
+          parts={['Profile']}
+          breadcrumbs={[{ label: 'Home', to: '/' }]}
+          title="Profile"
+          actions={[
+            profile.username === me.username && {
+              label: 'Edit Profile',
+              icon: 'pencil',
+              to: '/profile/edit',
+            },
+          ]}
+        />
 
         <div className="cards">
-          <ProfileCard user={profile} hideProfileLink={true}>
+          <ProfileCard user={profile} hideProfileLink={true} inline={true}>
             <>
               <CardRow type="multi" className="py-3">
                 {Utils.getRoles(profile).map(role => (
