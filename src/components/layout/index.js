@@ -174,7 +174,6 @@ export default connect(
   // Handler for toggling sidebar after a link it it was clicked
   const onSidebarAction = useCallback(
     () => {
-      console.log('onSidebarAction', mobile, sidebarOpen < 0);
       if (mobile) {
         setSidebarOpen(-1);
       } else if (sidebarOpen < 0) {
