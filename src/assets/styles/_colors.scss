@@ -41,6 +41,7 @@ $theme-colors: () !default;
 $theme-colors: map-merge(
   (
     // 'tertiary': $tertiary,
+    // 'subtle': $subtle,
   ),
   $theme-colors
 );
