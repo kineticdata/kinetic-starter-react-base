@@ -126,7 +126,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = { push };
 
 export const ProfileDropdown = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
   withState('isOpen', 'setIsOpen', false),
   withHandlers({
     openHelpForm: props => () => {

@@ -50,8 +50,8 @@ export const selectMenuLinks = object =>
                     ? icon
                     : `fa-${icon}`
                   : relative
-                  ? 'fa-arrow-circle-right'
-                  : 'fa-external-link-square',
+                    ? 'fa-arrow-circle-right'
+                    : 'fa-external-link-square',
               }
             : null;
         })

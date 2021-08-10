@@ -123,7 +123,9 @@ export function* fetchAppTask({ payload }) {
     }
   } else {
     window.alert(
-      `You must be running Kinetic Request v${MINIMUM_CE_VERSION} or later in order to use this app. You are currently running v${version.version}.`,
+      `You must be running Kinetic Request v${MINIMUM_CE_VERSION} or later in order to use this app. You are currently running v${
+        version.version
+      }.`,
     );
   }
 }
