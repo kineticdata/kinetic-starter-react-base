@@ -14,6 +14,8 @@ import {
   selectServicesKapp,
   selectSurveyKapp,
   selectTechBarKapp,
+  selectHasRoleSchedulerAdmin,
+  selectHasRoleSchedulerManager,
   Utils,
 } from '@kineticdata/bundle-common';
 import { I18n } from '@kineticdata/react';
@@ -24,6 +26,7 @@ import SurveyApp from '@kineticdata/bundle-survey';
 import TechBarApp from '@kineticdata/bundle-tech-bar';
 
 const buildKappSettingsList = ({
+  profile,
   queueKapp,
   servicesKapp,
   surveyKapp,
@@ -45,7 +48,9 @@ const buildKappSettingsList = ({
         label: `${surveyKapp.name} Settings`,
         to: `/kapps/${surveyKapp.slug}${SurveyApp.settingsRoute}`,
       },
-    Utils.isKappManageable(techBarKapp) &&
+    (Utils.isKappManageable(techBarKapp) ||
+      selectHasRoleSchedulerAdmin(profile) ||
+      selectHasRoleSchedulerManager(profile)) &&
       TechBarApp.settingsRoute && {
         label: `${techBarKapp.name} Settings`,
         to: `/kapps/${techBarKapp.slug}${TechBarApp.settingsRoute}`,
@@ -78,6 +83,7 @@ const SidebarComponent = props => {
   );
 
   const kappSettingsList = buildKappSettingsList({
+    profile: props.profile,
     queueKapp: props.queueKapp,
     servicesKapp: props.servicesKapp,
     surveyKapp: props.surveyKapp,
@@ -113,9 +119,7 @@ const SidebarComponent = props => {
           <SidebarLink
             to={`/kapps/${props.queueKapp.slug}`}
             icon="fa fa-tasks"
-            matchExclude={`/kapps/${props.queueKapp.slug}${
-              QueueApp.settingsRoute
-            }`}
+            matchExclude={`/kapps/${props.queueKapp.slug}${QueueApp.settingsRoute}`}
           >
             <I18n>Queue</I18n>
           </SidebarLink>
@@ -124,9 +128,7 @@ const SidebarComponent = props => {
           <SidebarLink
             to={`/kapps/${props.techBarKapp.slug}`}
             icon="fa fa-clock-o"
-            matchExclude={`/kapps/${props.techBarKapp.slug}${
-              TechBarApp.settingsRoute
-            }`}
+            matchExclude={`/kapps/${props.techBarKapp.slug}${TechBarApp.settingsRoute}`}
           >
             <I18n>Tech Bar</I18n>
           </SidebarLink>
@@ -195,6 +197,7 @@ const SidebarComponent = props => {
 
 export const Sidebar = connect(state => ({
   space: state.app.space,
+  profile: state.app.profile,
   kapps: state.app.kapps,
   queueKapp: selectQueueKapp(state),
   servicesKapp: selectServicesKapp(state),
