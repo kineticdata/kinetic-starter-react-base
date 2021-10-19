@@ -13,7 +13,6 @@ import moment from 'moment';
 import underscore from 'underscore';
 import 'bootstrap-select/dist/css/bootstrap-select.css';
 import './lib/kd-typeahead/kd-typeahead.css';
-import 'font-awesome/css/font-awesome.css';
 import 'mdn-polyfills/Element.prototype.matches';
 import 'mdn-polyfills/Element.prototype.closest';
 import 'mdn-polyfills/Node.prototype.remove';

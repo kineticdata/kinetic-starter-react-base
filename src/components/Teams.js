@@ -10,7 +10,6 @@ import {
   Utils,
 } from '@kineticdata/bundle-common';
 import { actions } from '../redux/modules/teams';
-import { I18n } from '@kineticdata/react';
 import { PageTitle } from './shared/PageTitle';
 import { Team } from './Team';
 
@@ -34,23 +33,23 @@ export const TeamsNavigation = compose(
 
 const TeamsComponent = ({ error, teams, me, openRequestNewTeam }) => (
   <div className="page-container">
-    <PageTitle parts={['Teams']} />
     <div className="page-panel">
-      <div className="page-title">
-        <h1>Teams</h1>
+      <PageTitle
+        parts={['Teams']}
+        breadcrumbs={[{ label: 'Home', to: '/' }]}
+        title="Teams"
+        actions={[
+          me.spaceAdmin && {
+            label: 'Manage Teams',
+            to: '/settings/teams',
+          },
+          !me.spaceAdmin && {
+            label: 'Request New Team',
+            onClick: openRequestNewTeam,
+          },
+        ]}
+      />
 
-        <div className="page-title__actions">
-          {me.spaceAdmin ? (
-            <Link to="/settings/teams" className="btn btn-secondary">
-              <I18n>Manage Teams</I18n>
-            </Link>
-          ) : (
-            <button onClick={openRequestNewTeam} className="btn btn-secondary">
-              <I18n>Request New Team</I18n>
-            </button>
-          )}
-        </div>
-      </div>
       <StateListWrapper
         data={teams}
         error={error}

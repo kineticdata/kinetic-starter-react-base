@@ -1,0 +1,775 @@
+/**
+ * Layout - App
+ ******************************************************************************/
+
+html {
+  @include ms-respond(font-size, 0);
+  box-sizing: border-box;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  position: relative;
+  z-index: 0;
+}
+
+.app-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: $body-bg;
+}
+
+.app-sidebar {
+  // Color sidebar variables
+  $bg: $dark;
+  $bgCmpl: color-yiq($bg);
+  $bgHover: mix($bg, $bgCmpl, 95%);
+  $bgHoverCmpl: color-yiq($bgHover);
+  $borderColor: mix($bg, $bgCmpl, 80%);
+  $scrollbarColor: mix($bg, $bgCmpl, 50%);
+  $activeColor: #26cad3;
+  // Width/x sidebar variables
+  $width: 14rem;
+  $widthClosed: 3.5rem;
+  $paddingX: 0.5rem;
+  $btnPaddingX: 0.25rem;
+  // Height/y sidebar vairables
+  $paddingY: 0.5rem;
+  $btnHeight: 3rem;
+  $btnPaddingY: 0rem;
+
+  flex: 0 0 $width;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg;
+  color: $bgCmpl;
+  transition: all 0.3s;
+  z-index: 1032;
+
+  > .app-sidebar__group {
+    position: relative;
+    flex: 0 1 auto;
+    padding: $paddingY $paddingX;
+    overflow: hidden;
+    min-height: (2 * $btnHeight) + (2 * $paddingY);
+
+    // Styling for groups that have overflow and must scroll
+    &.scrollable {
+      &:not(:first-child) {
+        border-top: 1px solid $borderColor;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid $borderColor;
+      }
+      + .scrollable {
+        border-top: none;
+      }
+    }
+
+    // Non scrolling groups, such as for toggle
+    &.app-sidebar__group--toggle,
+    &.app-sidebar__group--static {
+      flex: 0 0 auto;
+      min-height: $btnHeight + (2 * $paddingY);
+    }
+    &.app-sidebar__group--toggle {
+      border-bottom: 1px solid $borderColor;
+      + .scrollable {
+        border-top: none;
+      }
+    }
+    &.app-sidebar__group--static {
+      overflow: visible;
+      z-index: 1;
+    }
+
+    // Show scrollbar on hover of scrolling group if needed
+    &:hover:not(.app-sidebar__group--toggle):not(.app-sidebar__group--static) {
+      overflow: auto;
+    }
+
+    // Scrollbar Styling
+    @include scrollbar($scrollbarColor);
+
+    // Buttons and links
+    > a,
+    > button,
+    > .action-wrapper a,
+    > .action-wrapper button {
+      display: flex;
+      align-items: center;
+      padding: $btnPaddingY $btnPaddingX;
+      min-height: $btnHeight;
+      width: 100%;
+      background-color: $bg;
+      color: $bgCmpl;
+      border: 1px solid transparent;
+      border-radius: $border-radius;
+      transition: all 0.3s;
+      overflow: hidden;
+
+      &:hover {
+        background-color: $bgHover;
+        color: $bgHoverCmpl;
+        text-decoration: none;
+      }
+
+      &.toggle {
+        width: $widthClosed - ($paddingX * 2);
+        margin-left: calc(100% - (#{$widthClosed} - (#{$paddingX} * 2)));
+      }
+
+      &.active {
+        background-color: $bgHover;
+        border-color: $borderColor;
+        color: $activeColor;
+      }
+
+      &.short {
+        min-height: auto;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
+
+      > span.fa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 $widthClosed - ($paddingX * 2) - ($btnPaddingX * 2);
+        font-size: 1.125rem;
+        line-height: 0.875rem * 1.5;
+        transition: all 0.3s;
+      }
+      > span.title {
+        flex: 1 1 auto;
+        margin-left: 0.5rem;
+        font-size: 0.875rem;
+        min-width: $width - $widthClosed;
+        transition: all 0.3s;
+      }
+    }
+
+    .action-wrapper {
+      display: flex;
+      > a,
+      > button {
+        flex: 1 1 auto;
+        width: auto;
+      }
+      .dropdown {
+        flex: 0 0 $widthClosed - ($paddingX * 2);
+        transition: flex-basis 0.3s, opacity 0.3s;
+      }
+      .dropdown-menu {
+        padding: 0.5rem;
+        background-color: $dark;
+        box-shadow: -0.25rem 0 0.75rem rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    &--divider {
+      margin: $paddingY ($paddingX + $btnPaddingX);
+      height: 1px;
+      background-color: $borderColor;
+    }
+
+    &.scrollable + .app-sidebar__group--divider {
+      display: none;
+    }
+  }
+
+  &.closed:hover {
+    margin-right: $widthClosed - $width;
+  }
+  &.closing,
+  &.closed:not(:hover) {
+    flex-basis: $widthClosed;
+    overflow: hidden;
+
+    a,
+    button {
+      width: $widthClosed - 1rem;
+      > span.fa {
+        + span.title {
+          opacity: 0;
+        }
+      }
+    }
+    .action-wrapper {
+      .dropdown {
+        flex-basis: 0;
+        opacity: 0;
+      }
+    }
+  }
+  &.closing,
+  &.closed {
+    button.toggle {
+      margin-left: 0;
+      > span.fa {
+        transform: scaleX(-1);
+      }
+    }
+  }
+
+  @media all and (max-width: 767px) {
+    margin-left: -$width;
+    margin-right: 0;
+
+    &.open {
+      box-shadow: 0.25rem 0 1.25rem rgba(0, 0, 0, 0.25);
+      margin-left: 0;
+      margin-right: -$width;
+
+      > .app-sidebar__group {
+        &:not(.app-sidebar__group--toggle):not(.app-sidebar__group--static) {
+          overflow: auto;
+        }
+      }
+    }
+  }
+}
+
+.app-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  > * {
+    transition: margin-right 0.3s;
+  }
+
+  @include scrollbar();
+}
+
+.app-header {
+  // Color header variables
+  $bg: $body-bg;
+  // Width/x header variables
+  $paddingX: 0.5rem;
+  $btnWidth: 3rem;
+  $btnPaddingX: 0.25rem;
+  // Height/y header vairables
+  $paddingY: 0.5rem;
+  $btnHeight: 3rem;
+  $btnPaddingY: 0.25rem;
+
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: $paddingY $paddingX;
+  min-height: $btnHeight + (2 * $paddingY);
+  // line-height: $btnHeight;
+  background-color: $bg;
+  border-bottom: 1px solid transparent;
+  color: $gray-700;
+  transition: border 0.3s, box-shadow 0.3s;
+  z-index: 1024;
+
+  &--sticky {
+    border-bottom: 1px solid $border-color;
+    + .app-main {
+      overflow: auto;
+    }
+  }
+
+  // Styles for header shown over content, when page is scrolled
+  &.scrolled {
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+  }
+
+  > * {
+    flex: 0 0 auto;
+  }
+
+  // Styles for the buttons
+  > a,
+  > button,
+  > .dropdown > a,
+  > .dropdown > button,
+  > .kinetic-typeahead > .search,
+  > .kinetic-typeahead > .goto-search {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $btnPaddingY $btnPaddingX;
+    height: $btnHeight;
+    width: $btnWidth;
+    background-color: transparent;
+    color: $gray-700;
+    border: none;
+    border-radius: $border-radius;
+    transition: all 0.3s;
+    overflow: hidden;
+
+    &:disabled {
+      opacity: 0.7;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &.logo {
+      width: auto;
+      padding: 0.375rem;
+      > img {
+        flex: 0 0 auto;
+        height: 100%;
+      }
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    > .badge {
+      border-radius: 50%;
+      font-size: 0.6875rem;
+      height: 1.125rem;
+      width: 1.125rem;
+      line-height: 1.125rem;
+      position: absolute;
+      right: 0.375rem;
+      top: 0.375rem;
+      padding: 0;
+    }
+  }
+  > .kinetic-typeahead > span.search:hover {
+    background-color: transparent;
+  }
+
+  .kinetic-typeahead {
+    flex: 0 1 3rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    max-width: 50rem;
+
+    > div {
+      width: 100%;
+    }
+
+    input {
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $border-color;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      padding: 0.28125rem 0;
+      transition: padding 0.1s;
+      width: 100%;
+      height: $btnHeight;
+    }
+
+    &.open {
+      flex-grow: 1;
+      padding: 0 1rem;
+
+      input {
+        padding: 0.28125rem 0.75rem;
+      }
+    }
+    &:not(.open) {
+      > .goto-search {
+        padding: 0;
+        width: 0;
+        opacity: 0;
+      }
+    }
+
+    .suggestions {
+      left: $btnWidth + 1rem;
+      right: $btnWidth + 1rem;
+      box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+      border: none;
+
+      // Scrollbar Styling
+      @include scrollbar();
+    }
+  }
+}
+
+.app-search--modal {
+  .modal-content {
+    position: relative;
+
+    .kinetic-typeahead {
+      display: flex;
+      flex-direction: row;
+      position: initial;
+
+      button {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.25rem;
+        height: 3rem;
+        width: 3rem;
+        background-color: transparent;
+        color: $gray-700;
+        border: none;
+        border-radius: $border-radius;
+        transition: all 0.3s;
+        overflow: hidden;
+
+        &:disabled {
+          opacity: 0.7;
+        }
+      }
+
+      .divider {
+        height: 2rem;
+        margin: 0.5rem 0.25rem;
+        border-left: 1px solid $border-color;
+      }
+
+      > div {
+        flex: 1 1 auto;
+
+        input {
+          height: 3rem;
+          border: none;
+          border-radius: 0;
+        }
+      }
+
+      .suggestions {
+        left: 0;
+        right: 0;
+        top: 3rem;
+        bottom: 0;
+        max-height: none;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid $border-color;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.app-search--inline {
+  .kinetic-typeahead {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      height: 3rem;
+      width: 3rem;
+      background-color: transparent;
+      color: $gray-700;
+      border: none;
+      border-radius: $border-radius;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    > div {
+      flex: 1 1 auto;
+      margin-right: 1.5rem;
+
+      input {
+        height: 3rem;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .suggestions {
+      margin-top: 1.5rem;
+      max-height: none;
+      box-shadow: none;
+      border: none;
+      left: 3rem;
+      right: 1.5rem;
+    }
+  }
+}
+
+.app-header,
+.app-search--modal,
+.app-search--inline {
+  .kinetic-typeahead .suggestions {
+    .suggestion {
+      padding: 0.75rem;
+      background: linear-gradient(to right, $gray-100, transparent);
+
+      .small {
+        font-size: 0.875rem;
+        color: $gray-600;
+      }
+      .large {
+        font-size: 1rem;
+      }
+      .icon .fa {
+        font-size: 1.5rem;
+        color: $gray-500;
+        margin-right: 0.75rem;
+      }
+
+      &:hover,
+      &.active {
+        background: $gray-100;
+        color: $link-color;
+        .small {
+          color: mix($gray-600, $link-color, 70%);
+        }
+        .icon .fa {
+          color: mix($gray-500, $link-color, 70%);
+        }
+      }
+    }
+
+    &.inline > ul > li {
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .suggestion {
+        border-radius: $border-radius;
+      }
+    }
+  }
+}
+
+.app-main {
+  flex: 1 1 auto;
+}
+
+.app-aside {
+  $width: 23.5rem;
+
+  position: relative;
+  flex: 0 0 0px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+  z-index: 1032;
+  background-color: #fafafd;
+
+  .controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0.75rem;
+    z-index: 1;
+    transition: background-color 0.3s;
+
+    &:only-child {
+      display: none;
+    }
+
+    button {
+      position: absolute;
+      width: 1.25rem;
+      height: 2rem;
+      border: none;
+      border-radius: 0 $border-radius $border-radius 0;
+      background-color: $dark;
+      color: color-yiq($dark);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: border-radius 0.3s;
+
+      &.aside-toggle {
+        top: 0.5rem;
+        > .fa {
+          transition: transform 0.3s;
+        }
+      }
+    }
+
+    &:after {
+      content: '\f0c9';
+      font-family: FontAwesome;
+      display: block;
+      position: relative;
+      top: calc(50% - 1rem);
+      transform: rotate(90deg) scaleX(2);
+      font-size: 0.625rem;
+      line-height: 1;
+      color: $dark;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+
+  .content {
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    @include scrollbar();
+    transition: opacity 0.3s;
+
+    > .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: -1.5rem -1.5rem 1.5rem -2.5rem;
+      padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+      border-bottom: 1px solid $border-color;
+      position: sticky;
+      top: -1.5rem;
+
+      > .title {
+        flex: 1 1 auto;
+        font-weight: 600;
+        min-height: 2.25rem;
+        display: flex;
+        align-items: center;
+      }
+
+      > button.btn {
+        flex: 0 0 auto;
+        align-self: flex-end;
+        margin-left: auto;
+      }
+    }
+
+    &.p-0 > .header {
+      margin: 0;
+      padding: 0.5rem 1.5rem;
+    }
+
+    + .content {
+      border-top: 1px solid $border-color;
+    }
+  }
+
+  @media (max-width: 767px) {
+    border-left: none;
+
+    .controls {
+      display: none;
+    }
+
+    .content {
+      padding: 1.5rem;
+
+      > .header {
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+        padding: 0.5rem 1.5rem;
+      }
+    }
+  }
+}
+
+.app-wrapper:not(.aside--open) {
+  $width: 23.5rem;
+
+  > .app-body > * {
+    margin-right: 0 !important;
+  }
+
+  > .app-aside {
+    flex-basis: $width !important;
+    margin-right: -$width !important;
+  }
+}
+
+.app-wrapper.aside--open {
+  > .app-aside {
+    box-shadow: 0.25rem 0 1.25rem rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 767px) {
+      flex-basis: 100% !important;
+      margin-left: -100%;
+
+      .controls {
+        display: none;
+      }
+    }
+  }
+
+  &.aside--collapsed {
+    $width: 23.5rem;
+    $visibleWidth: 1.5rem;
+
+    > .app-body > * {
+      margin-right: 0 !important;
+    }
+
+    > .app-aside {
+      flex-basis: $width !important;
+      box-shadow: 0.25rem 0 1.25rem rgba(0, 0, 0, 0.5);
+      margin-right: -($width - $visibleWidth) !important;
+
+      .controls button {
+        left: 0.25rem;
+        border-radius: $border-radius 0 0 $border-radius;
+
+        &.aside-toggle > .fa {
+          transform: rotate(180deg);
+        }
+      }
+
+      .content {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @media (max-width: 767px) {
+        border-left: none;
+      }
+    }
+  }
+
+  &:not(.aside--collapsed) {
+    > .app-aside {
+      .controls {
+        @media (min-width: 768px) {
+          &:hover {
+            background-color: rgba(0, 0, 31, 0.05);
+            cursor: col-resize;
+
+            &:after {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.aside--resizing {
+    > .app-body > * {
+      transition: none;
+    }
+    > .app-aside {
+      transition: none;
+      user-select: none;
+    }
+  }
+}
