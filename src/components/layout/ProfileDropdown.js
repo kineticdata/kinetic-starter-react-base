@@ -4,7 +4,7 @@ import { compose, withHandlers, withState } from 'recompose';
 import { Avatar, openModalForm } from '@kineticdata/bundle-common';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { Dropdown, DropdownToggle, DropdownMenu, NavItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { logout, I18n } from '@kineticdata/react';
 import * as selectors from '../../redux/selectors';
 
@@ -45,88 +45,93 @@ const ProfileDropdownComponent = ({
   isOpen,
   toggle,
   hasUserAccess,
+  hasTeamAccess,
   push,
 }) => (
-  <NavItem>
-    <Dropdown isOpen={isOpen} toggle={toggle}>
-      <DropdownToggle
-        nav
-        role="button"
-        aria-label="Profile Menu"
-        style={{ paddingTop: '0.625rem' }}
-      >
-        <Avatar size={24} user={profile} previewable={false} />
-      </DropdownToggle>
-      <DropdownMenu right className="profile-menu">
-        <div className="profile-header">
-          <h6>
-            {profile.displayName}
-            <br />
-            <small>{profile.email}</small>
-          </h6>
-        </div>
-        <div className="profile-links">
-          <div className="dropdown-divider" role="none" />
+  <Dropdown isOpen={isOpen} toggle={toggle} className="profile-dropdown">
+    <DropdownToggle nav role="button" aria-label="Profile Menu">
+      <Avatar size={32} user={profile} previewable={false} round="0.3125rem" />
+    </DropdownToggle>
+    <DropdownMenu right className="profile-menu">
+      <div className="profile-header">
+        <div className="name">{profile.displayName}</div>
+        <small className="email">{profile.email}</small>
+      </div>
+      <hr />
+      <div className="profile-links">
+        <Link
+          to="/profile/edit"
+          className="dropdown-item"
+          onClick={toggle}
+          role="menuitem"
+        >
+          <I18n>Profile</I18n>
+        </Link>
+        {profile.spaceAdmin && (
+          <button
+            onClick={openInviteOthersForm}
+            className="dropdown-item"
+            role="menuitem"
+          >
+            <I18n>Invite Others</I18n>
+          </button>
+        )}
+        <button
+          onClick={openHelpForm}
+          className="dropdown-item"
+          role="menuitem"
+        >
+          <I18n>Get Help</I18n>
+        </button>
+        <button
+          onClick={openFeedbackForm}
+          className="dropdown-item"
+          role="menuitem"
+        >
+          <I18n>Give Feedback</I18n>
+        </button>
+        {hasUserAccess && (
           <Link
-            to="/profile/edit"
+            to="/about"
             className="dropdown-item"
             onClick={toggle}
             role="menuitem"
           >
-            <I18n>Profile</I18n>
+            <I18n>About My Space</I18n>
           </Link>
-          {profile.spaceAdmin && (
-            <button
-              onClick={openInviteOthersForm}
-              className="dropdown-item"
-              role="menuitem"
-            >
-              <I18n>Invite Others</I18n>
-            </button>
-          )}
-          <button
-            onClick={openHelpForm}
+        )}
+        {hasTeamAccess && (
+          <Link
+            to="/teams"
             className="dropdown-item"
+            onClick={toggle}
             role="menuitem"
           >
-            <I18n>Get Help</I18n>
-          </button>
-          <button
-            onClick={openFeedbackForm}
-            className="dropdown-item"
-            role="menuitem"
-          >
-            <I18n>Give Feedback</I18n>
-          </button>
-          {hasUserAccess && (
-            <Link
-              to="/about"
-              className="dropdown-item"
-              onClick={toggle}
-              role="menuitem"
-            >
-              <I18n>About My Space</I18n>
-            </Link>
-          )}
-          <div className="dropdown-divider" role="none" />
-          <button onClick={logout} className="dropdown-item" role="menuitem">
-            <I18n>Logout</I18n>
-          </button>
-        </div>
-      </DropdownMenu>
-    </Dropdown>
-  </NavItem>
+            <I18n>Teams</I18n>
+          </Link>
+        )}
+        <hr />
+        <button onClick={logout} className="dropdown-item" role="menuitem">
+          <I18n>Logout</I18n>
+        </button>
+      </div>
+    </DropdownMenu>
+  </Dropdown>
 );
 
 const mapStateToProps = state => ({
   profile: state.app.profile,
   hasUserAccess: selectors.selectHasUserAccess(state),
+  hasTeamAccess: selectors.selectHasTeamAccess(state),
 });
 
 const mapDispatchToProps = { push };
 
 export const ProfileDropdown = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
   withState('isOpen', 'setIsOpen', false),
   withHandlers({
     openHelpForm: props => () => {

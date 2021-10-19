@@ -78,8 +78,8 @@ store.dispatch(actions.setKappSlug(match && match.params.kappSlug));
 [
   ['small', window.matchMedia('(max-width: 767px)')],
   ['medium', window.matchMedia('(min-width: 768px) and (max-width: 991px)')],
-  ['large', window.matchMedia('(min-width: 992px) and (max-width: 1200px)')],
-  ['xlarge', window.matchMedia('(min-width: 1201px)')],
+  ['large', window.matchMedia('(min-width: 992px) and (max-width: 1199px)')],
+  ['xlarge', window.matchMedia('(min-width: 1200px)')],
 ].forEach(([size, mql]) => {
   mql.addListener(event => {
     if (event.matches) {
@@ -88,8 +88,5 @@ store.dispatch(actions.setKappSlug(match && match.params.kappSlug));
   });
   if (mql.matches) {
     store.dispatch(layoutActions.setSize(size));
-    if (size === 'small') {
-      store.dispatch(layoutActions.setSidebarOpen(false));
-    }
   }
 });

@@ -5,7 +5,6 @@ import { compose, withHandlers } from 'recompose';
 import { CoreForm } from '@kineticdata/react';
 import { addToast } from '@kineticdata/bundle-common';
 import { PageTitle } from './shared/PageTitle';
-import { Link } from 'react-router-dom';
 import { parse } from 'query-string';
 
 import { I18n } from '@kineticdata/react';
@@ -13,29 +12,17 @@ import { I18n } from '@kineticdata/react';
 const Layout = ({ authenticated, kapp, isPublic }) => ({ form, content }) => (
   <>
     {!isPublic && (
-      <div className="page-title">
-        <div
-          role="navigation"
-          aria-label="breadcrumbs"
-          className="page-title__breadcrumbs"
-        >
-          {kapp && (
-            <>
-              <span className="breadcrumb-item">
-                <Link to={`/kapps/${kapp.slug}`}>
-                  <I18n>{kapp.name}</I18n>
-                </Link>{' '}
-              </span>
-              <span aria-hidden="true">/ </span>
-              {form && (
-                <h1>
-                  <I18n>{form.name}</I18n>
-                </h1>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+      <PageTitle
+        parts={['Form']}
+        breadcrumbs={[
+          { label: 'Home', to: '/' },
+          kapp && {
+            label: kapp.name,
+            to: `/kapps/${kapp.slug}`,
+          },
+        ]}
+        title={form && form.name}
+      />
     )}
     {content}
   </>
@@ -56,9 +43,9 @@ export const FormComponent = ({
   Layout,
 }) => (
   <Fragment>
-    <PageTitle parts={['Form']} />
-    <div className={!isPublic ? 'page-container container' : ''}>
+    <div className={!isPublic ? 'page-container page-container--lg' : ''}>
       <div className={!isPublic ? 'page-panel' : ''}>
+        <PageTitle parts={['Form']} />
         <I18n
           context={`kapps.${kappSlug}.forms.${formSlug}`}
           public={!authenticated}

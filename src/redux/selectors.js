@@ -30,6 +30,13 @@ export const selectHasUserAccess = state =>
         (state.app.space.authorization &&
           state.app.space.authorization['Users Access']))
     : false;
+export const selectHasTeamAccess = state =>
+  !state.app.loading
+    ? state.app.authenticated &&
+      (state.app.profile.spaceAdmin ||
+        (state.app.space.authorization &&
+          state.app.space.authorization['Teams Access']))
+    : false;
 
 export const selectMenuLinks = object =>
   object
@@ -50,8 +57,8 @@ export const selectMenuLinks = object =>
                     ? icon
                     : `fa-${icon}`
                   : relative
-                  ? 'fa-arrow-circle-right'
-                  : 'fa-external-link-square',
+                    ? 'fa-arrow-circle-right'
+                    : 'fa-external-link-square',
               }
             : null;
         })

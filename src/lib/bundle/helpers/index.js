@@ -28,6 +28,7 @@ bundle.helpers = bundle.helpers || {};
 bundle.helpers.Typeahead = Widgets.Typeahead;
 bundle.helpers.Signature = Widgets.Signature;
 bundle.helpers.PDF = Widgets.PDF;
+bundle.helpers.Markdown = Widgets.Markdown;
 
 /**
  * Displays a toast message (bottom of the screen - disappears on its own after
