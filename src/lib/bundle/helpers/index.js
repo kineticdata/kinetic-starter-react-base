@@ -7,6 +7,7 @@ import {
   PeopleSelect,
   SchedulerWidget,
   Calendar,
+  CalendarForm,
   Widgets,
   addToast,
   addToastAlert,
@@ -231,6 +232,10 @@ bundle.helpers.calendar = (div, options = {}) => {
   );
 };
 
+bundle.helpers.calendarConfigForm = (div, options = {}) => {
+  renderIntoDom(<CalendarForm {...options} />, div);
+};
+
 /**
  * Displays a confirm message to the user.
  *
@@ -344,7 +349,7 @@ bundle.helpers.confirm = (options = {}) => {
  *    showSchedulerSelector   boolean [Default: false]
  *    schedulerId             string *required if showSchedulerSelector != true*
  *    showTypeSelector        boolean [Default: false]
- *    eventType               string *required if showTypeSelector != true*
+ *    source               string *required if showTypeSelector != true*
  *    scheduledEventId        string
  *    eventUpdated            string
  *    canReschedule           boolean [Default: false]
@@ -369,7 +374,7 @@ bundle.helpers.schedulerWidget = (div, props = {}, form, fieldMap = {}) => {
   */
   if (
     (!props.showSchedulerSelector && !props.schedulerId) ||
-    (!props.showTypeSelector && !props.eventType)
+    (!props.showTypeSelector && !props.source)
   ) {
     ReactDOM.unmountComponentAtNode(div);
   } else {
