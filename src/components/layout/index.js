@@ -30,6 +30,7 @@ const defineWidthAndOverlap = rawWidth => {
 export default connect(
   state => ({
     sidebarOpen: state.layout.sidebarOpen,
+    authenticated: state.app.authenticated,
   }),
   { setSidebarOpen: actions.setSidebarOpen },
 )(props => {
@@ -47,6 +48,7 @@ export default connect(
     mobile,
     sidebarOpen,
     setSidebarOpen,
+    authenticated,
   } = props;
 
   // Sidebar state: 1 = open, 0 = closing, -1 = closed
@@ -259,6 +261,7 @@ export default connect(
 
   return (
     <Layout
+      authenticated={authenticated}
       sidebar={sidebar}
       header={header}
       main={main}

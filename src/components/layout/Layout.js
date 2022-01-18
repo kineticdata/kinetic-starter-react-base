@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 export const Layout = ({
+  authenticated,
   sidebar,
   header,
   main,
@@ -19,18 +20,19 @@ export const Layout = ({
 }) => {
   return (
     <div className="app-wrapper">
-      {!!sidebar && (
-        <nav
-          className={classNames('app-sidebar', {
-            closed: !mobile && sidebarOpen === -1,
-            closing: !mobile && sidebarOpen === 0,
-            open: mobile && sidebarOpen > 0,
-          })}
-          ref={sidebarRef}
-        >
-          {sidebar}
-        </nav>
-      )}
+      {!!sidebar &&
+        authenticated && (
+          <nav
+            className={classNames('app-sidebar', {
+              closed: !mobile && sidebarOpen === -1,
+              closing: !mobile && sidebarOpen === 0,
+              open: mobile && sidebarOpen > 0,
+            })}
+            ref={sidebarRef}
+          >
+            {sidebar}
+          </nav>
+        )}
 
       <div
         className={classNames('app-body', classes.body)}

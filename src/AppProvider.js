@@ -14,6 +14,8 @@ import { I18n } from '@kineticdata/react';
 import { PageTitle } from './components/shared/PageTitle';
 import { Home } from './components/home/Home';
 import { SearchResults } from './components/SearchResults';
+import { Kapp } from './components/Kapp';
+import { Submissions } from './components/Submissions';
 import { Form } from './components/Form';
 import { Profile } from './components/Profile';
 import { EditProfile } from './components/EditProfile';
@@ -38,7 +40,7 @@ const AppComponent = props => {
           <main className={`package-layout package-layout--app`}>
             <PageTitle parts={['Loading...']} />
             <Switch>
-              <Route exact path="/kapps/:kappSlug" component={Home} />
+              <Route exact path="/kapps/:kappSlug" component={Kapp} />
               <Route
                 exact
                 path="/kapps/:kappSlug/forms/:formSlug"
@@ -49,6 +51,12 @@ const AppComponent = props => {
                 path="/kapps/:kappSlug/forms/:formSlug/submissions/:id"
                 component={Form}
               />
+              <Route
+                exact
+                path="/kapps/:kappSlug/forms/:formSlug/submissions"
+                component={Submissions}
+              />
+
               <Route exact path="/search/:query?" component={SearchResults} />
               <Route exact path="/profile/edit" component={EditProfile} />
               <Route exact path="/profile/:username?" component={Profile} />
@@ -148,5 +156,8 @@ export class AppProvider extends Component {
   static hasPublicRoutes = true;
 
   static shouldHideHeader = ({ location }) =>
+    parse(location.search).public !== undefined;
+
+  static shouldHideSidebar = ({ location }) =>
     parse(location.search).public !== undefined;
 }
