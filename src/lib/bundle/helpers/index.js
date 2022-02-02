@@ -7,6 +7,7 @@ import {
   PeopleSelect,
   SchedulerWidget,
   Calendar,
+  CalendarForm,
   Widgets,
   addToast,
   addToastAlert,
@@ -207,12 +208,18 @@ bundle.helpers.alert = (options = {}) => {
  *        The slug of the calendar, must match a calendar configuration
  *        in the calendar configuration datastore.
  *
- *    size:      Width of the window the calendar is render in. *recommended*
- *        The options are medium and large.
+ *    size:             Width of the window the calendar is render in.
+ *        *recommended* The options are medium and large.
  *
- *    timezone:         Set the calendar initial timezone
+ *    timezone:         Set the calendar initial timezone.
  *
- *    title:            Add a title to the calendar
+ *    timezoneDisplay:  Sets the visibility of the timezone display dropdown.
+ *
+ *    maxEventLimit:    Sets the number of events that will show on a given day
+ *        in month view or all day events in week view.
+ *
+ *    title:            Add a title to the calendar.
+ * }
  */
 bundle.helpers.calendar = (div, options = {}) => {
   if (!options.calendarSlug) {
@@ -225,10 +232,16 @@ bundle.helpers.calendar = (div, options = {}) => {
       slug={options.calendarSlug}
       size={options.size}
       timezone={options.timezone}
+      timezoneDisplay={options.timezoneDisplay}
+      maxEventLimit={options.maxEventLimit}
       title={options.title}
     />,
     div,
   );
+};
+
+bundle.helpers.calendarConfigForm = (div, options = {}) => {
+  renderIntoDom(<CalendarForm {...options} />, div);
 };
 
 /**
@@ -344,7 +357,7 @@ bundle.helpers.confirm = (options = {}) => {
  *    showSchedulerSelector   boolean [Default: false]
  *    schedulerId             string *required if showSchedulerSelector != true*
  *    showTypeSelector        boolean [Default: false]
- *    eventType               string *required if showTypeSelector != true*
+ *    source               string *required if showTypeSelector != true*
  *    scheduledEventId        string
  *    eventUpdated            string
  *    canReschedule           boolean [Default: false]
@@ -369,7 +382,7 @@ bundle.helpers.schedulerWidget = (div, props = {}, form, fieldMap = {}) => {
   */
   if (
     (!props.showSchedulerSelector && !props.schedulerId) ||
-    (!props.showTypeSelector && !props.eventType)
+    (!props.showTypeSelector && !props.source)
   ) {
     ReactDOM.unmountComponentAtNode(div);
   } else {

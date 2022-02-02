@@ -24,7 +24,7 @@ const HeaderComponent = props => (
 
     <div className="mr-auto" aria-hidden="true" />
 
-    <SearchBar modal={props.mobile} />
+    {props.authenticated && <SearchBar modal={props.mobile} />}
     {props.authenticated && !props.alertsDisabled && <AlertsDropdown />}
     {props.authenticated && <ProfileDropdown />}
     {!props.authenticated && (
