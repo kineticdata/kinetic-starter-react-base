@@ -150,40 +150,31 @@ export default connect(
 
   // Handle changing the sidebar state to closed after it is set to closing,
   // and setting the initial sidebar state
-  useEffect(
-    () => {
-      if (sidebarOpen === 0) {
-        if (mobile) {
-          setSidebarOpen(-1);
-        } else {
-          setTimeout(() => setSidebarOpen(-1), 300);
-        }
-      } else if (sidebarOpen === null) {
-        setSidebarOpen(mobile || shouldSuppressSidebar ? -1 : 1);
-      }
-    },
-    [sidebarOpen, setSidebarOpen, mobile, shouldSuppressSidebar],
-  );
-
-  // Handler for toggling the sidebar open or closed
-  const toggleSidebar = useCallback(
-    () => {
-      setSidebarOpen(sidebarOpen > 0 ? 0 : 1);
-    },
-    [sidebarOpen, setSidebarOpen],
-  );
-
-  // Handler for toggling sidebar after a link it it was clicked
-  const onSidebarAction = useCallback(
-    () => {
+  useEffect(() => {
+    if (sidebarOpen === 0) {
       if (mobile) {
         setSidebarOpen(-1);
-      } else if (sidebarOpen < 0) {
-        setSidebarOpen(0);
+      } else {
+        setTimeout(() => setSidebarOpen(-1), 300);
       }
-    },
-    [mobile, sidebarOpen, setSidebarOpen],
-  );
+    } else if (sidebarOpen === null) {
+      setSidebarOpen(mobile || shouldSuppressSidebar ? -1 : 1);
+    }
+  }, [sidebarOpen, setSidebarOpen, mobile, shouldSuppressSidebar]);
+
+  // Handler for toggling the sidebar open or closed
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen(sidebarOpen > 0 ? 0 : 1);
+  }, [sidebarOpen, setSidebarOpen]);
+
+  // Handler for toggling sidebar after a link it it was clicked
+  const onSidebarAction = useCallback(() => {
+    if (mobile) {
+      setSidebarOpen(-1);
+    } else if (sidebarOpen < 0) {
+      setSidebarOpen(0);
+    }
+  }, [mobile, sidebarOpen, setSidebarOpen]);
 
   //Event handler for mouseMove that sets the width of the aside
   const onResizeAside = useCallback(
@@ -242,7 +233,11 @@ export default connect(
 
   // Header content to render
   const header = !shouldHideHeader ? (
-    <Header toggleSidebar={toggleSidebar} mobile={mobile} />
+    <Header
+      toggleSidebar={toggleSidebar}
+      mobile={mobile}
+      hideSidebarToggle={!!shouldHideSidebar}
+    />
   ) : null;
   // Sidebar content to render
   const sidebar = !shouldHideSidebar ? (
