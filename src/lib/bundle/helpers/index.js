@@ -11,6 +11,7 @@ import {
   Widgets,
   addToast,
   addToastAlert,
+  browserCheck,
   openConfirm,
   openModalForm,
   closeModalForm,
@@ -30,6 +31,7 @@ bundle.helpers.Typeahead = Widgets.Typeahead;
 bundle.helpers.Signature = Widgets.Signature;
 bundle.helpers.PDF = Widgets.PDF;
 bundle.helpers.Markdown = Widgets.Markdown;
+bundle.helpers.browserCheck = browserCheck;
 
 /**
  * Displays a toast message (bottom of the screen - disappears on its own after
