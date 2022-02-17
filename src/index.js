@@ -31,8 +31,6 @@ if (process.env.NODE_ENV === 'development') {
   axe(React, ReactDOM, 1000);
 }
 
-console.log(history.location.pathname);
-
 const ConnectedKineticLib = connect(state => ({
   locale: state.app.locale,
 }))(KineticLib);
@@ -52,7 +50,6 @@ ReactDOM.render(
           ...TableComponents.defaults,
           coreForm: { ...CoreFormComponents.defaults },
         }}
-        skipInit
       >
         {({ initialized, ...authProps }) =>
           initialized && (
