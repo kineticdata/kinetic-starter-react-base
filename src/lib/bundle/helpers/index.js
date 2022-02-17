@@ -15,6 +15,8 @@ import {
   openConfirm,
   openModalForm,
   closeModalForm,
+  openLoader,
+  closeLoader,
 } from '@kineticdata/bundle-common';
 import {
   validateNotificationOptions,
@@ -80,6 +82,19 @@ bundle.helpers.addToastAlert = addToastAlert;
  *                               'confirmationText' is (text, slug, username, etc)
  */
 bundle.helpers.openConfirm = openConfirm;
+
+/**
+ * Displays a loader modal. Only one visible at a time.
+ *
+ * Accepts an options object as a parameter.
+ *   The options object can provide the following properties:
+ *     - heading:     String heading to display in place of the spinner.
+ *     - title:       String title to display.
+ *     - body:        String message to display.
+ */
+bundle.helpers.openLoader = openLoader;
+/** Hides the loader modal if one is open. */
+bundle.helpers.closeLoader = closeLoader;
 
 /**
  * Opens a Kinetic form in a modal.
