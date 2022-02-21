@@ -321,7 +321,7 @@ export const EditProfileComponent = ({
               </div>
             </section>
           )}
-          
+
           <section className="mt-5">
             <h2 className="section__title">
               <span className="title">

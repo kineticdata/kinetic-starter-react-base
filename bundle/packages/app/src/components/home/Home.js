@@ -93,10 +93,7 @@ export const HomeComponent = ({
                 <span className="title">
                   <I18n>Queue Actions</I18n>
                 </span>
-                <Link
-                  className="btn btn-link"
-                  to={`/kapps/${queueKapp.slug}`}
-                >
+                <Link className="btn btn-link" to={`/kapps/${queueKapp.slug}`}>
                   <I18n>View All</I18n>
                 </Link>
               </div>
