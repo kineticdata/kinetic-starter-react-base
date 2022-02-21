@@ -2,7 +2,6 @@ import React from 'react';
 import { CoreForm } from '@kineticdata/react';
 import { Utils } from '@kineticdata/bundle-common';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { I18n } from '@kineticdata/react';
@@ -21,31 +20,20 @@ const AlertComponent = ({
   const submissionId = id;
   return (
     <div className="page-container page-container--space-alerts-form">
-      <PageTitle parts={[editing ? 'Edit Alert' : 'New Alert', 'Alerts']} />
-
       <div className="page-panel page-panel--space-alerts-form">
-        <div className="page-title">
-          <div
-            role="navigation"
-            aria-label="breadcrumbs"
-            className="page-title__breadcrumbs"
-          >
-            <span className="breadcrumb-item">
-              <Link to="/alerts">
-                <I18n>alerts</I18n>
-              </Link>
-            </span>
-            <span aria-hidden="true">/ </span>
-            <h1>
-              <I18n>{editing ? 'Edit' : 'New'} Alert</I18n>
-            </h1>
-          </div>
-        </div>
-        <I18n context={`datastore.forms.${alertsFormSlug}`}>
+        <PageTitle
+          parts={[editing ? 'Edit Alert' : 'New Alert', 'Alerts']}
+          breadcrumbs={[
+            { label: 'Home', to: '/' },
+            { label: 'Alerts', to: '/alerts' },
+          ]}
+          title={`${editing ? 'Edit' : 'New'} Alert`}
+        />
+
+        <I18n context={`kapps.datastore.forms.${alertsFormSlug}`}>
           {editing ? (
             <div>
               <CoreForm
-                datastore
                 submission={submissionId}
                 updated={handleCreateOrUpdate}
               />
@@ -53,7 +41,7 @@ const AlertComponent = ({
           ) : (
             <div>
               <CoreForm
-                datastore
+                kapp="datastore"
                 form={alertsFormSlug}
                 created={handleCreateOrUpdate}
                 updated={handleCreateOrUpdate}

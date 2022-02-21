@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   CommonProvider,
-  ErrorUnexpected,
-  Loading,
+  ErrorMessage,
+  LoadingMessage,
   ModalFormContainer,
   ToastsContainer,
 } from '@kineticdata/bundle-common';
@@ -12,7 +12,10 @@ import { parse } from 'query-string';
 import { I18n } from '@kineticdata/react';
 
 import { PageTitle } from './components/shared/PageTitle';
-import { Home } from './components/Home';
+import { Home } from './components/home/Home';
+import { SearchResults } from './components/SearchResults';
+import { Kapp } from './components/Kapp';
+import { Submissions } from './components/Submissions';
 import { Form } from './components/Form';
 import { Profile } from './components/Profile';
 import { EditProfile } from './components/EditProfile';
@@ -23,18 +26,21 @@ import { Alert } from './components/alerts/Alert';
 import SettingsApp from '@kineticdata/bundle-settings';
 
 const AppComponent = props => {
-  if (props.errors.size > 0) {
-    return <ErrorUnexpected />;
-  } else if (props.loading) {
-    return <Loading text="App is loading ..." />;
-  } else {
-    return props.render({
-      main: (
+  return props.render({
+    main:
+      props.errors.size > 0 ? (
+        <ErrorMessage
+          title="Unexpected Error"
+          message="Sorry, an unexpected error has occurred!"
+        />
+      ) : props.loading ? (
+        <LoadingMessage />
+      ) : (
         <I18n>
           <main className={`package-layout package-layout--app`}>
             <PageTitle parts={['Loading...']} />
             <Switch>
-              <Route exact path="/kapps/:kappSlug" component={Home} />
+              <Route exact path="/kapps/:kappSlug" component={Kapp} />
               <Route
                 exact
                 path="/kapps/:kappSlug/forms/:formSlug"
@@ -45,6 +51,13 @@ const AppComponent = props => {
                 path="/kapps/:kappSlug/forms/:formSlug/submissions/:id"
                 component={Form}
               />
+              <Route
+                exact
+                path="/kapps/:kappSlug/forms/:formSlug/submissions"
+                component={Submissions}
+              />
+
+              <Route exact path="/search/:query?" component={SearchResults} />
               <Route exact path="/profile/edit" component={EditProfile} />
               <Route exact path="/profile/:username?" component={Profile} />
               <Route path="/teams" component={TeamsNavigation} />
@@ -72,8 +85,7 @@ const AppComponent = props => {
           </main>
         </I18n>
       ),
-    });
-  }
+  });
 };
 
 const PublicAppComponent = props => {
@@ -144,5 +156,8 @@ export class AppProvider extends Component {
   static hasPublicRoutes = true;
 
   static shouldHideHeader = ({ location }) =>
+    parse(location.search).public !== undefined;
+
+  static shouldHideSidebar = ({ location }) =>
     parse(location.search).public !== undefined;
 }
