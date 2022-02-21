@@ -10,21 +10,20 @@ import logo from '../../assets/images/login-name.png';
 
 const HeaderComponent = props => (
   <>
-    {props.mobile && (
+    {props.mobile && !props.hideSidebarToggle && props.authenticated && (
       <button className="toggle" onClick={props.toggleSidebar}>
         <span className="fa fa-bars" />
       </button>
     )}
-    {props.logo &&
-      props.logo !== 'Disabled' && (
-        <Link className="logo" to="/">
-          <img src={props.logo} alt="Logo" />
-        </Link>
-      )}
+    {props.logo && props.logo !== 'Disabled' && (
+      <Link className="logo" to="/">
+        <img src={props.logo} alt="Logo" />
+      </Link>
+    )}
 
     <div className="mr-auto" aria-hidden="true" />
 
-    <SearchBar modal={props.mobile} />
+    {props.authenticated && <SearchBar modal={props.mobile} />}
     {props.authenticated && !props.alertsDisabled && <AlertsDropdown />}
     {props.authenticated && <ProfileDropdown />}
     {!props.authenticated && (

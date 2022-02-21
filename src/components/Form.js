@@ -9,19 +9,28 @@ import { parse } from 'query-string';
 
 import { I18n } from '@kineticdata/react';
 
-const Layout = ({ authenticated, kapp, isPublic }) => ({ form, content }) => (
+const Layout = ({ authenticated, kapp, isPublic }) => ({
+  form,
+  submission,
+  content,
+}) => (
   <>
     {!isPublic && (
       <PageTitle
-        parts={['Form']}
+        parts={[form && form.name, kapp && kapp.name]}
         breadcrumbs={[
-          { label: 'Home', to: '/' },
           kapp && {
             label: kapp.name,
             to: `/kapps/${kapp.slug}`,
           },
+          kapp &&
+            form && {
+              label: `${form ? form.name : ''} Submissions`,
+              to: `/kapps/${kapp.slug}/forms/${form.slug}/submissions`,
+            },
         ]}
         title={form && form.name}
+        subtitle={submission && submission.label}
       />
     )}
     {content}
@@ -43,7 +52,7 @@ export const FormComponent = ({
   Layout,
 }) => (
   <Fragment>
-    <div className={!isPublic ? 'page-container page-container--lg' : ''}>
+    <div className={!isPublic ? 'page-container' : ''}>
       <div className={!isPublic ? 'page-panel' : ''}>
         <PageTitle parts={['Form']} />
         <I18n
@@ -99,7 +108,13 @@ export const handleCompleted = props => response => {
       (response.submission.displayedPage &&
         response.submission.displayedPage.type !== 'confirmation')
     ) {
-      props.push(`/kapps/${props.kappSlug}`);
+      if (props.isPublic) {
+        props.push(`/kapps/${props.kappSlug}`);
+      } else {
+        props.push(
+          `/kapps/${props.kappSlug}/forms/${props.formSlug}/submissions`,
+        );
+      }
       addToast('The form was submitted successfully');
     }
   }
@@ -130,22 +145,23 @@ export const handleCreated = props => response => {
      */
     if (
       (props.authenticated || (!props.isEmbedded && !props.isCrossDomain)) &&
-      props.match
+      props.formSlug
     ) {
       props.push(
-        `/kapps/${props.kappSlug}/forms/${
-          props.match.params.formSlug
-        }/submissions/${response.submission.id}`,
+        `/kapps/${props.kappSlug}/forms/${props.formSlug}/submissions/${
+          response.submission.id
+        }`,
       );
     }
   }
 };
 
-export const mapStateToProps = state => {
+export const mapStateToProps = (state, props) => {
   const search = parse(state.router.location.search);
   return {
     kappSlug: state.app.kappSlug,
     kapp: state.app.kapp,
+    formSlug: props.match.params.formSlug,
     authenticated: state.app.authenticated,
     values: valuesFromQueryParams(state.router.location.search),
     isPublic: search.public !== undefined,

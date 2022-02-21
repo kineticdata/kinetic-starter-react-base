@@ -119,7 +119,9 @@ const SidebarComponent = props => {
           <SidebarLink
             to={`/kapps/${props.queueKapp.slug}`}
             icon="fa fa-tasks"
-            matchExclude={`/kapps/${props.queueKapp.slug}${QueueApp.settingsRoute}`}
+            matchExclude={`/kapps/${props.queueKapp.slug}${
+              QueueApp.settingsRoute
+            }`}
           >
             <I18n>Queue</I18n>
           </SidebarLink>
@@ -128,7 +130,9 @@ const SidebarComponent = props => {
           <SidebarLink
             to={`/kapps/${props.techBarKapp.slug}`}
             icon="fa fa-clock-o"
-            matchExclude={`/kapps/${props.techBarKapp.slug}${TechBarApp.settingsRoute}`}
+            matchExclude={`/kapps/${props.techBarKapp.slug}${
+              TechBarApp.settingsRoute
+            }`}
           >
             <I18n>Tech Bar</I18n>
           </SidebarLink>
