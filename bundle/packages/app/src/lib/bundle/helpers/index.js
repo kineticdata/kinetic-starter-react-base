@@ -250,8 +250,11 @@ bundle.helpers.calendar = (div, options = {}) => {
       size={options.size}
       timezone={options.timezone}
       timezoneDisplay={options.timezoneDisplay}
+      eventMouseEnter={options.eventMouseEnter}
+      eventMouseLeave={options.eventMouseLeave}
       maxEventLimit={options.maxEventLimit}
       title={options.title}
+      eventLimitClick={options.eventLimitClick}
     />,
     div,
   );
@@ -374,7 +377,7 @@ bundle.helpers.confirm = (options = {}) => {
  *    showSchedulerSelector   boolean [Default: false]
  *    schedulerId             string *required if showSchedulerSelector != true*
  *    showTypeSelector        boolean [Default: false]
- *    source               string *required if showTypeSelector != true*
+ *    eventType               string *required if showTypeSelector != true*
  *    scheduledEventId        string
  *    eventUpdated            string
  *    canReschedule           boolean [Default: false]
@@ -399,7 +402,7 @@ bundle.helpers.schedulerWidget = (div, props = {}, form, fieldMap = {}) => {
   */
   if (
     (!props.showSchedulerSelector && !props.schedulerId) ||
-    (!props.showTypeSelector && !props.source)
+    (!props.showTypeSelector && !props.eventType)
   ) {
     ReactDOM.unmountComponentAtNode(div);
   } else {

@@ -14,6 +14,7 @@ import {
   TeamCard,
   Utils,
   ViewDiscussionsModal,
+  selectDiscussionsEnabled,
 } from '@kineticdata/bundle-common';
 import { PageTitle } from './shared/PageTitle';
 import { I18n } from '@kineticdata/react';
@@ -44,6 +45,7 @@ const TeamComponent = ({
   openDiscussions,
   closeDiscussions,
   viewDiscussionsModal,
+  discussionsEnabled,
   isSmallLayout,
   me,
   userIsMember,
@@ -83,15 +85,16 @@ const TeamComponent = ({
               </Link>
             )}
           </div>
-          {userIsMember && (
-            <button
-              onClick={openDiscussions}
-              className="btn btn-inverse btn-block mb-3 d-md-none d-lg-none d-xl-none"
-            >
-              <span className="fa fa-comments fa-fw icon" />
-              <I18n>View Discussions</I18n>
-            </button>
-          )}
+          {discussionsEnabled &&
+            userIsMember && (
+              <button
+                onClick={openDiscussions}
+                className="btn btn-inverse btn-block mb-3 d-md-none d-lg-none d-xl-none"
+              >
+                <span className="fa fa-comments fa-fw icon" />
+                <I18n>View Discussions</I18n>
+              </button>
+            )}
           <div className="cards">
             <Card
               bar={true}
@@ -172,11 +175,21 @@ const TeamComponent = ({
             </section>
           )}
         </div>
-        <Fragment>
-          {viewDiscussionsModal &&
-            isSmallLayout && (
-              <ViewDiscussionsModal
-                close={closeDiscussions}
+        {discussionsEnabled && (
+          <Fragment>
+            {viewDiscussionsModal &&
+              isSmallLayout && (
+                <ViewDiscussionsModal
+                  close={closeDiscussions}
+                  itemType="Team"
+                  itemKey={team.slug}
+                  creationFields={creationFields}
+                  CreationForm={CreationForm}
+                  me={me}
+                />
+              )}
+            {!isSmallLayout && (
+              <DiscussionsPanel
                 itemType="Team"
                 itemKey={team.slug}
                 creationFields={creationFields}
@@ -184,16 +197,8 @@ const TeamComponent = ({
                 me={me}
               />
             )}
-          {!isSmallLayout && (
-            <DiscussionsPanel
-              itemType="Team"
-              itemKey={team.slug}
-              creationFields={creationFields}
-              CreationForm={CreationForm}
-              me={me}
-            />
-          )}
-        </Fragment>
+          </Fragment>
+        )}
       </Fragment>
     )}
   </div>
@@ -231,6 +236,7 @@ const mapStateToProps = (state, props) => {
           t.name !== team.name && t.name.replace(/::[^:]+$/, '') === team.name,
       ),
     isSmallLayout: state.layout.size === 'small',
+    discussionsEnabled: selectDiscussionsEnabled(state),
   };
 };
 

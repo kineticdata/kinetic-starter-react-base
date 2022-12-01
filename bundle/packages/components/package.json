@@ -8,13 +8,13 @@
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/bundle-common": "5.1.0",
-    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@5.1.0",
-    "@kineticdata/react": "5.1.0",
+    "@kineticdata/bundle-common": "5.1.2",
+    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@5.1.2",
+    "@kineticdata/react": "5.1.2",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "immutable": "4.0.0-rc.9",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",

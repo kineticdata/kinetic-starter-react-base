@@ -1252,6 +1252,11 @@
     "@fullcalendar/core" "~4.4.0"
     fast-deep-equal "^2.0.1"
 
+"@fullcalendar/rrule@^4.4.0":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/rrule/-/rrule-4.4.2.tgz#d9890e55c01d20986e2b4a95732c4db482b805b7"
+  integrity sha512-pUKHFp62SZbW9X3vvxc8IMnoWpQ6Nt2IBwwPFPAWmebCnUhyDfMf3tpKaV9slUYvW0Cch4Y58tv0EySP27Q2jg==
+
 "@fullcalendar/timegrid@^4.4.0":
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-4.4.2.tgz#9d5b26204cd2b0928e7498c54f758a6d07b15191"
@@ -1460,20 +1465,21 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@kineticdata/bundle-common@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.1.0.tgz#e2493d7fc14e98e37d413b83a5a0bd8ea3f1dff8"
-  integrity sha512-Ziw01B12kAaWPj5XIeotIVtQ9V0SEcf2Y6qYsoXgPhJR0HJtziBzJjd01gazKkkVylwuYeURosaLv4t1H6CcoA==
+"@kineticdata/bundle-common@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-common/-/bundle-common-5.1.2.tgz#e7656ed0c0874e77618408197b8be8d66a0e90ae"
+  integrity sha512-DUwaGkbfO/9Wi6qp2ypAu6O9OIufs+vy0ff5Vp9xaplNMkQ9R71kGaq7LldjUEGpGhskrxPd3hZgY2J6jZwxJQ==
   dependencies:
     "@fullcalendar/daygrid" "^4.4.0"
     "@fullcalendar/interaction" "^4.4.0"
     "@fullcalendar/list" "^4.4.0"
     "@fullcalendar/moment-timezone" "^4.4.0"
     "@fullcalendar/react" "^4.4.0"
+    "@fullcalendar/rrule" "^4.4.0"
     "@fullcalendar/timegrid" "^4.4.0"
-    "@kineticdata/bundle-components" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-components" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     axios "^0.21.1"
     bowser "^2.11.0"
     classnames "^2.2.5"
@@ -1484,8 +1490,8 @@
     lodash.ismatch "^4.4.0"
     md5 "^2.0.0"
     memoize-one "^4.0.2"
-    moment "^2.22.2"
-    moment-timezone "^0.5.23"
+    moment "^2.29.4"
+    moment-timezone "^0.5.34"
     prop-types "^15.7.2"
     query-string "^5.1.1"
     react-avatar "^3.5.0"
@@ -1501,19 +1507,20 @@
     redux "^3.7.2"
     redux-first-history "^4.0.0-alpha.7"
     redux-saga "^0.16.0"
+    rrule "^2.6.8"
     typeahead.js "^0.11.1"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-components-default@npm:@kineticdata/bundle-components@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.1.0.tgz#a2a9edd1626dd6cb393226363b87ba6da51874af"
-  integrity sha512-eYYPxemZG9I24Br2k9tJ8IizegJ/IOWpV6ou3ErhtCndQW75WwgLLJbNvZhXxLTzTeEHbhDIs9QTKDxiKtM3zw==
+"@kineticdata/bundle-components-default@npm:@kineticdata/bundle-components@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-components/-/bundle-components-5.1.2.tgz#74727d2c48e8b1ad9dbb11aa1604817e18836a0b"
+  integrity sha512-z8m+Egz/q+cFJfgelIKsnHIBP++cy4r+7eYQAtawmJBtN9p1yu6z9sMQjnnCQ6vHOZrTsX4CE9hETp7z+i7ZZg==
   dependencies:
-    "@kineticdata/react" "5.1.0"
+    "@kineticdata/react" "5.1.2"
     "@toast-ui/react-editor" "^3.1.0"
     classnames "^2.2.5"
     immutable "4.0.0-rc.9"
-    moment "^2.22.2"
+    moment "^2.29.4"
     prop-types "^15.7.2"
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
@@ -1521,16 +1528,16 @@
     recompose "^0.30.0"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-components@5.1.0":
+"@kineticdata/bundle-components@5.1.2":
   version "5.0.0"
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/bundle-components-default" "npm:@kineticdata/bundle-components@5.1.0"
-    "@kineticdata/react" "5.1.0"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/bundle-components-default" "npm:@kineticdata/bundle-components@5.1.2"
+    "@kineticdata/react" "5.1.2"
     classnames "^2.2.5"
     font-awesome "^4.7.0"
     immutable "4.0.0-rc.9"
-    moment "^2.22.2"
+    moment "^2.29.4"
     prop-types "^15.7.2"
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
@@ -1538,18 +1545,18 @@
     recompose "^0.30.0"
     uuid "^3.3.2"
 
-"@kineticdata/bundle-discussions@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.1.0.tgz#566e942d813234f58101bc90fc465329a3bedca6"
-  integrity sha512-KIk6oufU372dnuI82w6/6zC8QarMmVc7ezs+jNDqD6Q41InbLOqi1IfVNPxAknYb8JOI5LmpbwdL0EcZGlU8bg==
+"@kineticdata/bundle-discussions@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-discussions/-/bundle-discussions-5.1.2.tgz#2bc09f931079b76134234030e847e8bebe5c59bc"
+  integrity sha512-XXPXOXQe55QTItGqeiPTrFqQo3dLSLvPSLyvMrpQfPHQIK+TQX1y/hefyLlq/MiecS9Ti5Qu2pq+tObBLCRx0A==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     immutable "4.0.0-rc.9"
-    moment "^2.22.2"
+    moment "^2.29.4"
     query-string "^5.1.1"
     react-redux "^6.0.1"
     reactstrap "^7.1.0"
@@ -1559,14 +1566,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-queue@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.1.0.tgz#57e7c58a81cf3fa60950aa1e38f067af7af3519a"
-  integrity sha512-yON1gGCzvxx0ypeo7z0gX8wsKsk9StVUI74UIey9/KmvwBBmrLn3ECJzZMt/mil5d88xahrcJLQihPVdL9HxcQ==
+"@kineticdata/bundle-queue@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-queue/-/bundle-queue-5.1.2.tgz#3923e2bdcc73dadb5ac2b210c85b0631625f8371"
+  integrity sha512-iLOZXhxtneDmrmTMAHoiQBbMCiNOjbyQ/I8DpiM5PwPxuM9xNzFB63YVQQPq5hG60XpTJWvKs2bm+EVM1iLsOg==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     axios "^0.21.1"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1575,7 +1582,7 @@
     is-function "^1.0.1"
     isarray "^2.0.2"
     isobject "^3.0.1"
-    moment "^2.22.2"
+    moment "^2.29.4"
     papaparse "^5.2.0"
     query-string "^5.1.1"
     react-autocomplete "^1.8.1"
@@ -1588,20 +1595,20 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-services@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.1.0.tgz#154359c37ed5131c51ee2f077842cf4aa98f367b"
-  integrity sha512-33bZnOl4Nfh8Fs2CnkVgTzTId5P46x7PMioWKUz3b+fHnU5kuMSIBigXg0kAVA0c9vf5t1k2r4XfyZoEXmoo7g==
+"@kineticdata/bundle-services@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-services/-/bundle-services-5.1.2.tgz#1a5c728a61e17d79c91506e3cb66a76846a79e28"
+  integrity sha512-cpdnD7y3sLZPCt7PAjeaEsbGZjSQJwezRWa/ye8MlkVy8kpTSIC47A/lJTdy4ImKCD/ZEJY0uGoZIxWRn2HeUA==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     downloadjs "^1.4.7"
     immutable "4.0.0-rc.9"
     isobject "^3.0.1"
-    moment "^2.22.2"
+    moment "^2.29.4"
     papaparse "^5.2.0"
     query-string "^5.1.1"
     react-beautiful-dnd "^11.0.5"
@@ -1614,14 +1621,14 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-settings@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.1.0.tgz#58bf271f8ea7210a20a5cde864ca1ca5970e4b27"
-  integrity sha512-rgSpZVgTsfU7ix9Bb2wXYrUC0qMXnBg+e71zEh77HFPBQUNX/zNLEbzwma/mqkM91okQS+y61lgICsHF6xbQEw==
+"@kineticdata/bundle-settings@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-settings/-/bundle-settings-5.1.2.tgz#a0c952739f50e0861cd0516dbdd6f67278ece32a"
+  integrity sha512-v/CD4lkZrROJBNznXtfDkxOXU432mG/nosMOCnsLiweumb6EnKbHJu9rpv0dRMxKYIYxU3Db4F9FTHHeWGrmkA==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     axios "^0.21.1"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
@@ -1630,7 +1637,7 @@
     isarray "^2.0.2"
     isobject "^3.0.1"
     md5 "^2.0.0"
-    moment "^2.22.2"
+    moment "^2.29.4"
     papaparse "^5.2.0"
     query-string "^5.1.1"
     rc-progress "^2.2.5"
@@ -1646,21 +1653,21 @@
     rudy-match-path "^0.3.0"
     semver "^5.5.0"
 
-"@kineticdata/bundle-survey@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.1.0.tgz#d2803f99af934d1b2ef5c17ffc734fc41d0a4252"
-  integrity sha512-0R53FxEpx/WRa9MPVDH+cFQ5I/vVF3OLHZfObf00yFRuG6XbvImmOEoL2CJQBLN+rZnBJDwHz4uvFx1t2zrrPQ==
+"@kineticdata/bundle-survey@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-survey/-/bundle-survey-5.1.2.tgz#b4b3a12ebafb60d0077fe459776b61477d8b307c"
+  integrity sha512-ILtw5WfhDHiKLZF0Afq0aKhxNw0WvtjUY0h4glmy/yNM5CRHRc2FHrHhMjYyFvRB+WfVJQB4VzkrdO9LYCehRw==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     downloadjs "^1.4.7"
     httpsnippet "^1.19.1"
     immutable "4.0.0-rc.9"
     isobject "^3.0.1"
-    moment "^2.22.2"
+    moment "^2.29.4"
     papaparse "^5.2.0"
     query-string "^5.1.1"
     react-redux "^6.0.1"
@@ -1671,21 +1678,21 @@
     redux-saga "^0.16.0"
     rudy-match-path "^0.3.0"
 
-"@kineticdata/bundle-tech-bar@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.1.0.tgz#bacf18890ada047efe7da043b4e3917635eab691"
-  integrity sha512-lyORB9jflLpbxX7ScKFWkMvhVyeWlDXYOyC9AaksCTLJgrF5RsbBj5ds5DntcHaPgkw1j6b1FnVPOmQqKzkutg==
+"@kineticdata/bundle-tech-bar@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/bundle-tech-bar/-/bundle-tech-bar-5.1.2.tgz#7fb86eb859f5509200054a2778b28b008ede6d48"
+  integrity sha512-5An31TQKTJ4IWxGZ5WB5swJbgiZbuDxejdDGDqKvMZjoL0p53rwUus/SOGhtMaf5EqarsDHLL5t0/l+YjfZPoA==
   dependencies:
-    "@kineticdata/bundle-common" "5.1.0"
-    "@kineticdata/react" "5.1.0"
-    "@reach/router" "git://github.com/kineticdata/router.git"
+    "@kineticdata/bundle-common" "5.1.2"
+    "@kineticdata/react" "5.1.2"
+    "@reach/router" "https://github.com/kineticdata/router.git"
     bootstrap "^4.3.1"
     classnames "^2.2.5"
     downloadjs "^1.4.7"
     immutable "4.0.0-rc.9"
     isarray "^2.0.2"
     md5 "^2.0.0"
-    moment "^2.22.2"
+    moment "^2.29.4"
     papaparse "^5.2.0"
     query-string "^5.1.1"
     react-redux "^6.0.1"
@@ -1697,10 +1704,10 @@
     rudy-match-path "^0.3.0"
     victory "^31.2.0"
 
-"@kineticdata/react@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.1.0.tgz#6bba5d74579ae16e3dc0b0bf4d9cce0514b26892"
-  integrity sha512-WApIP/fHkYXsFuKhJoHWB//bfhk7g/uhKwMPzARa308NkjTPJhT/HFAC22NNzaQYOCbxjmjSdZRiugvPz9Q7cw==
+"@kineticdata/react@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@kineticdata/react/-/react-5.1.2.tgz#c1e702452c0c76bf26b8ad222fd62684b7715b7a"
+  integrity sha512-nMoLED9OJ5ie9Tanb67Qbjw1EOSyLEmlfWp2rM5PmNMVU0X0EqTNwtJJz/j6lppIMGG3n7UvM+T1yZBED4APtg==
   dependencies:
     axios "^0.21.1"
     classnames "^2.2.6"
@@ -1715,7 +1722,7 @@
     lodash.isplainobject "^4.0.6"
     lodash.isstring "^4.0.1"
     modularscale-sass "^3.0.8"
-    moment "^2.21.0"
+    moment "^2.29.4"
     prismjs "1.23.0"
     prop-types "^15.7.2"
     react-autosuggest "^9.4.3"
@@ -1749,9 +1756,9 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@reach/router@git://github.com/kineticdata/router.git":
+"@reach/router@https://github.com/kineticdata/router.git":
   version "1.3.0-RC1"
-  resolved "git://github.com/kineticdata/router.git#6498c1afb6c1a251e8599c38137b46cd3d9e63d2"
+  resolved "https://github.com/kineticdata/router.git#6498c1afb6c1a251e8599c38137b46cd3d9e63d2"
   dependencies:
     create-react-context "^0.2.1"
     invariant "^2.2.3"
@@ -9372,17 +9379,17 @@ modularscale-sass@^3.0.5, modularscale-sass@^3.0.8:
   resolved "https://registry.yarnpkg.com/modularscale-sass/-/modularscale-sass-3.0.10.tgz#3a596b090360129dd2375bee81b9318085cb47b3"
   integrity sha512-ppbMfcXC+ESpqk1s8BfqsuY85DTAJdoPLxrYFohAUjg3r9eh2CBm2Wn7+JAh26DbRpAHynRt3a8ma2FOfk7JGA==
 
-moment-timezone@^0.5.23:
-  version "0.5.31"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.31.tgz#9c40d8c5026f0c7ab46eda3d63e49c155148de05"
-  integrity sha512-+GgHNg8xRhMXfEbv81iDtrVeTcWt0kWmTEY1XQK14dICTXnWJnT0dxdlPspwqF3keKMVPXwayEsk1DI0AA/jdA==
+moment-timezone@^0.5.34:
+  version "0.5.39"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.39.tgz#342625a3b98810f04c8f4ea917e448d3525e600b"
+  integrity sha512-hoB6suq4ISDj7BDgctiOy6zljBsdYT0++0ZzZm9rtxIvJhIbQ3nmbgSWe7dNFGurl6/7b1OUkHlmN9JWgXVz7w==
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@>=1.6.0, moment@^2.21.0, moment@^2.22.2:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
-  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
+"moment@>= 2.9.0", moment@>=1.6.0, moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 moo@^0.5.0:
   version "0.5.1"
@@ -12572,6 +12579,13 @@ rope-sequence@^1.3.0:
   resolved "https://registry.yarnpkg.com/rope-sequence/-/rope-sequence-1.3.2.tgz#a19e02d72991ca71feb6b5f8a91154e48e3c098b"
   integrity sha512-ku6MFrwEVSVmXLvy3dYph3LAMNS0890K7fabn+0YIRQ2T96T9F4gkFf0vf0WW0JUraNWwGRtInEpH7yO4tbQZg==
 
+rrule@^2.6.8:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/rrule/-/rrule-2.7.1.tgz#2511e1aed0e96fb5acf831304cde97d2cb65d99e"
+  integrity sha512-4p20u/1U7WqR3Nb1hOUrm0u1nSI7sO93ZUVZEZ5HeF6Gr5OlJuyhwEGRvUHq8ZfrPsq5gfa5b9dqnUs/kPqpIw==
+  dependencies:
+    tslib "^2.4.0"
+
 rst-selector-parser@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/rst-selector-parser/-/rst-selector-parser-2.2.3.tgz#81b230ea2fcc6066c89e3472de794285d9b03d91"
@@ -13817,6 +13831,11 @@ tslib@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
+tslib@^2.4.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tsutils@^3.17.1:
   version "3.17.1"
