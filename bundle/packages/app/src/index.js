@@ -42,7 +42,6 @@ ReactDOM.render(
     </Helmet>
     <Provider store={store}>
       <ConnectedKineticLib
-        noSocket
         globals={globals}
         components={{
           fields: {

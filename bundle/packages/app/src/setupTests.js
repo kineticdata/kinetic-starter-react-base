@@ -16,4 +16,4 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 
-beforeEach(() => jest.addMatchers(matchers));
+beforeEach(() => expect.extend(matchers));

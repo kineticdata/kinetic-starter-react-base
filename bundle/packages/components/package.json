@@ -1,16 +1,16 @@
 {
   "name": "@kineticdata/bundle-components",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "private": true,
-  "main:src": "./src/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint src --ext .js",
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/bundle-common": "5.1.2",
-    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@5.1.2",
-    "@kineticdata/react": "5.1.2",
+    "@kineticdata/bundle-common": "6.0.0",
+    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@6.0.0",
+    "@kineticdata/react": "6.0.0",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "immutable": "4.0.0-rc.9",
@@ -26,11 +26,6 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.10.3",
-    "@react-workspaces/react-scripts": "^3.4.0-alpha-01",
-    "cross-env": "^7.0.2"
-  },
   "babel": {
     "presets": [
       [
@@ -40,8 +35,5 @@
         }
       ]
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

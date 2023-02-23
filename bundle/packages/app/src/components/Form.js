@@ -54,7 +54,6 @@ export const FormComponent = ({
   <Fragment>
     <div className={!isPublic ? 'page-container' : ''}>
       <div className={!isPublic ? 'page-panel' : ''}>
-        <PageTitle parts={['Form']} />
         <I18n
           context={`kapps.${kappSlug}.forms.${formSlug}`}
           public={!authenticated}

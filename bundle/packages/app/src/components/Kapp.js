@@ -51,7 +51,7 @@ const TableActionsCell = ({ profile }) => ({ row, value, tableOptions }) => (
                 'slug',
               )}/builder`}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="dropdown-item"
             >
               <I18n>Form Builder</I18n>

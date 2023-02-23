@@ -39,7 +39,9 @@ if (!fs.existsSync(envFile)) {
         console.log(
           chalk
             .bgHex('#F36C24')
-            .black(`Connecting to Kinetic Request CE server: ${answers.apiHost}`),
+            .black(
+              `Connecting to Kinetic Request CE server: ${answers.apiHost}`,
+            ),
         );
       } else {
         console.log(

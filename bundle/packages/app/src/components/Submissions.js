@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { compose, lifecycle, withState } from 'recompose';
 import {
   ErrorMessage,

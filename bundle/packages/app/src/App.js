@@ -18,7 +18,6 @@ import { AppProvider } from './AppProvider';
 import ServicesApp from '@kineticdata/bundle-services';
 import QueueApp from '@kineticdata/bundle-queue';
 import TechBarApp from '@kineticdata/bundle-tech-bar';
-import DiscussionsApp from '@kineticdata/bundle-discussions';
 import SettingsApp from '@kineticdata/bundle-settings';
 import SurveyApp from '@kineticdata/bundle-survey';
 
@@ -38,7 +37,7 @@ const BUNDLE_PACKAGE_PROVIDERS = {
 };
 
 // List of available static packages
-const STATIC_PACKAGE_PROVIDERS = [SettingsApp, DiscussionsApp];
+const STATIC_PACKAGE_PROVIDERS = [SettingsApp];
 
 // Determine the correct AppProvider based on the kapp/route
 const getAppProvider = ({ kapp, pathname }) => {

@@ -1,26 +1,26 @@
 {
   "name": "@kineticdata/bundle",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "private": true,
+  "cracoConfig": "../../craco.config.js",
   "scripts": {
     "prestart": "node ./src/setupEnv.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint src --ext .js",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --env=jsdom",
+    "eject": "craco eject",
+    "lint": "cross-env NODE_ENV=production eslint src --ext .js",
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/bundle-common": "5.1.2",
-    "@kineticdata/bundle-components": "5.1.2",
-    "@kineticdata/bundle-discussions": "5.1.2",
-    "@kineticdata/bundle-queue": "5.1.2",
-    "@kineticdata/bundle-services": "5.1.2",
-    "@kineticdata/bundle-settings": "5.1.2",
-    "@kineticdata/bundle-survey": "5.1.2",
-    "@kineticdata/bundle-tech-bar": "5.1.2",
-    "@kineticdata/react": "5.1.2",
+    "@kineticdata/bundle-common": "6.0.0",
+    "@kineticdata/bundle-components": "6.0.0",
+    "@kineticdata/bundle-queue": "6.0.0",
+    "@kineticdata/bundle-services": "6.0.0",
+    "@kineticdata/bundle-settings": "6.0.0",
+    "@kineticdata/bundle-survey": "6.0.0",
+    "@kineticdata/bundle-tech-bar": "6.0.0",
+    "@kineticdata/react": "6.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -55,12 +55,6 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "@react-workspaces/react-scripts": "^3.4.0-alpha-01",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "jest-immutable-matchers": "^2.0.1",
-    "node-sass": "~4.14.0",
     "react-axe": "3.3.0"
   },
   "browserslist": {
@@ -86,10 +80,5 @@
       "@reach/router": "<rootDir>/../../libs/router/src/index",
       "^lodash-es$": "lodash"
     }
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
   }
 }

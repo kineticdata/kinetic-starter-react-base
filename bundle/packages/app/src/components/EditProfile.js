@@ -157,9 +157,6 @@ export const EditProfileComponent = ({
                           value={fieldValues.defaultKappDisplay}
                         >
                           <option value="" />
-                          <option value="discussions">
-                            {translate('Discussions')}
-                          </option>
                           {visibleKapps.map(k => (
                             <option key={k.slug} value={k.slug}>
                               {translate(k.name)}
