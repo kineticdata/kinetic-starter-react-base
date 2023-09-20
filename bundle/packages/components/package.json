@@ -8,9 +8,9 @@
     "preversion": "yarn lint"
   },
   "dependencies": {
-    "@kineticdata/bundle-common": "6.0.0",
-    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@6.0.0",
-    "@kineticdata/react": "6.0.0",
+    "@kineticdata/bundle-common": "6.0.1",
+    "@kineticdata/bundle-components-default": "npm:@kineticdata/bundle-components@6.0.1",
+    "@kineticdata/react": "6.0.1",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
     "immutable": "4.0.0-rc.9",
@@ -23,8 +23,8 @@
     "uuid": "^3.3.2"
   },
   "peerDependencies": {
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "babel": {
     "presets": [
