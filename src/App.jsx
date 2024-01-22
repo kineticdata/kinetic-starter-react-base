@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import './Global/Assets/Styles/master.scss'
 import 'font-awesome/css/font-awesome.css';
+import { Route, Routes } from 'react-router-dom';
 import {  LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
-import { Login } from './Global/GlobalComponents/Login';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
 import { Header } from './Global/GlobalComponents/Header';
 import { fetchSubmission } from '@kineticdata/react';
-import { LandingPage } from './Global/GlobalComponents/LandingPage';
-import { ServiceOneRouting } from './ServiceOne/ServiceOneRouting';
-import { ServiceTwoRouting } from './ServiceTwo/ServiceTwoRouting';
-import { Profile } from './Global/GlobalComponents/Profile';
+import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
+import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRouting';
+import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
+import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/Profile';
+import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
+import { DocumentationLanding } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationLanding';
+import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
 
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
@@ -22,15 +24,15 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
     setIsAuthorized(loggedIn)
   }, [loggedIn])
 
-  useEffect(() => {
-    if (isAuthorized) {
-      const id = '2fdcbcda-8333-11ee-8862-3543e0450d59';
-      const include = 'details,values';
-      fetchSubmission({id, include}).then(response => {
-        setSubmission(response.submission)
-      }).catch(error => console.log('ERROR: ', error));
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (isAuthorized) {
+  //     const id = '2fdcbcda-8333-11ee-8862-3543e0450d59';
+  //     const include = 'details,values';
+  //     fetchSubmission({id, include}).then(response => {
+  //       setSubmission(response.submission)
+  //     }).catch(error => console.log('ERROR: ', error));
+  //   }
+  // }, [])
 
   // console.log('OPE', submission)
 
@@ -46,17 +48,12 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
           
           {/* Add base routes and Primary Service routes here */}
           <Routes>
-            {/* Optional service routes */}
-            <Route  
-              path='/service-one/*'
-              element={<ServiceOneRouting />}
-            />
-            <Route  
-              path='/service-two/*'
-              element={<ServiceTwoRouting />}
-            />
-
             {/* Base level routing */}
+            <Route  
+              path='/'
+              element={<LandingPage />}
+              exact
+            />
             <Route  
               path='/login'
               element={<Login {...loginProps} />}
@@ -68,9 +65,25 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
               exact
             />
             <Route  
-              path='/'
-              element={<LandingPage />}
+              path='/documentation'
+              element={<DocumentationLanding />}
               exact
+            />
+            <Route  
+              path='/kapps/*'
+              element={<KineticPlatformRouting />}
+              exact
+            />
+
+
+            {/* Optional service routes */}
+            <Route  
+              path='/service-one/*'
+              element={<ServiceOneRouting />}
+            />
+            <Route  
+              path='/service-two/*'
+              element={<ServiceTwoRouting />}
             />
           </Routes>
         </main> 

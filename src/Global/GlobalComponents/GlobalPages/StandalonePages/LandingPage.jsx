@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { LoadingSpinner } from './Widgets/LoadingSpinner';
-import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
+import { GlobalContext } from '../../../GlobalResources/GlobalContextWrapper';
+import { LoadingSpinner } from '../../Widgets/LoadingSpinner';
 
 export const LandingPage = () => {
     const globalState = useContext(GlobalContext);

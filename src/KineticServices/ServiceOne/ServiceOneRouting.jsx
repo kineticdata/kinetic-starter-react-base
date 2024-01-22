@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ServiceTwo } from './ServiceTwo/ServiceTwo';
-import { ServiceTwoContextWrapper } from './ServiceTwo/ServiceTwoContext';
-import { ServiceTwoDisplay } from './ServiceTwo/ServiceTwoDisplay';
+import { ServiceOne } from './ServiceOne/ServiceOne';
+import { ServiceOneDisplay } from './ServiceOne/ServiceOneDisplay';
 
-export const ServiceTwoRouting = () => {
+export const ServiceOneRouting = () => {
     // Base level service folders will have a routing file for this service alone
     // Add the route for this component to the App.jsx file and the remaining routing will be handled here
 
@@ -13,11 +12,11 @@ export const ServiceTwoRouting = () => {
             <Routes>
                 <Route  
                     path={`display`}
-                    element={<ServiceTwoDisplay />}
+                    element={<ServiceOneDisplay />}
                     />
                 <Route  
                     path='/'
-                    element={<ServiceTwo />}
+                    element={<ServiceOne  />}
                     />
             </Routes>
         </>

@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
-import { GlobalContext } from '../../Global/GlobalResources/GlobalContextWrapper';
-import { ServiceTwoContext } from './ServiceTwoContext';
+import { ServiceOneContext } from './ServiceOneContext';
+import { GlobalContext } from '../../../Global/GlobalResources/GlobalContextWrapper';
 
-export const ServiceTwoDisplay = () => {
+export const ServiceOneDisplay = () => {
     const globalState = useContext(GlobalContext);
     const { globalCount, setGlobalCount } = globalState;
 
-    const serviceTwoState = useContext(ServiceTwoContext);
-    const { serviceTwoCount, setServiceTwoCount } = serviceTwoState;
+    const serviceOneState = useContext(ServiceOneContext);
+    const { serviceOneCount, setServiceOneCount } = serviceOneState;
 
     return (
         <>
-            The current Service Two count is: {serviceTwoCount}
+            The current Service One count is: {serviceOneCount}
             <br />
-            <button onClick={() => setServiceTwoCount(0)}>
+            <button onClick={() => setServiceOneCount(0)}>
                 Reset
             </button>
             <br />

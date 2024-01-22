@@ -1,7 +1,7 @@
 import React from 'react';
 import { GlobalContextWrapper } from './GlobalContextWrapper';
-import { ServiceOneContextWrapper } from '../../ServiceOne/ServiceOne/ServiceOneContext';
-import { ServiceTwoContextWrapper } from '../../ServiceTwo/ServiceTwo/ServiceTwoContext';
+import { ServiceOneContextWrapper } from '../../KineticServices/ServiceOne/ServiceOne/ServiceOneContext';
+import { ServiceTwoContextWrapper } from '../../KineticServices/ServiceTwo/ServiceTwo/ServiceTwoContext';
 //TODO: DO WE WANT TO DO THIS VS HAVING CONTEXT CONTAINED TO THE SERVICE? DATA WILL BE CLEARED NAVIGATING OUT AND INTO THE SERVICE
 
 // Navigating out of a service and then back in remounts the conext component, resetting the data to default.

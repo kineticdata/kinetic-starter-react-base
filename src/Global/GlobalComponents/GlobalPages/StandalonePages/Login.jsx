@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { history } from '../../index';
+import { history } from '../../../../index';
 
 export const Login = ({
   error,
