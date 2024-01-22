@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { ServiceOneContext } from './ServiceOneContext';
-import { GlobalContext } from '../../Global/GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
+import { GlobalContext } from '../../../Global/GlobalResources/GlobalContextWrapper';
 
 export const ServiceOne = () => {
     const globalState = useContext(GlobalContext);

@@ -6,8 +6,6 @@ import { DropdownMenu } from './Widgets/Dropdown/Dropdown';
 import { logout } from '@kineticdata/react';
 
 export const Header = ({ loggedIn, profile }) => {
-  const globalState = useContext(GlobalContext);
-  const { globalCount } = globalState;
 
   const headerDropdownContent = useMemo(() => ([
     {
@@ -20,6 +18,17 @@ export const Header = ({ loggedIn, profile }) => {
         </Link>,
       style: 'profile-menu-link',
       id: 'profile-link'
+    },
+    {
+      render: 
+        <Link 
+          id='documentation-link'
+          to='documentation' 
+        >
+          Documentation
+        </Link>,
+      style: 'profile-menu-link',
+      id: 'documentation-link'
     },
     {
       render: 
@@ -49,14 +58,11 @@ export const Header = ({ loggedIn, profile }) => {
       {loggedIn && profile && (
         <div className="nav-items flex-row">
           <div>
-            Global Count: {globalCount}
-          </div>
-          <div>
             <div className='search-box'>
               <input className="search-text" type="text" placeholder="Search Kinetic Data" />
-              <a href="#" className="search-btn">
+              <div className="search-btn">
                 <i className='fa fa-search' aria-hidden="true"></i>
-              </a>
+              </div>
               
             </div>
           </div>
