@@ -11,8 +11,8 @@ import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRoutin
 import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
 import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/Profile';
 import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
-import { DocumentationLanding } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationLanding';
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
+import { DocumentationRouting } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationRouting';
 
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
@@ -65,8 +65,8 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
               exact
             />
             <Route  
-              path='/documentation'
-              element={<DocumentationLanding />}
+              path='/documentation/*'
+              element={<DocumentationRouting />}
               exact
             />
             <Route  
