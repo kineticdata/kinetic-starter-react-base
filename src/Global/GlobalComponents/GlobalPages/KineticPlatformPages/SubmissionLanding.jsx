@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SubmissionsLanding = () => {
+export const SubmissionLanding = () => {
 
     return (
         <>

@@ -6,7 +6,7 @@ import { KappSubmissionsList } from "./KappSubmissionsList";
 import { FormsList } from "./FormsList";
 import { FormLanding } from "./FormLanding";
 import { FormSubmissionsList } from "./FormSubmissionsList";
-import { SubmissionsLanding } from "./SubmissionsLanding";
+import { SubmissionLanding } from "./SubmissionLanding";
 import { SubmissionEdit } from "./SubmissionEdit";
 
 // This component will handle routing for the base Kinetic bundle routes
@@ -43,7 +43,7 @@ export const KineticPlatformRouting = () => (
             />
             <Route  
                 path={':kappId/forms/:formId/submissions/:submissionsId'}
-                element={<SubmissionsLanding />}
+                element={<SubmissionLanding />}
                 exact
             />
             <Route  
