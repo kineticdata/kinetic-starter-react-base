@@ -18,36 +18,36 @@ export const KineticPlatformRouting = () => (
                 element={<KappsList  />}
             />
             <Route  
-                path={':kappId'}
+                path={':kappSlug'}
                 element={<KappLanding />}
             />
             <Route  
-                path={':kappId/submissions'}
+                path={':kappSlug/submissions'}
                 element={<KappSubmissionsList />}
                 exact
             />
             <Route  
-                path={':kappId/forms'}
+                path={':kappSlug/forms'}
                 element={<FormsList />}
                 exact
             />
             <Route  
-                path={':kappId/forms/:formId'}
+                path={':kappSlug/forms/:formSlug'}
                 element={<FormLanding />}
                 exact
             />
             <Route  
-                path={':kappId/forms/:formId/submissions'}
+                path={':kappSlug/forms/:formSlug/submissions'}
                 element={<FormSubmissionsList />}
                 exact
             />
             <Route  
-                path={':kappId/forms/:formId/submissions/:submissionsId'}
+                path={':kappSlug/forms/:formSlug/submissions/:submissionsId'}
                 element={<SubmissionLanding />}
                 exact
             />
             <Route  
-                path={':kappId/forms/:formId/submissions/:submissionsId/edit'}
+                path={':kappSlug/forms/:formSlug/submissions/:submissionsId/edit'}
                 element={<SubmissionEdit />}
                 exact
             />

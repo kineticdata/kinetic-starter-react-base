@@ -24,7 +24,7 @@ export const DropdownContent = ({dropdownContent, contentStyle, isContentOpen, s
                 <div>{userProfile.email}</div>
             </div>
             <hr className='user-info-seperator' />
-            <div>
+            <div className='dropdown-content-list'>
                 {dropdownContentMap}
             </div>
         </div>
