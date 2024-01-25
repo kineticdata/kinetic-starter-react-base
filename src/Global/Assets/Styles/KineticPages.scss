@@ -1,0 +1,45 @@
+.kapps-list-page-wrapper {
+    width: 100%;
+
+    .kapp-cards-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    color: white;
+
+        .kapp-card {
+            width: 280px;
+            aspect-ratio: 16/9;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px 0 #d85900;
+            display: flex;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0 8px 16px 0 #d85900;
+                background-color: #d85a0020;
+            }
+        }
+    }
+}
+
+.landing-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-wrapper {
+    display: flex;
+    text-align: center;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    .login-button {
+        margin-top: 1rem;
+    }
+}

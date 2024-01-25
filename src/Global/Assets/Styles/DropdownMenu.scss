@@ -6,6 +6,13 @@
     border-radius: .25rem;
     transition: right .5s ease-in-out .1s;
 
+.dropdown-content-list {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
     .user-info {
         display: flex;
         flex-direction: column;

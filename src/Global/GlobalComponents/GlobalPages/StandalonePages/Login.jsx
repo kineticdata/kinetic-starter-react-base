@@ -20,7 +20,7 @@ export const Login = ({
     },[onLogin, redirect]);
     
   return (
-    <div className="mx-auto" style={{ width: '500px' }}>
+    <div className="login-wrapper">
       <span>
         <h1>Login</h1>
         <form>
@@ -46,7 +46,7 @@ export const Login = ({
             />
           </div>
           <button
-            className="btn btn-primary"
+            className="login-button"
             disabled={pending}
             type="submit"
             onClick={onSubmit}

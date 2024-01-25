@@ -13,6 +13,7 @@ import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/P
 import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
 import { DocumentationRouting } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationRouting';
+import { Footer } from './Global/GlobalComponents/Footer';
 
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
@@ -37,56 +38,60 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // console.log('OPE', submission)
 
   return (
-    <div className='app-container'>
+    <>
       {!initialized && <LoadingSpinner />}
 
       {/* Components should wait until all necessary data is loaded before rendering */}
       {loggedIn &&
-        <main>
+        <div className='app-container'>
           {/* Header will always be shown */}
           <Header space={kineticSpace} loggedIn={loggedIn} profile={userProfile} />
           
           {/* Add base routes and Primary Service routes here */}
-          <Routes>
-            {/* Base level routing */}
-            <Route  
-              path='/'
-              element={<LandingPage />}
-              exact
-            />
-            <Route  
-              path='/login'
-              element={<Login {...loginProps} />}
-              exact
-            />
-            <Route  
-              path='/profile'
-              element={<Profile />}
-              exact
-            />
-            <Route  
-              path='/documentation/*'
-              element={<DocumentationRouting />}
-              exact
-            />
-            <Route  
-              path='/kapps/*'
-              element={<KineticPlatformRouting />}
-              exact
-            />
+          <div className='app-content-container'>
+            <Routes>
+              {/* Base level routing */}
+              <Route  
+                path='/'
+                element={<LandingPage />}
+                exact
+              />
+              <Route  
+                path='/login'
+                element={<Login {...loginProps} />}
+                exact
+              />
+              <Route  
+                path='/profile'
+                element={<Profile />}
+                exact
+              />
+              <Route  
+                path='/documentation/*'
+                element={<DocumentationRouting />}
+                exact
+              />
+              <Route  
+                path='/kapps/*'
+                element={<KineticPlatformRouting />}
+                exact
+              />
 
 
-            {/* Optional service routes */}
-            <Route  
-              path='/service-one/*'
-              element={<ServiceOneRouting />}
-            />
-            <Route  
-              path='/service-two/*'
-              element={<ServiceTwoRouting />}
-            />
-          </Routes>
-        </main> 
+              {/* Optional service routes */}
+              <Route  
+                path='/service-one/*'
+                element={<ServiceOneRouting />}
+              />
+              <Route  
+                path='/service-two/*'
+                element={<ServiceTwoRouting />}
+              />
+            </Routes>
+          </div>
+
+          <Footer />
+        </div> 
       }
       {!loggedIn && initialized &&
         <main>      
@@ -98,6 +103,6 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
           <Login {...loginProps} />
         </dialog>
       }
-    </div>
+    </>
   )
 }
