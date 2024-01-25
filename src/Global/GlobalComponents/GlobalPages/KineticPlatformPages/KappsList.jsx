@@ -15,7 +15,7 @@ export const KappsList = () => {
     const generateKappCards = useMemo(() => {
         return kappsList.map(kapp => {
             return <KineticCard 
-                        key={kapp.name}
+                        key={kapp.slug}
                         title={kapp.name}
                         icon={kapp.attributesMap['Icon'][0]}
                         subtext={moment(kapp.updatedAt).format("MMM Do YY")}

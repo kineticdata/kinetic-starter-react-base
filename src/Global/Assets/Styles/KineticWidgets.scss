@@ -2,12 +2,12 @@
     margin: 1.5rem 0 1.5rem 0;
 
     .page-title {
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: bold;
     }
 
     .page-subtext {
-        font-size: smaller;
+        font-size: .75rem;
         font-style: italic;
         margin-left: 1rem;
     }
@@ -25,18 +25,18 @@
         color: white;
 
         .kinetic-card-icon {
-            font-size: 48px;
+            font-size: 3rem;
         }
 
         .kinetic-card-title {
-            font-size: x-large;
+            font-size: 1.33rem;
             font-weight: bold;
             display: flex;
             flex-wrap: wrap;
         }
 
         .kinetic-card-subtext {    
-            font-size: smaller;
+            font-size: .75rem;
             font-style: italic;
         }
     }
