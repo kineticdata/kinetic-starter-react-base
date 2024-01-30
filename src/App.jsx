@@ -14,6 +14,7 @@ import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Log
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
 import { DocumentationRouting } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationRouting';
 import { Footer } from './Global/GlobalComponents/Footer';
+import { Breadcrumbs } from './Global/GlobalComponents/Widgets/Breadcrumbs';
 
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
@@ -49,6 +50,7 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
           
           {/* Add base routes and Primary Service routes here */}
           <div className='app-content-container'>
+          <Breadcrumbs />
             <Routes>
               {/* Base level routing */}
               <Route  

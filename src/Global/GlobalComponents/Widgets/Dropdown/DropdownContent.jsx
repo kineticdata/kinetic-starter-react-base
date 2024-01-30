@@ -18,7 +18,9 @@ export const DropdownContent = ({dropdownContent, contentStyle, isContentOpen, s
     ), [dropdownContent])
 
     return (
-        <div className={`dropdown-content${contentStyle !== undefined ? ` ${contentStyle}` : ''}${isContentOpen ? '' : ' open'}`}>
+        <div className={`dropdown-content${contentStyle !== undefined ? 
+            ` ${contentStyle}` : ''}${isContentOpen ? '' : ' open'}`}
+        >
             <div className='user-info'>
                 <div className='user-name'>{userProfile.displayName}</div>
                 <div>{userProfile.email}</div>

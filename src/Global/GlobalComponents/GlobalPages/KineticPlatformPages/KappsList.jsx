@@ -1,11 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { fetchKapps } from '@kineticdata/react';
 import { KineticCard } from "../../Widgets/KineticCard";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
+import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 
 export const KappsList = () => {
+    const globalState = useContext(GlobalContext);
+    const { updateBreadcrumbs } = globalState;
     const [ kappsList, setKappsList ] = useState([]);
+
+    useEffect(() => {
+        updateBreadcrumbs({ page: 'Kapps List', path: '/kapps'});
+    }, [])
 
     useEffect(() => {
         fetchKapps({include: 'details, attributesMap[Icon]'})
@@ -18,7 +25,7 @@ export const KappsList = () => {
                         key={kapp.slug}
                         title={kapp.name}
                         icon={kapp.attributesMap['Icon'][0]}
-                        subtext={moment(kapp.updatedAt).format("MMM Do YY")}
+                        subtext={moment(kapp.updatedAt).format("MMM Do YYYY")}
                         linkPath={kapp.slug}
                         cardClassname='kapp-card' 
                     />
