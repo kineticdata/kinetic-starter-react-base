@@ -1,3 +1,25 @@
+.breadcrumb-wrapper {
+    width: 100%;
+    margin: 0.5rem 0;
+
+    .breadcrumb-crumb::after {
+        padding: 8px;
+        color: white;
+        content: "\203A";
+
+    }
+
+    .breadcrumb-crumb:last-child::after {
+        content: '';
+    }
+
+    .breadcrumb-crumb:last-child {
+        text-decoration: none;
+        color: white;
+        cursor: default;
+    }
+}
+
 .page-title-wrapper {
     margin: 1.5rem 0 1.5rem 0;
 

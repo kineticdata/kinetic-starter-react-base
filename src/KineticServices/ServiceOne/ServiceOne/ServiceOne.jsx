@@ -5,10 +5,14 @@ import { GlobalContext } from '../../../Global/GlobalResources/GlobalContextWrap
 
 export const ServiceOne = () => {
     const globalState = useContext(GlobalContext);
-    const { globalCount, setGlobalCount } = globalState;
+    const { globalCount, setGlobalCount, updateBreadcrumbs } = globalState;
 
     const serviceOneState = useContext(ServiceOneContext);
     const { serviceOneCount, setServiceOneCount } = serviceOneState;
+
+    useEffect(() => {
+        updateBreadcrumbs({ page: 'Service One', path: '/service-one'});
+    }, [])
 
     return (
         <>

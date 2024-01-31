@@ -13,6 +13,7 @@ export function GlobalContextWrapper({children}) {
     const [ kineticSpace, setKineticSpace ] = useState(null);
     const [ theme, setTheme ] = useState('light');
     const [ globalCount, setGlobalCount ] = useState(0);
+    const [ breadcrumbs, setBreadcrumbs ] = useState([]);
     
     // In the event that the entire context requires a data call it can be done here
     useEffect(() => {
@@ -28,11 +29,21 @@ export function GlobalContextWrapper({children}) {
         }
     }, [isAuthorized]);
 
-    // Functions can also be passed into the context 
-    // useCallback is recommended for performance enhancement
-    const exampleFunction = useCallback(() => {
-        // Logic goes here
-    }, [])
+    // If the page has not been visited add the crumb to the end of the current crumbs list
+    // Otherwise remove the newest crumb from the existing array and add it at the end
+    // The slice() used in setBreadcrumbs() limits the breadcrumbs displayed to a max of 5
+    //TODO: Should breadcurumbs be saved in local storage for customers?
+    const updateBreadcrumbs = crumb => {
+        if (!breadcrumbs.map(currentCrumbs => currentCrumbs.page).includes(crumb.page)) {
+            setBreadcrumbs([...breadcrumbs.slice(Math.max(breadcrumbs.length - 4, 0)), crumb]);
+        } else {
+            const crumbIndex = breadcrumbs.map(
+                currentCrumbs => currentCrumbs.page).indexOf(crumb.page)
+            let splicedArray = breadcrumbs;
+            splicedArray.splice(crumbIndex, 1);
+            setBreadcrumbs([...splicedArray.slice(Math.max(splicedArray.length - 4, 0)), crumb])
+        }
+    };
 
     
     // Create the default object for this context
@@ -44,32 +55,16 @@ export function GlobalContextWrapper({children}) {
             theme,
             userProfile,
             kineticSpace,
+            breadcrumbs,
         // GlobalContextData functions
             setGlobalCount,
             setIsAuthorized,
             setTheme,
             setUserProfile,
             setKineticSpace,
-            exampleFunction
+            updateBreadcrumbs
         // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
-    }), [isAuthorized, theme, userProfile, kineticSpace, globalCount]);
-
-    const GlobalContextData2 = {
-        // GlobalContextData values
-            globalCount,
-            isAuthorized,
-            theme,
-            userProfile,
-            kineticSpace,
-        // GlobalContextData functions
-            setGlobalCount,
-            setIsAuthorized,
-            setTheme,
-            setUserProfile,
-            setKineticSpace,
-            exampleFunction
-        // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
-    }
+    }), [isAuthorized, theme, userProfile, kineticSpace, globalCount, breadcrumbs]);
     
     // Since this is just a state data wrapper simply pass any children through
     return (

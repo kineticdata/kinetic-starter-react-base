@@ -1,11 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../../../GlobalResources/GlobalContextWrapper';
 import { LoadingSpinner } from '../../Widgets/LoadingSpinner';
 
 export const LandingPage = () => {
     const globalState = useContext(GlobalContext);
-    const { kineticSpace, userProfile } = globalState;
+    const { kineticSpace, userProfile, updateBreadcrumbs } = globalState;
+
+    useEffect(() => {
+        updateBreadcrumbs({ page: 'Home', path: '/'});
+    }, [])
 
     return kineticSpace && userProfile ? (
         <div className='landing-page-wrapper'>

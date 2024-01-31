@@ -5,6 +5,7 @@
     width: 100%;
     border-bottom: solid 2px #d85900;
     padding: .5rem;
+    background-color: #242424;
 
     .header-logo-link {
         max-height: 60px;
@@ -32,6 +33,10 @@
         margin-right: 1rem;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .console-icon-spacing {
+      margin-left: 0.33rem;
     }
 }
 
@@ -112,4 +117,5 @@
     width: 100%;
     border-top: solid 2px #d85900;
     padding: 0.5rem;
+    background-color: #242424;
   }

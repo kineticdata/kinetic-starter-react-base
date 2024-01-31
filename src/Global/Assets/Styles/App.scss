@@ -22,6 +22,7 @@
 
 .app-content-container{
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   width: 100%;
   max-width: 1780px;

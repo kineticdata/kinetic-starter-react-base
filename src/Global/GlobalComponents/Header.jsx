@@ -32,6 +32,18 @@ export const Header = ({ loggedIn, profile }) => {
     },
     {
       render: 
+        <Link 
+          id='console-link'
+          to='/app/console' 
+        >
+          Console
+          <i className='la la-external-link-alt console-icon-spacing' />
+        </Link>,
+      style: 'profile-menu-link',
+      id: 'console-link'
+    },
+    {
+      render: 
         <a 
           id='logout-link'
           href='/' 
