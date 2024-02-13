@@ -10,7 +10,7 @@ export const EmptyBodyRow = () => <WallySpinner />;
 // Form Layout
 export const FormLayout = ({ fields, error, buttons }) => (
   <form>
-    <div class="form-group">
+    <div className="form-group">
       {fields.toList()}
       {error}
       <div className="form-buttons">{buttons}</div>

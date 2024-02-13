@@ -57,7 +57,7 @@ export const Header = ({ loggedIn, profile }) => {
 ]), [])
   
   return (
-    <div className='flex-row header-containter'>
+    <div className='header-containter'>
       <Link to="/" className='header-logo-link'>
         <img
           alt="logo"
@@ -68,7 +68,7 @@ export const Header = ({ loggedIn, profile }) => {
           />
       </Link>
       {loggedIn && profile && (
-        <div className="nav-items flex-row">
+        <div className="flex-row">
           <div>
             <div className='search-box'>
               <input className="search-text" type="text" placeholder="Search Kinetic Data" />
