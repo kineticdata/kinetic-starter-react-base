@@ -30,6 +30,6 @@
 
   // These values remove the header and footer from the app content
   // They should be changed if the default header/footer heights change
-  padding-top: 70px;
-  padding-bottom: 32px;
+  padding-top: $header-padding;
+  padding-bottom: $footer-padding;
 }
