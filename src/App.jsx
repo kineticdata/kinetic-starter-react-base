@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import {  LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
 import { Header } from './Global/GlobalComponents/Header';
-import { fetchSubmission } from '@kineticdata/react';
 import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
 import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRouting';
 import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
@@ -19,24 +18,11 @@ import { Breadcrumbs } from './Global/GlobalComponents/Widgets/Breadcrumbs';
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
   const globalState = useContext(GlobalContext);
-  const { setIsAuthorized, kineticSpace, userProfile, isAuthorized } = globalState;
-  const [ submission, setSubmission ] = useState();
+  const { setIsAuthorized, kineticSpace, userProfile } = globalState;
 
   useEffect(() => {
     setIsAuthorized(loggedIn)
   }, [loggedIn])
-
-  // useEffect(() => {
-  //   if (isAuthorized) {
-  //     const id = '2fdcbcda-8333-11ee-8862-3543e0450d59';
-  //     const include = 'details,values';
-  //     fetchSubmission({id, include}).then(response => {
-  //       setSubmission(response.submission)
-  //     }).catch(error => console.log('ERROR: ', error));
-  //   }
-  // }, [])
-
-  // console.log('OPE', submission)
 
   return (
     <>
