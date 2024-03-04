@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DropdownContent } from './DropdownContent';
 
-export const DropdownMenu = ({dropdownFace, faceStyle, dropdownContent, contentStyle}) => {
-    const [ isContentOpen, setIsContentOpen ] = useState(false);
-
-    return (
+// DropDownMenu is an unopinionated dropdown that allows for optional
+// list view with element insertion above and below. Styles can
+// be manipulated through props. contentClassName should be used for
+// positioning and optionally overriding default styling. DropDownMenu
+// should be controlled almost entirely from it's component of origin.
+export const DropdownMenu = ({
+    isDropdownOpen, 
+    setIsDropdownOpen,
+    dropdownFace, 
+    faceStyle, 
+    dropdownContent, 
+    contentClassName, 
+    aboveListContent, 
+    belowListContent
+}) => (
         <>
             <div 
-                onClick={() => setIsContentOpen(!isContentOpen)}
+                onClick={() => setIsDropdownOpen()}
                 className={faceStyle} 
             >
                 {dropdownFace}
             </div>
-
             <DropdownContent 
-                dropdownContent={dropdownContent}
-                contentStyle={contentStyle}
-                isContentOpen={isContentOpen}
-                setIsContentOpen={() => setIsContentOpen(isContentOpen)}
+                dropdownContent={dropdownContent || []}
+                contentClassName={contentClassName}
+                isDropdownOpen={isDropdownOpen}
+                setIsDropdownOpen={() => setIsDropdownOpen()}
+                aboveListContent={aboveListContent}
+                belowListContent={belowListContent}
             />
         </>
     );
-}

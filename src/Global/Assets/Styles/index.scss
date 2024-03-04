@@ -1,41 +1,40 @@
 :root {
-  font-family: $font-family;
-  font-size: 16px;
-  font-weight: 300;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  // Base styling to the entire application
   min-height: 100%;
   min-width: 100%;
-
+  font-family: $font-family;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;  
+  flex-grow: 0;
+  
+  color: $light-app-font-color;
+  background-color: $light-app-bg-color;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  color-scheme: light dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+#root {
+  // id root at index.html. Doesn't need to be 
+  // used but noted here in case a need arrises 
 }
 
 body {
   display: flex;
   place-items: center;
+  justify-content: center;
   min-width: 720px;
   max-width: 100%;
   max-height: 100%;
-  justify-content: center;
+  margin: 0px !important;
 }
 
 h1 {

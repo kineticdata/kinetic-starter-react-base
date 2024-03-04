@@ -1,35 +1,14 @@
-#root {
-  height: 98vh;
-  width: 100vw;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
 
 .app-container {
   display: flex;
+  flex-direction: column;
   width: 100vw;
-  justify-content: center;
-  max-width: 1780px;
-  min-width: 100vw;
-  min-height: 98vh;
+  height: 100vh;
 }
 
 .app-content-container{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 100%;
-  max-width: 1780px;
   margin: 0 5rem;
-
-  // These values remove the header and footer from the app content
-  // They should be changed if the default header/footer heights change
-  padding-top: $header-padding;
-  padding-bottom: $footer-padding;
 }
