@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import {  LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
 import { Header } from './Global/GlobalComponents/Header';
-import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
 import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRouting';
 import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
 import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/Profile';
@@ -41,7 +40,8 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
               {/* Base level routing */}
               <Route  
                 path='/'
-                element={<LandingPage />}
+                // Change this element to LandingPage.jsx if an alternate landing is needed.
+                element={<KineticPlatformRouting />}
                 exact
               />
               <Route  

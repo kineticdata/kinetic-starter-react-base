@@ -5,20 +5,22 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-    color: white;
+        gap: 2rem;
 
         .kapp-card {
             width: 280px;
             aspect-ratio: 16/9;
-            margin: 0.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px 0 #d85900;
             display: flex;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: solid 2px $colors-greyscale-400;
+            background-color: $colors-greyscale-800;
 
             &:hover {
-                cursor: pointer;
-                box-shadow: 0 8px 16px 0 #d85900;
-                background-color: #d85a0020;
+                cursor: pointer; 
+                box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                border: solid 2px $colors-primary-200;
+                background-color: $colors-primary-600;
             }
         }
     }
