@@ -1,34 +1,36 @@
-import React, { useContext, useMemo } from 'react';
-import { GlobalContext } from '../../../GlobalResources/GlobalContextWrapper';
+import React, { useCallback, useMemo } from 'react';
 
-export const DropdownContent = ({dropdownContent, contentStyle, isContentOpen, setIsContentOpen}) => {
-    const globalState = useContext(GlobalContext);
-    const { userProfile } = globalState;
-
+export const DropdownContent = ({
+    dropdownContent, 
+    contentClassName, 
+    isDropdownOpen, 
+    setIsDropdownOpen, 
+    aboveListContent, 
+    belowListContent
+}) => {
     const dropdownContentMap = useMemo(() => (
-        dropdownContent.map(content => (
-            <div 
-                className={`${content.style !== undefined && content.style} content-spacing`}
-                onClick={() => setIsContentOpen()}
-                key={content.id}
-            >
-                {content.render}        
-            </div>
-        ))
+            dropdownContent.map(dropdownItem => (
+                <div 
+                    className={`${dropdownItem.className && dropdownItem.className} dropdown-links`}
+                    onClick={() => setIsDropdownOpen()}
+                    key={dropdownItem.id}
+                >
+                    {dropdownItem.render}        
+                </div>
+            ))
     ), [dropdownContent])
 
-    return (
-        <div className={`dropdown-content${contentStyle !== undefined ? 
-            ` ${contentStyle}` : ''}${isContentOpen ? '' : ' open'}`}
+    return isDropdownOpen && (
+        <div className={`dropdown-content${contentClassName !== undefined ? 
+            ` ${contentClassName}` : ''}`}
         >
-            <div className='user-info'>
-                <div className='user-name'>{userProfile.displayName}</div>
-                <div>{userProfile.email}</div>
-            </div>
-            <hr className='user-info-seperator' />
-            <div className='dropdown-content-list'>
-                {dropdownContentMap}
-            </div>
+            {aboveListContent}
+            {dropdownContent && dropdownContent.length > 0 && 
+                <div className='dropdown-content-list'>
+                    {dropdownContentMap}
+                </div>
+            }
+            {belowListContent}
         </div>
     );
-}
+};

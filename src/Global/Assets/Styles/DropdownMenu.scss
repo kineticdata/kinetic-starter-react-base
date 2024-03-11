@@ -1,24 +1,72 @@
 .dropdown-content {
     position: absolute;
-    top: 6.5rem;
-    right: 2.5rem;
-    border: 2px solid #d85900;
-    border-radius: .25rem;
-    transition: right .5s ease-in-out .1s;
-    background-color: #242424;
+    border-radius: .5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px $colors-greyscale-400;
+    background-color: $colors-greyscale-800;
+    z-index: 2;
 
-.dropdown-content-list {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-}
+    .dropdown-content-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 0;
+    }
 
     .user-info {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: .5rem 1rem 0rem 1rem;
+        padding: 1rem;
+
+        .user-info-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .user-icon-backing {
+                width: 19.875rem;
+                height: 4.625rem;
+                margin: 0 0 2.188rem;
+                border-radius: 8px;
+                background-color: $colors-primary-600;
+            }
+
+            .in-dropdown { 
+                font-size: 2.25rem;
+                position: absolute;
+                left: 9.3rem;
+                top: 3.7rem;
+                background-color: $colors-secondary-200;
+                cursor: default;
+                border: none;
+            }
+        }
+
+        .user-info-bottom { 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+
+            .signout-link {
+                color: $colors-primary-200;
+                text-decoration: none;
+                font-weight: bold;
+                border-radius: 4px;
+                width: 5.75rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background-color: $colors-primary-600;
+                }
+            }
+        }
 
         .user-name {
             font-size: larger;
@@ -26,16 +74,24 @@
         }
     }
 
-    .user-info-seperator {
-        width: 80%;
-        border-color: #d85900;
+    .dropdown-links {
+        width: 100%;
+        border-radius: .5rem;
+        background-color: $colors-greyscale-800;
+
+        &:hover {
+            background-color: $colors-greyscale-600;
+        }
     }
   }
 
-  .open {
-    right: -20rem !important;
-  }
+.help-menu {
+    top: 5.5rem;
+    right: 10rem;
+    width: 18rem;
+}
 
-  .content-spacing {
-    padding-bottom: .5rem;
-  }
+.profile-menu {    
+    top: 5.5rem;
+    right: 5rem;
+}
