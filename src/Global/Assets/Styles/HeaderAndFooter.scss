@@ -1,6 +1,5 @@
 .header-containter {  
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0.875rem 6.25rem;
@@ -34,7 +33,6 @@
     .header-logged-in {  
       flex-grow: 0;
       display: flex;
-      flex-direction: row;
       justify-content: flex-start;
       align-items: center;
       gap: 40px;
@@ -154,7 +152,12 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    border-top: solid 2px #d85900;
+    border-bottom: solid 2px $colors-secondary-200;
     padding: 0.5rem;
-    background-color: #242424;
+    background-color: $colors-greyscale-100;
+
+    .kd-logo {
+      height: 1.25rem;  
+      padding: 0.273rem 0.226rem 0.219rem 0.238rem;
+    }
   }
