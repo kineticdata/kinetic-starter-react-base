@@ -21,6 +21,8 @@
 }
 
 .page-title-wrapper {
+    display: flex;
+    justify-content: space-between;    
     margin: 1.5rem 0 1.5rem 0;
 
     .page-title {
@@ -37,6 +39,7 @@
 
 .kinetic-card-wrapper {
     border: solid 1px #d85900;
+    text-decoration: none;
 
     .kinetic-card-content {
         margin: 1rem;
@@ -44,21 +47,22 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        color: white;
+        color: $colors-greyscale-100;
+        
 
         .kinetic-card-icon {
-            font-size: 3rem;
+            font-size: 2.25rem;
         }
 
         .kinetic-card-title {
-            font-size: 1.33rem;
+            font-size: 1.5rem;
             font-weight: bold;
             display: flex;
             flex-wrap: wrap;
         }
 
         .kinetic-card-subtext {    
-            font-size: .75rem;
+            font-size: 1rem;
             font-style: italic;
         }
     }

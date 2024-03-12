@@ -4,6 +4,7 @@ import { KineticCard } from "../../Widgets/KineticCard";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
+import { Link } from "react-router-dom";
 
 export const KappsList = () => {
     const globalState = useContext(GlobalContext);
@@ -31,10 +32,19 @@ export const KappsList = () => {
                     />
         })
     }, [kappsList])
+
+    const pageTitleLink = useMemo(() => {
+        return (
+            <Link className="support-docs-link">
+                <div className="fa fa-book link-spacing" aria-hidden="true" />
+                Kapp Support Docs
+            </Link>
+        )
+    }, [])
     
     return kappsList.length ? (
         <div className='kapps-list-page-wrapper'>
-            <PageTitle title='KAPPS' />
+            <PageTitle title='KAPPS' rightSide={pageTitleLink} />
             <div className="kapp-cards-wrapper">
                 {generateKappCards}
             </div>
