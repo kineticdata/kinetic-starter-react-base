@@ -24,8 +24,6 @@ export const FormLanding = () => {
         fetchForm({ kappSlug, formSlug }).then(({ form }) => setFormData(form));
     }, [])
 
-    console.log('OPE', formData)
-
     return formData && (
         <>
             <PageTitle title={formData.name} subtext={formData.description && formData.description} />
