@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import { KappsList } from "./KappsList";
 import { KappLanding } from "./KappLanding";
-import { KappSubmissionsList } from "./KappSubmissionsList";
 import { FormsList } from "./FormsList";
 import { FormLanding } from "./FormLanding";
 import { FormSubmissionsList } from "./FormSubmissionsList";
@@ -20,11 +19,6 @@ export const KineticPlatformRouting = () => (
             <Route  
                 path={':kappSlug'}
                 element={<KappLanding />}
-            />
-            <Route  
-                path={':kappSlug/submissions'}
-                element={<KappSubmissionsList />}
-                exact
             />
             <Route  
                 path={':kappSlug/forms'}

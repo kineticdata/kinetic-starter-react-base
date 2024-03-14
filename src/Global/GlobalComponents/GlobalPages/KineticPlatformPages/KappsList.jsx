@@ -35,7 +35,7 @@ export const KappsList = () => {
 
     const pageTitleLink = useMemo(() => {
         return (
-            <Link className="support-docs-link">
+            <Link className="support-docs-link link">
                 <div className="fa fa-book link-spacing" aria-hidden="true" />
                 Kapp Support Docs
             </Link>

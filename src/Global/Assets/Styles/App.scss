@@ -11,4 +11,11 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 5rem;
+  height: 100%;
+}
+
+.link {
+  font-weight: bold;
+  text-decoration: none;
+  color: $colors-primary-200;
 }

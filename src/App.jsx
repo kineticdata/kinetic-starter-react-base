@@ -9,6 +9,7 @@ import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRoutin
 import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
 import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/Profile';
 import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
+import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
 import { DocumentationRouting } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationRouting';
 import { Footer } from './Global/GlobalComponents/Footer';
@@ -41,7 +42,7 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
               <Route  
                 path='/'
                 // Change this element to LandingPage.jsx if an alternate landing is needed.
-                element={<KineticPlatformRouting />}
+                element={<LandingPage />}
                 exact
               />
               <Route  
