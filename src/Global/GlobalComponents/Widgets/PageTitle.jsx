@@ -7,12 +7,12 @@ export const PageTitle = ({ title, subtext, rightSide }) => (
         <>
             <div className="page-title">
                 {title}
-            </div>
             {subtext && 
                 <div className="page-subtext">
                     {subtext}
                 </div>
             }
+            </div>
         </>
         <>
             {rightSide && rightSide}

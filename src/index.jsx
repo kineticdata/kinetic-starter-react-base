@@ -9,7 +9,6 @@ import { App } from './App.jsx'
 import { HashRouter } from 'react-router-dom';
 import { ContextWrappers } from './Global/GlobalResources/ContextWrappers.jsx';
 
-
 const globals = import('./Global/GlobalResources/globals.jsx');
 export const history = libHistory;
 

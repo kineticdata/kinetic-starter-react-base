@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
+import { useParams } from "react-router-dom";
+import { fetchForm } from '@kineticdata/react';
+import { CoreForm } from "@kineticdata/react/lib/components";
+import { PageTitle } from "../../Widgets/PageTitle";
 
 export const FormLanding = () => {
+    const globalState = useContext(GlobalContext);
+    const { updateBreadcrumbs } = globalState;
+    const [ formData, setFormData ] = useState();
+    const { kappSlug, formSlug } = useParams();
 
-    return (
+    useEffect(() => {
+        if(formData) {
+            updateBreadcrumbs({ 
+                page: `${formData.name} Form`, 
+                path: `/kapps/${kappSlug}/forms/${formSlug}`
+            });
+        }
+    }, [formData]);
+
+    useEffect(() => {
+        fetchForm({ kappSlug, formSlug }).then(({ form }) => setFormData(form));
+    }, [])
+
+    console.log('OPE', formData)
+
+    return formData && (
         <>
-            This is the Form Landing Page.
+            <PageTitle title={formData.name} subtext={formData.description && formData.description} />
+            <CoreForm
+                kapp={kappSlug}
+                form={formSlug}
+            />
         </>
     )
 };

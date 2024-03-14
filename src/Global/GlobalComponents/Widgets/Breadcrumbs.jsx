@@ -13,7 +13,7 @@ export const Breadcrumbs = () => {
                     <Link 
                         to={crumb.path} 
                         key={crumb.path}
-                        className="breadcrumb-crumb"
+                        className="breadcrumb-crumb link"
                     >
                         {crumb.page}
                     </Link>
