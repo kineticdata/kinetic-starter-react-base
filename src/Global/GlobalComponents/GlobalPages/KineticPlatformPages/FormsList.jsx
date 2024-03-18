@@ -78,7 +78,7 @@ export const FormsList = () => {
     return kappData && formsData ? (
         <>
             <PageTitle title={kappData.name} />
-            <KineticTable columns={columns} data={formsData} />
+            <KineticTable columns={columns} data={formsData} showPagination />
         </>
     ) : <LoadingSpinner />
 };

@@ -1,7 +1,5 @@
 :root {
   // Base styling to the entire application
-  min-height: 100%;
-  min-width: 100%;
   font-family: $font-family;
   font-size: 16px;
   font-weight: normal;
@@ -22,7 +20,9 @@
   -webkit-text-size-adjust: 100%;
 }
 
-#root {
+#root {    
+  height: auto;
+  width: 100vw;
   // id root at index.html. Doesn't need to be 
   // used but noted here in case a need arrises 
 }

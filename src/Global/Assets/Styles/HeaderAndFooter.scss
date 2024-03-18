@@ -148,10 +148,8 @@
   .footer-wrapper {
     display: flex;
     justify-content: space-around;
-    position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
     border-bottom: solid 2px $colors-secondary-200;
     padding: 0.5rem;
     background-color: $colors-greyscale-100;
