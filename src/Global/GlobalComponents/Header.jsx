@@ -25,9 +25,7 @@ const helpContent = useMemo(() => ([
       >
         Platform Documentation
         <i className='fa fa-external-link console-icon-spacing' />
-      </a>,
-    className: 'profile-menu-link',
-    id: 'platform-documentation'
+      </a>
   },
   {
     render: 
@@ -40,9 +38,7 @@ const helpContent = useMemo(() => ([
       >
         API Reference Docs        
         <i className='fa fa-external-link console-icon-spacing' />
-      </a>,
-    className: 'profile-menu-link',
-    id: 'documentation-l'
+      </a>
   },
   {
     render: 
@@ -55,9 +51,7 @@ const helpContent = useMemo(() => ([
       >
         About Kinetic Platform
         <i className='fa fa-external-link console-icon-spacing' />
-      </a>,
-    className: 'profile-menu-link',
-    id: 'documentation-link'
+      </a>
   },
   {
     render: 
@@ -70,9 +64,7 @@ const helpContent = useMemo(() => ([
       >
         Space Console
         <i className='fa fa-external-link console-icon-spacing' />
-      </a>,
-    className: 'profile-menu-link',
-    id: 'console-link'
+      </a>
   }
 ]), [])
 

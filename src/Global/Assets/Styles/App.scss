@@ -2,8 +2,8 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 .app-content-container{
@@ -11,7 +11,10 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 5rem;
-  height: 100%;
+  height: auto;
+  
+  // This min-height should be adjusted if the header/footer heights are changed
+  min-height: calc(100vh - 137.5px);
 }
 
 .link {
