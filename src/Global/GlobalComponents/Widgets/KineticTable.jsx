@@ -1,32 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { DropdownMenu } from '../Widgets/Dropdown/Dropdown';
 import { LoadingSpinner } from "./LoadingSpinner";
+import moment from "moment";
 
 export const KineticTable = ({columns, data, showPagination}) => {
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
     const [ tablePageCount, setTablePageCount ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ paginatedData, setPaginatedData ] = useState(showPagination ? undefined : data);
-
-    const dropdownFace = useMemo(() => (
-            <div className="table-dropdown-face">
-                <div className="table-dropdown-content">
-                    {tablePageCount}
-                    <i className='fa fa-angle-down arrow-size' aria-hidden='true' />
-                </div>
-            </div>
-        ), [tablePageCount])
-
-    useEffect(() => {
-        setCurrentPage(1)
-    }, [tablePageCount])
+    const [ sortInfo, setSortInfo ] = useState({order: 'none'});
 
     const paginationOptions = useMemo(() => ([
         { render: <div className="pagination-options" onClick={() => setTablePageCount(10)}>10</div> },
         { render: <div className="pagination-options" onClick={() => setTablePageCount(25)}>25</div> },
         { render: <div className="pagination-options" onClick={() => setTablePageCount(50)}>50</div> },
         { render: <div className="pagination-options" onClick={() => setTablePageCount(100)}>100</div> },
-    ]), [])
+    ]), []);
 
     // If the table is on the first page always use the actual first element
     const firstElement = useMemo(() => {
@@ -35,11 +24,80 @@ export const KineticTable = ({columns, data, showPagination}) => {
 
     const lastElement = useMemo(() => {
         return (firstElement + tablePageCount)
-    }, [firstElement, tablePageCount])
+    }, [firstElement, tablePageCount]);
+
+    const dropdownFace = useMemo(() => (
+        <div className="table-dropdown-face">
+            <div className="table-dropdown-content">
+                {tablePageCount}
+                <i className='fa fa-angle-down arrow-size' aria-hidden='true' />
+            </div>
+        </div>
+    ), [tablePageCount]);
+
+    const getSortIcon = useCallback(columnInfo => {
+        if (sortInfo.order === 'ASC' && columnInfo.value === sortInfo.keyName) {
+            return <i className="fa fa-sort-asc sort-icon" aria-hidden="true" />
+        } else if (sortInfo.order === 'DESC' && columnInfo.value === sortInfo.keyName) {
+            return <i className="fa fa-sort-desc sort-icon" aria-hidden="true" />
+        } else {
+            return <i className="fa fa-sort sort-icon" aria-hidden="true" />
+        }
+    }, [sortInfo])
+
+    const updateSortInfo = columnInfo => {
+        if (sortInfo.order === 'none') {
+            setSortInfo({
+                order: 'ASC',
+                type: columnInfo.sortBy,
+                keyName: columnInfo.value,
+            })
+        } else if (sortInfo.order === 'ASC') {
+            if (columnInfo.value === sortInfo.keyName) {
+                setSortInfo({
+                    order: 'DESC',
+                    type: columnInfo.sortBy,
+                    keyName: columnInfo.value,
+                })
+            } else {
+                setSortInfo({
+                    order: 'ASC',
+                    type: columnInfo.sortBy,
+                    keyName: columnInfo.value,
+                })
+            }
+        } else {
+            if (sortInfo.order === 'DESC' && columnInfo.value !== sortInfo.keyName) {
+                setSortInfo({
+                    order: 'ASC',
+                    type: columnInfo.sortBy,
+                    keyName: columnInfo.value,
+                })
+            } else {
+                setSortInfo({
+                    order: 'none',
+                })
+            }
+        }
+    };
 
     useEffect(() => {
-        setPaginatedData(data.slice(firstElement, lastElement))
-    }, [tablePageCount, currentPage])
+        setCurrentPage(1)
+    }, [tablePageCount]);
+
+    useEffect(() => {
+        if (sortInfo.order === 'ASC') {
+            setPaginatedData(data.slice(firstElement, lastElement).sort((first,second) => sortInfo.type === 'date' ? 
+                moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort) : 
+                first[sortInfo.keyName].toSort - second[sortInfo.keyName].toSort));
+        } else if (sortInfo.order === 'DESC') {
+            setPaginatedData(data.slice(firstElement, lastElement).sort((first,second) => sortInfo.type === 'date' ? 
+                moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort) : 
+                first[sortInfo.keyName].toSort - second[sortInfo.keyName].toSort).reverse());
+        } else {
+            setPaginatedData(data.slice(firstElement, lastElement))
+        }
+    }, [tablePageCount, currentPage, sortInfo]);
 
     return paginatedData ? (
         <div className="table-wrapper">
@@ -47,10 +105,19 @@ export const KineticTable = ({columns, data, showPagination}) => {
                 <thead className="table-header">
                     <tr className="table-header-row">
                         {columns.map((column, key) => {
-                            return (
-                                <th className="table-header-item" key={key}>
+                            return column.sortBy ? (
+                                <th 
+                                    key={key}
+                                    onClick={() => updateSortInfo(column)}
+                                    className="table-header-item sortable" 
+                                >
                                     {column.title}
+                                    {getSortIcon(column)}
                                 </th>
+                                ) : (
+                                    <th className="table-header-item" key={key}>
+                                        {column.title}
+                                    </th>
                                 )
                             })}
                     </tr>
@@ -61,7 +128,10 @@ export const KineticTable = ({columns, data, showPagination}) => {
                             <tr key={key} className="table-row">
                                 {columns.map((column, key) => (
                                     <td className="table-row-item" key={key}>
-                                        {rowData[column.value]}
+                                        {rowData[column.value].toDisplay ?
+                                            rowData[column.value].toDisplay :
+                                            rowData[column.value]
+                                        }
                                     </td>
                                 ))}
                             </tr>

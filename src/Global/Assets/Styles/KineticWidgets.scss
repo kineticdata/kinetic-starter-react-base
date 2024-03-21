@@ -98,6 +98,17 @@
                 .table-header-item {
                     padding-left: 2.5rem;
 
+                    
+                    .sort-icon {
+                        padding-left: 1rem;
+                    }
+                }
+                
+                .sortable {
+
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }
