@@ -68,14 +68,14 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
 
 
               {/* Optional service routes */}
-              <Route  
+              {/* <Route  
                 path='/service-one/*'
                 element={<ServiceOneRouting />}
               />
               <Route  
                 path='/service-two/*'
                 element={<ServiceTwoRouting />}
-              />
+              /> */}
             </Routes>
           </div>
 

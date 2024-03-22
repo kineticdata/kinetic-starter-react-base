@@ -17,19 +17,17 @@ export const FormsList = () => {
         return [{
             title: 'Form Name', 
             value: 'name', 
-            sortable: true,
+            sortBy: 'string',
         }, {
             title: 'Description', 
             value: 'description', 
-            sortable: true,
         },{
             title: 'Updated at', 
             value: 'updatedAt', 
-            sortable: true,
+            sortBy: 'date',
         },{
-            title: '', 
+            title: ' ', 
             value: 'submissionsLink', 
-            sortable: true,
         }];
     }) 
 
@@ -65,9 +63,15 @@ export const FormsList = () => {
         fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp));
         fetchForms({ kappSlug, include: 'details' }).then(({ forms }) => {
             const parsedData = forms.map(form => ({
-                name: getFormLink(form.name, form.slug), 
+                name: {
+                    toDisplay: getFormLink(form.name, form.slug),
+                    toSort: form.name,
+                }, 
                 description: form.description, 
-                updatedAt: moment(form.updatedAt).format('MMMM Do, YYYY h:mm:ss a'),
+                updatedAt: {
+                    toDisplay: moment(form.updatedAt).format('MMMM Do, YYYY - h:mm:ss a'),
+                    toSort: form.updatedAt,
+                },
                 submissionsLink: getViewSubmissionsLink(form.slug)
             }))
             setFormsData(parsedData)

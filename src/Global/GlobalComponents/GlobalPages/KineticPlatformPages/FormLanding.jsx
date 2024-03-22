@@ -27,10 +27,12 @@ export const FormLanding = () => {
     return formData && (
         <>
             <PageTitle title={formData.name} subtext={formData.description && formData.description} />
-            <CoreForm
-                kapp={kappSlug}
-                form={formSlug}
-            />
+            <div className="form-page-wrapper">
+                <CoreForm
+                    kapp={kappSlug}
+                    form={formSlug}
+                />
+            </div>
         </>
     )
 };
