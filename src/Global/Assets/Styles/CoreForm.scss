@@ -73,10 +73,9 @@
 
             .fileinput-button {
                 color: $colors-primary-200;
-                // TARGET TEXT FOR "Upload File" and DESTROY IT!!!!
+                font-size: 0;
 
                 input[type=file] {
-                    margin-left: .5rem;
                     font-family: PlusJakartaSans;
                     font-size: .875rem;
                     padding: .5rem;
@@ -96,28 +95,41 @@
             }
 
             .file-row {
+                display: flex;
+                flex-wrap: nowrap;
                 list-style-type: none;
                 span {
                     display: inline-block;
                     margin-right: 1rem;
+                    vertical-align: middle;
     
                     &:first-child {
-                        width: 10rem;
+                        width: 15rem;
                     }
 
                     &:not(:first-child) {
                         width: 5rem;
                     }
 
-                    &.file-actions a {
-                        flex-grow: 0;
-                        padding: .125rem .375rem .25rem;
-                        border-radius: .375rem;
-                        background-color: $colors-error-200;
-                        color: $colors-greyscale-800;
-                        text-decoration: none;
-                        font-weight: 500;
+                    &.file-actions {
+                        margin-left: 1rem;
+                        overflow: visible;
+                        width: auto;
+                    
+                        a {
+                            margin-left: 1rem;
+                            padding: .125rem .375rem .25rem;
+                            border-radius: .375rem;
+                            background-color: $colors-primary-200;
+                            color: $colors-greyscale-800;
+                            text-decoration: none;
+                            font-weight: 500;
+                        }
                     }
+                }
+
+                .file-status {
+                    width: 5rem !important;
                 }
             }
         }
