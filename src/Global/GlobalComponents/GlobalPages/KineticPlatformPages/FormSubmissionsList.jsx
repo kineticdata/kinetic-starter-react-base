@@ -43,7 +43,7 @@ export const FormSubmissionsList = () => {
 
     const getState = state =>  {
         return (
-            <div className={`state-${state.toLowerCase()}`}>
+            <div className={`state ${state.toLowerCase()}`}>
                 {state}
             </div>
         )
