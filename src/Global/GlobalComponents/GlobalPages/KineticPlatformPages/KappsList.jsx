@@ -33,6 +33,7 @@ export const KappsList = () => {
         })
     }, [kappsList])
 
+    // TODO: Add th to URL
     const pageTitleLink = useMemo(() => {
         return (
             <Link className="support-docs-link link">

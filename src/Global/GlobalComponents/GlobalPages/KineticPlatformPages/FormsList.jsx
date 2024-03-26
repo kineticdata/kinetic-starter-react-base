@@ -34,7 +34,7 @@ export const FormsList = () => {
     const getViewSubmissionsLink = formSlug =>  {
         return (
             <Link 
-                to={`forms/${formSlug}/submissions`} 
+                to={`${formSlug}/submissions`} 
                 className="link"
             >
                 View Form Submissions
