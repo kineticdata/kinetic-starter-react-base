@@ -9,7 +9,7 @@ import { KineticTable } from "../../Widgets/KineticTable";
 export const FormSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
-    const [ formsData, setFormsData ] = useState();
+    const [ formData, setFormData ] = useState();
     const [ submissionsData, setsubmissionsData ] = useState();
     const { kappSlug, formSlug } = useParams();
 
@@ -58,16 +58,29 @@ export const FormSubmissionsList = () => {
                 {handle}
             </Link>
         )
-    };
-
-    useEffect(() => {
-        if(formsData) {
-            updateBreadcrumbs({ page: `${formsData.name} Submissions`, path: `/kapps/${kappSlug}/forms/${formSlug}/submissions`});
+    };    
+    
+    const pageTitleLink = useMemo(() => {
+        if (formData) {
+            return (
+                <Link 
+                    to={`/kapps/${kappSlug}/forms/${formSlug}`}
+                    className="support-docs-link link"
+                >
+                    {`${formData.name} Form`}
+                </Link>
+            )
         }
-    }, [formsData]);
+    }, [formData])
 
     useEffect(() => {
-        fetchForm({ kappSlug, formSlug, include: 'details' }).then(({ form }) => setFormsData(form));
+        if(formData) {
+            updateBreadcrumbs({ page: `${formData.name} Submissions`, path: `/kapps/${kappSlug}/forms/${formSlug}/submissions`});
+        }
+    }, [formData]);
+
+    useEffect(() => {
+        fetchForm({ kappSlug, formSlug, include: 'details' }).then(({ form }) => setFormData(form));
 
         const query = defineKqlQuery()
             .end();
@@ -103,9 +116,9 @@ export const FormSubmissionsList = () => {
         );
     }, [kappSlug, formSlug]);
 
-    return formsData && submissionsData ? (
+    return formData && submissionsData ? (
         <>
-            <PageTitle title={`${formsData.name} Submissions`} />
+            <PageTitle title={`${formData.name} Submissions`} rightSide={pageTitleLink} />
             <KineticTable columns={columns} data={submissionsData} showPagination />
         </>
     ) : <LoadingSpinner />
