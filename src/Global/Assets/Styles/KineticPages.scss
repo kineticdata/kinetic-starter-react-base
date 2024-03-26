@@ -148,3 +148,28 @@
         margin-top: 1rem;
     }
 }
+
+// State classNames
+.state-draft {  
+    border-radius: 4px;
+    background-color: $colors-warning-600;
+    color: $colors-warning-100;
+    width: fit-content;
+    padding: .25rem .75rem;
+}
+
+.state-closed {  
+    border-radius: 4px;
+    background-color: $colors-success-600;
+    color: $colors-success-100;
+    width: fit-content;
+    padding: .25rem .75rem;
+}
+
+.state-submitted {  
+    border-radius: 4px;
+    background-color: $colors-primary-600;
+    color: $colors-greyscale-100;
+    width: fit-content;
+    padding: .25rem .75rem;
+}

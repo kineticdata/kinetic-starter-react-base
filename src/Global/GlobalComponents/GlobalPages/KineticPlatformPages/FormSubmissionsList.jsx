@@ -43,12 +43,9 @@ export const FormSubmissionsList = () => {
 
     const getState = state =>  {
         return (
-            <Link 
-                to={`forms/${formSlug}/submissions`} 
-                className="link"
-            >
-                View Form Submissions
-            </Link>
+            <div className={`state-${state.toLowerCase()}`}>
+                {state}
+            </div>
         )
     };
 
