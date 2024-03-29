@@ -3,7 +3,9 @@ import { DropdownMenu } from '../Widgets/Dropdown/Dropdown';
 import { LoadingSpinner } from "./LoadingSpinner";
 import moment from "moment";
 
-export const KineticTable = ({columns, data, showPagination}) => {
+// Make sure to note rowData[column.value] must have a value which should be handled when
+// parsing the incoming data. Otherwise TODO add logic to handle null/undefined values here
+export const KineticTable = ({columns, data, showPagination, customerFooter }) => {
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
     const [ tablePageCount, setTablePageCount ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
@@ -172,6 +174,7 @@ export const KineticTable = ({columns, data, showPagination}) => {
                     />
                 </div>  
             )}
+            {customerFooter && customerFooter}
         </div>
     ) : <LoadingSpinner />
 }
