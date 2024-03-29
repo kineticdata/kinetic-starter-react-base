@@ -5,6 +5,7 @@ import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { KineticTable } from "../../Widgets/KineticTable";
+import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const FormsList = () => {
     const globalState = useContext(GlobalContext);
@@ -69,7 +70,7 @@ export const FormsList = () => {
                 }, 
                 description: form.description, 
                 updatedAt: {
-                    toDisplay: moment(form.updatedAt).format('MMMM Do, YYYY - h:mm:ss a'),
+                    toDisplay: formatDate(form.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
                     toSort: form.updatedAt,
                 },
                 submissionsLink: getViewSubmissionsLink(form.slug)
