@@ -1,22 +1,62 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { fetchSubmission, deleteSubmission } from '@kineticdata/react';
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
-import { formatDate } from "../../../GlobalResources/Helpers";
+import { formatDate, humanizeFileSize } from "../../../GlobalResources/Helpers";
 import { KineticTable } from "../../Widgets/KineticTable";
 import { KineticModal } from "../../Widgets/KineticModal";
+import { CoreForm } from "@kineticdata/react/lib/components";
 
 export const SubmissionLanding = () => {
+    const urlPrefix = process.env.REACT_APP_PROXY_HOST;
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
-    const [ submissionData, setSubmissionData ] = useState();
-    const [ tableData, setTableData ] = useState();
     const [ isDeleteOpen, setIsDeleteOpen ] = useState(false);
     const [ isEditMode, setIsEditMode ] = useState(false);
+    const [ showTableView, setShowTableView ] = useState(true);
+    const [ canEdit, setCanEdit ] = useState();
+    const [ submissionData, setSubmissionData ] = useState();
+    const [ tableData, setTableData ] = useState();
     const { kappSlug, formSlug, submissionsId } = useParams();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchSubmission({ id: submissionsId, include: 'values, details, authorization, activities' }).then(({ submission }) => {
+            const parsedData = Object.keys(submission.values).map((key) => { 
+                let arrayData = null;
+                if (typeof submission.values[key] == 'object') {
+                    if (typeof submission.values[key][0] == 'object') {
+                        arrayData = submission.values[key].map(value =>  {
+                            // TODO: Attachement links will have to be tested in deployed envs
+                            // may have to use process.env.REACT_APP_API_HOST instead of proxy
+                            return ({
+                                toDisplay: (
+                                    <div className="file-link-wrapper">
+                                        <a href={`${urlPrefix}/${value.link.split('/').slice(2).join('/')}`} className="file-link" rel="noopener noreferrer" target="_blank">{value.name}</a>
+                                        <div className="file-size">&#x28;{humanizeFileSize(value.size)}&#x29;</div>
+                                    </div>
+                                    ),
+                                toSort: value.name
+                            })
+                        }).reduce((prev, curr) => [prev, ', ', curr])
+                    } else {
+                        arrayData = submission.values[key].join(', ');
+                    }
+                }
+                
+                return {
+                    field: key,
+                    value: (arrayData && arrayData) || submission.values[key] || ''
+                }
+            })
+
+            setSubmissionData(submission);
+            setCanEdit(submission.authorization['Modification']);
+            setTableData(parsedData);
+        });  
+    }, [kappSlug, formSlug, submissionsId]);
 
     useEffect(() => {
         if(submissionData) {
@@ -25,74 +65,34 @@ export const SubmissionLanding = () => {
                 path: `/kapps/${kappSlug}/forms/${formSlug}/submissions/${submissionsId}`
             });
         }
-    }, [submissionData]);
+    }, [kappSlug, formSlug, submissionsId]);
 
-    useEffect(() => {
-        fetchSubmission({ id: submissionsId, include: 'values, details' }).then(({ submission }) => {
-            const parsedData = Object.keys(submission.values).map((key) => { 
-                return {
-                    question: key,
-                    answer: submission.values[key] || ''
-                }})
-            setSubmissionData(submission);
-            setTableData(parsedData);
-        });  
-    }, [submissionsId]);
+    const columns = useMemo(() => {
+        return [{
+            title: 'Field', 
+            value: 'field', 
+            sortBy: 'string',
+        }, {
+            title: 'Value', 
+            value: 'value', 
+            sortBy: 'string',
+        }];
+    });
 
     // TODO: Need to do error handling for this - probably for everything actually
     const confirmDeleteSubmission = () => {
         deleteSubmission({ id: submissionsId }).then(() => navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`));
     }
 
-    const columns = useMemo(() => {
-        return [{
-            title: 'Questions', 
-            value: 'question', 
-            sortBy: 'string',
-        }, {
-            title: 'Answers', 
-            value: 'answer', 
-            sortBy: 'string',
-        }];
-    });
-
     const submissionsFooter = useMemo(() => {
         return (
-            <div className="submissions-footer-wrapper">
+            <div className="submissions-footer-wrapper with-border">
                 <div 
                     onClick={() => setIsEditMode(!isEditMode)}
-                    className="button edit"
+                    className={`button${isEditMode ? ' cancel' : ' edit with-icon'}`}
                 >
-                    Edit
+                    {isEditMode ? 'Cancel' : 'Edit'}
                 </div>
-                <div 
-                    onClick={() => setIsDeleteOpen(!isDeleteOpen)}
-                    className="button delete"
-                >
-                    Delete
-                </div>
-            </div>
-        )
-    }, [isDeleteOpen, isEditMode])
-
-    const editSubmissionFooter = useMemo(() => {
-        return (
-            <div className="submissions-footer-wrapper">
-                <span>
-                    <div 
-                        onClick={() => console.log('UPDATE')}
-                        className="button update"
-                    >
-                        <i className="fa fa-check" aria-hidden="true" />
-                        Update Submission
-                    </div>
-                    <div 
-                        onClick={() => setIsEditMode(!isEditMode)}
-                        className="button cancel"
-                    >
-                        Cancel
-                    </div>
-                </span>
                 <div 
                     onClick={() => setIsDeleteOpen(!isDeleteOpen)}
                     className="button delete"
@@ -103,7 +103,6 @@ export const SubmissionLanding = () => {
         )
     }, [isDeleteOpen, isEditMode]);
 
-    // TODO: add the actual content for this
     const deleteSubmissionModal = useMemo(() => {
         return (
             <div>
@@ -127,9 +126,58 @@ export const SubmissionLanding = () => {
         )
     }, []);
 
+    const getView = useMemo(() => {
+        if (submissionData) {
+            if (isEditMode) {
+                return (
+                    <div className="form-page-wrapper">
+                        <CoreForm          
+                            submission={submissionsId}
+                            onCompleted={() => navigate(0)}
+                            onUpdated={() => navigate(0)}
+                        />
+                        {submissionsFooter}
+                    </div>
+                )
+            } else if (showTableView === true) {
+                return (
+                    <KineticTable 
+                        columns={columns} 
+                        data={tableData} 
+                        customerFooter={canEdit && submissionsFooter} 
+                    />
+                )
+            } else {
+                return (
+                    <div className="form-page-wrapper">
+                        <CoreForm          
+                            submission={submissionsId}
+                            review={true}
+                        />
+                        {canEdit && submissionsFooter}
+                    </div>
+                )
+            }
+        }
+    }, [ submissionData, showTableView, isEditMode ])
+
+    const toggleView = useMemo(() => {
+        if (!isEditMode) {
+            if (showTableView) {
+                return (
+                    <button className="button cancel" onClick={() => setShowTableView(false)}>Show Form View</button>
+                )
+            } else {
+                return (
+                    <button className="button cancel" onClick={() => setShowTableView(true)}>Show Table View</button>
+                )
+            }
+        }
+    }, [showTableView, isEditMode])
+
     return submissionData && tableData ? (
         <>
-            <PageTitle title={`Submission: ${submissionData.label}`} />
+            <PageTitle title={`Submission: ${submissionData.label}`} rightSide={toggleView} />
             <div className="submission-information">
                 <div className="spacer"><b>State: </b><div className={`state ${submissionData.coreState.toLowerCase()} left-space`}>{submissionData.coreState}</div></div>
                 <div className="spacer"><b>Created at: </b>{formatDate(submissionData.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>
@@ -141,11 +189,7 @@ export const SubmissionLanding = () => {
                     formatDate(submissionData.closedAt, 'MMMM Do, YYYY - h:mm:ss a') 
                     : 'Not closed'}</div>
             </div>
-            <KineticTable 
-                columns={columns} 
-                data={tableData} 
-                customerFooter={isEditMode ? editSubmissionFooter : submissionsFooter} 
-            />
+            {getView}
             <KineticModal 
                 isModalOpen={isDeleteOpen} 
                 setIsModalOpen={setIsDeleteOpen} 
