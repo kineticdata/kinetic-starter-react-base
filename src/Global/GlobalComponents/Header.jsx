@@ -1,72 +1,26 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import logo from '../Assets/Images/KD logo.png'
 import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './Widgets/Dropdown/Dropdown';
-import { logout } from '@kineticdata/react';
-import { getUserInitials } from '../GlobalResources/Helpers';
+import { logout, updateProfile } from '@kineticdata/react';
+import { getHelpLinks, getUserInitials } from '../GlobalResources/Helpers';
+import { KineticModal } from './Widgets/KineticModal'
+import { LoadingSpinner } from './Widgets/LoadingSpinner';
 
 export const Header = ({ loggedIn, profile }) => {
-  const [ isHelpMenuOpen, setIsHelpMenuOpen ] = useState(false);
-  const [ isProfileMenuOpen, setIsProfileMenuOpen ] = useState(false);
   const globalState = useContext(GlobalContext);
   const { userProfile } = globalState;
-  const urlPrefix = process.env.REACT_APP_PROXY_HOST;
+  const [ isHelpMenuOpen, setIsHelpMenuOpen ] = useState(false);
+  const [ isProfileMenuOpen, setIsProfileMenuOpen ] = useState(false);
+  const [ isProfileModalOpen, setIsProfileModalOpen ] = useState(false);
+  const [ isPasswordOpen, setIsPasswordOpen ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
 
-const helpContent = useMemo(() => ([
-  {
-    render: 
-      <a 
-        id='platform-documentation'
-        href='https://docs.kineticdata.com/' 
-        className='external-header-dropdown-link'
-        target="_blank" 
-        rel="noopener noreferrer" 
-      >
-        Platform Documentation
-        <i className='fa fa-external-link console-icon-spacing' />
-      </a>
-  },
-  {
-    render: 
-      <a 
-        id='documentation-lin'
-        href={`${urlPrefix}/app/docs/space/core`}
-        className='external-header-dropdown-link'
-        target="_blank" 
-        rel="noopener noreferrer" 
-      >
-        API Reference Docs        
-        <i className='fa fa-external-link console-icon-spacing' />
-      </a>
-  },
-  {
-    render: 
-      <a 
-        id='documentation-li'
-        href={`${urlPrefix}/app/console/#/space/about`}
-        className='external-header-dropdown-link'  
-        target="_blank" 
-        rel="noopener noreferrer" 
-      >
-        About Kinetic Platform
-        <i className='fa fa-external-link console-icon-spacing' />
-      </a>
-  },
-  {
-    render: 
-      <a 
-        id='console-link'
-        href='app' 
-        className='external-header-dropdown-link'
-        target="_blank" 
-        rel="noopener noreferrer" 
-      >
-        Space Console
-        <i className='fa fa-external-link console-icon-spacing' />
-      </a>
-  }
-]), [])
+const helpContent = useMemo(() => {
+  if (userProfile) {
+  return getHelpLinks(userProfile.spaceAdmin);
+}}, [userProfile])
 
 const profileDropdownHeader = useMemo(() => ( userProfile &&
     <>
@@ -79,20 +33,105 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
           </div>
         </div>
         <div className='user-info-bottom'>
-          <div className='user-name'>{userProfile.displayName}</div>
+          <div className='user-name'>
+            {userProfile.displayName}
+            <i 
+              onClick={() => setIsProfileModalOpen(true)}
+              className="fa fa-pencil-square-o edit-icon" 
+              aria-hidden="true" 
+            />
+          </div>
           <div>{userProfile.email}</div>
           <a 
-           id='logout-link'
-           href='/' 
-           onClick={logout}
-           className='signout-link'
-         >
-           Sign Out
-         </a>
+            id='logout-link'
+            href='/' 
+            onClick={logout}
+            className='button cancel'
+          >
+            Sign Out
+          </a>
         </div>
       </div>
     </>
-  ), [userProfile])
+  ), [userProfile]);
+
+  // TODO: Update this so the new profile updates the global 
+  // userProfile to trigger rerenders for cascading rerenders
+  const handleProfileUpdate = event => {
+    event.preventDefault();
+    const formData = new FormData(event.target)
+    const newProfileData = {
+      displayName: formData.get('displayName'),
+      email: formData.get('email'),
+    }
+
+    if (formData.get('password') && formData.get('passwordConfirmation')) {
+      newProfileData.password = formData.get('password');
+      newProfileData.passwordConfirmation = formData.get('passwordConfirmation');
+     }
+
+    setIsLoading(true);
+    updateProfile({
+      profile: newProfileData,
+    }).then(({ profile }) => {
+      setIsLoading(false);
+      setIsProfileModalOpen(false);
+    });
+  };
+
+  // TODO: add form validation
+  const profileModal = useMemo(() => {
+    return userProfile && (
+      <div className='profile-modal-wrapper'>
+          <div className='profile-modal-header'>
+            Edit Your Profile
+            <i className="fa fa-times button cancel" aria-hidden="true" onClick={() => setIsProfileModalOpen(false)} />
+          </div>
+            <form id='profile-change' onSubmit={handleProfileUpdate}>
+              <div className='profile-modal-body'>
+              {!isLoading ?
+                <>
+                  <label>
+                    <div className='profile-label'>Email</div>
+                    <input name='email' type='text' defaultValue={userProfile.email} />
+                  </label>
+                  <label>
+                    <div className='profile-label'>Display Name</div>
+                    <input name='displayName' type='text' defaultValue={userProfile.displayName} />
+                  </label>
+                  <div className={`${isPasswordOpen && 'password-wrapper'}`}>
+                  {isPasswordOpen && 
+                    <>
+                      <label>
+                        <div className='profile-label required'>Password</div>
+                        <input name='password' type='password' />
+                      </label>
+                      <label>
+                        <div className='profile-label required'>Password Confirmation</div>
+                        <input name='passwordConfirmation' type='password' />
+                      </label>
+                    </>
+                  }
+                    <button 
+                      onClick={() => setIsPasswordOpen(!isPasswordOpen)}
+                      className='button primary-with-border'
+                    >
+                      {isPasswordOpen ? 'Cancel Password Change' : 'Change Password'}
+                    </button>
+                  </div>
+                </>
+                : <LoadingSpinner />}
+              </div>
+            </form>
+          <div className='profile-modal-footer'>
+            <button className='button update' form='profile-change' type='submit'>
+              <i className="fa fa-check profile-check-spacing" aria-hidden="true"></i>
+              Update Profile
+            </button>
+          </div>
+      </div>
+    )
+  }, [userProfile, isPasswordOpen, isLoading]);
   
   return (
     <div className='header-containter'>
@@ -133,6 +172,11 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
           />
         </div>
       )}
+      <KineticModal
+        isModalOpen={isProfileModalOpen} 
+        setIsModalOpen={setIsProfileModalOpen} 
+        content={profileModal} 
+      />
     </div>
   );
 }

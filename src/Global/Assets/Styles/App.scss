@@ -1,4 +1,13 @@
 
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -26,12 +35,17 @@
 .button {
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   border-radius: .25rem;
   cursor: pointer;
   font-weight: 600;
   line-height: 1.5;
   padding: .4375rem .6875rem;
+  text-decoration: none;
+  gap: .5rem;
 }
+
+// TODO: rename button types
 
 .edit {
   background-color: $colors-primary-200;
@@ -70,6 +84,16 @@
 
   &:hover {
     background-color: $colors-error-100;
+  }
 }
+
+.primary-with-border {
+  font-weight: 700;
+  border: 1px solid $colors-primary-200;
+  color:$colors-primary-200;
+
+    &:hover {
+      background-color: $colors-primary-600;
+    }
 }
 

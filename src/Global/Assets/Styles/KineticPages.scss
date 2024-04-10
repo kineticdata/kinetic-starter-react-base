@@ -168,12 +168,15 @@
     }
 }
 
+.with-border {
+    border-top: 2px solid $colors-greyscale-600;
+}
+
 .submissions-footer-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 2.4rem 1.25rem 2.4rem;
-    border-top: 2px solid $colors-greyscale-600;
     max-height: 2rem;
 
     .update {
@@ -184,6 +187,36 @@
             font-size: 1.5rem;
             margin-right: .75rem;
             }
+    }
+
+    .with-icon {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+}
+
+.submission-link {
+    display: flex;
+    align-items: center;
+}
+
+.edit-icon-spacing {
+    margin-left: .5rem;
+}
+
+.file-link-wrapper {
+    display: flex;
+
+    .file-link {
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .file-size {
+        margin-left: .5rem;
+        color: $colors-greyscale-200;
     }
 }
 

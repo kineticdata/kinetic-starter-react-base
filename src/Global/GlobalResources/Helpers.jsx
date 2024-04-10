@@ -1,7 +1,9 @@
 // Helper.js is a global file that provides mutli use 
 // helper functions for use within the application.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+
+const urlPrefix = process.env.REACT_APP_PROXY_HOST;
 
 // TODO: verify the logic; do we only ever want 2 initials?
 export const getUserInitials = displayName => {
@@ -44,4 +46,87 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
     };
   
     return <Component />;
+  }
+
+  const fileSizeUnits = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+  export const humanizeFileSize = (sizeInBytes) => {
+    let unitIndex = 0;
+    let size = sizeInBytes;
+    while (size > 1024 && unitIndex < fileSizeUnits.length - 1) {
+      unitIndex++;
+      size = size / 1024;
+    }
+    const fixed = Number.isInteger(size) ? size : size.toFixed(2);
+    return `${fixed} ${fileSizeUnits[unitIndex]}`;
+  }
+
+  export const getHelpLinks = spaceAdmin => {
+    return [
+      spaceAdmin && {
+        render: 
+          <a 
+            id='platform-documentation'
+            href='https://docs.kineticdata.com/' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Platform Documentation
+            <i className='fa fa-external-link console-icon-spacing' />
+          </a>
+      },
+      spaceAdmin && {
+        render: 
+          <a 
+            id='documentation-lin'
+            href={`${urlPrefix}/app/docs/space/core`}
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            API Reference Docs        
+            <i className='fa fa-external-link console-icon-spacing' />
+          </a>
+      },
+      {
+        render: 
+          <a 
+            id='bundle-documentation'
+            href='https://docs.kineticdata.com/docs/bundle-introduction' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Bundle Documentation
+            <i className='fa fa-external-link console-icon-spacing' />
+          </a>
+      },
+      {
+        render: 
+          <a 
+            id='documentation-li'
+            href={`${urlPrefix}/app/console/#/space/about`}
+            className='external-header-dropdown-link'  
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            About Kinetic Platform
+            <i className='fa fa-external-link console-icon-spacing' />
+          </a>
+      },
+      {
+        render: 
+          <a 
+            id='console-link'
+            href='app' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Space Console
+            <i className='fa fa-external-link console-icon-spacing' />
+          </a>
+      }
+    ]
   }

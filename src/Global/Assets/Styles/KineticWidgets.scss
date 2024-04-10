@@ -203,11 +203,11 @@
         box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
         background-color: white;
         border: 2px solid rgb(240, 240, 240);
-        border-radius: 12px;
+        border-radius: .3rem;
         position: absolute;
-        top: 50%;
+        top: 5%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, 0%);
         padding: 2rem;
     }
 }

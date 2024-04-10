@@ -50,29 +50,27 @@
             align-items: center;
             gap: 16px;
             width: 100%;
+        }
 
-            .signout-link {
+        .user-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.25;
+
+            .edit-icon {
+                margin-left: .5rem;
+                padding: .4375rem .6875rem;
+                border-radius: .25rem;
                 color: $colors-primary-200;
-                text-decoration: none;
-                font-weight: bold;
-                border-radius: 4px;
-                width: 5.75rem;
-                height: 2.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                cursor: pointer;
 
                 &:hover {
                     background-color: $colors-primary-600;
                 }
             }
         }
-
-        .user-name {
-            font-size: larger;
-            font-weight: 800;
-        }
     }
+
 
     .dropdown-links {
         width: 100%;
@@ -84,6 +82,79 @@
         }
     }
   }
+
+.profile-modal-wrapper {
+    width: 38.125rem;
+
+    .profile-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        line-height: 1.25;
+        font-size: 1.5rem;
+        font-weight: 600;
+        border-bottom: 1px solid #f36c23;
+        margin-bottom: 1.75rem;
+        padding: 0 0 1.75rem;
+    }
+
+    .profile-modal-body {
+        display: flex;
+        flex-direction: column;
+        min-height: 13rem;
+
+        .password-wrapper {
+            border: 1px solid $colors-greyscale-400;
+            border-radius: .25rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+        }
+
+        .required::after {
+            content: '\2A';
+            color: red;
+            margin-left: .125rem
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+
+            .profile-label {
+                font-weight: 700;
+                margin-bottom: .5rem;
+            }
+
+            input {
+                padding: .4375rem 1rem;
+                line-height: 1.5;
+                border-radius: .25rem;
+                border: 1px solid $colors-greyscale-400;
+                font-weight: 400;
+
+                &:hover {
+                    border: 1px solid $colors-primary-200;
+                }
+
+                &:focus {
+                    border: 1px solid $colors-primary-200;
+                    box-shadow: 0 0 0 0.25rem rgba(63,70,214,.16);
+                    outline: 0;
+                }
+            }
+        }
+    }
+
+    .profile-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        border-top: 1px solid #f36c23;
+        margin-top: 1.75rem;
+        padding: 1.75rem 0 0;
+        gap: .5rem;
+    }
+}
 
 .help-menu {
     top: 5.5rem;
