@@ -79,10 +79,16 @@ export const FormsList = () => {
         });
     }, [kappSlug])
 
+    const kappSubmissionsLink = useMemo(() => (
+        <Link className="button cancel" to={`/kapps/${kappSlug}/submissions`}>
+            View Kapp Submissions
+        </Link>
+    ), [kappSlug])
+
 
     return kappData && formsData ? (
         <>
-            <PageTitle title={kappData.name} />
+            <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
             <KineticTable columns={columns} data={formsData} showPagination />
         </>
     ) : <LoadingSpinner />
