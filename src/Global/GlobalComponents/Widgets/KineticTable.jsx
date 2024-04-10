@@ -3,7 +3,9 @@ import { DropdownMenu } from '../Widgets/Dropdown/Dropdown';
 import { LoadingSpinner } from "./LoadingSpinner";
 import moment from "moment";
 
-export const KineticTable = ({columns, data, showPagination}) => {
+// Make sure to note rowData[column.value] must have a value which should be handled when
+// parsing the incoming data. Otherwise TODO add logic to handle null/undefined values here
+export const KineticTable = ({columns, data, showPagination, customerFooter }) => {
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
     const [ tablePageCount, setTablePageCount ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
@@ -35,6 +37,13 @@ export const KineticTable = ({columns, data, showPagination}) => {
         </div>
     ), [tablePageCount]);
 
+    const sortAlpha = ( first, second ) => {                    
+        const compare1 = (first[sortInfo.keyName].toSort || first[sortInfo.keyName]).toLowerCase();
+        const compare2 = (second[sortInfo.keyName].toSort || second[sortInfo.keyName]).toLowerCase();
+
+        return compare1.localeCompare(compare2);
+    }
+    
     const getSortIcon = useCallback(columnInfo => {
         if (sortInfo.order === 'ASC' && columnInfo.value === sortInfo.keyName) {
             return <i className="fa fa-sort-asc sort-icon" aria-hidden="true" />
@@ -87,13 +96,17 @@ export const KineticTable = ({columns, data, showPagination}) => {
 
     useEffect(() => {
         if (sortInfo.order === 'ASC') {
-            setPaginatedData(data.slice(firstElement, lastElement).sort((first,second) => sortInfo.type === 'date' ? 
-                moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort) : 
-                first[sortInfo.keyName].toSort - second[sortInfo.keyName].toSort));
+            setPaginatedData([...data].sort((first,second) => (
+                sortInfo.type === 'date' ?
+                    moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
+                    : sortAlpha(first, second)
+                )).slice(firstElement, lastElement));
         } else if (sortInfo.order === 'DESC') {
-            setPaginatedData(data.slice(firstElement, lastElement).sort((first,second) => sortInfo.type === 'date' ? 
-                moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort) : 
-                first[sortInfo.keyName].toSort - second[sortInfo.keyName].toSort).reverse());
+            setPaginatedData([...data].sort((first,second) => (
+                sortInfo.type === 'date' ?
+                    moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
+                    : sortAlpha(first, second)
+                )).reverse().slice(firstElement, lastElement))
         } else {
             setPaginatedData(data.slice(firstElement, lastElement))
         }
@@ -149,7 +162,7 @@ export const KineticTable = ({columns, data, showPagination}) => {
                         contentClassName='pagination-options-dropdown'
                     />
                     <div>
-                        {`${firstElement + 1} - ${lastElement} of ${data.length}`}
+                        {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                     </div>
                     <div 
                         onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
@@ -161,6 +174,7 @@ export const KineticTable = ({columns, data, showPagination}) => {
                     />
                 </div>  
             )}
+            {customerFooter && customerFooter}
         </div>
     ) : <LoadingSpinner />
 }

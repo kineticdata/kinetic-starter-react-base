@@ -5,6 +5,7 @@ import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const KappsList = () => {
     const globalState = useContext(GlobalContext);
@@ -26,13 +27,14 @@ export const KappsList = () => {
                         key={kapp.slug}
                         title={kapp.name}
                         icon={kapp.attributesMap['Icon'][0]}
-                        subtext={moment(kapp.updatedAt).format("MMM Do YYYY")}
+                        subtext={formatDate(kapp.updatedAt, 'MMM Do YYYY')}
                         linkPath={kapp.slug}
                         cardClassname='kapp-card' 
                     />
         })
     }, [kappsList])
 
+    // TODO: Add th to URL
     const pageTitleLink = useMemo(() => {
         return (
             <Link className="support-docs-link link">
