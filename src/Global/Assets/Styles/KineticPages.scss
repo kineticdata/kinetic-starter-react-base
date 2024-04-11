@@ -1,10 +1,10 @@
 .kapps-list-page-wrapper {
     width: 100%;
+    margin-bottom: 1rem;
 
     .kapp-cards-wrapper {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
         gap: 2rem;
 
         .kapp-card {
@@ -16,6 +16,12 @@
             border: solid 2px $colors-greyscale-400;
             background-color: $colors-greyscale-800;
 
+            @media only screen 
+                and (max-width: 1366px) {
+                    flex-grow: 1;
+                    aspect-ratio: auto;
+            }
+
             &:hover {
                 cursor: pointer; 
                 box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -24,15 +30,20 @@
             }
         }
     }
+}
 
-    .support-docs-link {  
-        display: flex;
-        align-items: center;
-        margin-left: 1rem;
+.support-docs-link {  
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
 
-        .link-spacing {
-            margin-right: .5rem;
-        }
+    @media screen
+        and (max-width: 768px) {
+            text-align: right;
+    }
+
+    .link-spacing {
+        margin-right: .5rem;
     }
 }
 

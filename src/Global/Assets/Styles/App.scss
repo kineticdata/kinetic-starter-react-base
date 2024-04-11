@@ -39,6 +39,15 @@ button {
   
   // This min-height should be adjusted if the header/footer heights are changed
   min-height: calc(100vh - 137.5px);
+
+  @media screen and (max-width: 1366px) {
+    margin: 0 3rem;
+  }
+
+  @media screen
+    and (max-width: 768px) {
+    margin: 0 1rem; 
+  }
 }
 
 .link {
