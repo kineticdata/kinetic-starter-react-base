@@ -17,8 +17,7 @@
             background-color: $colors-greyscale-800;
 
             @media only screen 
-                and (max-width: 1366px) 
-                and (-webkit-min-device-pixel-ratio: 1.5) {
+                and (max-width: 1366px) {
                     flex-grow: 1;
                     aspect-ratio: auto;
             }
