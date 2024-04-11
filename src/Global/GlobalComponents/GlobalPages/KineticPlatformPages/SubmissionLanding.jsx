@@ -23,11 +23,14 @@ export const SubmissionLanding = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchSubmission({ id: submissionsId, include: 'values, details, authorization, activities' }).then(({ submission }) => {
+        fetchSubmission({ id: submissionsId, include: 'values, details, authorization' }).then(({ submission }) => {
             const parsedData = Object.keys(submission.values).map((key) => { 
                 let arrayData = null;
-                if (typeof submission.values[key] == 'object') {
-                    if (typeof submission.values[key][0] == 'object') {
+                // Arrays are returned from the Kinetic Platform as an immutable list, which reads as an object
+                // therefore the first check is verifying the value is a List and the second is verifying it's a 
+                // List of objects
+                if (typeof submission.values[key] === 'object') {
+                    if (typeof submission.values[key][0] === 'object') {
                         arrayData = submission.values[key].map(value =>  {
                             // TODO: Attachement links will have to be tested in deployed envs
                             // may have to use process.env.REACT_APP_API_HOST instead of proxy
@@ -40,7 +43,7 @@ export const SubmissionLanding = () => {
                                     ),
                                 toSort: value.name
                             })
-                        }).reduce((prev, curr) => [prev, ', ', curr])
+                        }).reduce((prev, current) => [prev, ', ', current])
                     } else {
                         arrayData = submission.values[key].join(', ');
                     }

@@ -1,11 +1,26 @@
-
+// TODO: change all the div's being used as buttons to actual buttons
 button {
-  padding: 0;
-  border: none;
   font: inherit;
+  cursor: pointer;
   color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
+  font-weight: 600;
+  line-height: 1.5;
+  border: none;
+  border-radius: .25rem;
   outline: none;
+  padding: .4375rem .6875rem;
+  text-decoration: none;
+  gap: .5rem;
+
+  &:disabled {
+    background-color: $colors-greyscale-200 !important;
+    color: white !important;
+    cursor: default !important;
+  }
 }
 
 .app-container {
@@ -97,3 +112,8 @@ button {
     }
 }
 
+.required-text {
+  color: $colors-error-200;
+  font-size: .875rem;
+  font-weight: 400;
+}
