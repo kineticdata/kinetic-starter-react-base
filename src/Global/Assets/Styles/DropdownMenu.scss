@@ -160,9 +160,19 @@
     top: 5.5rem;
     right: 10rem;
     width: 18rem;
+
+    @media screen
+        and (max-width: 768px) {
+            right: 5rem;
+    }
 }
 
 .profile-menu {    
     top: 5.5rem;
     right: 5rem;
+
+    @media screen
+        and (max-width: 768px) {
+            right: 1rem;
+    }
 }
