@@ -14,6 +14,29 @@ export function GlobalContextWrapper({children}) {
     const [ theme, setTheme ] = useState('light');
     const [ globalCount, setGlobalCount ] = useState(0);
     const [ breadcrumbs, setBreadcrumbs ] = useState([]);
+    const [ isMobileDevice, setIsMobileDevice ] = useState(false);
+
+    const handleScreenResize = () => {
+        if (window.innerWidth <= 1366) {
+            setIsMobileDevice(true);
+        } else {
+            setIsMobileDevice(false);
+        }
+    };
+
+    // Checks initial screen size
+    useEffect(() => {
+        if (window.innerWidth <= 1366) {
+            setIsMobileDevice(true);
+        }
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener('resize', handleScreenResize);
+        return () => {
+            window.removeEventListener('resize', handleScreenResize);
+        }
+    }, [])
     
     // In the event that the entire context requires a data call it can be done here
     useEffect(() => {
@@ -44,7 +67,6 @@ export function GlobalContextWrapper({children}) {
             setBreadcrumbs([...splicedArray.slice(Math.max(splicedArray.length - 4, 0)), crumb])
         }
     };
-
     
     // Create the default object for this context
     // useMemo is recommended for performance enhancement
@@ -56,6 +78,7 @@ export function GlobalContextWrapper({children}) {
             userProfile,
             kineticSpace,
             breadcrumbs,
+            isMobileDevice,
         // GlobalContextData functions
             setGlobalCount,
             setIsAuthorized,
@@ -64,7 +87,7 @@ export function GlobalContextWrapper({children}) {
             setKineticSpace,
             updateBreadcrumbs
         // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
-    }), [isAuthorized, theme, userProfile, kineticSpace, globalCount, breadcrumbs]);
+    }), [isAuthorized, theme, userProfile, kineticSpace, globalCount, breadcrumbs, isMobileDevice]);
     
     // Since this is just a state data wrapper simply pass any children through
     return (

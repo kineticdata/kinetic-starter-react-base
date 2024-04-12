@@ -68,6 +68,37 @@
 
 }
 
+.isMobile {
+    margin-bottom: 1rem !important;
+}
+
+.mobile-pagination-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    max-height: 2rem;
+    line-height: 1.5;
+    font-size: 1.25rem;
+    margin-bottom: 6rem;
+
+    .mobile-pagination-options-dropdown {
+        border: 1px solid $colors-greyscale-200;
+        border-radius: .375rem;
+        padding: 0 .75rem;
+
+        .table-dropdown-face .table-dropdown-content .arrow-size {
+            font-size: 1.35rem;
+            color: $colors-greyscale-200;
+            margin-left: 1rem;
+        }
+
+        .mobile-pagination-dropdown { 
+            padding: 0 .85rem;
+        }
+    }
+}
+
 .table-wrapper {
     display: flex;
     flex-direction: column;
