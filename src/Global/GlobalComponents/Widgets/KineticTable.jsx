@@ -1,11 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { DropdownMenu } from '../Widgets/Dropdown/Dropdown';
 import { LoadingSpinner } from "./LoadingSpinner";
 import moment from "moment";
+import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
 // Make sure to note rowData[column.value] must have a value which should be handled when
 // parsing the incoming data. Otherwise TODO add logic to handle null/undefined values here
 export const KineticTable = ({columns, data, showPagination, customerFooter }) => {
+    const globalState = useContext(GlobalContext);
+    const { isMobileDevice } = globalState;
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
     const [ tablePageCount, setTablePageCount ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
@@ -113,54 +116,72 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
     }, [tablePageCount, currentPage, sortInfo]);
 
     return paginatedData ? (
-        <div className="table-wrapper">
-            <table className={`table${showPagination ? ' show-pagination' : ''}`}>
-                <thead className="table-header">
-                    <tr className="table-header-row">
-                        {columns.map((column, key) => {
-                            return column.sortBy ? (
-                                <th 
-                                    key={key}
-                                    onClick={() => updateSortInfo(column)}
-                                    className="table-header-item sortable" 
-                                >
-                                    {column.title}
-                                    {getSortIcon(column)}
-                                </th>
-                                ) : (
-                                    <th className="table-header-item" key={key}>
+        <>
+            <div className={`table-wrapper${isMobileDevice ? ' isMobile' : ''}`}>
+                <table className={`table${showPagination ? ' show-pagination' : ''}`}>
+                    <thead className="table-header">
+                        <tr className="table-header-row">
+                            {columns.map((column, key) => {
+                                return column.sortBy ? (
+                                    <th 
+                                        key={key}
+                                        onClick={() => updateSortInfo(column)}
+                                        className="table-header-item sortable" 
+                                    >
                                         {column.title}
+                                        {getSortIcon(column)}
                                     </th>
-                                )
-                            })}
-                    </tr>
-                </thead>
-                <tbody className="table-body">
-                    {paginatedData.map((rowData, key) => {
-                        return (
-                            <tr key={key} className="table-row">
-                                {columns.map((column, key) => (
-                                    <td className="table-row-item" key={key}>
-                                        {rowData[column.value].toDisplay ?
-                                            rowData[column.value].toDisplay :
-                                            rowData[column.value]
-                                        }
-                                    </td>
-                                ))}
-                            </tr>
-                    )})}
-                </tbody>
-            </table>
-            {showPagination && (
-                <div className='pagination-wrapper'>
-                    <>Rows per page</>
-                    <DropdownMenu
-                        isDropdownOpen={isDropdownOpen}
-                        setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
-                        dropdownFace={dropdownFace}
-                        dropdownContent={paginationOptions}
-                        contentClassName='pagination-options-dropdown'
-                    />
+                                    ) : (
+                                        <th className="table-header-item" key={key}>
+                                            {column.title}
+                                        </th>
+                                    )
+                                })}
+                        </tr>
+                    </thead>
+                    <tbody className="table-body">
+                        {paginatedData.map((rowData, key) => {
+                            return (
+                                <tr key={key} className="table-row">
+                                    {columns.map((column, key) => (
+                                        <td className="table-row-item" key={key}>
+                                            {rowData[column.value].toDisplay ?
+                                                rowData[column.value].toDisplay :
+                                                rowData[column.value]
+                                            }
+                                        </td>
+                                    ))}
+                                </tr>
+                        )})}
+                    </tbody>
+                </table>
+                {showPagination && !isMobileDevice && (
+                    <div className='pagination-wrapper'>
+                        <>Rows per page</>
+                        <DropdownMenu
+                            isDropdownOpen={isDropdownOpen}
+                            setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                            dropdownFace={dropdownFace}
+                            dropdownContent={paginationOptions}
+                            contentClassName='pagination-options-dropdown'
+                        />
+                        <div>
+                            {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
+                        </div>
+                        <div 
+                            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
+                            className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
+                        />
+                        <div 
+                            onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
+                            className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
+                        />
+                    </div>  
+                )}
+                {customerFooter && customerFooter}
+            </div>
+            {isMobileDevice && (
+                <div className='mobile-pagination-wrapper'>
                     <div>
                         {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                     </div>
@@ -172,9 +193,16 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                         onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
                         className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                     />
+                    <DropdownMenu
+                        isDropdownOpen={isDropdownOpen}
+                        setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                        dropdownFace={dropdownFace}
+                        dropdownContent={paginationOptions}
+                        faceStyle='mobile-pagination-options-dropdown'
+                        contentClassName='mobile-pagination-dropdown'
+                    />
                 </div>  
             )}
-            {customerFooter && customerFooter}
-        </div>
+        </>
     ) : <LoadingSpinner />
 }
