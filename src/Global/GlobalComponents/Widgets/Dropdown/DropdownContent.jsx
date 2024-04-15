@@ -25,13 +25,13 @@ export const DropdownContent = ({
 
     const dropdownContentMap = useMemo(() => (
             dropdownContent.map((dropdownItem, key) => (
-                <div 
-                    className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links`}
+                <button 
+                    className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links remove-padding`}
                     onClick={() => setIsDropdownOpen()}
                     key={key}
                 >
                     {dropdownItem.render}        
-                </div>
+                </button>
             ))
     ), [dropdownContent])
 

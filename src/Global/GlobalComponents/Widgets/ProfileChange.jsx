@@ -52,7 +52,9 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
       <div className='profile-modal-wrapper'>
           <div className='profile-modal-header'>
             Edit Your Profile
-            <i className="fa fa-times button cancel" aria-hidden="true" onClick={() => setIsProfileModalOpen(false)} />
+            <button onClick={() => setIsProfileModalOpen(false)}>
+              <i className="fa fa-times button cancel" aria-hidden="true" />
+            </button>
           </div>
             <div className='profile-modal-body'>
               {!isLoading ?

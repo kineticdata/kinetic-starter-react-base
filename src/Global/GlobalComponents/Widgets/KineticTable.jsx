@@ -16,10 +16,10 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
     const [ sortInfo, setSortInfo ] = useState({order: 'none'});
 
     const paginationOptions = useMemo(() => ([
-        { render: <div className="pagination-options" onClick={() => setTablePageCount(10)}>10</div> },
-        { render: <div className="pagination-options" onClick={() => setTablePageCount(25)}>25</div> },
-        { render: <div className="pagination-options" onClick={() => setTablePageCount(50)}>50</div> },
-        { render: <div className="pagination-options" onClick={() => setTablePageCount(100)}>100</div> },
+        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(10)}>10</button> },
+        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(25)}>25</button> },
+        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(50)}>50</button> },
+        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(100)}>100</button> },
     ]), []);
 
     // If the table is on the first page always use the actual first element
@@ -125,11 +125,12 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                                 return column.sortBy ? (
                                     <th 
                                         key={key}
-                                        onClick={() => updateSortInfo(column)}
                                         className="table-header-item sortable" 
                                     >
-                                        {column.title}
-                                        {getSortIcon(column)}
+                                        <button onClick={() => updateSortInfo(column)} className="remove-padding">
+                                            {column.title}
+                                            {getSortIcon(column)}
+                                        </button>
                                     </th>
                                     ) : (
                                         <th className="table-header-item" key={key}>
@@ -168,11 +169,11 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                         <div>
                             {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                         </div>
-                        <div 
+                        <button 
                             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
                             className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                         />
-                        <div 
+                        <button 
                             onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
                             className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                         />
@@ -185,11 +186,11 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                     <div>
                         {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                     </div>
-                    <div 
+                    <button 
                         onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
                         className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                     />
-                    <div 
+                    <button 
                         onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
                         className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                     />
