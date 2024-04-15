@@ -33,11 +33,12 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className='user-info-bottom'>
           <div className='user-name'>
             {userProfile.displayName}
-            <i 
-              onClick={() => setIsProfileModalOpen(true)}
-              className="fa fa-pencil-square-o edit-icon" 
-              aria-hidden="true" 
-            />
+            <button onClick={() => setIsProfileModalOpen(true)} >
+              <i 
+                className="fa fa-pencil-square-o edit-icon" 
+                aria-hidden="true" 
+              />
+            </button>
           </div>
           <div>{userProfile.email}</div>
           <a 

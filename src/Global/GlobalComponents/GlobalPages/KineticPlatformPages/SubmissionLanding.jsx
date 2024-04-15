@@ -90,18 +90,18 @@ export const SubmissionLanding = () => {
     const submissionsFooter = useMemo(() => {
         return (
             <div className="submissions-footer-wrapper with-border">
-                <div 
+                <button 
                     onClick={() => setIsEditMode(!isEditMode)}
                     className={`button${isEditMode ? ' cancel' : ' edit with-icon'}`}
                 >
                     {isEditMode ? 'Cancel' : 'Edit'}
-                </div>
-                <div 
+                </button>
+                <button 
                     onClick={() => setIsDeleteOpen(!isDeleteOpen)}
                     className="button delete"
                 >
                     Delete
-                </div>
+                </button>
             </div>
         )
     }, [isDeleteOpen, isEditMode]);
@@ -112,18 +112,18 @@ export const SubmissionLanding = () => {
                 <div className="modal-header">Are you sure you want to delete this Submission?</div>
                 <div>Are you sure you want to proceed?</div>
                 <div className="modal-buttons-wrapper">
-                    <div 
+                    <button 
                         onClick={() => setIsDeleteOpen(false)}
                         className="button cancel"
                     >
                         Cancel
-                    </div>
-                    <div 
+                    </button>
+                    <button 
                         onClick={() => confirmDeleteSubmission()}
                         className="button delete-red-bg"
                     >
                         Delete Submission
-                    </div>
+                    </button>
                 </div>
             </div>
         )

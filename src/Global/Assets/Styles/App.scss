@@ -56,6 +56,10 @@ button {
   color: $colors-primary-200;
 }
 
+.remove-padding {
+  padding: 0;
+}
+
 .button {
   display: inline-flex;
   justify-content: center;
