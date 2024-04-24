@@ -56,7 +56,9 @@ export const FormsList = () => {
 
     useEffect(() => {
         if(kappData) {
-            updateBreadcrumbs({ page: `${kappData.name}`, path: `/kapps/${kappSlug}/forms`});
+            updateBreadcrumbs({
+                pageNames: ['Kapps List', kappData.name, 'Forms List'],
+                path: `/kapps/${kappSlug}/forms`});
         }
     }, [kappData])
 

@@ -21,9 +21,30 @@ export const SubmissionLanding = () => {
     const [ tableData, setTableData ] = useState();
     const { kappSlug, formSlug, submissionsId } = useParams();
     const navigate = useNavigate();
+    
 
     useEffect(() => {
-        fetchSubmission({ id: submissionsId, include: 'values, details, authorization' }).then(({ submission }) => {
+        if(submissionData) {
+            updateBreadcrumbs({ 
+                pageNames: [
+                    'Kapps List',
+                    submissionData.form.kapp.name,
+                    'Forms List',
+                    submissionData.form.name,
+                    'Submissions List',
+                    submissionData.id
+                ],
+                path: `/kapps/${kappSlug}/forms/${formSlug}/submissions/${submissionData.id}`,
+            });
+        }
+    }, [submissionData]);
+
+    useEffect(() => {
+        fetchSubmission({
+            id: submissionsId, 
+            include: 'values, details, authorization, form, form.kapp'
+        }).then(({ submission }) => {
+            console.log('submission', submission);
             const parsedData = Object.keys(submission.values).map((key) => { 
                 let arrayData = null;
                 // Arrays are returned from the Kinetic Platform as an immutable list, which reads as an object

@@ -18,7 +18,7 @@ import { Breadcrumbs } from './Global/GlobalComponents/Widgets/Breadcrumbs';
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
   const globalState = useContext(GlobalContext);
-  const { setIsAuthorized, kineticSpace, userProfile } = globalState;
+  const { setIsAuthorized, kineticSpace, userProfile, breadcrumbs } = globalState;
 
   useEffect(() => {
     setIsAuthorized(loggedIn)
@@ -36,7 +36,7 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
           
           {/* Add base routes and Primary Service routes here */}
           <div className='app-content-container'>
-          <Breadcrumbs />
+          {breadcrumbs && <Breadcrumbs />}
             <Routes>
               {/* Base level routing */}
               <Route  
