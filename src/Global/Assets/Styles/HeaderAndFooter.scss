@@ -46,7 +46,13 @@
 
   .header-logo-link {
     max-height: 60px;
-    padding-left: 1rem;
+  }
+
+  .header-dropdown-links {
+    
+    &:focus {
+      outline: -webkit-focus-ring-color auto 1px;
+    }
   }
     
   .header-dropdown-profile {
@@ -60,6 +66,10 @@
     min-height: 1.25rem;
     display: flex;
     justify-content: center;
+    
+    &:focus {
+      outline: -webkit-focus-ring-color auto 1px;
+    }
 
     &:hover {
       cursor: pointer;
@@ -93,6 +103,7 @@
   color: $light-app-font-color;
   text-decoration: none;
   padding: 0.5rem 1rem;
+  margin: .125rem;
 }
 
 .search-box {

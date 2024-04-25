@@ -62,17 +62,15 @@ export const FormSubmissionsList = () => {
     };    
     
     const pageTitleLink = useMemo(() => {
-        if (formData) {
             return (
                 <Link 
                     to={`/kapps/${kappSlug}/forms/${formSlug}`}
                     className="support-docs-link link"
                 >
-                    {`${formData.name} Form`}
+                    Create Submission
                 </Link>
             )
-        }
-    }, [formData])
+    }, [])
 
     useEffect(() => {
         if(formData) {

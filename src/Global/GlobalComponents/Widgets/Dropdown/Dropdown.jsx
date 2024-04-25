@@ -18,6 +18,7 @@ export const DropdownMenu = ({
 }) => (
         <button 
             onClick={() => setIsDropdownOpen()}
+            className='default-dropdown-button'
         >
             <div
             className={faceStyle} >
