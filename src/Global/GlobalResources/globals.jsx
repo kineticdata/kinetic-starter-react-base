@@ -102,11 +102,11 @@ window.bundle.config.ready = function(form) {
     section
       .find('.section-title')
       .css('cursor', 'pointer')
-      .append('<div id="caret" class="fa fa-fw fa-caret-right"></div>')
+      .append('<div id="caret" class="las la-angle-right"></div>')
       .click(function() {
         jquery(this)
           .find('#caret')
-          .toggleClass('fa-caret-right fa-caret-down');
+          .toggleClass('la-angle-right la-angle-down');
         section.find('#detailedInformation').toggle();
       });
   }

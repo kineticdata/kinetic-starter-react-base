@@ -35,7 +35,7 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
         <div className="table-dropdown-face">
             <div className="table-dropdown-content">
                 {tablePageCount}
-                <i className='fa fa-angle-down arrow-size' aria-hidden='true' />
+                <i className='las la-angle-down arrow-size' aria-hidden='true' />
             </div>
         </div>
     ), [tablePageCount]);
@@ -49,11 +49,11 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
     
     const getSortIcon = useCallback(columnInfo => {
         if (sortInfo.order === 'ASC' && columnInfo.value === sortInfo.keyName) {
-            return <i className="fa fa-sort-asc sort-icon" aria-hidden="true" />
+            return <i className="las la-sort-up sort-icon" aria-hidden="true" />
         } else if (sortInfo.order === 'DESC' && columnInfo.value === sortInfo.keyName) {
-            return <i className="fa fa-sort-desc sort-icon" aria-hidden="true" />
+            return <i className="las la-sort-down sort-icon" aria-hidden="true" />
         } else {
-            return <i className="fa fa-sort sort-icon" aria-hidden="true" />
+            return <i className="las la-sort sort-icon" aria-hidden="true" />
         }
     }, [sortInfo])
 
@@ -171,11 +171,11 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                         </div>
                         <button 
                             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
-                            className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
+                            className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                         />
                         <button 
                             onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
-                            className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
+                            className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                         />
                     </div>  
                 )}
@@ -188,11 +188,11 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                     </div>
                     <button 
                         onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
-                        className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
+                        className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                     />
                     <button 
                         onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
-                        className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
+                        className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                     />
                     <DropdownMenu
                         isDropdownOpen={isDropdownOpen}

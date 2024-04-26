@@ -53,7 +53,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
           <div className='profile-modal-header'>
             Edit Your Profile
             <button onClick={() => setIsProfileModalOpen(false)}>
-              <i className="fa fa-times button cancel" aria-hidden="true" />
+              <i className="las la-times button cancel" aria-hidden="true" />
             </button>
           </div>
             <div className='profile-modal-body'>
@@ -93,7 +93,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
             </div>
           <div className='profile-modal-footer'>
             <button className='edit' disabled={!doPasswordsMatch} onClick={handleProfileUpdate}>
-              <i className="fa fa-check profile-check-spacing" aria-hidden="true"></i>
+              <i className="las la-check profile-check-spacing" aria-hidden="true"></i>
               Update Profile
             </button>
           </div>

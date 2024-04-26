@@ -12,8 +12,8 @@
   "dependencies": {
     "@babel/runtime": "^7.20.7",
     "@kineticdata/react": "6.0.0",
-    "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
+    "line-awesome": "^1.3.0",
     "moment": "2.29.4",
     "qs": "^6.11.2",
     "react": "^18.2.0",
