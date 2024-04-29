@@ -351,8 +351,8 @@ export const getIcon = (object, defaultValue) => {
     'Icon',
     defaultValue || 'square-o',
   );
-  return iconAttribute.indexOf('fa-') === 0
-    ? iconAttribute.slice('fa-'.length)
+  return iconAttribute.indexOf('la-') === 0
+    ? iconAttribute.slice('la-'.length)
     : iconAttribute;
 };
 

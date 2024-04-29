@@ -8,7 +8,7 @@ export const ExpandingSearchBar = () => {
         <div className='search-box'>
               <input className="search-text" type="text" placeholder="Search Kinetic Data" />
               <div className="search-btn">
-                <i className='fa fa-search' aria-hidden="true"></i>
+                <i className='las la-search standard-icon-size' aria-hidden="true"></i>
               </div>
         </div>
     );
