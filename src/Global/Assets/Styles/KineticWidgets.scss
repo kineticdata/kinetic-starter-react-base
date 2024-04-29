@@ -76,7 +76,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1.5rem;
     max-height: 2rem;
     line-height: 1.5;
     font-size: 1.25rem;
@@ -267,6 +267,33 @@
         left: 50%;
         transform: translate(-50%, 0%);
         padding: 2rem;
+
+        .profile-modal-wrapper {
+            @media screen and (max-width: 430px) {
+                width: auto;
+            }
+
+            .profile-modal-wrapper {
+                @media screen and (max-width: 430px) {
+                    width: auto;
+                }
+
+                .profile-modal-header, .profile-modal-body, .profile-modal-footer {
+                    @media screen and (max-width: 430px) {
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+        @media screen
+            and (max-width: 430px) {
+                padding: 1rem;
+                width: auto;
+                height: auto;
+                position: unset;
+                transform: translate(0%, 0%);
+        }
     }
 }
 

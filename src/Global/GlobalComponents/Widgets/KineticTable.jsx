@@ -186,14 +186,16 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                     <div>
                         {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                     </div>
-                    <button 
-                        onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
-                        className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
-                    />
-                    <button 
-                        onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
-                        className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
-                    />
+                    <div className='mobile-pagination-arrows'>
+                        <button 
+                            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
+                            className={`fa fa-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
+                        />
+                        <button 
+                            onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
+                            className={`fa fa-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
+                        />
+                    </div>
                     <DropdownMenu
                         isDropdownOpen={isDropdownOpen}
                         setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}

@@ -14,14 +14,20 @@ export const FormLanding = () => {
     useEffect(() => {
         if(formData) {
             updateBreadcrumbs({ 
-                page: `${formData.name} Form`, 
+                pageNames: ['Kapps List', formData.kapp.name, 'Forms List', formData.name],
                 path: `/kapps/${kappSlug}/forms/${formSlug}`
             });
         }
     }, [formData]);
 
     useEffect(() => {
-        fetchForm({ kappSlug, formSlug }).then(({ form }) => setFormData(form));
+        fetchForm({
+            kappSlug,
+            formSlug,
+            include: 'kapp'
+        }).then(({ form }) => {
+            setFormData(form)
+        });
     }, [])
 
     return formData && (
