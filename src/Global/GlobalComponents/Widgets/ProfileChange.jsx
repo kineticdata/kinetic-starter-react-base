@@ -50,12 +50,6 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
 
     return changeData && (
       <div className='profile-modal-wrapper'>
-          <div className='profile-modal-header'>
-            Edit Your Profile
-            <button onClick={() => setIsProfileModalOpen(false)}>
-              <i className="las la-times button cancel" aria-hidden="true" />
-            </button>
-          </div>
             <div className='profile-modal-body'>
               {!isLoading ?
                 <>
