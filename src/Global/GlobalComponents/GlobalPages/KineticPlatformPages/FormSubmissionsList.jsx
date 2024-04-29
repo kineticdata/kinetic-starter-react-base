@@ -62,26 +62,27 @@ export const FormSubmissionsList = () => {
     };    
     
     const pageTitleLink = useMemo(() => {
-        if (formData) {
             return (
                 <Link 
                     to={`/kapps/${kappSlug}/forms/${formSlug}`}
                     className="support-docs-link link"
                 >
-                    {`${formData.name} Form`}
+                    Create Submission
                 </Link>
             )
-        }
-    }, [formData])
+    }, [])
 
     useEffect(() => {
         if(formData) {
-            updateBreadcrumbs({ page: `${formData.name} Submissions`, path: `/kapps/${kappSlug}/forms/${formSlug}/submissions`});
+            updateBreadcrumbs({
+                pageNames: ['Kapps List', formData.kapp.name, 'Forms List', formData.name, 'Submissions List'],
+                path: `/kapps/${kappSlug}/forms/${formSlug}/submissions`
+            });
         }
     }, [formData]);
 
     useEffect(() => {
-        fetchForm({ kappSlug, formSlug, include: 'details' }).then(({ form }) => setFormData(form));
+        fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form }) => setFormData(form));
 
         const query = defineKqlQuery()
             .end();

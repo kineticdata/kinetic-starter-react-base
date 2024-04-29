@@ -1,3 +1,10 @@
+.default-dropdown-button {
+      
+    &:focus-visible {
+        outline: -webkit-focus-ring-color auto 1px;
+      }
+}
+
 .dropdown-content {
     position: absolute;
     border-radius: .5rem;
@@ -57,17 +64,25 @@
             font-weight: 600;
             line-height: 1.25;
 
-            .edit-icon {
-                margin-left: .5rem;
-                padding: .4375rem .6875rem;
-                border-radius: .25rem;
-                color: $colors-primary-200;
-                cursor: pointer;
+            .edit-icon-wrapper {
 
-                &:hover {
-                    background-color: $colors-primary-600;
+                &:focus-visible {
+                    outline: -webkit-focus-ring-color auto 1px;
+                }
+                
+                .edit-icon {
+                    margin-left: .5rem;
+                    padding: .4375rem .6875rem;
+                    border-radius: .25rem;
+                    color: $colors-primary-200;
+                    cursor: pointer;
+    
+                    &:hover {
+                        background-color: $colors-primary-600;
+                    }
                 }
             }
+
         }
     }
 
@@ -76,6 +91,10 @@
         width: 100%;
         border-radius: .5rem;
         background-color: $colors-greyscale-800;
+
+        &:focus-visible {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
 
         &:hover {
             background-color: $colors-greyscale-600;

@@ -10,13 +10,16 @@ button {
   justify-content: center;
   background-color: transparent;
   font-weight: 600;
-  line-height: 1.5;
   border: none;
   border-radius: .25rem;
   outline: none;
   padding: .4375rem .6875rem;
   text-decoration: none;
   gap: .5rem;
+
+  &:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+  } 
 
   &:disabled {
     background-color: $colors-greyscale-200 !important;

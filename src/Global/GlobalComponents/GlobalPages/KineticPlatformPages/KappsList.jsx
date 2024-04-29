@@ -13,7 +13,10 @@ export const KappsList = () => {
     const [ kappsList, setKappsList ] = useState([]);
 
     useEffect(() => {
-        updateBreadcrumbs({ page: 'Kapps List', path: '/kapps'});
+        updateBreadcrumbs({
+            pageNames: ['Kapps List'],
+            path: '/kapps'
+        });
     }, [])
 
     useEffect(() => {

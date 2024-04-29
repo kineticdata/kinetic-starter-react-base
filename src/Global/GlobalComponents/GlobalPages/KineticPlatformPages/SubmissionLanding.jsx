@@ -12,18 +12,40 @@ import { CoreForm } from "@kineticdata/react/lib/components";
 export const SubmissionLanding = () => {
     const urlPrefix = process.env.REACT_APP_PROXY_HOST;
     const globalState = useContext(GlobalContext);
-    const { updateBreadcrumbs } = globalState;
+    const { updateBreadcrumbs, userProfile } = globalState;
+    const { spaceAdmin } = userProfile || {};
     const [ isDeleteOpen, setIsDeleteOpen ] = useState(false);
     const [ isEditMode, setIsEditMode ] = useState(false);
-    const [ showTableView, setShowTableView ] = useState(true);
+    const [ showTableView, setShowTableView ] = useState(false);
     const [ canEdit, setCanEdit ] = useState();
     const [ submissionData, setSubmissionData ] = useState();
     const [ tableData, setTableData ] = useState();
     const { kappSlug, formSlug, submissionsId } = useParams();
     const navigate = useNavigate();
+    
 
     useEffect(() => {
-        fetchSubmission({ id: submissionsId, include: 'values, details, authorization' }).then(({ submission }) => {
+        if(submissionData) {
+            updateBreadcrumbs({ 
+                pageNames: [
+                    'Kapps List',
+                    submissionData.form.kapp.name,
+                    'Forms List',
+                    submissionData.form.name,
+                    'Submissions List',
+                    submissionData.id
+                ],
+                path: `/kapps/${kappSlug}/forms/${formSlug}/submissions/${submissionData.id}`,
+            });
+        }
+    }, [submissionData]);
+
+    useEffect(() => {
+        fetchSubmission({
+            id: submissionsId, 
+            include: 'values, details, authorization, form, form.kapp'
+        }).then(({ submission }) => {
+            console.log('submission', submission);
             const parsedData = Object.keys(submission.values).map((key) => { 
                 let arrayData = null;
                 // Arrays are returned from the Kinetic Platform as an immutable list, which reads as an object
@@ -180,7 +202,7 @@ export const SubmissionLanding = () => {
 
     return submissionData && tableData ? (
         <>
-            <PageTitle title={`Submission: ${submissionData.label}`} rightSide={toggleView} />
+            <PageTitle title={`Submission: ${submissionData.label}`} rightSide={spaceAdmin && toggleView} />
             <div className="submission-information">
                 <div className="spacer"><b>State: </b><div className={`state ${submissionData.coreState.toLowerCase()} left-space`}>{submissionData.coreState}</div></div>
                 <div className="spacer"><b>Created at: </b>{formatDate(submissionData.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>

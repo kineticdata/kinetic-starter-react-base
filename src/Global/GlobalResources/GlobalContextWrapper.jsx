@@ -56,16 +56,41 @@ export function GlobalContextWrapper({children}) {
     // Otherwise remove the newest crumb from the existing array and add it at the end
     // The slice() used in setBreadcrumbs() limits the breadcrumbs displayed to a max of 5
     //TODO: Should breadcurumbs be saved in local storage for customers?
-    const updateBreadcrumbs = crumb => {
-        if (!breadcrumbs.map(currentCrumbs => currentCrumbs.page).includes(crumb.page)) {
-            setBreadcrumbs([...breadcrumbs.slice(Math.max(breadcrumbs.length - 4, 0)), crumb]);
+    const updateBreadcrumbs = crumbData => {
+        if (crumbData) {
+            let pathComponents = crumbData.path.split('/');
+            let breadcrumbsArr = [];
+            let tmpPath = '';
+    
+            pathComponents.forEach((component, index) => {
+                tmpPath = tmpPath + component + '/';
+                let tmpName = ''
+                
+                if (index == 0) {
+                    tmpName = "Home";
+                } else if (crumbData.pageNames && crumbData.pageNames.length > 0) {
+                    tmpName = crumbData.pageNames[index-1];
+                }
+    
+                breadcrumbsArr.push({
+                    page: tmpName || component,
+                    path: tmpPath
+                })
+            });
+            
+            setBreadcrumbs(breadcrumbsArr);
         } else {
-            const crumbIndex = breadcrumbs.map(
-                currentCrumbs => currentCrumbs.page).indexOf(crumb.page)
-            let splicedArray = breadcrumbs;
-            splicedArray.splice(crumbIndex, 1);
-            setBreadcrumbs([...splicedArray.slice(Math.max(splicedArray.length - 4, 0)), crumb])
+            setBreadcrumbs(null);
         }
+        // if (!breadcrumbs.map(currentCrumbs => currentCrumbs.page).includes(crumb.page)) {
+        //     setBreadcrumbs([...breadcrumbs.slice(Math.max(breadcrumbs.length - 4, 0)), crumb]);
+        // } else {
+        //     const crumbIndex = breadcrumbs.map(
+        //         currentCrumbs => currentCrumbs.page).indexOf(crumb.page)
+        //     let splicedArray = breadcrumbs;
+        //     splicedArray.splice(crumbIndex, 1);
+        //     setBreadcrumbs([...splicedArray.slice(Math.max(splicedArray.length - 4, 0)), crumb])
+        // }
     };
     
     // Create the default object for this context

@@ -33,7 +33,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className='user-info-bottom'>
           <div className='user-name'>
             {userProfile.displayName}
-            <button onClick={() => setIsProfileModalOpen(true)} >
+            <button onClick={() => setIsProfileModalOpen(true)} className='edit-icon-wrapper' >
               <i 
                 className="las la-edit edit-icon" 
                 aria-hidden="true" 
@@ -73,7 +73,11 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
               setIsProfileMenuOpen(false);
               setIsHelpMenuOpen(!isHelpMenuOpen);
             }}
-            dropdownFace={<i className="las la-ellipsis-v standard-icon-size" aria-hidden='true' />} 
+            dropdownFace={
+              <div className='header-dropdown-links'>
+                <i className="las la-ellipsis-v standard-icon-size" aria-hidden='true' />
+              </div>
+            } 
             dropdownContent={helpContent}
             contentClassName='help-menu'
           />

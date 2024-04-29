@@ -70,7 +70,9 @@ export const KappSubmissionsList = () => {
 
     useEffect(() => {
         if(kappData) {
-            updateBreadcrumbs({ page: `${kappData.name} Submissions`, path: `/kapps/${kappSlug}/submissions`});
+            updateBreadcrumbs({
+                pageNames: ['Kapps List', kappData.name, 'Submissions List'],
+                path: `/kapps/${kappSlug}/submissions`});
         }
     }, [kappData]);
 
