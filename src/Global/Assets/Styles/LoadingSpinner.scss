@@ -15,15 +15,12 @@
     transform: translate(-50%, -50%);
 }
 
-#html-spinner{
+.html-spinner{
     width:230px;
     height:230px;
     border:10px solid #f36c24;
-    border-top:10px solid white;
+    border-top:10px solid transparent;
     border-radius:50%;
-    }
-  
-  #html-spinner{
     -webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 1.2s;
     -webkit-animation-name: rotate;

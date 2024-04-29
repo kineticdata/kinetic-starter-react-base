@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchForm } from '@kineticdata/react';
 import { CoreForm } from "@kineticdata/react/lib/components";
 import { PageTitle } from "../../Widgets/PageTitle";
@@ -30,9 +30,18 @@ export const FormLanding = () => {
         });
     }, [])
 
+    const pageTitleLink = useMemo(() => {
+        return (
+            <Link to='submissions' className="support-docs-link link">
+                <div className="fa fa-book link-spacing" aria-hidden="true" />
+                Form Submissions
+            </Link>
+        )
+    }, [])
+
     return formData && (
         <>
-            <PageTitle title={formData.name} subtext={formData.description && formData.description} />
+            <PageTitle title={formData.name} subtext={formData.description && formData.description} rightSide={pageTitleLink} />
             <div className="form-page-wrapper">
                 <CoreForm
                     kapp={kappSlug}

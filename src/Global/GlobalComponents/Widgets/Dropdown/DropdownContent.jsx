@@ -16,22 +16,33 @@ export const DropdownContent = ({
         }
       };
 
+    const handleEscapePress = event => {
+        if (isDropdownOpen && event.key === 'Escape') {
+            setIsDropdownOpen(false);
+        }
+    };
+
     useEffect(() => {
       document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("keydown", handleEscapePress);
       return () => {
         document.removeEventListener("mousedown", handleOutsideClick);
+        document.removeEventListener("keydown", handleEscapePress);
       };
     });
 
     const dropdownContentMap = useMemo(() => (
             dropdownContent.map((dropdownItem, key) => (
-                <button 
-                    className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links remove-padding`}
+                // This is specifically a div and not a button to allow accessibility
+                // tabbing to not focus on this element and instead focus on the content
+                <div 
+                    className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links`}
                     onClick={() => setIsDropdownOpen()}
                     key={key}
+                    aria-hidden='true'
                 >
                     {dropdownItem.render}        
-                </button>
+                </div>
             ))
     ), [dropdownContent])
 

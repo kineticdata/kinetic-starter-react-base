@@ -33,14 +33,22 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
     
     useEffect(() => {
       const handleClickOutside = (event) => {
-          if (ref.current !== null && 
-            ref.current !== undefined && 
-            !ref.current.contains(event.target)) {
-            setIsOpen(false);
-          }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-      }, [ref]);
+        if (ref.current !== null && 
+          ref.current !== undefined && 
+          !ref.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      };
+
+      const handleEscapePress = event => {
+        if (isOpen && event.key === 'Escape') {
+          setIsOpen(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscapePress);
+    }, [ref]);
   
       return <ModalContent isOpen={isOpen} setIsOpen={setIsOpen} ref={ref} />;
     };
@@ -73,7 +81,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Platform Documentation
-            <i className='fa fa-external-link console-icon-spacing' />
+            <i className='fa fa-external-link console-icon-spacing' aria-hidden='true' />
           </a>
       },
       spaceAdmin && {
@@ -86,7 +94,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             API Reference Docs        
-            <i className='fa fa-external-link console-icon-spacing' />
+            <i className='fa fa-external-link console-icon-spacing' aria-hidden='true' />
           </a>
       },
       {
@@ -99,7 +107,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Bundle Documentation
-            <i className='fa fa-external-link console-icon-spacing' />
+            <i className='fa fa-external-link console-icon-spacing' aria-hidden='true' />
           </a>
       },
       {
@@ -112,7 +120,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             About Kinetic Platform
-            <i className='fa fa-external-link console-icon-spacing' />
+            <i className='fa fa-external-link console-icon-spacing' aria-hidden='true' />
           </a>
       },
       {
@@ -125,7 +133,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Space Console
-            <i className='fa fa-external-link console-icon-spacing' />
+            <i className='fa fa-external-link console-icon-spacing' aria-hidden='true' />
           </a>
       }
     ]

@@ -12,10 +12,11 @@ import { CoreForm } from "@kineticdata/react/lib/components";
 export const SubmissionLanding = () => {
     const urlPrefix = process.env.REACT_APP_PROXY_HOST;
     const globalState = useContext(GlobalContext);
-    const { updateBreadcrumbs } = globalState;
+    const { updateBreadcrumbs, userProfile } = globalState;
+    const { spaceAdmin } = userProfile || {};
     const [ isDeleteOpen, setIsDeleteOpen ] = useState(false);
     const [ isEditMode, setIsEditMode ] = useState(false);
-    const [ showTableView, setShowTableView ] = useState(true);
+    const [ showTableView, setShowTableView ] = useState(false);
     const [ canEdit, setCanEdit ] = useState();
     const [ submissionData, setSubmissionData ] = useState();
     const [ tableData, setTableData ] = useState();
@@ -201,7 +202,7 @@ export const SubmissionLanding = () => {
 
     return submissionData && tableData ? (
         <>
-            <PageTitle title={`Submission: ${submissionData.label}`} rightSide={toggleView} />
+            <PageTitle title={`Submission: ${submissionData.label}`} rightSide={spaceAdmin && toggleView} />
             <div className="submission-information">
                 <div className="spacer"><b>State: </b><div className={`state ${submissionData.coreState.toLowerCase()} left-space`}>{submissionData.coreState}</div></div>
                 <div className="spacer"><b>Created at: </b>{formatDate(submissionData.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>

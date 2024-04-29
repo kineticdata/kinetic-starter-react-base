@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { isImmutable, List } from 'immutable';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { WallySpinner } from '../Assets/Images/Loading';
+import { LoadingSpinner } from '../GlobalComponents/Widgets/LoadingSpinner';
 
 export const hasErrors = props => props.touched && props.errors.size > 0;
-export const EmptyBodyRow = () => <WallySpinner />;
+export const EmptyBodyRow = () => <LoadingSpinner />;
 
 // Form Layout
 export const FormLayout = ({ fields, error, buttons }) => (
