@@ -131,7 +131,6 @@ export const SubmissionLanding = () => {
     const deleteSubmissionModal = useMemo(() => {
         return (
             <div>
-                <div className="modal-header">Are you sure you want to delete this Submission?</div>
                 <div>Are you sure you want to proceed?</div>
                 <div className="modal-buttons-wrapper">
                     <button 
@@ -218,6 +217,7 @@ export const SubmissionLanding = () => {
             <KineticModal 
                 isModalOpen={isDeleteOpen} 
                 setIsModalOpen={setIsDeleteOpen} 
+                modalTitle='Are you sure you want to delete this Submission?'
                 content={deleteSubmissionModal} 
             />
         </>

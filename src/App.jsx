@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Global/Assets/Styles/master.scss'
-import 'font-awesome/css/font-awesome.css';
 import { Route, Routes } from 'react-router-dom';
 import {  LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
