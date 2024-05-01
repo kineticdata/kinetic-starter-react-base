@@ -4,12 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import { fetchForm } from '@kineticdata/react';
 import { CoreForm } from "@kineticdata/react/lib/components";
 import { PageTitle } from "../../Widgets/PageTitle";
+import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 
 export const FormLanding = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
-    const [ formData, setFormData ] = useState();
     const { kappSlug, formSlug } = useParams();
+    const [ formData, setFormData ] = useState();
+    const [ pageError, setPageError ] = useState();
 
     useEffect(() => {
         if(formData) {
@@ -27,7 +29,7 @@ export const FormLanding = () => {
             include: 'kapp'
         }).then(({ form }) => {
             setFormData(form)
-        });
+        }).catch(error => setPageError(error));
     }, [])
 
     const pageTitleLink = useMemo(() => {
@@ -39,7 +41,7 @@ export const FormLanding = () => {
         )
     }, [])
 
-    return formData && (
+    return formData ? (
         <>
             <PageTitle title={formData.name} subtext={formData.description && formData.description} rightSide={pageTitleLink} />
             <div className="form-page-wrapper">
@@ -49,5 +51,5 @@ export const FormLanding = () => {
                 />
             </div>
         </>
-    )
+    ) : <LoadingSpinner error={pageError} />
 };

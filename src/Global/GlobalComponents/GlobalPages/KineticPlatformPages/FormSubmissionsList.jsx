@@ -10,9 +10,10 @@ import { formatDate } from "../../../GlobalResources/Helpers";
 export const FormSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
+    const { kappSlug, formSlug } = useParams();
     const [ formData, setFormData ] = useState();
     const [ submissionsData, setsubmissionsData ] = useState();
-    const { kappSlug, formSlug } = useParams();
+    const [ pageError, setPageError ] = useState();
 
     const columns = useMemo(() => {
         return [{
@@ -82,7 +83,7 @@ export const FormSubmissionsList = () => {
     }, [formData]);
 
     useEffect(() => {
-        fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form }) => setFormData(form));
+        fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form }) => setFormData(form)).catch(error => setPageError(error));
 
         const query = defineKqlQuery()
             .end();
@@ -123,5 +124,5 @@ export const FormSubmissionsList = () => {
             <PageTitle title={`${formData.name} Submissions`} rightSide={pageTitleLink} />
             <KineticTable columns={columns} data={submissionsData} showPagination />
         </>
-    ) : <LoadingSpinner />
+    ) : <LoadingSpinner error={pageError} />
 };
