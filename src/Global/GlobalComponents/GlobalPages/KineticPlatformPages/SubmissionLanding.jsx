@@ -14,14 +14,15 @@ export const SubmissionLanding = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs, userProfile } = globalState;
     const { spaceAdmin } = userProfile || {};
+    const navigate = useNavigate();
+    const { kappSlug, formSlug, submissionsId } = useParams();
     const [ isDeleteOpen, setIsDeleteOpen ] = useState(false);
     const [ isEditMode, setIsEditMode ] = useState(false);
     const [ showTableView, setShowTableView ] = useState(false);
     const [ canEdit, setCanEdit ] = useState();
     const [ submissionData, setSubmissionData ] = useState();
     const [ tableData, setTableData ] = useState();
-    const { kappSlug, formSlug, submissionsId } = useParams();
-    const navigate = useNavigate();
+    const [ pageError, setPageError ] = useState();
     
 
     useEffect(() => {
@@ -80,16 +81,7 @@ export const SubmissionLanding = () => {
             setSubmissionData(submission);
             setCanEdit(submission.authorization['Modification']);
             setTableData(parsedData);
-        });  
-    }, [kappSlug, formSlug, submissionsId]);
-
-    useEffect(() => {
-        if(submissionData) {
-            updateBreadcrumbs({ 
-                page: `Submission: ${submissionData.label} `, 
-                path: `/kapps/${kappSlug}/forms/${formSlug}/submissions/${submissionsId}`
-            });
-        }
+        }).catch(error => setPageError(error));  
     }, [kappSlug, formSlug, submissionsId]);
 
     const columns = useMemo(() => {
@@ -133,12 +125,6 @@ export const SubmissionLanding = () => {
             <div>
                 <div>Are you sure you want to proceed?</div>
                 <div className="modal-buttons-wrapper">
-                    <button 
-                        onClick={() => setIsDeleteOpen(false)}
-                        className="button cancel"
-                    >
-                        Cancel
-                    </button>
                     <button 
                         onClick={() => confirmDeleteSubmission()}
                         className="button delete-red-bg"
@@ -221,5 +207,5 @@ export const SubmissionLanding = () => {
                 content={deleteSubmissionModal} 
             />
         </>
-    ) : <LoadingSpinner />
+    ) : <LoadingSpinner error={pageError} />
 };

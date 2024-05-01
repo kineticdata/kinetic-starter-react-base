@@ -10,6 +10,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isPasswordOpen, setIsPasswordOpen ] = useState(false);
     const [ doPasswordsMatch, setDoPasswordsMatch ] = useState(true);
+    const [ pageError, setPageError ] = useState();
 
     useEffect(() => {
         if (userProfile) {
@@ -45,7 +46,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
             setIsLoading(false);
             setIsProfileModalOpen(false);
             setUserProfile({...userProfile, email: newProfileData.email, displayName: newProfileData.displayName})
-        });
+        }).catch(error => setPageError(error));
     };
 
     return changeData && (
@@ -83,7 +84,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
                 </button>
                 </div>
             </>
-            : <LoadingSpinner />}
+            : <LoadingSpinner error={pageError} />}
             </div>
           <div className='profile-modal-footer'>
             <button className='edit' disabled={!doPasswordsMatch} onClick={handleProfileUpdate}>

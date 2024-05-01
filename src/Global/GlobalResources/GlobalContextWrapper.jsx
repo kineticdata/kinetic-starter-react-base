@@ -110,9 +110,17 @@ export function GlobalContextWrapper({children}) {
             setTheme,
             setUserProfile,
             setKineticSpace,
-            updateBreadcrumbs
+            updateBreadcrumbs,
         // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
-    }), [isAuthorized, theme, userProfile, kineticSpace, globalCount, breadcrumbs, isMobileDevice]);
+    }), [
+        isAuthorized, 
+        theme, 
+        userProfile, 
+        kineticSpace, 
+        globalCount, 
+        breadcrumbs, 
+        isMobileDevice, 
+    ]);
     
     // Since this is just a state data wrapper simply pass any children through
     return (

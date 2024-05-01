@@ -11,6 +11,7 @@ export const KappsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
     const [ kappsList, setKappsList ] = useState([]);
+    const [ pageError, setPageError ] = useState();
 
     useEffect(() => {
         updateBreadcrumbs({
@@ -21,7 +22,8 @@ export const KappsList = () => {
 
     useEffect(() => {
         fetchKapps({include: 'details, attributesMap[Icon]'})
-            .then(({ kapps }) => setKappsList(kapps));
+            .then(({ kapps }) => setKappsList(kapps))
+            .catch(error => setPageError(error));
     }, [])
 
     const generateKappCards = useMemo(() => {
@@ -54,5 +56,5 @@ export const KappsList = () => {
                 {generateKappCards}
             </div>
         </div>
-    ) : <LoadingSpinner />
+    ) : <LoadingSpinner error={pageError} />
 };

@@ -10,9 +10,10 @@ import { formatDate } from "../../../GlobalResources/Helpers";
 export const KappSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
+    const { kappSlug } = useParams();
     const [ kappData, setKappData ] = useState();
     const [ submissionsData, setSubmissionsData ] = useState();
-    const { kappSlug } = useParams();
+    const [ pageError, setPageError ] = useState();
 
     const columns = useMemo(() => {
         return [{
@@ -77,7 +78,7 @@ export const KappSubmissionsList = () => {
     }, [kappData]);
 
     useEffect(() => {
-        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp));
+        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp)).catch(error => setPageError(error));
         searchSubmissions({ kappSlug, search: {include: ['details', 'form']} }).then(({ submissions }) => {
             const parsedData = submissions.map(submission => ({
                 handle: {
@@ -98,7 +99,7 @@ export const KappSubmissionsList = () => {
                     toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
                     toSort: submission.createdAt,
                 },
-            }))
+            }).catch(error => setPageError(error)))
             setSubmissionsData(parsedData)
         });
     }, [kappSlug]);
@@ -108,5 +109,5 @@ export const KappSubmissionsList = () => {
             <PageTitle title={`${kappData.name} Submissions`} />
             <KineticTable columns={columns} data={submissionsData} showPagination />
         </>
-    ) : <LoadingSpinner />
+    ) : <LoadingSpinner error={pageError} />
 };

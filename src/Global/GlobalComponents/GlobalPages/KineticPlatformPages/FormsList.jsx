@@ -10,9 +10,10 @@ import { formatDate } from "../../../GlobalResources/Helpers";
 export const FormsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
+    const { kappSlug } = useParams();
     const [kappData, setKappData ] = useState();
     const [formsData, setFormsData ] = useState();
-    const { kappSlug } = useParams();
+    const [ pageError, setPageError ] = useState();
 
     const columns = useMemo(() => {
         return [{
@@ -63,7 +64,9 @@ export const FormsList = () => {
     }, [kappData])
 
     useEffect(() => {
-        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp));
+        fetchKapp({ kappSlug, include: 'details' })
+            .then(({ kapp }) => setKappData(kapp))
+            .catch(error => setPageError(error));
         fetchForms({ kappSlug, include: 'details' }).then(({ forms }) => {
             const parsedData = forms.map(form => ({
                 name: {
@@ -78,7 +81,7 @@ export const FormsList = () => {
                 submissionsLink: getViewSubmissionsLink(form.slug)
             }))
             setFormsData(parsedData)
-        });
+        }).catch(error => setPageError(error));
     }, [kappSlug])
 
     const kappSubmissionsLink = useMemo(() => (
@@ -87,11 +90,10 @@ export const FormsList = () => {
         </Link>
     ), [kappSlug])
 
-
-    return kappData && formsData ? (
-        <>
+    return (kappData && formsData) ? (
+        <> 
             <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
             <KineticTable columns={columns} data={formsData} showPagination />
         </>
-    ) : <LoadingSpinner />
+    ) : <LoadingSpinner error={pageError} />
 };
