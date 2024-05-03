@@ -99,9 +99,9 @@ export const KappSubmissionsList = () => {
                     toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
                     toSort: submission.createdAt,
                 },
-            }).catch(error => setPageError(error)))
+            }))
             setSubmissionsData(parsedData)
-        });
+        }).catch(error => setPageError(error));
     }, [kappSlug]);
 
     return kappData && submissionsData ? (
