@@ -46,7 +46,6 @@ export const SubmissionLanding = () => {
             id: submissionsId, 
             include: 'values, details, authorization, form, form.kapp'
         }).then(({ submission }) => {
-            console.log('submission', submission);
             const parsedData = Object.keys(submission.values).map((key) => { 
                 let arrayData = null;
                 // Arrays are returned from the Kinetic Platform as an immutable list, which reads as an object
