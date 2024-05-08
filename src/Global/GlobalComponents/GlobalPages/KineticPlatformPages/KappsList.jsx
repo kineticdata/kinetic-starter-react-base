@@ -31,7 +31,7 @@ export const KappsList = () => {
             return <KineticCard 
                         key={kapp.slug}
                         title={kapp.name}
-                        icon={kapp.attributesMap['Icon'][0]}
+                        icon={kapp.attributesMap['Icon'] && kapp.attributesMap['Icon'][0] }
                         subtext={formatDate(kapp.updatedAt, 'MMM Do YYYY')}
                         linkPath={kapp.slug}
                         cardClassname='kapp-card' 
@@ -42,7 +42,7 @@ export const KappsList = () => {
     // TODO: Add th to URL
     const pageTitleLink = useMemo(() => {
         return (
-            <Link className="support-docs-link link">
+            <Link to='https://docs.kineticdata.com/docs/kapps' className="support-docs-link link" target="_blank">
                 <div className="las la-book-open link-spacing standard-icon-size" aria-hidden="true" />
                 Kapp Support Docs
             </Link>
