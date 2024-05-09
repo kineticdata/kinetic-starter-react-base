@@ -81,7 +81,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Platform Documentation
-            <i className='las la-external-link-alt console-icon-spacing' aria-hidden='true' />
+            <i className='las la-external-link-alt console-icon-spacing'/>
           </a>
       },
       spaceAdmin && {
@@ -94,7 +94,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             API Reference Docs        
-            <i className='las la-external-link-alt console-icon-spacing' aria-hidden='true' />
+            <i className='las la-external-link-alt console-icon-spacing'/>
           </a>
       },
       {
@@ -107,7 +107,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Bundle Documentation
-            <i className='las la-external-link-alt console-icon-spacing' aria-hidden='true' />
+            <i className='las la-external-link-alt console-icon-spacing'/>
           </a>
       },
       {
@@ -120,7 +120,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             About Kinetic Platform
-            <i className='las la-external-link-alt console-icon-spacing' aria-hidden='true' />
+            <i className='las la-external-link-alt console-icon-spacing'/>
           </a>
       },
       {
@@ -133,7 +133,7 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
             rel="noopener noreferrer" 
           >
             Space Console
-            <i className='las la-external-link-alt console-icon-spacing' aria-hidden='true' />
+            <i className='las la-external-link-alt console-icon-spacing'/>
           </a>
       }
     ]

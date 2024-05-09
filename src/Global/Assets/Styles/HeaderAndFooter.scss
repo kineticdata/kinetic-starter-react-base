@@ -44,8 +44,9 @@
     padding: 0;
   }
 
-  .header-logo-link {
-    max-height: 60px;
+  .header-logo {
+    height: 3.5rem;
+    width: 3.5rem;
   }
 
   .header-dropdown-links {
@@ -172,6 +173,7 @@
 
   .kd-logo {
     height: 1.25rem;  
+    width: 11.25rem;
     padding: 0.273rem 0.226rem 0.219rem 0.238rem;
   }
 }

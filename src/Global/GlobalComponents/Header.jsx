@@ -33,7 +33,14 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className='user-info-bottom'>
           <div className='user-name'>
             {userProfile.displayName}
-            <button name='Update User Profile' onClick={() => setIsProfileModalOpen(true)} className='edit-icon-wrapper' >
+            <button 
+              aria-label='Update User Profile' 
+              onClick={() => {
+                setIsProfileModalOpen(true);
+                setIsProfileMenuOpen(false);
+              }} 
+              className='edit-icon-wrapper' 
+            >
               <i 
                 className="las la-edit edit-icon" 
                 aria-hidden="true" 
@@ -56,14 +63,12 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
   
   return (
     <div className='header-containter'>
-      <Link to="/" className='header-logo-link'>
+      <Link to="/">
         <img
           alt="logo"
           src={logo}
-          style={{
-            height: 60,
-          }}
-          />
+          className='header-logo'
+        />
       </Link>
       {loggedIn && profile && (
         <div className="header-logged-in">

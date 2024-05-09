@@ -39,7 +39,6 @@ export const DropdownContent = ({
                     className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links`}
                     onClick={() => setIsDropdownOpen()}
                     key={key}
-                    aria-hidden='true'
                 >
                     {dropdownItem.render}        
                 </div>
