@@ -8,6 +8,7 @@ import { formatDate, humanizeFileSize } from "../../../GlobalResources/Helpers";
 import { KineticTable } from "../../Widgets/KineticTable";
 import { KineticModal } from "../../Widgets/KineticModal";
 import { CoreForm } from "@kineticdata/react/lib/components";
+import { ActivitiesList } from "../../Widgets/ActivitiesList";
 
 export const SubmissionLanding = () => {
     const globalState = useContext(GlobalContext);
@@ -18,8 +19,8 @@ export const SubmissionLanding = () => {
     const [ isEditMode, setIsEditMode ] = useState(false);
     const [ canEdit, setCanEdit ] = useState();
     const [ submissionData, setSubmissionData ] = useState();
+    const [ activityData, setActivityData ] = useState();
     const [ pageError, setPageError ] = useState();
-    
 
     useEffect(() => {
         if(submissionData) {
@@ -40,8 +41,9 @@ export const SubmissionLanding = () => {
     useEffect(() => {
         fetchSubmission({
             id: submissionsId, 
-            include: 'values, details, authorization, form, form.kapp'
+            include: 'values, details, activities, authorization, form, form.kapp'
         }).then(({ submission }) => {
+            submission.activities?.length && setActivityData(submission.activities)
             setSubmissionData(submission);
             setCanEdit(submission.authorization['Modification']);
         }).catch(error => setPageError(error));  
@@ -102,14 +104,17 @@ export const SubmissionLanding = () => {
                     formatDate(submissionData.closedAt, 'MMMM Do, YYYY - h:mm:ss a') 
                     : 'Not closed'}</div>
             </div>
-            <div className="form-page-wrapper">
-                <CoreForm          
-                    submission={submissionsId}
-                    onCompleted={() => navigate(0)}
-                    onUpdated={() => navigate(0)}
-                    review={!isEditMode}
-                />
-                {canEdit && submissionsFooter}
+            <div className="with-activities-wrapper">
+                <div className="form-page-wrapper">
+                    <CoreForm          
+                        submission={submissionsId}
+                        onCompleted={() => navigate(0)}
+                        onUpdated={() => navigate(0)}
+                        review={!isEditMode}
+                        />
+                    {canEdit && submissionsFooter}
+                </div>
+                {activityData && <ActivitiesList activities={activityData} />}
             </div>
             <KineticModal 
                 isModalOpen={isDeleteOpen} 
