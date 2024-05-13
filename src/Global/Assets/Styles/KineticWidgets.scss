@@ -216,7 +216,6 @@
         .table-dropdown-face {  
             width: 5.75rem;
             display: flex;
-            justify-content: flex-end;
             border-radius: 4px;
             border: solid 1px $colors-greyscale-400;
 
@@ -228,7 +227,6 @@
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
-                margin: 0.25rem 1rem;
             }
         }
 
@@ -236,6 +234,7 @@
             width: 5.75rem;
 
             .pagination-options {
+                width: 100%;
                 margin-bottom: .25rem ;
                 font-weight: 400;
 
@@ -351,10 +350,6 @@
 
             .activity-title {
                 font-weight: 600;
-            }
-
-            .activity-body {
-
             }
 
             .activity-type {
