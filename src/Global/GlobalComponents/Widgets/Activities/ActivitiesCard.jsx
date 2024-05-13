@@ -18,7 +18,6 @@ export const ActivitiesCard = ({activity}) => {
                 <div className="activity-type">{activity.type}</div>
             </div>
             <>
-            {console.log('OPE', parsedData, Object.keys(parsedData))}
             {typeof parsedData === 'object' ?
                 <ul>
                     {Object.keys(parsedData).map((dataKey, idx) => <li key={idx}>{dataKey}: {parsedData[dataKey] || 'N/A'}</li>)}
