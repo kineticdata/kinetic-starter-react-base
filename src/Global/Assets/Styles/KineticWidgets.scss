@@ -13,7 +13,7 @@
 
     .breadcrumb-crumb:last-child {
         text-decoration: none;
-        color: $colors-greyscale-200;
+        color: $colors-greyscale-100;
         cursor: default;
     }
 }
@@ -317,3 +317,59 @@
     margin: auto;
 }
 
+.activities-list {    
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .activities-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-align: left;
+        color: $colors-greyscale-100;
+        margin-bottom: 1rem;
+    }
+
+    .activity-card-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: solid 2px #ced0d2;
+        padding: .5rem;
+
+        .space-between-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .activity-title {
+                font-weight: 600;
+            }
+
+            .activity-body {
+
+            }
+
+            .activity-type {
+                font-size: x-small;
+                background-color: $colors-greyscale-600;
+                display: flex;
+                font-weight: 600;
+                align-items: center;
+                padding: .5rem;
+                border-radius: 1rem;
+            }
+        }
+
+        .activity-date {
+            font-size: small;
+        }
+    }
+}

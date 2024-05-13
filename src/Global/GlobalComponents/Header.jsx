@@ -33,7 +33,14 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className='user-info-bottom'>
           <div className='user-name'>
             {userProfile.displayName}
-            <button onClick={() => setIsProfileModalOpen(true)} className='edit-icon-wrapper' >
+            <button 
+              aria-label='Update User Profile' 
+              onClick={() => {
+                setIsProfileModalOpen(true);
+                setIsProfileMenuOpen(false);
+              }} 
+              className='edit-icon-wrapper' 
+            >
               <i 
                 className="las la-edit edit-icon" 
                 aria-hidden="true" 
@@ -56,41 +63,48 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
   
   return (
     <div className='header-containter'>
-      <Link to="/" className='header-logo-link'>
+      <Link to="/">
         <img
           alt="logo"
           src={logo}
-          style={{
-            height: 60,
-          }}
-          />
+          className='header-logo'
+        />
       </Link>
       {loggedIn && profile && (
         <div className="header-logged-in">
+          {/* TODO: Find why clicking the button again doesn't close the dropdown */}
           <DropdownMenu 
             isDropdownOpen={isHelpMenuOpen}
-            setIsDropdownOpen={() => {
-              setIsProfileMenuOpen(false);
-              setIsHelpMenuOpen(!isHelpMenuOpen);
-            }}
+            setIsDropdownOpen={() => setIsHelpMenuOpen(false)}
             dropdownFace={
-              <div className='header-dropdown-links'>
+              <button 
+                aria-label='Help Menu'
+                className='header-dropdown-links'
+                onClick={() => {
+                    setIsProfileMenuOpen(false);
+                    setIsHelpMenuOpen(!isHelpMenuOpen);
+                }}
+              >
                 <i className="las la-ellipsis-v standard-icon-size" aria-hidden='true' />
-              </div>
+              </button>
             } 
             dropdownContent={helpContent}
             contentClassName='help-menu'
           />
           <DropdownMenu 
             isDropdownOpen={isProfileMenuOpen}
-            setIsDropdownOpen={() => {
-              setIsHelpMenuOpen(false);
-              setIsProfileMenuOpen(!isProfileMenuOpen)
-            }}
+            setIsDropdownOpen={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
             dropdownFace={
-              <div className='header-dropdown-profile'>
+              <button 
+                aria-label='Profile Menu'
+                className='header-dropdown-profile'
+                onClick={() => {
+                    setIsHelpMenuOpen(false);
+                    setIsProfileMenuOpen(!isProfileMenuOpen);
+                }}
+              >
                 {getUserInitials(userProfile.displayName)}
-              </div>
+              </button>
             } 
             aboveListContent={profileDropdownHeader}
             contentClassName='profile-menu'

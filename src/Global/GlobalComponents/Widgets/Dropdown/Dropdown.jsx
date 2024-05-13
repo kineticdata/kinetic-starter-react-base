@@ -16,21 +16,15 @@ export const DropdownMenu = ({
     aboveListContent, 
     belowListContent
 }) => (
-        <button 
-            onClick={() => setIsDropdownOpen()}
-            className='default-dropdown-button'
-        >
-            <div
-            className={faceStyle} >
-                {dropdownFace}
-                <DropdownContent 
-                    dropdownContent={dropdownContent || []}
-                    contentClassName={contentClassName}
-                    isDropdownOpen={isDropdownOpen}
-                    setIsDropdownOpen={() => setIsDropdownOpen()}
-                    aboveListContent={aboveListContent}
-                    belowListContent={belowListContent}
-                />
-            </div>
-        </button>
+        <div className={faceStyle}>
+            {dropdownFace}
+            <DropdownContent 
+                dropdownContent={dropdownContent || []}
+                contentClassName={contentClassName}
+                isDropdownOpen={isDropdownOpen}
+                setIsDropdownOpen={setIsDropdownOpen}
+                aboveListContent={aboveListContent}
+                belowListContent={belowListContent}
+            />
+        </div>
     );

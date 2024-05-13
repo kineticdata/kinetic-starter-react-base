@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { DropdownMenu } from '../Widgets/Dropdown/Dropdown';
+import { DropdownMenu } from "./Dropdown/Dropdown";
 import { LoadingSpinner } from "./LoadingSpinner";
 import moment from "moment";
 import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
-// Make sure to note rowData[column.value] must have a value which should be handled when
-// parsing the incoming data. Otherwise TODO add logic to handle null/undefined values here
+// Make sure to note rowData[column.value] must have a value 
+// which should be handled when parsing the incoming data. 
 export const KineticTable = ({columns, data, showPagination, customerFooter }) => {
     const globalState = useContext(GlobalContext);
     const { isMobileDevice } = globalState;
@@ -32,12 +32,16 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
     }, [firstElement, tablePageCount]);
 
     const dropdownFace = useMemo(() => (
-        <div className="table-dropdown-face">
+        <button 
+            aria-label="Pagination Options"
+            className="table-dropdown-face"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        >
             <div className="table-dropdown-content">
                 {tablePageCount}
                 <i className='las la-angle-down arrow-size' aria-hidden='true' />
             </div>
-        </div>
+        </button>
     ), [tablePageCount]);
 
     const sortAlpha = ( first, second ) => {                    

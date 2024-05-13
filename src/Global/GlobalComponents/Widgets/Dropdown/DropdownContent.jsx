@@ -11,14 +11,14 @@ export const DropdownContent = ({
     const dropdownRef = useRef(null);
 
     const handleOutsideClick = event => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false)
+        if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen()
         }
       };
 
     const handleEscapePress = event => {
         if (isDropdownOpen && event.key === 'Escape') {
-            setIsDropdownOpen(false);
+            setIsDropdownOpen();
         }
     };
 
@@ -39,7 +39,6 @@ export const DropdownContent = ({
                     className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links`}
                     onClick={() => setIsDropdownOpen()}
                     key={key}
-                    aria-hidden='true'
                 >
                     {dropdownItem.render}        
                 </div>

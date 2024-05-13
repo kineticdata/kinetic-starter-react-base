@@ -89,7 +89,8 @@ export const FormSubmissionsList = () => {
             .end();
 
         searchSubmissions({
-            kappSlug,
+            kapp: kappSlug,
+            form: formSlug,
             search: {
                 q: query({}),
                 include: ['details', 'values']

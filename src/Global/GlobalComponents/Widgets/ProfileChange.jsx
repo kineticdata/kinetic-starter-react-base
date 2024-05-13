@@ -77,8 +77,9 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
                     </>
                   }
                 <button 
-                    onClick={() => setIsPasswordOpen(!isPasswordOpen)}
-                    className='button primary-with-border'
+                  aria-label="Opens or Closes the display to change password."
+                  onClick={() => setIsPasswordOpen(!isPasswordOpen)}
+                  className='button primary-with-border'
                 >
                     {isPasswordOpen ? 'Cancel Password Change' : 'Change Password'}
                 </button>
