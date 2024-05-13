@@ -5,7 +5,6 @@ export const ActivitiesCard = ({activity}) => {
 
     const parsedData = useMemo(() => {
         try {
-            
             return activity.data ? JSON.parse(activity.data) : 'N/A';
         } catch (e) {
             return activity.data;
@@ -19,9 +18,10 @@ export const ActivitiesCard = ({activity}) => {
                 <div className="activity-type">{activity.type}</div>
             </div>
             <>
+            {console.log('OPE', parsedData, Object.keys(parsedData))}
             {typeof parsedData === 'object' ?
                 <ul>
-                    {Object.keys({parsedData}).map((dataKey, idx) => <li key={idx}>{dataKey}: {parsedData[dataKey] || 'N/A'}</li>)}
+                    {Object.keys(parsedData).map((dataKey, idx) => <li key={idx}>{dataKey}: {parsedData[dataKey] || 'N/A'}</li>)}
                 </ul>
             :
                 <div className="activity-body">{parsedData}</div>
