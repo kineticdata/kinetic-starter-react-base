@@ -8,7 +8,7 @@ import { formatDate, humanizeFileSize } from "../../../GlobalResources/Helpers";
 import { KineticTable } from "../../Widgets/KineticTable";
 import { KineticModal } from "../../Widgets/KineticModal";
 import { CoreForm } from "@kineticdata/react/lib/components";
-import { ActivitiesList } from "../../Widgets/ActivitiesList";
+import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";
 
 export const SubmissionLanding = () => {
     const globalState = useContext(GlobalContext);
@@ -41,7 +41,7 @@ export const SubmissionLanding = () => {
     useEffect(() => {
         fetchSubmission({
             id: submissionsId, 
-            include: 'values, details, activities, authorization, form, form.kapp'
+            include: 'values, details, activities, activities.details, authorization, form, form.kapp'
         }).then(({ submission }) => {
             submission.activities?.length && setActivityData(submission.activities)
             setSubmissionData(submission);
@@ -105,7 +105,7 @@ export const SubmissionLanding = () => {
                     : 'Not closed'}</div>
             </div>
             <div className="with-activities-wrapper">
-                <div className="form-page-wrapper">
+                <div className={`form-page-wrapper ${activityData ? 'add-flex-3' : ''}`}>
                     <CoreForm          
                         submission={submissionsId}
                         onCompleted={() => navigate(0)}
@@ -114,7 +114,7 @@ export const SubmissionLanding = () => {
                         />
                     {canEdit && submissionsFooter}
                 </div>
-                {activityData && <ActivitiesList activities={activityData} />}
+                {activityData && <ActivitiesList activities={activityData} styling='activities-list-wrapper' />}
             </div>
             <KineticModal 
                 isModalOpen={isDeleteOpen} 

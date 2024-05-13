@@ -47,7 +47,26 @@
     }
 }
 
+.with-activities-wrapper {
+    display: flex;
+    gap: 2rem;
+    
+}
+
 .form-page-wrapper {  
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: solid 1px $colors-greyscale-400;
+    background-color: $colors-greyscale-800;
+}
+
+.add-flex-3 {
+    flex: 2;
+}
+
+.activities-list-wrapper {
+    flex: 1;
     margin-bottom: 3rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
