@@ -10,46 +10,8 @@
 // KineticData styling variables
 $font-family: PlusJakartaSans;
 
-// Light Theme Colors
-$light-app-brand-primary-1: $colors-primary-100;
-$light-app-brand-primary-2: $colors-primary-200;
-$light-app-brand-primary-3: $colors-primary-400;
-$light-app-brand-primary-4: $colors-primary-600;
-$light-app-brand-secondary-1: $colors-secondary-100;
-$light-app-brand-secondary-2: $colors-secondary-200;
-$light-app-brand-secondary-3: $colors-secondary-400;
-$light-app-brand-secondary-4: $colors-secondary-600;
-$light-app-bg-color: $colors-greyscale-600;
-$light-app-font-color: $colors-greyscale-100;
-$light-app-border-color: $colors-greyscale-800;
-$light-widget-bg-color: $colors-greyscale-800;
-
-// Dark Theme Colors
-// TODO: add dark theme functionality
-
-// Default variables copied over, saving in case they're used for something.
-// Commenting out so uses can be found via errors.
-// TODO: Delete these once the bundle is ready for use if they aren't in use.
-// $gray-100: rgb(246, 247, 248) !default; // #f6f7f8 (replaces $gray3)
-// $gray-400: rgb(212, 213, 214) !default; // #d4d5d6 (replaces $gray16)
-// $gray-500: rgb(178, 179, 181) !default; // #b2b3b5 (replaces $gray30)
-// $border-color: $gray-400 !default;
-// $border-radius: 0.25rem !default;
-// $label-margin-bottom: 0.1875rem !default; // Custom
-// $input-placeholder-color: $gray-500 !default; // Custom
-// $form-padding: 1rem !default; // Custom
-// $form-bg: $gray-100 !default; // Custom
-// $form-bg-light: $gray-100 !default; // Custom
-// $form-border: 1px solid $border-color !default; // Custom
-// $form-border-radius: $border-radius * 1.5 !default; // Custom
-// $form-shadow-enabled: false; // Custom
-// $body-bg: white;  // #231f20;
-// $body-color:  #6d6d6d; // #f2f4f7;
-// $link-color: $body-color;
-// $link-shade-percentage: 30%;
-// $nav-link-font-size: 1.5rem;
-// $navbar-nav-link-padding-x: 1.2rem;
-// $text-primary: #f2f4f7;
+// Kinetic style variables
+$modal-background-opacity: #00000080;
 
 @import 'App';
 @import 'index';

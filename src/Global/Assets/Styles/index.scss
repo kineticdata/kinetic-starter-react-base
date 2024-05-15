@@ -14,8 +14,8 @@
   letter-spacing: normal;  
   flex-grow: 0;
   
-  color: $light-app-font-color;
-  background-color: $light-app-bg-color;
+  color: $colors-greyscale-100;
+  background-color: $colors-greyscale-600;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -59,8 +59,8 @@ button {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: $colors-greyscale-100;
+    background-color: white;
     margin: 0;
   }
 }
