@@ -16,15 +16,15 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
     const [ sortInfo, setSortInfo ] = useState({order: 'none'});
 
     const paginationOptions = useMemo(() => ([
-        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(10)}>10</button> },
-        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(25)}>25</button> },
-        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(50)}>50</button> },
-        { render: <button className="pagination-options remove-padding" onClick={() => setTablePageCount(100)}>100</button> },
+        { render: <button aria-label='Set number of rows shown to 10' className="pagination-options remove-padding" onClick={() => setTablePageCount(10)}>10</button> },
+        { render: <button aria-label='Set number of rows shown to 25' className="pagination-options remove-padding" onClick={() => setTablePageCount(25)}>25</button> },
+        { render: <button aria-label='Set number of rows shown to 50' className="pagination-options remove-padding" onClick={() => setTablePageCount(50)}>50</button> },
+        { render: <button aria-label='Set number of rows shown to 100' className="pagination-options remove-padding" onClick={() => setTablePageCount(100)}>100</button> },
     ]), []);
 
     // If the table is on the first page always use the actual first element
     const firstElement = useMemo(() => {
-        return currentPage === 1 ? 0 : ( currentPage - 1 ) * tablePageCount ;
+        return currentPage === 1 ? 0 : ( currentPage - 1 ) * tablePageCount;
     }, [currentPage, tablePageCount]);
 
     const lastElement = useMemo(() => {
@@ -174,10 +174,12 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                             {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`}
                         </div>
                         <button 
+                        aria-label="Previous table page"
                             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
                             className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                         />
                         <button 
+                        aria-label="Next table page"
                             onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
                             className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                         />
@@ -192,10 +194,12 @@ export const KineticTable = ({columns, data, showPagination, customerFooter }) =
                     </div>
                     <div className='mobile-pagination-arrows'>
                         <button 
+                        aria-label="Previous table page"
                             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
                             className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
                         />
                         <button 
+                        aria-label="Next table page"
                             onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
                             className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
                         />
