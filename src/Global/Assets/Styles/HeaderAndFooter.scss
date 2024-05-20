@@ -4,7 +4,7 @@
   align-items: center;
   padding: 0.875rem 6.25rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  background-color: $light-widget-bg-color;
+  background-color: $colors-greyscale-800;
 
   @media screen
     and (max-width: 768px) {
@@ -13,7 +13,7 @@
 
   .submission-link {
     text-decoration: none;
-    color: $light-app-font-color;  
+    color: $colors-greyscale-100;  
     gap: 4px;
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
@@ -101,37 +101,37 @@
 .external-header-dropdown-link {
   display: flex;
   justify-content: space-between;
-  color: $light-app-font-color;
+  color: $colors-greyscale-100;
   text-decoration: none;
   padding: 0.5rem 1rem;
   margin: .125rem;
 }
 
 .search-box {
-  background: $light-widget-bg-color;
+  background: $colors-greyscale-800;
   height: 2.5rem;
-  border: 2px solid $light-widget-bg-color;
+  border: 2px solid $colors-greyscale-800;
   border-radius: 2.5rem;
   padding: .625rem;
 
   &:hover {
-    border: .125rem solid $light-app-font-color;
+    border: .125rem solid $colors-greyscale-100;
   }
 }
   
 .search-box:hover > .search-text{
   width: 40vw;
   padding: 0 .375rem;
-  color: $light-app-font-color;
+  color: $colors-greyscale-100;
 }
 
 .search-box:hover > .search-btn{
   color: white;
-  background: $light-app-font-color
+  background: $colors-greyscale-100
 }
   
 .search-btn {
-  color: $light-app-font-color;
+  color: $colors-greyscale-100;
   float: right;
   width: 2.5rem;
   height: 2.5rem;

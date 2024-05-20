@@ -35,7 +35,7 @@
         
             .required .field-label::after {
                 content: '\2A';
-                color: red;
+                color: $colors-error-200;
                 margin-left: .125rem
             }   
         

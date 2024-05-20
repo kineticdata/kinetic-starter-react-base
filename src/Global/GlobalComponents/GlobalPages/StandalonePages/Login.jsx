@@ -13,10 +13,8 @@ export const Login = ({
 }) => {
   const onSubmit = useCallback(
     event => {
-      // TODO: Ask Marcin about this redirect. Initial loggin does not have a redirect.
       const redirectCallback = redirect ? () => history.push('/') : null;
       return onLogin(event, redirectCallback);
-      // return onLogin(event, history.push('/'));
     },[onLogin, redirect]);
     
   return (
@@ -24,7 +22,7 @@ export const Login = ({
       <span>
         <h1>Login</h1>
         <form>
-          {error && <div style={{ color: 'red' }}>{error}</div>}
+          {error && <div className='required-text'>{error}</div>}
           <div className="form-group">
             <input
               className="form-control"
