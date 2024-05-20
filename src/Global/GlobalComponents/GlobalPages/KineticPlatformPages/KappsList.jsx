@@ -39,7 +39,6 @@ export const KappsList = () => {
         })
     }, [kappsList])
 
-    // TODO: Add th to URL
     const pageTitleLink = useMemo(() => {
         return (
             <Link to='https://docs.kineticdata.com/docs/kapps' className="support-docs-link link" target="_blank">
