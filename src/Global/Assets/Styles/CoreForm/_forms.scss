@@ -87,6 +87,7 @@ label {
   &.field-label {
     display: block;
     width: 100%;
+    margin-bottom: .25rem;
   }
 }
 // Inputs
@@ -121,7 +122,7 @@ textarea {
     color: $colors-primary-100;
     background-color: $colors-greyscale-600;
     padding: .5rem 1rem .5rem .5rem;
-    margin: 0.5rem .5rem 0 0;
+    margin: 0 0.5rem 0.5rem 0;
     cursor: pointer;
     font-weight: 400;
     margin-right: 1.5rem;
@@ -225,7 +226,6 @@ textarea {
         }
         &:after,
         &:before {
-          // TODO: tweak padding for radio/checkbox lineup on last row
           content: ' ';
           flex: 0 0 calc(25% - 4rem);
         }
@@ -246,8 +246,14 @@ textarea {
     }
   }
 }
+// textareas
 textarea {
   resize: vertical;
+  padding: .25rem;
+}
+//selects
+select {
+  padding: .5rem;
 }
 // Form Group columns
 .form-group__columns {
@@ -403,6 +409,61 @@ form,
         border-color: $danger;
       }
     }
+  }
+  .form-group {
+    .file-table {
+      margin: 0;
+      padding: .75rem;
+      display: flex;
+      flex-direction: column;
+
+      .file-header {
+          font-weight: bold;
+      }
+
+      .file-row {
+          display: flex;
+          flex-wrap: nowrap;
+          list-style-type: none;
+          span {
+              display: inline-block;
+              margin-right: 1rem;
+              vertical-align: middle;
+
+              &:first-child {
+                  width: 15rem;
+              }
+
+              &:not(:first-child) {
+                  width: 5rem;
+              }
+
+              &:last-child {
+                margin-left: 1rem;
+              }
+
+              &.file-actions {
+                  // margin-left: 1rem;
+                  overflow: visible;
+                  width: auto;
+              
+                  a {
+                      margin-left: 1rem;
+                      padding: .125rem .375rem .25rem;
+                      border-radius: .375rem;
+                      background-color: $colors-primary-200;
+                      color: $colors-greyscale-800;
+                      text-decoration: none;
+                      font-weight: 500;
+                  }
+              }
+          }
+
+          .file-status {
+              width: 5rem !important;
+          }
+      }
+  }
   }
 }
 // Deprecated - Legacy typeahead styling

@@ -19,7 +19,8 @@ select:focus,
 .form-control:focus {
   outline: none;
   border-color: darken($input-border-color, 10%);
-  box-shadow: 0 0 1px 4px $focus-color !important;
+  border-radius: .25rem;
+  box-shadow: 0 0 1px 4px rgba($focus-color, .5) !important;
 
   form .form-group.has-error &,
   .form .form-group.has-error &,

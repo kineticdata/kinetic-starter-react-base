@@ -15,11 +15,12 @@ $modal-background-opacity: #00000080;
 
 // New constants for coreform styling
 $coreform-primary-text-color: black;
+$focus-color: $colors-primary-200;
+$form-border-radius: .75rem;
 
 /*** constants made for form styles ***/
 $form-padding: 1rem;
 $form-bg: white;
-$form-border-radius: .75rem;
 $form-shadow-enabled: false;
 $form-bg-light: white;
 $gray-800: $colors-greyscale-800;
@@ -70,7 +71,6 @@ $btn-transition: inherit;
 $btn-focus-box-shadow: inherit;
 $btn-disabled-opacity: inherit;
 $input-border-color: $colors-greyscale-200;
-$focus-color: red;
 
 
 
