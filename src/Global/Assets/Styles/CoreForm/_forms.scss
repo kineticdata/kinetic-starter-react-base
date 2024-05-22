@@ -81,7 +81,8 @@ abbr[title='required'] {
 }
 // Labels
 label {
-  color: rgba($gray-800, 0.75);
+  display: inline-block;
+  color: $coreform-primary-text-color;
   font-weight: 600;
   &.field-label {
     display: block;
@@ -116,6 +117,11 @@ textarea {
 .radio {
   margin-bottom: 1rem;
   label:not(.field-label) {
+    border-radius: 4px;
+    color: $colors-primary-100;
+    background-color: $colors-greyscale-600;
+    padding: .5rem 1rem .5rem .5rem;
+    margin: 0.5rem .5rem 0 0;
     cursor: pointer;
     font-weight: 400;
     margin-right: 1.5rem;
@@ -174,9 +180,9 @@ textarea {
         @media all and (min-width: 576px) {
           &:not(.field-label) {
             margin-right: 0;
-            flex: 0 0 calc(50% - 0.75rem);
+            flex: 0 0 calc(50% - 3rem);
             @media all and (-ms-high-contrast: none) {
-              width: calc(50% - 0.75rem);
+              width: calc(50% - 3rem);
               flex-basis: auto;
             }
           }
@@ -188,14 +194,15 @@ textarea {
       @media all and (min-width: 992px) {
         > label:not(.field-label) {
           margin-right: 0;
-          flex: 0 0 calc(33.33333333% - 1rem);
+          flex: 0 0 calc(33.33333333% - 4rem);
           @media all and (-ms-high-contrast: none) {
-            width: calc(33.33333333% - 1rem);
+            width: calc(33.33333333% - 4rem);
             flex-basis: auto;
           }
         }
         &:after {
           content: ' ';
+          padding: .5rem 1rem .5rem .5rem;
           flex: 0 0 calc(33.33333333% - 1rem);
         }
         @media all and (-ms-high-contrast: none) {
@@ -210,16 +217,20 @@ textarea {
       @media all and (min-width: 1200px) {
         > label:not(.field-label) {
           margin-right: 0;
-          flex: 0 0 calc(25% - 1.125rem);
+          flex: 0 0 calc(25% - 4rem);
           @media all and (-ms-high-contrast: none) {
-            width: calc(25% - 1.125rem);
+            width: calc(25% - 4rem);
             flex-basis: auto;
           }
         }
         &:after,
         &:before {
+          // TODO: tweak padding for radio/checkbox lineup on last row
           content: ' ';
-          flex: 0 0 calc(25% - 1.125rem);
+          flex: 0 0 calc(25% - 4rem);
+        }
+        &:after {
+          padding: .5rem 1rem .5rem .5rem;
         }
         &:before {
           order: 1;
@@ -228,12 +239,15 @@ textarea {
           &:after,
           &:before {
             flex-basis: auto;
-            width: calc(25% - 1.125rem);
+            width: calc(25% - 4rem);
           }
         }
       }
     }
   }
+}
+textarea {
+  resize: vertical;
 }
 // Form Group columns
 .form-group__columns {
@@ -349,6 +363,7 @@ form,
   .form-group,
   .radio,
   .checkbox {
+    padding: 1rem;
     &.has-success {
       label,
       label.field-label,
