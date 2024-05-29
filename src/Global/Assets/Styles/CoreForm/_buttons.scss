@@ -406,15 +406,19 @@
 [data-element-type='button']:not(.btn) {
   // Add .btn styling. Using @extend doesn't work properly due to multiple
   // :not-selectors in this style definition and the original .btn class
+  
   font-family: $btn-font-family;
   font-weight: $btn-font-weight;
-  color: $body-color;
+  color: $colors-greyscale-800;
   text-align: center;
   text-decoration: if($link-decoration == none, null, none);
   white-space: $btn-white-space;
   vertical-align: middle;
   user-select: none;
-  background-color: transparent;
+  background-color: $colors-primary-200;
+  border-radius: .375rem !important;
+  margin-left: 1rem;
+  padding: .5rem .75rem !important;
   border: $btn-border-width solid transparent;
   @include button-size(
     $btn-padding-y,
@@ -424,7 +428,7 @@
   );
   transition: $btn-transition;
   &:hover {
-    color: $body-color;
+    background-color: $colors-primary-100;
     text-decoration: none;
   }
   &:focus,
