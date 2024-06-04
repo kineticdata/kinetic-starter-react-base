@@ -9,13 +9,13 @@ import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const KappSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
-    const { updateBreadcrumbs, tableQuery } = globalState;
+    const { updateBreadcrumbs, tableQuery, setTableQuery, tablePagination, setTablePagination } = globalState;
     const { kappSlug } = useParams();
     const [ kappData, setKappData ] = useState();
     const [ submissionsData, setSubmissionsData ] = useState();
     const [ pageError, setPageError ] = useState();
 
-    const defaultQuery = { 
+    const defaultQuery = useMemo(() => ({
         kapp: kappSlug, 
         limit: 10,
         search: {
@@ -23,14 +23,20 @@ export const KappSubmissionsList = () => {
             orderBy: 'handle',
             direction: 'ASC',
         } 
-    };
+    }), [kappSlug])
+
+    useEffect(() => {
+        if ((tableQuery && tableQuery.kapp !== kappSlug) || !tableQuery) {
+            setTableQuery(defaultQuery);
+        }
+    }, [kappSlug])
 
     const columns = useMemo(() => ([
             { title: 'Handle', value: 'handle', sortBy: true },
-            { title: 'Label', value: 'label', sortBy: true },
-            { title: 'Form Name', value: 'name', sortBy: true },
+            { title: 'Label', value: 'label', sortBy: false },
+            { title: 'Form Name', value: 'name', sortBy: false },
             { title: 'Submitter', value: 'submittedBy', sortBy: true },
-            { title: 'State', value: 'state', sortBy: true },
+            { title: 'State', value: 'state', sortBy: false },
             { title: 'Created at', value: 'createdAt', sortBy: true }
         ]));
 
@@ -68,7 +74,9 @@ export const KappSubmissionsList = () => {
     }, [kappData]);
 
     useEffect(() => {
-        searchSubmissions(tableQuery || defaultQuery).then(({ submissions }) => {
+        // Make sure the global state has fully updated to the new query so it matches the kappslug
+        // Otherwise it will be behind by on render and previous query data will be shown
+        tableQuery && tableQuery.kapp === kappSlug && searchSubmissions(tableQuery).then(({ submissions, nextPageToken }) => {
             const parsedData = submissions.map(submission => ({
                 handle: {
                     toDisplay: getLink(submission.handle, submission.form.slug, submission.id),
@@ -89,15 +97,15 @@ export const KappSubmissionsList = () => {
                     toSort: submission.createdAt,
                 },
             }))
-            console.log('OPE', tableQuery, parsedData)
-            setSubmissionsData(parsedData)
+            nextPageToken && setTablePagination({...tablePagination, nextPageToken: nextPageToken});
+            setSubmissionsData(parsedData);
         }).catch(error => setPageError(error));
     }, [kappSlug, tableQuery]);
 
     return kappData && submissionsData ? (
         <>
             <PageTitle title={`${kappData.name} Submissions`} />
-            <KineticQueryTable columns={columns} data={submissionsData} defaultQuery={defaultQuery} />
+            <KineticQueryTable columns={columns} data={submissionsData} />
         </>
     ) : <LoadingSpinner error={pageError} />
 };

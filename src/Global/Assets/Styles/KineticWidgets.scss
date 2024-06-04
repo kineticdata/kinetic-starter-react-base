@@ -82,6 +82,20 @@
     font-size: 1.25rem;
     margin-bottom: 6rem;
 
+    .arrow-size {
+        font-size: 1.35rem;
+        color: $colors-greyscale-400 !important;
+        background-color: transparent !important;
+    }
+
+    .clickable {
+        color: $colors-primary-200 !important;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     .mobile-pagination-options-dropdown {
         border: 1px solid $colors-greyscale-200;
         border-radius: .375rem;
@@ -202,11 +216,12 @@
 
         .arrow-size {
             font-size: 1.35rem;
-            color: $colors-greyscale-200;
+            color: $colors-greyscale-400 !important;
+            background-color: transparent !important;
         }
 
         .clickable {
-            color: $colors-primary-200;
+            color: $colors-primary-200 !important;
 
             &:hover {
                 cursor: pointer;

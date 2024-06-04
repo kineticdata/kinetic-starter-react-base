@@ -1,73 +1,29 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { DropdownMenu } from "./Dropdown/Dropdown";
 import { LoadingSpinner } from "./LoadingSpinner";
-import moment from "moment";
 import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
 // Make sure to note rowData[column.value] must have a value 
 // which should be handled when parsing the incoming data. 
-export const KineticQueryTable = ({columns, data, defaultQuery, customerFooter }) => {
+export const KineticQueryTable = ({columns, data, customerFooter }) => {
     const globalState = useContext(GlobalContext);
-    const { isMobileDevice, tableQuery, setTableQuery } = globalState;
+    const { isMobileDevice, tableQuery, setTableQuery, tablePagination, setTablePagination } = globalState;
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
-    const [ tablePageCount, setTablePageCount ] = useState(tableQuery?.limit || 10);
-    const [ currentPage, setCurrentPage ] = useState(1);
-    const [ paginatedData, setPaginatedData ] = useState();
-    const [ sortInfo, setSortInfo ] = useState({order: 'none'});
 
-    useEffect(() => {
-        if(!tableQuery){
-            setTableQuery(defaultQuery)
-        }
-    }, [])
-
-    const paginationOptions = useMemo(() => ([
-        { render: 
-            <button 
-                aria-label='Set number of rows shown to 10' 
-                className="pagination-options remove-padding" 
-                onClick={() => {setTableQuery({...tableQuery, limit: 10})}}
-            >
-                10
-            </button> 
-        },
-        { render: 
-            <button 
-                aria-label='Set number of rows shown to 25' 
-                className="pagination-options remove-padding" 
-                onClick={() => {setTableQuery({...tableQuery, limit: 25})}}
-            >
-                25
-            </button> 
-        },
-        { render: 
-            <button 
-                aria-label='Set number of rows shown to 50' 
-                className="pagination-options remove-padding" 
-                onClick={() => {setTableQuery({...tableQuery, limit: 50})}}
-            >
-                50
-            </button> 
-        },
-        { render: 
-            <button 
-                aria-label='Set number of rows shown to 100' 
-                className="pagination-options remove-padding" 
-                onClick={() => {setTableQuery({...tableQuery, limit: 100})}}
-            >
-                100
-            </button> 
-        },
-    ]), [tableQuery]);
-
-    // If the table is on the first page always use the actual first element
-    // const firstElement = useMemo(() => {
-    //     return currentPage === 1 ? 0 : ( currentPage - 1 ) * tablePageCount;
-    // }, [currentPage, tablePageCount]);
-
-    // const lastElement = useMemo(() => {
-    //     return (firstElement + tablePageCount)
-    // }, [firstElement, tablePageCount]);
+    const rowNumbers = [10, 25, 50, 100];
+    const paginationOptions = useMemo(() => (
+        rowNumbers.map(number => (
+            {render: 
+                <button 
+                    aria-label={`Set number of rows shown to ${number}`}
+                    className="pagination-options remove-padding" 
+                    onClick={() => {setTableQuery({...tableQuery, limit: number})}}
+                >
+                    {number}
+                </button> 
+            }
+        ))
+    ), [tableQuery]);
 
     const dropdownFace = useMemo(() => (
         <button 
@@ -81,92 +37,73 @@ export const KineticQueryTable = ({columns, data, defaultQuery, customerFooter }
             </div>
         </button>
     ), [tableQuery]);
-
-    // const sortAlpha = ( first, second ) => {                    
-    //     const compare1 = (first[sortInfo.keyName].toSort || first[sortInfo.keyName]).toLowerCase();
-    //     const compare2 = (second[sortInfo.keyName].toSort || second[sortInfo.keyName]).toLowerCase();
-
-    //     return compare1.localeCompare(compare2);
-    // }
     
     const getSortIcon = useCallback(columnInfo => {
-        if (sortInfo.order === 'ASC' && columnInfo.value === sortInfo.keyName) {
+        if (tableQuery.search.direction === 'ASC' && columnInfo.value === tableQuery.search.orderBy) {
             return <i className="las la-sort-up sort-icon" aria-hidden="true" />
-        } else if (sortInfo.order === 'DESC' && columnInfo.value === sortInfo.keyName) {
+        } else if (tableQuery.search.direction === 'DESC' && columnInfo.value === tableQuery.search.orderBy) {
             return <i className="las la-sort-down sort-icon" aria-hidden="true" />
         } else {
             return <i className="las la-sort sort-icon" aria-hidden="true" />
         }
-    }, [sortInfo])
+    }, [tableQuery])
 
     const updateSortInfo = columnInfo => {
-        console.log('HIT', columnInfo)
         if(columnInfo.value === tableQuery.search.orderBy) {
             if (tableQuery.search.direction === 'ASC') {
-                setTableQuery({...tableQuery, search: {...tableQuery.search, direction: 'DESC'}})
+                setTablePagination({nextPageToken: null, previousPageToken: [], pageToken: undefined})
+                setTableQuery({...tableQuery, pageToken: null, search: {...tableQuery.search, direction: 'DESC'}})
             } else {
-                setTableQuery({...tableQuery, search: {...tableQuery.search, direction: 'ASC'}})
+                setTablePagination({nextPageToken: null, previousPageToken: [], pageToken: undefined})
+                setTableQuery({...tableQuery, pageToken: null, search: {...tableQuery.search, direction: 'ASC'}})
             }
         } else {
-            setTableQuery({...tableQuery, search: {...tableQuery.search, orderBy: columnInfo.value, direction: 'ASC'}})
+            setTablePagination({nextPageToken: null, previousPageToken: [], pageToken: undefined})
+            setTableQuery({...tableQuery, pageToken: null, search: {...tableQuery.search, orderBy: columnInfo.value, direction: 'ASC'}})
         }
-
-        // if (sortInfo.order === 'none') {
-        //     setSortInfo({
-        //         order: 'ASC',
-        //         type: columnInfo.sortBy,
-        //         keyName: columnInfo.value,
-        //     })
-        // } else if (sortInfo.order === 'ASC') {
-        //     if (columnInfo.value === sortInfo.keyName) {
-        //         setSortInfo({
-        //             order: 'DESC',
-        //             type: columnInfo.sortBy,
-        //             keyName: columnInfo.value,
-        //         })
-        //     } else {
-        //         setSortInfo({
-        //             order: 'ASC',
-        //             type: columnInfo.sortBy,
-        //             keyName: columnInfo.value,
-        //         })
-        //     }
-        // } else {
-        //     if (sortInfo.order === 'DESC' && columnInfo.value !== sortInfo.keyName) {
-        //         setSortInfo({
-        //             order: 'ASC',
-        //             type: columnInfo.sortBy,
-        //             keyName: columnInfo.value,
-        //         })
-        //     } else {
-        //         setSortInfo({
-        //             order: 'none',
-        //         })
-        //     }
-        // }
     };
 
-    // useEffect(() => {
-    //     setCurrentPage(1)
-    // }, [tablePageCount]);
-
-    // useEffect(() => {
-    //     if (sortInfo.order === 'ASC') {
-    //         setPaginatedData([...data].sort((first,second) => (
-    //             sortInfo.type === 'date' ?
-    //                 moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
-    //                 : sortAlpha(first, second)
-    //             )).slice(firstElement, lastElement));
-    //     } else if (sortInfo.order === 'DESC') {
-    //         setPaginatedData([...data].sort((first,second) => (
-    //             sortInfo.type === 'date' ?
-    //                 moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
-    //                 : sortAlpha(first, second)
-    //             )).reverse().slice(firstElement, lastElement))
-    //     } else {
-    //         setPaginatedData(data.slice(firstElement, lastElement))
-    //     }
-    // }, [tablePageCount, currentPage, sortInfo]);
+    const getPaginationButton = side => {
+        if (side === 'right') {
+            return (
+                <button 
+                    aria-label="Next table page"
+                    onClick={() => {
+                        setTableQuery({...tableQuery, pageToken: tablePagination.nextPageToken})
+                        setTablePagination({
+                            ...tablePagination, 
+                            pageToken: tablePagination.nextPageToken, 
+                            previousPageToken: tablePagination.previousPageToken.length > 0 ? 
+                                [...tablePagination.previousPageToken, tablePagination.pageToken] : 
+                                [tablePagination.pageToken]
+                        })
+                    }}
+                    disabled={tablePagination.pageToken === tablePagination.nextPageToken}
+                    className={`las la-angle-right arrow-size${tablePagination.pageToken !== tablePagination.nextPageToken ? ' clickable' : ''}`} 
+                />
+            )
+        } else {
+            return (
+                <button 
+                    aria-label="Previous table page"
+                    onClick={() => {
+                        setTableQuery({...tableQuery, pageToken: tablePagination.previousPageToken[tablePagination.previousPageToken.length - 1]})
+                        const previousPages = tablePagination.previousPageToken;
+                        previousPages.pop();
+                        setTablePagination({
+                            ...tablePagination, 
+                            pageToken: tablePagination.previousPageToken[tablePagination.previousPageToken - 1], 
+                            previousPageToken: previousPages,
+                        })
+                    }}
+                    disabled={!tablePagination.previousPageToken.length > 0 && 
+                        tablePagination.previousPageToken[0] === undefined}
+                    className={`las la-angle-left arrow-size${tablePagination.previousPageToken.length > 0 && 
+                        tablePagination.previousPageToken[0] === undefined ? ' clickable' : ''}`} 
+                />
+            )
+        }
+    };
 
     return data ? (
         <>
@@ -209,55 +146,37 @@ export const KineticQueryTable = ({columns, data, defaultQuery, customerFooter }
                         )})}
                     </tbody>
                 </table>
-                {!isMobileDevice ? (
+                {/* Desktop pagination controls */}
+                {!isMobileDevice && (
                     <div className='pagination-wrapper'>
                         <>Rows per page</>
                         <DropdownMenu
                             isDropdownOpen={isDropdownOpen}
-                            setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                            setIsDropdownOpen={() => setIsDropdownOpen(false)}
                             dropdownFace={dropdownFace}
                             dropdownContent={paginationOptions}
                             contentClassName='pagination-options-dropdown'
                         />
-                        <div>
-                            data count
-                            {/* {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`} */}
-                        </div>
-                        Arrow Buttons
-                        {/* <button 
-                        aria-label="Previous table page"
-                            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
-                            className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
-                        />
-                        <button 
-                        aria-label="Next table page"
-                            onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
-                            className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
-                        /> */}
+                        <>
+                            {data.length} rows
+                        </>
+                        {getPaginationButton('left')}
+                        {getPaginationButton('right')}
                     </div>  
-                ) : 
-                (
+                )}
+                {customerFooter && customerFooter}
+            </div>
+            {/* Mobile pagination controls */}
+            {isMobileDevice && (
                     <div className='mobile-pagination-wrapper'>
-                        <div>
-                            data count
-                            {/* {`${firstElement + 1} - ${lastElement <= data.length ? lastElement : data.length} of ${data.length}`} */}
-                        </div>
-                        <div className='mobile-pagination-arrows'>
-                            Arrow buttons
-                            {/* <button 
-                            aria-label="Previous table page"
-                                onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)} 
-                                className={`las la-angle-left arrow-size${currentPage > 1 ? ' clickable' : ''}`} 
-                            />
-                            <button 
-                            aria-label="Next table page"
-                                onClick={() => currentPage < (data.length / tablePageCount) && setCurrentPage(currentPage + 1)} 
-                                className={`las la-angle-right arrow-size${currentPage < (data.length / tablePageCount) ? ' clickable' : ''}`} 
-                            /> */}
-                        </div>
+                    <>
+                        {data.length} rows
+                    </>
+                        {getPaginationButton('left')}
+                        {getPaginationButton('right')}
                         <DropdownMenu
                             isDropdownOpen={isDropdownOpen}
-                            setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                            setIsDropdownOpen={() => setIsDropdownOpen(false)}
                             dropdownFace={dropdownFace}
                             dropdownContent={paginationOptions}
                             faceStyle='mobile-pagination-options-dropdown'
@@ -265,8 +184,6 @@ export const KineticQueryTable = ({columns, data, defaultQuery, customerFooter }
                         />
                     </div>  
                 )}
-                {customerFooter && customerFooter}
-            </div>
         </>
     ) : <LoadingSpinner />
 }
