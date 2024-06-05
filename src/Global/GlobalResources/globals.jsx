@@ -21,6 +21,9 @@ window.$ = jquery;
 window.jQuery = jquery;
 window.moment = moment;
 
+// Import widgets so they're available when compiling
+import '../GlobalComponents/Widgets/KineticFormWidgets';
+
 /**
  * Kinetic form customizations
  ******************************************************************************/
