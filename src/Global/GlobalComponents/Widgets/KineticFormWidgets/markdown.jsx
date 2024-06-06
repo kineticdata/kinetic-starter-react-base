@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef } from 'react';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import classNames from 'classnames';
 import { createRoot } from 'react-dom/client';
@@ -14,36 +14,23 @@ import { createRoot } from 'react-dom/client';
 
 // TODO: update this entire file
 // TODO: remove the toast-ui library?
+// TODO validate arguments
+// TODO track any widgets rendered this way and unmount when they are removed
+// from the dom so you don't end up with orphaned React apps
 export const Markdown = (container, field, options) => {
-  // TODO validate arguments
-  // TODO track any widgets rendered this way and unmount when they are removed
-  //  from the dom so you don't end up with orphaned React apps
   createRoot(container).render(<MarkdownField {...options} field={field} />);
 };
 
 // Custom component that renders a Markdown Editor and sets any changes into a
 // provided Kinetic Field.
-class MarkdownField extends Component {
-  constructor(props) {
-    super(props);
-    // Ref so we can get access to the Markdown Editor's value
-    this.ref = React.createRef();
-    console.log('CONSTRUCT MARKDOWN WIDGET');
-  }
+const MarkdownField = props => {
+  const { className, disabled, field, ...editorProps } = props;
+  const isDisabled = typeof disabled !== 'undefined' ? disabled : field.form().reviewMode();
+  const ref = useRef();
 
-  handleChange = () => {
-    // On change of the value of the Markdown Editor, also update the Kinetic
-    // field value
-    this.props.field.value(this.ref.current.getInstance().getMarkdown());
+  const handleChange = () => {
+    props.field.value(ref.current.getInstance().getMarkdown());
   };
-
-  render() {
-    console.log('RENDER MARKDOWN WIDGET');
-    const { className, disabled, field, ...editorProps } = this.props;
-    // If a disabled prop is passed in, or the Kinetic form
-    // is in review mode, a Markdown Viewer is rendered instead.
-    const isDisabled =
-      typeof disabled !== 'undefined' ? disabled : field.form().reviewMode();
     return (
       <div
         className={classNames(className, {
@@ -59,9 +46,9 @@ class MarkdownField extends Component {
             // the widget function. See the @toast-ui/react-editor Editor
             // component for valid options.
             {...editorProps}
-            ref={this.ref}
-            initialValue={this.props.field.value() || ''}
-            onChange={this.handleChange}
+            ref={ref}
+            initialValue={props.field.value() || ''}
+            onChange={handleChange}
           />
         ) : (
           <Viewer
@@ -71,10 +58,9 @@ class MarkdownField extends Component {
               contenteditable: 'false',
               rel: 'noopener noreferrer',
             }}
-            initialValue={this.props.field.value() || ''}
+            initialValue={props.field.value() || ''}
           />
         )}
       </div>
     );
-  }
 }
