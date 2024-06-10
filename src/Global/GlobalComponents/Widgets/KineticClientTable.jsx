@@ -6,7 +6,7 @@ import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
 // Make sure to note rowData[column.value] must have a value 
 // which should be handled when parsing the incoming data. 
-export const KineticTable = ({columns, data, showPagination, customerFooter }) => {
+export const KineticClientTable = ({columns, data, showPagination, customerFooter }) => {
     const globalState = useContext(GlobalContext);
     const { isMobileDevice } = globalState;
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);

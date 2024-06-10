@@ -5,7 +5,7 @@ import { fetchSubmission, deleteSubmission } from '@kineticdata/react';
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { formatDate, humanizeFileSize } from "../../../GlobalResources/Helpers";
-import { KineticTable } from "../../Widgets/KineticTable";
+import { KineticClientTable } from "../../Widgets/KineticClientTable";
 import { KineticModal } from "../../Widgets/KineticModal";
 import { CoreForm } from "@kineticdata/react/lib/components";
 import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";

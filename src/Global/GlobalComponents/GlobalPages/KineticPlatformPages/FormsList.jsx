@@ -4,7 +4,7 @@ import { fetchKapp, fetchForms } from '@kineticdata/react';
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { KineticTable } from "../../Widgets/KineticTable";
+import { KineticClientTable } from "../../Widgets/KineticClientTable";
 import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const FormsList = () => {
@@ -93,7 +93,7 @@ export const FormsList = () => {
     return (kappData && formsData) ? (
         <> 
             <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
-            <KineticTable columns={columns} data={formsData} showPagination />
+            <KineticClientTable columns={columns} data={formsData} showPagination />
         </>
     ) : <LoadingSpinner error={pageError} />
 };

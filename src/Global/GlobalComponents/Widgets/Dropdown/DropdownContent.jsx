@@ -14,7 +14,7 @@ export const DropdownContent = ({
         if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsDropdownOpen()
         }
-      };
+    };
 
     const handleEscapePress = event => {
         if (isDropdownOpen && event.key === 'Escape') {
