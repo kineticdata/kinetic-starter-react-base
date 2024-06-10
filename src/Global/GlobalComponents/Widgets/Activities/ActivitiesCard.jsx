@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { formatDate } from "../../../GlobalResources/Helpers";
 
-export const ActivitiesCard = ({activity}) => {
+export const ActivitiesCard = ({ activity }) => {
 
     const parsedData = useMemo(() => {
         try {
@@ -11,11 +11,22 @@ export const ActivitiesCard = ({activity}) => {
         }
     })
 
+    const getBadgeColors = () => {
+        switch (activity.type) {
+            case 'Approval':
+                return 'badge-approval';
+            case 'Submission Submitted':
+                return 'badge-submitted';
+            default: 
+                return 'badge-approval';
+        }
+    }
+
     return (
         <div className="activity-card-wrapper">
             <div className="space-between-row">
                 <div className="activity-title">{activity.label}</div>
-                <div className="activity-type">{activity.type}</div>
+                <div className={`activity-type ${getBadgeColors()}`}>{activity.type}</div>
             </div>
             <>
             {typeof parsedData === 'object' ?
@@ -27,8 +38,8 @@ export const ActivitiesCard = ({activity}) => {
             }
             </>
             <div className="space-between-row">
-                <div className="activity-date">Created:<br /> {formatDate(activity.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>
-                <div className="activity-date">Last Update:<br /> {formatDate(activity.updatedAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>
+                <div className="activity-date"><div className="activity-date-title">Created:</div>  {formatDate(activity.createdAt, 'MM/DD/YYYY')}</div>
+                <div className="activity-date"><div className="activity-date-title">Last Update:</div>  {formatDate(activity.updatedAt, 'MM/DD/YYYY')}</div>
             </div>
         </div>
     )
