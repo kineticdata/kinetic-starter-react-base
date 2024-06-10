@@ -65,23 +65,26 @@ export const FormsList = () => {
 
     useEffect(() => {
         fetchKapp({ kappSlug, include: 'details' })
-            .then(({ kapp }) => setKappData(kapp))
-            .catch(error => setPageError(error));
-        fetchForms({ kappSlug, include: 'details' }).then(({ forms }) => {
-            const parsedData = forms.map(form => ({
-                name: {
-                    toDisplay: getFormLink(form.name, form.slug),
-                    toSort: form.name,
-                }, 
-                description: form.description, 
-                updatedAt: {
-                    toDisplay: formatDate(form.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                    toSort: form.updatedAt,
-                },
-                submissionsLink: getViewSubmissionsLink(form.slug)
-            }))
-            setFormsData(parsedData)
-        }).catch(error => setPageError(error));
+            .then(({ kapp, error }) => !error ? setKappData(kapp) : setPageError(error));
+        fetchForms({ kappSlug, include: 'details' }).then(({ forms, error }) => {
+            if (!error) {
+                const parsedData = forms.map(form => ({
+                    name: {
+                        toDisplay: getFormLink(form.name, form.slug),
+                        toSort: form.name,
+                    }, 
+                    description: form.description, 
+                    updatedAt: {
+                        toDisplay: formatDate(form.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
+                        toSort: form.updatedAt,
+                    },
+                    submissionsLink: getViewSubmissionsLink(form.slug)
+                }))
+                setFormsData(parsedData)
+            } else {
+                setPageError(error)
+            }
+        });
     }, [kappSlug])
 
     const kappSubmissionsLink = useMemo(() => (
@@ -90,7 +93,7 @@ export const FormsList = () => {
         </Link>
     ), [kappSlug])
 
-    return (kappData && formsData) ? (
+    return (kappData && formsData) && !pageError ? (
         <> 
             <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
             <KineticClientTable columns={columns} data={formsData} showPagination />

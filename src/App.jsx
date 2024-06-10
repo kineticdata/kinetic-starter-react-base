@@ -1,16 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import './Global/Assets/Styles/master.scss'
 import { Route, Routes } from 'react-router-dom';
-import {  LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
+import { LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
 import { Header } from './Global/GlobalComponents/Header';
-import { ServiceOneRouting } from './KineticServices/ServiceOne/ServiceOneRouting';
-import { ServiceTwoRouting } from './KineticServices/ServiceTwo/ServiceTwoRouting';
-import { Profile } from './Global/GlobalComponents/GlobalPages/StandalonePages/Profile';
 import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
 import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
-import { DocumentationRouting } from './Global/GlobalComponents/GlobalPages/Documentation/DocumentationRouting';
 import { Footer } from './Global/GlobalComponents/Footer';
 import { Breadcrumbs } from './Global/GlobalComponents/Widgets/Breadcrumbs';
 
@@ -49,32 +45,13 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
                 element={<Login {...loginProps} />}
                 exact
               />
-              <Route  
-                path='/profile'
-                element={<Profile />}
-                exact
-              />
-              <Route  
-                path='/documentation/*'
-                element={<DocumentationRouting />}
-                exact
-              />
+
+              {/* Kapps should be used as the example of contained routing for additonal services */}
               <Route  
                 path='/kapps/*'
                 element={<KineticPlatformRouting />}
                 exact
               />
-
-
-              {/* Optional service routes */}
-              {/* <Route  
-                path='/service-one/*'
-                element={<ServiceOneRouting />}
-              />
-              <Route  
-                path='/service-two/*'
-                element={<ServiceTwoRouting />}
-              /> */}
             </Routes>
           </div>
 

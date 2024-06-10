@@ -22,8 +22,7 @@ export const KappsList = () => {
 
     useEffect(() => {
         fetchKapps({include: 'details, attributesMap[Icon]'})
-            .then(({ kapps }) => setKappsList(kapps))
-            .catch(error => setPageError(error));
+            .then(({ kapps, error }) => !error ? setKappsList(kapps) : setPageError(error));
     }, [])
 
     const generateKappCards = useMemo(() => {
@@ -48,7 +47,7 @@ export const KappsList = () => {
         )
     }, [])
     
-    return kappsList.length ? (
+    return kappsList.length && !pageError ? (
         <div className='kapps-list-page-wrapper'>
             <PageTitle title='KAPPS' rightSide={pageTitleLink} />
             <div className="kapp-cards-wrapper">

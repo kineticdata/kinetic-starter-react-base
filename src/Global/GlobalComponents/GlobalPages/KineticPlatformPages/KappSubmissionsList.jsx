@@ -76,7 +76,8 @@ export const KappSubmissionsList = () => {
     useEffect(() => {
         // Make sure the global state has fully updated to the new query so it matches the kappslug
         // Otherwise it will be behind by on render and previous query data will be shown
-        tableQuery && tableQuery.kapp === kappSlug && searchSubmissions(tableQuery).then(({ submissions, nextPageToken }) => {
+        tableQuery && tableQuery.kapp === kappSlug && searchSubmissions(tableQuery).then(({ submissions, nextPageToken, error }) => {
+          if (!error) {
             const parsedData = submissions.map(submission => ({
                 handle: {
                     toDisplay: getLink(submission.handle, submission.form.slug, submission.id),
@@ -99,10 +100,13 @@ export const KappSubmissionsList = () => {
             }))
             nextPageToken && setTablePagination({...tablePagination, nextPageToken: nextPageToken});
             setSubmissionsData(parsedData);
-        }).catch(error => setPageError(error));
+          } else {
+            setPageError(error);
+          }
+        });
     }, [kappSlug, tableQuery]);
 
-    return kappData && submissionsData ? (
+    return kappData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${kappData.name} Submissions`} />
             <KineticQueryTable columns={columns} data={submissionsData} />

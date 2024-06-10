@@ -27,9 +27,7 @@ export const FormLanding = () => {
             kappSlug,
             formSlug,
             include: 'kapp'
-        }).then(({ form }) => {
-            setFormData(form)
-        }).catch(error => setPageError(error));
+        }).then(({ form, error }) => !error ? setFormData(form) : setPageError(error));
     }, [])
 
     const pageTitleLink = useMemo(() => {
@@ -41,7 +39,7 @@ export const FormLanding = () => {
         )
     }, [])
 
-    return formData ? (
+    return formData && !pageError ? (
         <>
             <PageTitle title={formData.name} subtext={formData.description && formData.description} rightSide={pageTitleLink} />
             <div className="form-page-wrapper">
