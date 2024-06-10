@@ -4,7 +4,7 @@ import { fetchForm, searchSubmissions, defineKqlQuery } from '@kineticdata/react
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { KineticTable } from "../../Widgets/KineticTable";
+import { KineticClientTable } from "../../Widgets/KineticClientTable";
 import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const FormSubmissionsList = () => {
@@ -127,7 +127,7 @@ export const FormSubmissionsList = () => {
     return formData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${formData.name} Submissions`} rightSide={pageTitleLink} />
-            <KineticTable columns={columns} data={submissionsData} showPagination />
+            <KineticClientTable columns={columns} data={submissionsData} showPagination />
         </>
     ) : <LoadingSpinner error={pageError} />
 };

@@ -82,6 +82,20 @@
     font-size: 1.25rem;
     margin-bottom: 6rem;
 
+    .arrow-size {
+        font-size: 1.35rem;
+        color: $colors-greyscale-400 !important;
+        background-color: transparent !important;
+    }
+
+    .clickable {
+        color: $colors-primary-200 !important;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     .mobile-pagination-options-dropdown {
         border: 1px solid $colors-greyscale-200;
         border-radius: .375rem;
@@ -202,11 +216,12 @@
 
         .arrow-size {
             font-size: 1.35rem;
-            color: $colors-greyscale-200;
+            color: $colors-greyscale-400 !important;
+            background-color: transparent !important;
         }
 
         .clickable {
-            color: $colors-primary-200;
+            color: $colors-primary-200 !important;
 
             &:hover {
                 cursor: pointer;
@@ -337,34 +352,44 @@
     .activity-card-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        border: solid 2px #ced0d2;
-        padding: .5rem;
+        gap: .5rem;
+        padding: 0.75rem;
+        border-radius: .25rem;
+        background-color: $colors-greyscale-600;
 
         .space-between-row {
             display: flex;
             justify-content: space-between;
             width: 100%;
 
-            .activity-title {
+            .activity-title {    
+                font-size: 1.25rem;
                 font-weight: 600;
             }
 
-            .activity-type {
-                font-size: x-small;
-                background-color: $colors-greyscale-600;
+            .activity-type {  
                 display: flex;
-                font-weight: 600;
+                flex-direction: row;
+                justify-content: flex-start;
                 align-items: center;
-                padding: .5rem;
-                border-radius: 1rem;
+                gap: 4px;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                font-size: 0.875rem;
+                font-weight: 600;
+                line-height: 1.14;
             }
         }
 
-        .activity-date {
-            font-size: small;
+        .activity-date { 
+            display: flex; 
+            
+            .activity-date-title {
+                font-size: 1rem;
+                font-weight: bold;
+                line-height: 1.5;
+                margin-right: .25rem;
+            }
         }
     }
 }

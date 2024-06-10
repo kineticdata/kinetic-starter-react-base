@@ -1,5 +1,6 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
+import '@toast-ui/editor/dist/toastui-editor.css';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { KineticLib, history as libHistory } from '@kineticdata/react';
@@ -12,13 +13,13 @@ export const history = libHistory;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // Kinetic connection layer
-  <KineticLib locale="en">
+  <KineticLib globals={globals} locale="en">
       {kineticProps => (
         <HashRouter>
             {/* See the ContextWrappers file for a description */}
             <ContextWrappers>
               {/* Complete application */}
-              <App globals={globals} {...kineticProps} />
+              <App {...kineticProps} />
             </ContextWrappers>
         </HashRouter>
       )}
