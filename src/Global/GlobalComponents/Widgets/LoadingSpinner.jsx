@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorDisplay } from './ErrorDisplay';
 
-export const LoadingSpinner = ({error}) => {
+export const LoadingSpinner = ({ error }) => {
 
     return error ? 
     <ErrorDisplay error={error} /> :

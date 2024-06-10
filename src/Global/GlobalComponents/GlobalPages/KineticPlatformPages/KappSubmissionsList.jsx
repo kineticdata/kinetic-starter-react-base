@@ -78,33 +78,37 @@ export const KappSubmissionsList = () => {
     }, [kappData]);
 
     useEffect(() => {
-        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp)).catch(error => setPageError(error));
-        searchSubmissions({ kappSlug, search: {include: ['details', 'form']} }).then(({ submissions }) => {
-            const parsedData = submissions.map(submission => ({
-                handle: {
-                    toDisplay: getLink(submission.handle, submission.form.slug, submission.id),
-                    toSort: submission.handle,
-                },
-                label: submission.label,
-                name: {
-                    toDisplay: getLink(submission.form.name, submission.form.slug),
-                    toSort: submission.form.name,
-                },
-                submittedBy: submission.submittedBy || '',
-                state: {
-                    toDisplay: getState(submission.coreState),
-                    toSort: submission.coreState,
-                },
-                createdAt: {
-                    toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                    toSort: submission.createdAt,
-                },
-            }))
-            setSubmissionsData(parsedData)
-        }).catch(error => setPageError(error));
+        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp, error }) => !error ? setKappData(kapp) : setPageError(error));
+        searchSubmissions({ kappSlug, search: {include: ['details', 'form']} }).then(({ submissions, error }) => {
+            if (!error) {
+                const parsedData = submissions.map(submission => ({
+                    handle: {
+                        toDisplay: getLink(submission.handle, submission.form.slug, submission.id),
+                        toSort: submission.handle,
+                    },
+                    label: submission.label,
+                    name: {
+                        toDisplay: getLink(submission.form.name, submission.form.slug),
+                        toSort: submission.form.name,
+                    },
+                    submittedBy: submission.submittedBy || '',
+                    state: {
+                        toDisplay: getState(submission.coreState),
+                        toSort: submission.coreState,
+                    },
+                    createdAt: {
+                        toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
+                        toSort: submission.createdAt,
+                    },
+                }))
+                setSubmissionsData(parsedData)
+            } else  {
+                setPageError(error);
+            }
+        });
     }, [kappSlug]);
 
-    return kappData && submissionsData ? (
+    return kappData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${kappData.name} Submissions`} />
             <KineticTable columns={columns} data={submissionsData} showPagination />

@@ -83,7 +83,7 @@ export const FormSubmissionsList = () => {
     }, [formData]);
 
     useEffect(() => {
-        fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form }) => setFormData(form)).catch(error => setPageError(error));
+        fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form, error }) => !error ? setFormData(form) : setPageError(error));
 
         const query = defineKqlQuery()
             .end();
@@ -95,32 +95,36 @@ export const FormSubmissionsList = () => {
                 q: query({}),
                 include: ['details', 'values']
             }
-            }).then(({ submissions }) => {
-                const parsedData = submissions.map(submission => ({
-                    handle: {
-                        toDisplay: getSubmissionLink(submission.handle, submission.id),
-                        toSort: submission.handle,
-                    },
-                    label: submission.label,
-                    state: {
-                        toDisplay: getState(submission.coreState),
-                        toSort: submission.coreState,
-                    },
-                    createdAt: {
-                        toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                        toSort: submission.createdAt,
-                    },
-                    updatedAt: {
-                        toDisplay: formatDate(submission.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                        toSort: submission.updatedAt,
-                    },
-                }));
-                setsubmissionsData(parsedData);
+            }).then(({ submissions, error }) => {
+                if (!error) {
+                    const parsedData = submissions.map(submission => ({
+                        handle: {
+                            toDisplay: getSubmissionLink(submission.handle, submission.id),
+                            toSort: submission.handle,
+                        },
+                        label: submission.label,
+                        state: {
+                            toDisplay: getState(submission.coreState),
+                            toSort: submission.coreState,
+                        },
+                        createdAt: {
+                            toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
+                            toSort: submission.createdAt,
+                        },
+                        updatedAt: {
+                            toDisplay: formatDate(submission.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
+                            toSort: submission.updatedAt,
+                        },
+                    }));
+                    setsubmissionsData(parsedData);
+                } else {
+                    setPageError(error);
+                }
             }
         );
     }, [kappSlug, formSlug]);
 
-    return formData && submissionsData ? (
+    return formData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${formData.name} Submissions`} rightSide={pageTitleLink} />
             <KineticTable columns={columns} data={submissionsData} showPagination />
