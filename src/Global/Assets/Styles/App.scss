@@ -82,6 +82,16 @@ button {
   gap: .5rem;
 }
 
+.badge-submitted {
+  color: $colors-success-100;
+  background-color: $colors-success-600;
+}
+
+.badge-approval {
+  color: $colors-warning-100;
+  background-color: $colors-warning-600;
+}
+
 // TODO: rename button types
 
 .edit {
