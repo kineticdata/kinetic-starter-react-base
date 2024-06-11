@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { fetchProfile, fetchSpace } from '@kineticdata/react';
 
 // Create the context for use
@@ -15,6 +15,8 @@ export function GlobalContextWrapper({children}) {
     const [ globalCount, setGlobalCount ] = useState(0);
     const [ breadcrumbs, setBreadcrumbs ] = useState([]);
     const [ isMobileDevice, setIsMobileDevice ] = useState(false);
+    const [ tableQuery, setTableQuery ] = useState();
+    const [ tablePagination, setTablePagination ] = useState({nextPageToken: null, previousPageToken: [], pageToken: undefined});
 
     const handleScreenResize = () => {
         if (window.innerWidth <= 1366) {
@@ -48,7 +50,7 @@ export function GlobalContextWrapper({children}) {
                 setKineticSpace(spaceResponse.space);
                 setUserProfile(profileResponse.profile);
               };
-              userDataRequest().catch(setError(error));
+              userDataRequest().catch(error => setError(error));
         }
     }, [isAuthorized]);
 
@@ -104,6 +106,8 @@ export function GlobalContextWrapper({children}) {
             kineticSpace,
             breadcrumbs,
             isMobileDevice,
+            tableQuery,
+            tablePagination,
         // GlobalContextData functions
             setGlobalCount,
             setIsAuthorized,
@@ -111,6 +115,8 @@ export function GlobalContextWrapper({children}) {
             setUserProfile,
             setKineticSpace,
             updateBreadcrumbs,
+            setTableQuery,
+            setTablePagination
         // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
     }), [
         isAuthorized, 
@@ -120,6 +126,8 @@ export function GlobalContextWrapper({children}) {
         globalCount, 
         breadcrumbs, 
         isMobileDevice, 
+        tableQuery,
+        tablePagination,
     ]);
     
     // Since this is just a state data wrapper simply pass any children through

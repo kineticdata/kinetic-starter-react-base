@@ -4,44 +4,41 @@ import { fetchKapp, searchSubmissions } from '@kineticdata/react';
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { KineticTable } from "../../Widgets/KineticTable";
+import { KineticQueryTable } from "../../Widgets/KineticQueryTable";
 import { formatDate } from "../../../GlobalResources/Helpers";
 
 export const KappSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
-    const { updateBreadcrumbs } = globalState;
+    const { updateBreadcrumbs, tableQuery, setTableQuery, tablePagination, setTablePagination } = globalState;
     const { kappSlug } = useParams();
     const [ kappData, setKappData ] = useState();
     const [ submissionsData, setSubmissionsData ] = useState();
     const [ pageError, setPageError ] = useState();
 
-    const columns = useMemo(() => {
-        return [{
-            title: 'Handle', 
-            value: 'handle', 
-            sortBy: 'string',
-        },{
-            title: 'Label', 
-            value: 'label', 
-            sortBy: 'string',
-        },{
-            title: 'Form Name', 
-            value: 'name', 
-            sortBy: 'string',
-        },{
-            title: 'Submitter', 
-            value: 'submittedBy', 
-            sortBy: 'string',
-        },{
-            title: 'State', 
-            value: 'state', 
-            sortBy: 'string',
-        },{
-            title: 'Created at', 
-            value: 'createdAt', 
-            sortBy: 'date',
-        }];
-    }) 
+    const defaultQuery = useMemo(() => ({
+        kapp: kappSlug, 
+        limit: 10,
+        search: {
+            include: ['details', 'form'],
+            orderBy: 'handle',
+            direction: 'ASC',
+        } 
+    }), [kappSlug])
+
+    useEffect(() => {
+        if ((tableQuery && tableQuery.kapp !== kappSlug) || !tableQuery) {
+            setTableQuery(defaultQuery);
+        }
+    }, [kappSlug])
+
+    const columns = useMemo(() => ([
+            { title: 'Handle', value: 'handle', sortBy: true },
+            { title: 'Label', value: 'label', sortBy: false },
+            { title: 'Form Name', value: 'name', sortBy: false },
+            { title: 'Submitter', value: 'submittedBy', sortBy: true },
+            { title: 'State', value: 'state', sortBy: false },
+            { title: 'Created at', value: 'createdAt', sortBy: true }
+        ]));
 
     const getLink = ( name, formSlug, submissionId ) => {
         let url;
@@ -52,10 +49,7 @@ export const KappSubmissionsList = () => {
         }
 
         return (
-            <Link   
-                to={url}
-                className="link"
-            >
+            <Link to={url} className="link">
                 {name}
             </Link>
         )
@@ -74,12 +68,16 @@ export const KappSubmissionsList = () => {
             updateBreadcrumbs({
                 pageNames: ['Kapps List', kappData.name, 'Submissions List'],
                 path: `/kapps/${kappSlug}/submissions`});
+        } else {
+            fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp)).catch(error => setPageError(error));
         }
     }, [kappData]);
 
     useEffect(() => {
-        fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp)).catch(error => setPageError(error));
-        searchSubmissions({ kappSlug, search: {include: ['details', 'form']} }).then(({ submissions }) => {
+        // Make sure the global state has fully updated to the new query so it matches the kappslug
+        // Otherwise it will be behind by on render and previous query data will be shown
+        tableQuery && tableQuery.kapp === kappSlug && searchSubmissions(tableQuery).then(({ submissions, nextPageToken, error }) => {
+          if (!error) {
             const parsedData = submissions.map(submission => ({
                 handle: {
                     toDisplay: getLink(submission.handle, submission.form.slug, submission.id),
@@ -100,14 +98,18 @@ export const KappSubmissionsList = () => {
                     toSort: submission.createdAt,
                 },
             }))
-            setSubmissionsData(parsedData)
-        }).catch(error => setPageError(error));
-    }, [kappSlug]);
+            nextPageToken && setTablePagination({...tablePagination, nextPageToken: nextPageToken});
+            setSubmissionsData(parsedData);
+          } else {
+            setPageError(error);
+          }
+        });
+    }, [kappSlug, tableQuery]);
 
-    return kappData && submissionsData ? (
+    return kappData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${kappData.name} Submissions`} />
-            <KineticTable columns={columns} data={submissionsData} showPagination />
+            <KineticQueryTable columns={columns} data={submissionsData} />
         </>
     ) : <LoadingSpinner error={pageError} />
 };

@@ -42,14 +42,18 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
         setIsLoading(true);
         updateProfile({
         profile: newProfileData,
-        }).then(({ profile }) => {
+        }).then(({ profile, error }) => {
+          if (!error) {
             setIsLoading(false);
             setIsProfileModalOpen(false);
             setUserProfile({...userProfile, email: newProfileData.email, displayName: newProfileData.displayName})
-        }).catch(error => setPageError(error));
+          } else {
+            setPageError(error);
+          }
+        });
     };
 
-    return changeData && (
+    return changeData && !pageError && (
       <div className='profile-modal-wrapper'>
             <div className='profile-modal-body'>
               {!isLoading ?

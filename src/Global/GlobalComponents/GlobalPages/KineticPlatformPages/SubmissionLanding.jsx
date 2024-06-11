@@ -4,8 +4,7 @@ import { PageTitle } from "../../Widgets/PageTitle";
 import { fetchSubmission, deleteSubmission } from '@kineticdata/react';
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
-import { formatDate, humanizeFileSize } from "../../../GlobalResources/Helpers";
-import { KineticTable } from "../../Widgets/KineticTable";
+import { formatDate } from "../../../GlobalResources/Helpers";
 import { KineticModal } from "../../Widgets/KineticModal";
 import { CoreForm } from "@kineticdata/react/lib/components";
 import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";
@@ -42,16 +41,20 @@ export const SubmissionLanding = () => {
         fetchSubmission({
             id: submissionsId, 
             include: 'values, details, activities, activities.details, authorization, form, form.kapp'
-        }).then(({ submission }) => {
-            submission.activities?.length && setActivityData(submission.activities)
-            setSubmissionData(submission);
-            setCanEdit(submission.authorization['Modification']);
-        }).catch(error => setPageError(error));  
+        }).then(({ submission, error }) => {
+            if (!error) {
+                submission.activities?.length && setActivityData(submission.activities)
+                setSubmissionData(submission);
+                setCanEdit(submission.authorization['Modification']);
+            } else {
+                setPageError(error);
+            }
+        });  
     }, [kappSlug, formSlug, submissionsId]);
 
     // TODO: Need to do error handling for this - probably for everything actually
     const confirmDeleteSubmission = () => {
-        deleteSubmission({ id: submissionsId }).then(() => navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`));
+        deleteSubmission({ id: submissionsId }).then(error => !error ? navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`) : setPageError(error));
     }
 
     const submissionsFooter = useMemo(() => {
@@ -90,7 +93,7 @@ export const SubmissionLanding = () => {
         )
     }, []);
 
-    return submissionData ? (
+    return submissionData && !pageError ? (
         <>
             <PageTitle title={`Submission: ${submissionData.label}`} />
             <div className="submission-information">
