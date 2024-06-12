@@ -1,12 +1,12 @@
 // Break Points:
-// Desktop: > 1366
-// Vertical iPad: < 1366
-// Mobile: < 768
+// Desktop: > 1366px
+// Vertical iPad: < 1366px
+// Mobile: < 768px
 
 :root {
   // Base styling to the entire application
   font-family: $font-family;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -42,7 +42,7 @@ body {
   display: flex;
   place-items: center;
   justify-content: center;
-  min-width: 720px;
+  min-width: 45rem;
   max-width: 100%;
   max-height: 100%;
   margin: 0px !important;
@@ -57,17 +57,9 @@ button {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: $colors-greyscale-100;
-    background-color: white;
-    margin: 0;
-  }
-}
-
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: .625rem;
+  height: .625rem;
 }
 
 ::-webkit-scrollbar-thumb {

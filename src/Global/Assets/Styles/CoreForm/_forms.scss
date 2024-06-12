@@ -82,7 +82,7 @@ abbr[title='required'] {
 // Labels
 label {
   display: inline-block;
-  color: $coreform-primary-text-color;
+  color: $form-primary-text-color;
   font-weight: 600;
   &.field-label {
     display: block;
@@ -116,11 +116,11 @@ textarea {
 // Buttons
 button, .fileinput-button {
   border-radius: .375rem;
-  color: $colors-greyscale-800;
-  background-color: $colors-primary-200;
+  color: $btn-text-color;
+  background-color: $btn-background-color;
   padding: .5rem .75rem;
   &:hover {
-    background-color: $colors-primary-100;
+    background-color: $btn-hover-color;
   }
 }
 // Checkboxes and Radios
@@ -128,9 +128,9 @@ button, .fileinput-button {
 .radio {
   margin-bottom: 1rem;
   label:not(.field-label) {
-    border-radius: 4px;
-    color: $colors-primary-100;
-    background-color: $colors-greyscale-600;
+    border-radius: .25rem;
+    color: $chk-radio-text-color;
+    background-color: $chk-radio-background-color;
     padding: .5rem 1rem .5rem .5rem;
     margin: 0 0.5rem 0.5rem 0;
     cursor: pointer;
@@ -363,7 +363,7 @@ form,
     }
     &:focus {
       outline: none;
-      box-shadow: 0 0 1px 4px rgba($danger, 0.25);
+      box-shadow: 0 0 1px .25rem rgba($danger, 0.25);
     }
   }
   #api-results {
@@ -374,7 +374,7 @@ form,
     margin-bottom: 0;
     &:focus {
       outline: none;
-      box-shadow: 0 0 1px 4px rgba($danger, 0.25);
+      box-shadow: 0 0 1px .25rem rgba($danger, 0.25);
     }
   }
   .form-group,
@@ -477,8 +477,8 @@ form,
                       margin-left: 1rem;
                       padding: .125rem .375rem .25rem;
                       border-radius: .375rem;
-                      background-color: $colors-primary-200;
-                      color: $colors-greyscale-800;
+                      background-color: $btn-background-color;
+                      color: $btn-text-color;
                       text-decoration: none;
                       font-weight: 500;
 

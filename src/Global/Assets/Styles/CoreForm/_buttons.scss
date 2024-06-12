@@ -139,7 +139,7 @@
   $active-color: color-contrast($active-background),
   $disabled-background: $background,
   $disabled-border: $border,
-  $disabled-color: color-contrast($disabled-background)
+  $disabled-color: color-contrast($btn-disabled-background)
 ) {
   color: $color;
   @include gradient-bg($background);
@@ -261,10 +261,10 @@
 // Muted variant for link button
 .btn-link-muted {
   @extend .btn-link !optional;
-  color: $text-muted;
+  color: $form-text-muted;
 
   &:hover {
-    color: darken($text-muted, 5%);
+    color: darken($form-text-muted, 5%);
   }
 }
 
@@ -310,16 +310,16 @@
 // Button with gray border and white background
 .btn-white,
 .btn-inverse {
-  @include button-variant($white, $border-color);
+  @include button-variant(white, $colors-greyscale-200);
 }
 
 // Buttons with icons
 .btn-icon {
-  font-weight: $font-weight-normal;
-  color: $gray-600;
+  font-weight: $btn-icon-font-weight;
+  color: $btn-icon-color;
 
   &:hover {
-    color: $primary;
+    color: $btn-icon-primary-color;
   }
 
   &:disabled,
@@ -329,10 +329,10 @@
 
   // Primary variant
   &-primary {
-    color: $primary;
+    color: $btn-icon-primary-color;
 
     &:hover {
-      color: darken($primary, 10%);
+      color: darken($btn-icon-primary-color, 10%);
     }
   }
 
@@ -347,28 +347,28 @@
 
   // Light variant
   &-light {
-    color: $gray-100;
+    color: $btn-icon-color-light;
 
     &:hover {
-      color: darken($gray-100, 5%);
+      color: darken($btn-icon-color-light, 5%);
     }
   }
 
   // Subtle variant
   &-subtle {
-    color: $gray-600;
+    color: $btn-icon-color;
 
     &:hover {
-      color: darken($gray-600, 5%);
+      color: darken($btn-icon-color, 5%);
     }
   }
 
   // Dark variant
   &-dark {
-    color: $gray-800;
+    color: $colors-greyscale-800;
 
     &:hover {
-      color: darken($gray-800, 5%);
+      color: darken($colors-greyscale-800, 5%);
     }
   }
 
@@ -411,11 +411,11 @@
   font-weight: $btn-font-weight;
   color: $colors-greyscale-800;
   text-align: center;
-  text-decoration: if($link-decoration == none, null, none);
+  text-decoration: none;
   white-space: $btn-white-space;
   vertical-align: middle;
   user-select: none;
-  background-color: $colors-primary-200;
+  background-color: $btn-background-color;
   border-radius: .375rem !important;
   margin-left: 1rem;
   padding: .5rem .75rem !important;

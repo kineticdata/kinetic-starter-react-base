@@ -20,7 +20,7 @@ select:focus,
   outline: none;
   border-color: darken($input-border-color, 10%);
   border-radius: .25rem;
-  box-shadow: 0 0 1px 4px rgba($focus-color, .5) !important;
+  box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
 
   form .form-group.has-error &,
   .form .form-group.has-error &,
@@ -29,7 +29,7 @@ select:focus,
   form .checkbox.has-error &,
   .form .checkbox.has-error & {
     border-color: darken($danger, 10%);
-    box-shadow: 0 0 1px 4px rgba($danger, 0.25) !important;
+    box-shadow: 0 0 1px .25rem rgba($danger, 0.25) !important;
   }
 }
 
@@ -43,5 +43,7 @@ button:focus,
 [data-element-type='button'][data-button-type='previous-page']:not(.btn):focus,
 .fileinput-button:focus-within {
   outline: none;
-  box-shadow: 0 0 1px 4px $focus-color !important;
+  border-color: darken($input-border-color, 10%);
+  border-radius: .25rem;
+  box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
 }

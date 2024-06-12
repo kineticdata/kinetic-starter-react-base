@@ -63,7 +63,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
   
   return (
     <div className='header-containter'>
-      <Link to="/">
+      <Link to="/" className='header-logo'>
         <img
           alt="logo"
           src={logo}
@@ -79,7 +79,6 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
             dropdownFace={
               <button 
                 aria-label='Help Menu'
-                className='header-dropdown-links'
                 onClick={() => {
                     setIsProfileMenuOpen(false);
                     setIsHelpMenuOpen(!isHelpMenuOpen);

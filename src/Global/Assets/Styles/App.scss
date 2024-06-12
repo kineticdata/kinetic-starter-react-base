@@ -17,10 +17,6 @@ button {
   text-decoration: none;
   gap: .5rem;
 
-  &:focus-visible {
-    outline: -webkit-focus-ring-color auto 1px;
-  } 
-
   &:disabled {
     background-color: $colors-greyscale-200 !important;
     color: white !important;
@@ -43,7 +39,7 @@ button {
   height: auto;
   
   // This min-height should be adjusted if the header/footer heights are changed
-  min-height: calc(100vh - 137.5px);
+  min-height: calc(100vh - 133.5px);
 
   @media screen and (max-width: 1366px) {
     margin: 0 3rem;
