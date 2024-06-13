@@ -79,6 +79,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
             dropdownFace={
               <button 
                 aria-label='Help Menu'
+                className='help-menu-btn'
                 onClick={() => {
                     setIsProfileMenuOpen(false);
                     setIsHelpMenuOpen(!isHelpMenuOpen);

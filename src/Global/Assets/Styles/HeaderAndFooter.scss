@@ -166,3 +166,9 @@
     padding: 0.273rem 0.226rem 0.219rem 0.238rem;
   }
 }
+
+.help-menu-btn {
+  &:hover {
+    background-color: $colors-primary-600;
+  }
+}
