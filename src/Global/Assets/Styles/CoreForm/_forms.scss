@@ -114,7 +114,9 @@ textarea {
   }
 }
 // Buttons
-button, .fileinput-button {
+// This originally targetted 'button' as well
+// it was removed to avoid affecting buttons app wide
+.fileinput-button {
   border-radius: .375rem;
   color: $btn-text-color;
   background-color: $btn-background-color;
