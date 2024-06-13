@@ -119,6 +119,7 @@ button, .fileinput-button {
   color: $btn-text-color;
   background-color: $btn-background-color;
   padding: .5rem .75rem;
+  font-weight: $btn-font-weight;
   &:hover {
     background-color: $btn-hover-color;
   }

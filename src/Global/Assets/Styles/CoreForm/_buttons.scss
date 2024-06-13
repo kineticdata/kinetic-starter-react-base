@@ -112,7 +112,7 @@
         #{$property}: if($rfs-mode == max-media-query, $val, $fluidVal);
 
         // Include safari iframe resize fix if needed
-        min-width: if($rfs-safari-iframe-resize-bug-fix, (0 * 1vw), null);
+        min-width: if(none, (0 * 1vw), null);
       }
 
       @include _rfs-media-query-rule {
@@ -308,6 +308,7 @@
 }
 
 // Button with gray border and white background
+// TODO: maybe delete this and button-variant?!?!
 .btn-white,
 .btn-inverse {
   @include button-variant(white, $colors-greyscale-200);
@@ -426,7 +427,7 @@
     $btn-font-size,
     $btn-border-radius
   );
-  transition: $btn-transition;
+  transition: none;
   &:hover {
     background-color: $colors-primary-100;
     text-decoration: none;

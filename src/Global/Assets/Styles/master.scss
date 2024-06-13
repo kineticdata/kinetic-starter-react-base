@@ -14,7 +14,7 @@ $font-family: PlusJakartaSans;
 $modal-background-opacity: #00000080;
 
 // Coreform Styling
-//Form
+// Form
 $form-primary-text-color: black;
 $form-bg: white;
 $form-bg-light: white;
@@ -23,8 +23,9 @@ $form-padding: 1rem;
 $form-shadow-enabled: true;
 $form-focus-color: $colors-primary-200;
 $form-text-muted: $colors-primary-100;
+$input-border-color: $colors-primary-200;
 
-//Form Buttons
+// Form Buttons
 $btn-text-color: $colors-greyscale-800;
 $btn-background-color: $colors-primary-200;
 $btn-hover-color: $colors-primary-100;
@@ -35,14 +36,17 @@ $btn-icon-color: $colors-greyscale-600;
 $btn-icon-color-light: $colors-greyscale-100;
 $btn-icon-primary-color: $colors-primary-200;
 $btn-font-family: inherit;
-$btn-font-weight: inherit;
+$btn-font-weight: bold;
 $btn-white-space: none;
 $btn-border-width: .125rem;
 $btn-padding-y: .25rem;
 $btn-padding-x: .5rem;
 $btn-font-size: inherit;
+$btn-border-radius: .25rem;
+$btn-focus-box-shadow: none;
+$btn-disabled-opacity: inherit;
 
-//Form Checkbox and Radio 
+// Form Checkbox and Radio 
 $chk-radio-text-color: $colors-primary-100;
 $chk-radio-background-color: $colors-greyscale-600;
 
@@ -57,6 +61,8 @@ $enable-shadows: false;
 $color-contrast-light: white;
 // TODO: Either fix or remove this logic
 $enable-gradients: false;
+// TODO: Either fix or remove this logic
+$rfs-two-dimensional: false;
 
 
 /*** constants made for form styles, ask Marcin how these work ***/
@@ -70,21 +76,10 @@ $btn-active-border-shade-amount: inherit;
 $btn-active-border-tint-amount: inherit;
 $active-background: inherit;
 $btn-box-shadow: inherit;
-
-$btn-line-height: inherit;
-$btn-border-radius: .75rem;
 $rfs-class: inherit;
 $rfs-mode: inherit;
-$rfs-safari-iframe-resize-bug-fix: none;
-$rfs-two-dimensional: false;
 $rfs-mq-property-width: inherit;
 $rfs-mq-value: inherit;
-$btn-transition: inherit;
-$btn-focus-box-shadow: inherit;
-$btn-disabled-opacity: inherit;
-$input-border-color: $colors-greyscale-200;
-
-
 
 @import './CoreForm/forms';
 @import './CoreForm/buttons';
