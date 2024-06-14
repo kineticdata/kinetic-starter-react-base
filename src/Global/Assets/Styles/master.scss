@@ -9,8 +9,6 @@
 
 // KineticData styling variables
 $font-family: PlusJakartaSans;
-
-// Kinetic style variables
 $modal-background-opacity: #00000080;
 
 // Coreform Styling
@@ -50,36 +48,10 @@ $btn-disabled-opacity: inherit;
 $chk-radio-text-color: $colors-primary-100;
 $chk-radio-background-color: $colors-greyscale-600;
 
+// Common color names
 $danger: $colors-error-200;
 $success: $colors-success-200;
 $warning: $colors-warning-200;
-
-// Unknown
-// TODO: Either fix or remove shadows logic
-$enable-shadows: false;
-// TODO: Either fix or remove 
-$color-contrast-light: white;
-// TODO: Either fix or remove this logic
-$enable-gradients: false;
-// TODO: Either fix or remove this logic
-$rfs-two-dimensional: false;
-
-
-/*** constants made for form styles, ask Marcin how these work ***/
-$btn-hover-bg-shade-amount: inherit;
-$btn-hover-bg-tint-amount: inherit;
-$btn-hover-border-shade-amount: inherit;
-$btn-hover-border-tint-amount: inherit;
-$btn-active-bg-shade-amount: inherit;
-$btn-active-bg-tint-amount: inherit;
-$btn-active-border-shade-amount: inherit;
-$btn-active-border-tint-amount: inherit;
-$active-background: inherit;
-$btn-box-shadow: inherit;
-$rfs-class: inherit;
-$rfs-mode: inherit;
-$rfs-mq-property-width: inherit;
-$rfs-mq-value: inherit;
 
 @import './CoreForm/forms';
 @import './CoreForm/buttons';
