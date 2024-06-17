@@ -85,14 +85,10 @@ export const FormSubmissionsList = () => {
     useEffect(() => {
         fetchForm({ kappSlug, formSlug, include: 'details, kapp' }).then(({ form, error }) => !error ? setFormData(form) : setPageError(error));
 
-        const query = defineKqlQuery()
-            .end();
-
         searchSubmissions({
             kapp: kappSlug,
             form: formSlug,
             search: {
-                q: query({}),
                 include: ['details', 'values']
             }
             }).then(({ submissions, error }) => {

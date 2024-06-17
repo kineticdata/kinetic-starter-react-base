@@ -12,9 +12,6 @@ import { createRoot } from 'react-dom/client';
  * @param options Object of options to pass through to the MarkdownField component
  */
 
-// TODO: update this entire file
-// TODO: remove the toast-ui library?
-// TODO validate arguments
 // TODO track any widgets rendered this way and unmount when they are removed
 // from the dom so you don't end up with orphaned React apps
 export const Markdown = (container, field, options) => {

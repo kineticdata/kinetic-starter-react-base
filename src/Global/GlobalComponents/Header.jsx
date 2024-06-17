@@ -20,6 +20,7 @@ const helpContent = useMemo(() => {
   return getHelpLinks(userProfile.spaceAdmin);
 }}, [userProfile])
 
+// Create the profile dropdown content
 const profileDropdownHeader = useMemo(() => ( userProfile &&
     <>
       <div className='user-info'>

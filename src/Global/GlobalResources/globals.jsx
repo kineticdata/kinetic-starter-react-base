@@ -4,9 +4,6 @@
 // something that you have to manually add to 'window'. Some libraries might add
 // themselves to the window when loaded or some might decorate something else,
 // like a jQuery plugin.
-// Note that the example below shows jquery but jquery is not currently
-// configured as a dependency so for this code to work jquery needs to be added
-// as a dependency and installed.
 
 import jquery from 'jquery';
 import moment from 'moment';
@@ -96,21 +93,4 @@ window.bundle.config.fields = {
       addHelpTextToField(field);
     },
   },
-};
-
-// Add functionality for detailed information toggle
-window.bundle.config.ready = function(form) {
-  var section = jquery(form.find('#detailedInformationSection'));
-  if (section.length > 0) {
-    section
-      .find('.section-title')
-      .css('cursor', 'pointer')
-      .append('<div id="caret" class="las la-angle-right"></div>')
-      .click(function() {
-        jquery(this)
-          .find('#caret')
-          .toggleClass('la-angle-right la-angle-down');
-        section.find('#detailedInformation').toggle();
-      });
-  }
 };

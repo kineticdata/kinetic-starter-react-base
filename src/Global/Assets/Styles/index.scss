@@ -34,8 +34,6 @@
 #root {    
   height: auto;
   width: 100vw;
-  // id root at index.html. Doesn't need to be 
-  // used but noted here in case a need arrises 
 }
 
 body {
@@ -51,10 +49,6 @@ body {
     and (max-width: 768px) {
       min-width: auto;
   }
-}
-
-button {
-  cursor: pointer;
 }
 
 ::-webkit-scrollbar {

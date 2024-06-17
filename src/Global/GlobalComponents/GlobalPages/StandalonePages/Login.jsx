@@ -11,8 +11,7 @@ export const Login = ({
   redirect,
   username,
 }) => {
-  const onSubmit = useCallback(
-    event => {
+  const onSubmit = useCallback(event => {
       const redirectCallback = redirect ? () => history.push('/') : null;
       return onLogin(event, redirectCallback);
     },[onLogin, redirect]);

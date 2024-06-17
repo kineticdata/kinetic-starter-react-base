@@ -23,20 +23,18 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
     <>
       {!initialized && <LoadingSpinner />}
 
-      {/* Components should wait until all necessary data is loaded before rendering */}
       {loggedIn &&
         <div className='app-container'>
           {/* Header will always be shown */}
           <Header space={kineticSpace} loggedIn={loggedIn} profile={userProfile} />
           
-          {/* Add base routes and Primary Service routes here */}
+          {/* Add base routes and starter routes here */}
           <div className='app-content-container'>
           {breadcrumbs && <Breadcrumbs />}
             <Routes>
               {/* Base level routing */}
               <Route  
                 path='/'
-                // Change this element to LandingPage.jsx if an alternate landing is needed.
                 element={<LandingPage />}
                 exact
               />
@@ -46,7 +44,7 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
                 exact
               />
 
-              {/* Kapps should be used as the example of contained routing for additonal services */}
+              {/* Kapps should be used as the example of contained routing for additonal starters */}
               <Route  
                 path='/kapps/*'
                 element={<KineticPlatformRouting />}

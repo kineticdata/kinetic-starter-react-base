@@ -42,7 +42,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
         setIsLoading(true);
         updateProfile({
         profile: newProfileData,
-        }).then(({ profile, error }) => {
+        }).then(({ error }) => {
           if (!error) {
             setIsLoading(false);
             setIsProfileModalOpen(false);

@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <KineticLib globals={globals} locale="en">
       {kineticProps => (
         <HashRouter>
-            {/* See the ContextWrappers file for a description */}
+            {/* Complete list of Context wrappers */}
             <ContextWrappers>
               {/* Complete application */}
               <App {...kineticProps} />
