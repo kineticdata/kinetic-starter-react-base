@@ -73,7 +73,6 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
       </Link>
       {loggedIn && profile && (
         <div className="header-logged-in">
-          {/* TODO: Find why clicking the button again doesn't close the dropdown */}
           <DropdownMenu 
             isDropdownOpen={isHelpMenuOpen}
             setIsDropdownOpen={() => setIsHelpMenuOpen(false)}
