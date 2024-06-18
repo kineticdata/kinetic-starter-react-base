@@ -14,8 +14,8 @@ $modal-background-opacity: #00000080;
 // Coreform Styling
 // Form
 $form-primary-text-color: black;
-$form-bg: white;
-$form-bg-light: white;
+$form-bg: $colors-greyscale-800;
+$form-bg-light: $colors-greyscale-800;
 $form-border-radius: .75rem;
 $form-padding: 1rem;
 $form-shadow-enabled: true;
