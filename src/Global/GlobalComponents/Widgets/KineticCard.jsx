@@ -13,7 +13,7 @@ export const KineticCard = ({ title, icon, subtext, linkPath, cardClassname }) =
                     {title}
                 </div>
                 <div className="kinetic-card-subtext">
-                    Last Updated: {subtext}
+                    {subtext}
                 </div>
             </div>
         </Link>

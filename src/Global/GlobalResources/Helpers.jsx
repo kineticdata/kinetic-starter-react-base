@@ -1,7 +1,7 @@
-// Helper.js is a global file that provides mutli use 
-// helper functions for use within the application.
-
 import { useEffect, useRef } from "react";
+
+// Helper.js is a global file that provides mutli use 
+// helper functions for within the application.
 
 const urlPrefix = process.env.REACT_APP_PROXY_HOST;
 
@@ -26,7 +26,7 @@ export const formatDate = ( date, dateFormat ) => {
 }
 
 // Builds the modal content, adding in a ref hook and event listener for any 
-// mouseclicks outside the modal. In that case it will close the modal
+// mouseclicks outside the modal, which will close it
 export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
   const Component = (props) => {
     const ref = useRef();
@@ -54,19 +54,6 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
     };
   
     return <Component />;
-  }
-
-  const fileSizeUnits = ['B', 'KB', 'MB', 'GB', 'TB'];
-
-  export const humanizeFileSize = (sizeInBytes) => {
-    let unitIndex = 0;
-    let size = sizeInBytes;
-    while (size > 1024 && unitIndex < fileSizeUnits.length - 1) {
-      unitIndex++;
-      size = size / 1024;
-    }
-    const fixed = Number.isInteger(size) ? size : size.toFixed(2);
-    return `${fixed} ${fileSizeUnits[unitIndex]}`;
   }
 
   export const getHelpLinks = spaceAdmin => {

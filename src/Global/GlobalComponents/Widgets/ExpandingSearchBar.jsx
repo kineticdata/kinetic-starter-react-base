@@ -1,6 +1,6 @@
 import React from "react";
 
-// An expandable search bar, intended to be used in the header.
+// Included optional expandable search bar, intended to be used in the header.
 // Search funstionality and display not included.
 export const ExpandingSearchBar = () => {
 

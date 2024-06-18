@@ -3,11 +3,7 @@ import { createPortal } from "react-dom";
 import { withClickOutside } from "../../GlobalResources/Helpers";
 
 export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content} ) => {
-    // TODO: Add a global function to track when modal is open
-    // and use that to apply an opaque layer behind the modal that 
-    // won't allow users to click something outside of the modal
-
-    const refPortal = forwardRef(({ isOpen, setIsOpen }, ref) => {
+    const refPortal = forwardRef(({ setIsOpen }, ref) => {
             return(
                 <>
                     {isModalOpen && createPortal( 

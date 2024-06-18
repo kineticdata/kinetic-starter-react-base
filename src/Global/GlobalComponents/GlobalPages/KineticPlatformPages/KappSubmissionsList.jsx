@@ -69,7 +69,7 @@ export const KappSubmissionsList = () => {
                 pageNames: ['Kapps List', kappData.name, 'Submissions List'],
                 path: `/kapps/${kappSlug}/submissions`});
         } else {
-            fetchKapp({ kappSlug, include: 'details' }).then(({ kapp }) => setKappData(kapp)).catch(error => setPageError(error));
+            fetchKapp({ kappSlug, include: 'details' }).then(({ kapp, error }) => !error ? setKappData(kapp) : setPageError(error));
         }
     }, [kappData]);
 

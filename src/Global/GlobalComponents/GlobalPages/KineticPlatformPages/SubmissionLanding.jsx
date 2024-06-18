@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { fetchSubmission, deleteSubmission } from '@kineticdata/react';
@@ -52,7 +52,6 @@ export const SubmissionLanding = () => {
         });  
     }, [kappSlug, formSlug, submissionsId]);
 
-    // TODO: Need to do error handling for this - probably for everything actually
     const confirmDeleteSubmission = () => {
         deleteSubmission({ id: submissionsId }).then(error => !error ? navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`) : setPageError(error));
     }
