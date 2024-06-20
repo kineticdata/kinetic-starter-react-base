@@ -148,17 +148,14 @@
 
 .footer-wrapper {
   display: flex;
-  justify-content: space-around;
-  left: 0;
-  bottom: 0;
+  justify-content: center;
+  align-items: center;
   border-bottom: solid .125rem $colors-secondary-200;
-  padding: 0.5rem;
+  padding: 0.75rem 0;
   background-color: $colors-greyscale-100;
 
   .kd-logo {
-    height: 1.25rem;  
-    width: 11.25rem;
-    padding: 0.273rem 0.226rem 0.219rem 0.238rem;
+    height: 1.25rem;
   }
 }
 
