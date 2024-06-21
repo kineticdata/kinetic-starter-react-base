@@ -39,7 +39,7 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
         >
             <div className="table-dropdown-content">
                 {tablePageCount}
-                <i className='las la-angle-down arrow-size' aria-hidden='true' />
+                <i className='las la-angle-down arrow-size hover-arrow' aria-hidden='true' />
             </div>
         </button>
     ), [tablePageCount]);

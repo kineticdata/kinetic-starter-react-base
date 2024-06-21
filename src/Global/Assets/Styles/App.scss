@@ -107,6 +107,7 @@ button {
   color: $colors-primary-200;
 
   &:hover {
+      color: $colors-primary-100;
       background-color: $colors-primary-600;
   }
 }
