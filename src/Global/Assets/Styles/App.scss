@@ -143,3 +143,26 @@ button {
   font-size: .875rem;
   font-weight: 400;
 }
+
+.width-limit {
+  display: flex;
+  justify-content: center;
+
+  .infowrapper {
+
+    .key-value-pair {
+      display: flex;
+      justify-content: flex-start;
+      margin: 1rem;
+
+      .key {
+        font-weight: 800;
+        padding-right: 2rem;
+      }
+
+      .value {
+
+      }
+    }
+  }
+}
