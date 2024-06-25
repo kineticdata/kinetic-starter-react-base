@@ -12,8 +12,6 @@ import { createRoot } from 'react-dom/client';
  * @param options Object of options to pass through to the MarkdownField component
  */
 
-// TODO track any widgets rendered this way and unmount when they are removed
-// from the dom so you don't end up with orphaned React apps
 export const Markdown = (container, field, options) => {
   createRoot(container).render(<MarkdownField {...options} field={field} />);
 };

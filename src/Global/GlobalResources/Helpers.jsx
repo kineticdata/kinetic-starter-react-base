@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 
 const urlPrefix = process.env.REACT_APP_PROXY_HOST;
 
-// TODO: verify the logic; do we only ever want 2 initials?
 export const getUserInitials = displayName => {
     // Returns full name initials if seperated by a space
     if (displayName.includes(' ')) {
