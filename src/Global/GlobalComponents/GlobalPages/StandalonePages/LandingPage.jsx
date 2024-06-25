@@ -6,6 +6,6 @@ export const LandingPage = () => {
     
     useEffect(() => {
         // use location replace so this page does not get added to browser history.
-        window.location.replace(`${window.location.href}/forms`);
+        window.location.replace(`${window.location.href}kapps`);
     },[])
 };          
