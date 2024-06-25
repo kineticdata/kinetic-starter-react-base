@@ -33,7 +33,7 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
         >
             <div className="table-dropdown-content">
                 {tableQuery?.limit || 10}
-                <i className='las la-angle-down arrow-size' aria-hidden='true' />
+                <i className='las la-angle-down arrow-size hover-arrow' aria-hidden='true' />
             </div>
         </button>
     ), [tableQuery]);
@@ -157,9 +157,6 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
                             dropdownContent={paginationOptions}
                             contentClassName='pagination-options-dropdown'
                         />
-                        <>
-                            {data.length} rows
-                        </>
                         {getPaginationButton('left')}
                         {getPaginationButton('right')}
                     </div>  
@@ -169,9 +166,6 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
             {/* Mobile pagination controls */}
             {isMobileDevice && (
                     <div className='mobile-pagination-wrapper'>
-                    <>
-                        {data.length} rows
-                    </>
                         {getPaginationButton('left')}
                         {getPaginationButton('right')}
                         <DropdownMenu
