@@ -92,8 +92,6 @@ export const SubmissionLanding = () => {
         )
     }, []);
 
-    console.log('OPE', submissionData)
-
     return submissionData && !pageError ? (
         <>
             <PageTitle title={`Submission: ${submissionData.label}`} />
