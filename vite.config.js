@@ -7,7 +7,23 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     build: {
-      outDir: 'build',  
+      outDir: 'build',
+      css: {
+        postcss: {
+          plugins: [
+            {
+              postcssPlugin: 'internal:charset-removal',
+              AtRule: {
+                charset: (atRule) => {
+                  if (atRule.name === 'charset') {
+                    atRule.remove();
+                  }
+                }
+              }
+            }
+          ]
+        }
+    }
     },
     esbuild: {
       loader: 'jsx',
@@ -41,12 +57,6 @@ export default defineConfig(({ command, mode }) => {
     },
     define: {
       'process.env': env,
-    },
-    css: {
-      preprocessorOptions: {
-       sass: { charset: false },
-       scss: { charset: false },
-      },
     },
   };
 })
