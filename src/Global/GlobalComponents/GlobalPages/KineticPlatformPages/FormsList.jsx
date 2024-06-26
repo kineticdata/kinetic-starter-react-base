@@ -88,7 +88,7 @@ export const FormsList = () => {
     }, [kappSlug])
 
     const kappSubmissionsLink = useMemo(() => (
-        <Link className="button cancel support-docs-link" to={`/kapps/${kappSlug}/submissions`}>
+        <Link className="button primary-no-border support-docs-link" to={`/kapps/${kappSlug}/submissions`}>
             View Kapp Submissions
         </Link>
     ), [kappSlug])

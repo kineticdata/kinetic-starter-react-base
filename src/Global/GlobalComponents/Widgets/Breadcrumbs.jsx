@@ -8,15 +8,17 @@ export const Breadcrumbs = () => {
 
     return (
         <div className="breadcrumb-wrapper">
-            {breadcrumbs.map(crumb => {
+            {breadcrumbs.map((crumb, idx) => {
                 return (
-                    <Link 
-                        to={crumb.path} 
-                        key={crumb.path}
-                        className="breadcrumb-crumb link"
-                    >
-                        {crumb.page}
-                    </Link>
+                    <div key={idx} className="crumb-wrapper">
+                        <Link 
+                            to={crumb.path} 
+                            className="breadcrumb-crumb link"
+                            >
+                            {crumb.page}
+                        </Link>
+                        {idx !== breadcrumbs.length - 1 && <i className="las la-angle-right crumb-divider" />}
+                    </div>
                 )
             })}
         </div>

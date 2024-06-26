@@ -1,10 +1,10 @@
 import React, { useContext, useMemo, useState } from 'react';
-import logo from '../Assets/Images/KD logo.png'
+import logo from '../Assets/Images/kinetic-data-logo-rgb 1.svg'
 import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './Widgets/Dropdown/Dropdown';
 import { logout } from '@kineticdata/react';
-import { getHelpLinks, getUserInitials } from '../GlobalResources/Helpers';
+import { getHelpLinks } from '../GlobalResources/Helpers';
 import { KineticModal } from './Widgets/KineticModal'
 import { ProfileChange } from './Widgets/ProfileChange';
 
@@ -27,7 +27,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className='user-info-top'>
           <div className='user-icon-backing' >
             <div className='header-dropdown-profile in-dropdown'>
-                  {getUserInitials(userProfile.displayName)}
+                  {userProfile.displayName[0]}
             </div>
           </div>
         </div>
@@ -64,16 +64,14 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
   
   return (
     <div className='header-containter'>
-      <Link to="/" className='header-logo'>
+      <Link to="/">
         <img
           alt="logo"
           src={logo}
-          className='header-logo'
         />
       </Link>
       {loggedIn && profile && (
         <div className="header-logged-in">
-          {/* TODO: Find why clicking the button again doesn't close the dropdown */}
           <DropdownMenu 
             isDropdownOpen={isHelpMenuOpen}
             setIsDropdownOpen={() => setIsHelpMenuOpen(false)}
@@ -104,7 +102,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
                     setIsProfileMenuOpen(!isProfileMenuOpen);
                 }}
               >
-                {getUserInitials(userProfile.displayName)}
+                {userProfile.displayName[0]}
               </button>
             } 
             aboveListContent={profileDropdownHeader}

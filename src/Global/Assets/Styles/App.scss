@@ -18,7 +18,7 @@ button {
 
   &:disabled {
     background-color: $colors-greyscale-200 !important;
-    color: white !important;
+    color: $colors-greyscale-800 !important;
     cursor: default !important;
   }
 }
@@ -51,7 +51,7 @@ button {
   height: auto;
   
   // This min-height should be adjusted if the header/footer heights are changed
-  min-height: calc(100vh - 133.5px);
+  min-height: calc(100vh - 119.5px);
 
   @media screen and (max-width: 1366px) {
     margin: 0 3rem;
@@ -64,7 +64,7 @@ button {
 }
 
 .standard-icon-size {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .link {
@@ -88,10 +88,10 @@ button {
   background-color: $colors-warning-600;
 }
 
-// TODO: organize and validate buttons
+// Button color schemas
 .edit {
   background-color: $colors-primary-200;
-  color: white;
+  color: $colors-greyscale-800;
 
   &:hover {
       background-color: $colors-primary-100;
@@ -100,13 +100,14 @@ button {
 
 .update {
   background-color: $colors-greyscale-200;
-  color: white;
+  color: $colors-greyscale-800;
 }
 
 .cancel {
   color: $colors-primary-200;
 
   &:hover {
+      color: $colors-primary-100;
       background-color: $colors-primary-600;
   }
 }
@@ -121,10 +122,19 @@ button {
 
 .delete-red-bg {
   background-color: $colors-error-200;
-  color: white;
+  color: $colors-greyscale-800;
 
   &:hover {
     background-color: $colors-error-100;
+  }
+}
+
+.primary-no-border {
+  color:$colors-primary-200;
+
+  &:hover {
+    color: $colors-primary-100;
+    background-color: $colors-primary-600;
   }
 }
 

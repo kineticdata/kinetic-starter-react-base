@@ -9,10 +9,10 @@ import { CoreForm } from "@kineticdata/react/lib/components";
 import { KineticModal } from "../../Widgets/KineticModal";
 
 export const KappLanding = () => {
-    const navigate = useNavigate();
     
     useEffect(() => {
-        navigate('forms')
+        // use location replace so this page does not get added to browser history.
+        window.location.replace(`${window.location.href}/forms`);
     }, [])
 
     // const globalState = useContext(GlobalContext);
