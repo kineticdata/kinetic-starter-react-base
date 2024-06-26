@@ -45,7 +45,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          charset: false,
+          charset: "UTF-8",
         },
       },
     },
