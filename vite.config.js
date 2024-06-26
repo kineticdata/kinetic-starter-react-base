@@ -6,24 +6,24 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    build: {
-      outDir: 'build',
-      css: {
-        postcss: {
-          plugins: [
-            {
-              postcssPlugin: 'internal:charset-removal',
-              AtRule: {
-                charset: (atRule) => {
-                  if (atRule.name === 'charset') {
-                    atRule.remove();
-                  }
+    css: {
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove();
                 }
               }
             }
-          ]
-        }
-    }
+          }
+        ]
+      }
+    },
+    build: {
+      outDir: 'build',
     },
     esbuild: {
       loader: 'jsx',
