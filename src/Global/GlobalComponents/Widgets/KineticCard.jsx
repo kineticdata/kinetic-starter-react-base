@@ -8,7 +8,7 @@ export const KineticCard = ({ title, icon, subtext, linkPath, cardClassname }) =
     return (
         <Link to={linkPath} className={`kinetic-card-wrapper ${cardClassname}`}>
             <div className="kinetic-card-content">
-                <div className={`${icon && `las ${icon}`} kinetic-card-icon`} />
+                <div className={`${icon && `la ${icon}`} kinetic-card-icon`} />
                 <div className="kinetic-card-title">
                     {title}
                 </div>
