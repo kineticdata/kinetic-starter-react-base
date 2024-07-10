@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import qs from "qs";
 
 // Helper.js is a global file that provides mutli use 
 // helper functions for within the application.
@@ -8,6 +9,18 @@ const urlPrefix = process.env.REACT_APP_PROXY_HOST;
 export const formatDate = ( date, dateFormat ) => {
     return moment(date).format(dateFormat)
 }
+
+// Fetches form field values from query parameters and
+// returns them as a map
+export const valuesFromQueryParams = queryParams => {
+    return Object.entries(Object.fromEntries([...queryParams])).reduce((values, [key, value]) => {
+        if (key.startsWith('values[')) {
+            const vk = key.match(/values\[(.*?)\]/)[1];
+            return { ...values, [vk]: value };
+        }
+        return values;
+    }, {});
+};
 
 // Builds the modal content, adding in a ref hook and event listener for any 
 // mouseclicks outside the modal, which will close it
