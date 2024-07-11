@@ -6,7 +6,7 @@ import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { formatDate } from "../../../GlobalResources/Helpers";
 import { KineticModal } from "../../Widgets/KineticModal";
-import {KineticPlatformForm} from "../../Widgets/KineticPlatformForm"
+import {KineticForm} from "../../Widgets/KineticForm"
 import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";
 
 export const SubmissionLanding = () => {
@@ -108,10 +108,10 @@ export const SubmissionLanding = () => {
             </div>
             <div className="with-activities-wrapper">
                 <div className={`form-page-wrapper ${activityData ? 'add-flex-3' : ''}`}>
-                    <KineticPlatformForm        
+                    <KineticForm        
                         submissionId={submissionsId}
                         isEditMode={!isEditMode}
-                        />
+                    />
                     {canEdit && submissionsFooter}
                 </div>
                 {activityData && <ActivitiesList activities={activityData} styling='activities-list-wrapper' />}

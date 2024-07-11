@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import qs from "qs";
 
 // Helper.js is a global file that provides mutli use 
 // helper functions for within the application.
@@ -15,8 +14,8 @@ export const formatDate = ( date, dateFormat ) => {
 export const valuesFromQueryParams = queryParams => {
     return Object.entries(Object.fromEntries([...queryParams])).reduce((values, [key, value]) => {
         if (key.startsWith('values[')) {
-            const vk = key.match(/values\[(.*?)\]/)[1];
-            return { ...values, [vk]: value };
+          const vk = key.match(/values\[(.*?)\]/)[1];
+          return { ...values, [vk]: value };
         }
         return values;
     }, {});

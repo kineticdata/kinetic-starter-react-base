@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { KineticPlatformForm } from "../../Widgets/KineticPlatformForm";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { Link, useParams } from "react-router-dom";
 import { fetchForm } from '@kineticdata/react';
 import { PageTitle } from "../../Widgets/PageTitle";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
+import { KineticForm } from "../../Widgets/KineticForm";
 
 export const FormLanding = () => {
     const globalState = useContext(GlobalContext);
@@ -43,7 +43,7 @@ export const FormLanding = () => {
         <>
             <PageTitle title={formData.name} subtext={formData.description && formData.description} rightSide={pageTitleLink} />
             <div className="form-page-wrapper">
-                <KineticPlatformForm
+                <KineticForm
                     kappSlug={kappSlug}
                     formSlug={formSlug}
                 />
