@@ -66,7 +66,7 @@ export const FormSubmissionsList = () => {
             return (
                 <Link 
                     to={`/kapps/${kappSlug}/forms/${formSlug}`}
-                    className="support-docs-link link"
+                    className="button tertiary-btn support-docs-link link"
                 >
                     Create Submission
                 </Link>

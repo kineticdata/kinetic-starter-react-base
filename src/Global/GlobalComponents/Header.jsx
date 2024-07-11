@@ -53,7 +53,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
             id='logout-link'
             href='/' 
             onClick={logout}
-            className='button cancel'
+            className=' button signout-button'
           >
             Sign Out
           </a>

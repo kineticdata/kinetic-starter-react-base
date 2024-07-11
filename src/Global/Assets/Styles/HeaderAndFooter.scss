@@ -23,6 +23,18 @@
     }
   }
 
+  .signout-button {
+    font-weight: bold;
+    line-height: 1.5;
+    color: $colors-primary-200;
+    text-decoration: none;
+
+    &:hover {
+      color: $colors-primary-100;
+      background-color: $colors-primary-600;
+    }
+  }
+
   .help-link {
     font-size: 1.407rem;
     gap: .25rem;

@@ -12,7 +12,7 @@ export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content}
                                 <div className='modal-header'>
                                     {modalTitle}
                                     <button onClick={() => setIsOpen(false)} autoFocus aria-label="Close Modal.">
-                                        <i className="las la-times button cancel" aria-hidden="true" />
+                                        <i className="las la-times" aria-hidden="true" />
                                     </button>
                                 </div>
                                 {content}

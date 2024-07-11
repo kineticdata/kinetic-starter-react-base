@@ -83,7 +83,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
                 <button 
                   aria-label="Opens or Closes the display to change password."
                   onClick={() => setIsPasswordOpen(!isPasswordOpen)}
-                  className='button primary-with-border'
+                  className='primary-with-border'
                 >
                     {isPasswordOpen ? 'Cancel Password Change' : 'Change Password'}
                 </button>
@@ -92,7 +92,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
             : <LoadingSpinner error={pageError} />}
             </div>
           <div className='profile-modal-footer'>
-            <button className='edit' disabled={!doPasswordsMatch} onClick={handleProfileUpdate}>
+            <button className='edit-btn' disabled={!doPasswordsMatch} onClick={handleProfileUpdate}>
               <i className="las la-check profile-check-spacing" aria-hidden="true"></i>
               Update Profile
             </button>
