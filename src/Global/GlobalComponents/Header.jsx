@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from 'react';
-import logo from '../Assets/Images/kinetic-data-logo-rgb 1.svg'
+import logo from '../Assets/Images/kinetic-data-logo-rgb.svg'
 import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './Widgets/Dropdown/Dropdown';

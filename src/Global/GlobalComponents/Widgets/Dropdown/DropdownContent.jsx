@@ -12,6 +12,14 @@ export const DropdownContent = ({
 
     const handleOutsideClick = event => {
         if (isDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            // If the outside area being clicked is the dropdown face button itself
+            // wait for the initial button click to complete before closing the dropdown
+            // This prevents the open function from happening after this close call goes through
+            if (dropdownRef.current.classList.contains("dropdown-content")) {
+                setTimeout(() => {
+                    setIsDropdownOpen()
+                }, 100)
+            }
             setIsDropdownOpen()
         }
     };
@@ -23,11 +31,11 @@ export const DropdownContent = ({
     };
 
     useEffect(() => {
-      document.addEventListener("mousedown", handleOutsideClick);
-      document.addEventListener("keydown", handleEscapePress);
+      document.addEventListener("mouseup", handleOutsideClick);
+      document.addEventListener("keyup", handleEscapePress);
       return () => {
-        document.removeEventListener("mousedown", handleOutsideClick);
-        document.removeEventListener("keydown", handleEscapePress);
+        document.removeEventListener("mouseup", handleOutsideClick);
+        document.removeEventListener("keyup", handleEscapePress);
       };
     });
 

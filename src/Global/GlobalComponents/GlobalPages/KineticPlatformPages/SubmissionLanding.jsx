@@ -6,7 +6,7 @@ import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { formatDate } from "../../../GlobalResources/Helpers";
 import { KineticModal } from "../../Widgets/KineticModal";
-import { CoreForm } from "@kineticdata/react/lib/components";
+import {KineticForm} from "../../Widgets/KineticForm"
 import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";
 
 export const SubmissionLanding = () => {
@@ -53,7 +53,7 @@ export const SubmissionLanding = () => {
     }, [kappSlug, formSlug, submissionsId]);
 
     const confirmDeleteSubmission = () => {
-        deleteSubmission({ id: submissionsId }).then(error => !error ? navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`) : setPageError(error));
+        deleteSubmission({ id: submissionsId }).then(({error}) => !error ? navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`) : setPageError(error));
     }
 
     const submissionsFooter = useMemo(() => {
@@ -108,12 +108,10 @@ export const SubmissionLanding = () => {
             </div>
             <div className="with-activities-wrapper">
                 <div className={`form-page-wrapper ${activityData ? 'add-flex-3' : ''}`}>
-                    <CoreForm          
-                        submission={submissionsId}
-                        onCompleted={() => navigate(0)}
-                        onUpdated={() => navigate(0)}
-                        review={!isEditMode}
-                        />
+                    <KineticForm        
+                        submissionId={submissionsId}
+                        isEditMode={!isEditMode}
+                    />
                     {canEdit && submissionsFooter}
                 </div>
                 {activityData && <ActivitiesList activities={activityData} styling='activities-list-wrapper' />}
