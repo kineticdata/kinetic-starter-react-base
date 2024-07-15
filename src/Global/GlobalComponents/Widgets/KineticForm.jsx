@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CoreForm } from '@kineticdata/react/lib/components';
 import {valuesFromQueryParams} from '../../GlobalResources/Helpers'
