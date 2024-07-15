@@ -61,13 +61,13 @@ export const SubmissionLanding = () => {
             <div className="submissions-footer-wrapper with-border">
                 <button 
                     onClick={() => setIsEditMode(!isEditMode)}
-                    className={`button${isEditMode ? ' cancel' : ' edit with-icon'}`}
+                    className={`${isEditMode ? 'tertiary-btn' : 'edit-btn with-icon'}`}
                 >
                     {isEditMode ? 'Cancel' : 'Edit'}
                 </button>
                 <button 
                     onClick={() => setIsDeleteOpen(!isDeleteOpen)}
-                    className="button delete"
+                    className="delete"
                 >
                     Delete
                 </button>
@@ -83,7 +83,7 @@ export const SubmissionLanding = () => {
                     <button 
                         aria-label="Delete submission."
                         onClick={() => confirmDeleteSubmission()}
-                        className="button delete-red-bg"
+                        className="delete-red-bg"
                     >
                         Delete Submission
                     </button>

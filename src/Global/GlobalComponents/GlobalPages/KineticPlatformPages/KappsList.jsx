@@ -40,7 +40,7 @@ export const KappsList = () => {
 
     const pageTitleLink = useMemo(() => {
         return (
-            <Link to='https://docs.kineticdata.com/docs/kapps' className="support-docs-link link cancel" target="_blank">
+            <Link to='https://docs.kineticdata.com/docs/kapps' className="support-docs-link link tertiary-btn" target="_blank">
                 <div className="las la-book-open link-spacing standard-icon-size" aria-hidden="true" />
                 Kapp Support Docs
             </Link>
