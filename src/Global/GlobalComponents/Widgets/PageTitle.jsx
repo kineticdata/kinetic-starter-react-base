@@ -8,7 +8,7 @@ export const PageTitle = ({ title, subtext, rightSide }) => (
             <div className="page-title">
                 {title}
             {subtext && 
-                <div className="page-subtext">
+                <div>
                     {subtext}
                 </div>
             }
