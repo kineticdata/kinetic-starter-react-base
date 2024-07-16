@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CoreForm } from '@kineticdata/react/lib/components';
 import {valuesFromQueryParams} from '../../GlobalResources/Helpers'
+import { LoadingSpinner } from './LoadingSpinner';
 
 export const KineticForm = props => {
     const { kappSlug, formSlug, submissionId, isEditMode } = props;
@@ -17,6 +18,13 @@ export const KineticForm = props => {
         setForm(form.slug());
         setKapp(form.kapp().slug());
     };
+
+    const Pending = () => (
+        <div className="cm-form-loading">
+            <LoadingSpinner />
+        </div>
+      );
+      
 
     const handleRedirect = () => response => {
         // Check if either currentPage is null (pre form consolidation) or
@@ -38,6 +46,7 @@ export const KineticForm = props => {
             onLoaded={handleLoaded()}
             onUpdated={handleRedirect()}
             onCompleted={handleRedirect()}
+            components={{Pending}}
             {...props}
         />
     ) : (
@@ -46,6 +55,7 @@ export const KineticForm = props => {
             form={form}
             onCompleted={handleRedirect()}
             values={paramFieldValues || props.values}
+            components={{Pending}}
             {...props}
         />
     );
