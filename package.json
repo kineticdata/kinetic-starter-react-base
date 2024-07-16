@@ -41,6 +41,9 @@
     "inquirer": "^8.0.0",
     "vite": "^4.4.5"
   },
+  "overrides": {
+    "esbuild": "0.14.6"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
