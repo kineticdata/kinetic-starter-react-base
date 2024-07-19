@@ -46,7 +46,7 @@ export const KineticForm = props => {
             onLoaded={handleLoaded()}
             onUpdated={handleRedirect()}
             onCompleted={handleRedirect()}
-            components={{Pending}}
+            components={{Pending, ...props.components}}
             {...props}
         />
     ) : (
@@ -55,7 +55,7 @@ export const KineticForm = props => {
             form={form}
             onCompleted={handleRedirect()}
             values={paramFieldValues || props.values}
-            components={{Pending}}
+            components={{Pending, ...props.components}}
             {...props}
         />
     );
