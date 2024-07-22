@@ -178,3 +178,11 @@
     background-color: $colors-primary-600;
   }
 }
+
+.cm-form-loading {
+  height: 30rem;
+  width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translateY(.125rem);
+}

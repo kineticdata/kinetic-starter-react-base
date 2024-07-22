@@ -11,12 +11,12 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;  
+  letter-spacing: normal;
   flex-grow: 0;
-  
+
   color: $colors-greyscale-100;
   background-color: $colors-greyscale-600;
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   color-scheme: light;
@@ -24,19 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  @media screen
-    and (min-width: 1024px)
-    and (max-width: 1366px) {
-        width: 100%;
-    }
+  @media screen and (min-width: 1024px) and (max-width: 1366px) {
+    width: 100%;
+  }
 }
 
-#root {    
+#root {
   height: auto;
   width: 100vw;
 }
 
 body {
+  font-family: $font-family;
   display: flex;
   place-items: center;
   justify-content: center;
@@ -45,9 +44,8 @@ body {
   max-height: 100%;
   margin: 0px !important;
 
-  @media screen
-    and (max-width: 768px) {
-      min-width: auto;
+  @media screen and (max-width: 768px) {
+    min-width: auto;
   }
 }
 
