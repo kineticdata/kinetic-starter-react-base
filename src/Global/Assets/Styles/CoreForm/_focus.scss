@@ -1,49 +1,52 @@
 /**
- * Focus - Common
+ * Focus - CoreForm
  ******************************************************************************/
 
-input[type='text']:focus,
-input[type='password']:focus,
-input[type='number']:focus,
-input[type='tel']:focus,
-input[type='email']:focus,
-input[type='date']:focus,
-input[type='radio']:focus,
-input[type='checkbox']:focus,
-input[type='file']:focus,
-input[type='search']:focus,
-input[type='submit']:focus,
-input:focus,
-textarea:focus,
-select:focus,
-.form-control:focus {
-  outline: none;
-  border-color: darken($input-border-color, 10%);
-  border-radius: .25rem;
-  box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
+ .embedded-core-form {
 
-  form .form-group.has-error &,
-  .form .form-group.has-error &,
-  form .radio.has-error &,
-  .form .radio.has-error &,
-  form .checkbox.has-error &,
-  .form .checkbox.has-error & {
-    border-color: darken($danger, 10%);
-    box-shadow: 0 0 1px .25rem rgba($danger, 0.25) !important;
-  }
-}
-
-a:focus,
-button:focus,
-.btn:focus,
-// Kinetic button types
-[data-element-type='button'][data-button-type='submit-page']:not(.btn):focus,
-[data-element-type='button'][data-button-type='save']:not(.btn):focus,
-[data-element-type='button'][data-button-type='custom']:not(.btn):focus,
-[data-element-type='button'][data-button-type='previous-page']:not(.btn):focus,
-.fileinput-button:focus-within {
-  outline: none;
-  border-color: darken($input-border-color, 10%);
-  border-radius: .25rem;
-  box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
-}
+   input[type='text']:focus,
+   input[type='password']:focus,
+   input[type='number']:focus,
+   input[type='tel']:focus,
+   input[type='email']:focus,
+   input[type='date']:focus,
+   input[type='radio']:focus,
+   input[type='checkbox']:focus,
+   input[type='file']:focus,
+   input[type='search']:focus,
+   input[type='submit']:focus,
+   input:focus,
+   textarea:focus,
+   select:focus,
+   .form-control:focus {
+     outline: none;
+     border-color: darken($input-border-color, 10%);
+     border-radius: .25rem;
+     box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
+   
+     form .form-group.has-error &,
+     .form .form-group.has-error &,
+     form .radio.has-error &,
+     .form .radio.has-error &,
+     form .checkbox.has-error &,
+     .form .checkbox.has-error & {
+       border-color: darken($danger, 10%);
+       box-shadow: 0 0 1px .25rem rgba($danger, 0.25) !important;
+     }
+   }
+   
+   a:focus,
+   button:focus,
+   .btn:focus,
+   // Kinetic button types
+   [data-element-type='button'][data-button-type='submit-page']:not(.btn):focus,
+   [data-element-type='button'][data-button-type='save']:not(.btn):focus,
+   [data-element-type='button'][data-button-type='custom']:not(.btn):focus,
+   [data-element-type='button'][data-button-type='previous-page']:not(.btn):focus,
+   .fileinput-button:focus-within {
+     outline: none;
+     border-color: darken($input-border-color, 10%);
+     border-radius: .25rem;
+     box-shadow: 0 0 1px .25rem rgba($form-focus-color, .5) !important;
+   }
+ }
