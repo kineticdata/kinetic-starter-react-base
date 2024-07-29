@@ -1,0 +1,70 @@
+/* Break Points:
+ Desktop: > 1366px
+ Vertical iPad: < 1366px
+ Mobile: < 768px */
+@import './Design\ Tokens/colors';
+@import './Design\ Tokens/fonts';
+
+:root {
+    /* Base styling applied to the entire application */
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    flex-grow: 0;
+
+    color: var(--colors-greyscale-100);
+    background-color: var(--colors-greyscale-600);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    :root {
+        width: 100%;
+    }
+}
+
+#root {
+    height: auto;
+    width: 100vw;
+}
+
+body {
+    font-family: var(--font-family);
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    min-width: 45rem;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        min-width: auto;
+    }
+}
+
+::-webkit-scrollbar {
+    width: .625rem;
+    height: .625rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--colors-greyscale-200);
+    border-radius: .75rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}

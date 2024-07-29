@@ -1,0 +1,177 @@
+@import './Design\ Tokens/colors';
+@import './Design\ Tokens/fonts';
+
+.dropdown-content {
+    position: absolute;
+    border-radius: .5rem;
+    box-shadow: 0 .25rem .5rem 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--colors-greyscale-400);
+    background-color: var(--colors-greyscale-800);
+    z-index: 2;
+}
+
+.dropdown-content .dropdown-content-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+}
+
+.dropdown-content .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+.dropdown-content .user-info .user-info-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dropdown-content .user-info .user-info-top .user-icon-backing {
+    width: 19.875rem;
+    height: 4.625rem;
+    margin: 0 0 2.188rem;
+    border-radius: .5rem;
+    background-color: var(--colors-primary-600);
+}
+
+.dropdown-content .user-info .user-info-top .in-dropdown {
+    font-size: 2.25rem;
+    position: absolute;
+    left: 9.3rem;
+    top: 3.7rem;
+    background-color: var(--colors-secondary-200);
+    cursor: default;
+    border: none;
+}
+
+.dropdown-content .user-info .user-info-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.dropdown-content .user-info .user-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.dropdown-content .user-info .user-name .edit-icon-wrapper .edit-icon {
+    margin-left: .5rem;
+    padding: .4375rem .6875rem;
+    border-radius: .25rem;
+    color: var(--colors-primary-200);
+    cursor: pointer;
+}
+
+.dropdown-content .user-info .user-name .edit-icon-wrapper .edit-icon :hover {
+    background-color: var(--colors-primary-600);
+}
+
+.dropdown-content .dropdown-links {
+    width: 100%;
+    border-radius: .5rem;
+    background-color: var(--colors-greyscale-800);
+}
+
+.dropdown-content .dropdown-links:hover {
+    background-color: var(--colors-greyscale-600);
+}
+
+.profile-modal-wrapper {
+    width: 38.125rem;
+}
+
+.profile-modal-wrapper .profile-modal-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 13rem;
+}
+
+.profile-modal-wrapper .profile-modal-body .password-wrapper {
+    border: 1px solid var(--colors-greyscale-400);
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
+
+.profile-modal-wrapper .profile-modal-body .required::after {
+    content: '\2A';
+    color: var(--colors-error-200);
+    margin-left: .125rem
+}
+
+.profile-modal-wrapper .profile-modal-body label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.profile-modal-wrapper .profile-modal-body label .profile-label {
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+
+.profile-modal-wrapper .profile-modal-body label .pass-mismatch {
+    border-color: var(--colors-error-100) !important;
+}
+
+.profile-modal-wrapper .profile-modal-body label .pass-mismatch:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, .25) !important;
+    border-color: var(--colors-error-100) !important;
+}
+
+.profile-modal-wrapper .profile-modal-body label input {
+    padding: .4375rem 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    border: 1px solid var(--colors-greyscale-400);
+    font-weight: 400;
+}
+
+.profile-modal-wrapper .profile-modal-body label input:hover {
+    border: 1px solid var(--colors-primary-200);
+}
+
+.profile-modal-wrapper .profile-modal-body label input:focus {
+    border: 1px solid var(--colors-primary-200);
+    box-shadow: 0 0 0 0.25rem rgba(63, 70, 214, .16);
+    outline: 0;
+}
+
+.profile-modal-wrapper .profile-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--colors-secondary-200);
+    margin-top: 1.75rem;
+    padding: 1.75rem 0 0;
+    gap: .5rem;
+}
+
+.help-menu {
+    top: 4.4rem;
+    right: 10rem;
+    width: 18rem;
+}
+
+.profile-menu {
+    top: 4.4rem;
+    right: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .profile-menu {
+        right: 1rem;
+    }
+
+    .help-menu {
+        right: 5rem;
+    }
+}
