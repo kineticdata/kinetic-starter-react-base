@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 // Helper.js is a global file that provides mutli use 
 // helper functions for within the application.
 
-const urlPrefix = process.env.REACT_APP_PROXY_HOST;
+export const urlPrefix = process.env.REACT_APP_PROXY_HOST;
 
 export const formatDate = ( date, dateFormat ) => {
     return moment(date).format(dateFormat)
@@ -32,13 +32,13 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
         if (ref.current !== null && 
           ref.current !== undefined && 
           !ref.current.contains(event.target)) {
-          setIsOpen(false);
+          setIsOpen();
         }
       };
 
       const handleEscapePress = event => {
         if (isOpen && event.key === 'Escape') {
-          setIsOpen(false);
+          setIsOpen();
         }
       };
 
@@ -51,73 +51,4 @@ export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
   
     return <Component />;
   }
-
-  export const getHelpLinks = spaceAdmin => {
-    return [
-      spaceAdmin && {
-        render: 
-          <a 
-            id='platform-documentation'
-            href='https://docs.kineticdata.com/' 
-            className='external-header-dropdown-link'
-            target="_blank" 
-            rel="noopener noreferrer" 
-          >
-            Platform Documentation
-            <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
-      },
-      spaceAdmin && {
-        render: 
-          <a 
-            id='documentation-lin'
-            href={`${urlPrefix}/app/docs/space/core`}
-            className='external-header-dropdown-link'
-            target="_blank" 
-            rel="noopener noreferrer" 
-          >
-            API Reference Docs        
-            <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
-      },
-      {
-        render: 
-          <a 
-            id='bundle-documentation'
-            href='https://docs.kineticdata.com/docs/bundle-introduction' 
-            className='external-header-dropdown-link'
-            target="_blank" 
-            rel="noopener noreferrer" 
-          >
-            Bundle Documentation
-            <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
-      },
-      {
-        render: 
-          <a 
-            id='documentation-li'
-            href={`${urlPrefix}/app/console/#/space/about`}
-            className='external-header-dropdown-link'  
-            target="_blank" 
-            rel="noopener noreferrer" 
-          >
-            About Kinetic Platform
-            <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
-      },
-      {
-        render: 
-          <a 
-            id='console-link'
-            href='app' 
-            className='external-header-dropdown-link'
-            target="_blank" 
-            rel="noopener noreferrer" 
-          >
-            Space Console
-            <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
-      }
-    ]
-  }
+  

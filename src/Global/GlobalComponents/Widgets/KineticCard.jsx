@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 // KineticCard is a generic card for lists
 // It will display an icon (if there is one), name and subtext
-export const KineticCard = ({ title, icon, subtext, linkPath, cardClassname }) => {
+export const KineticCard = ({ title, icon, subtext, linkPath, cardClassName }) => {
 
     return (
-        <Link to={linkPath} className={`kinetic-card-wrapper ${cardClassname}`}>
+        <Link to={linkPath} className={`kinetic-card-wrapper ${cardClassName}`}>
             <div className="kinetic-card-content">
                 <div className={`${icon && `las ${icon}`} kinetic-card-icon`} />
                 <div className="kinetic-card-title">

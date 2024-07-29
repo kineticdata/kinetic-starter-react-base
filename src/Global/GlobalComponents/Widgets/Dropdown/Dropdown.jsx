@@ -7,10 +7,10 @@ import { DropdownContent } from './DropdownContent';
 // positioning and optionally overriding default styling. DropDownMenu
 // should be controlled almost entirely from it's component of origin.
 export const DropdownMenu = ({
-    isDropdownOpen, 
-    setIsDropdownOpen,
     dropdownFace, 
     faceStyle, 
+    isDropdownOpen, 
+    setIsDropdownOpen,
     dropdownContent, 
     contentClassName, 
     aboveListContent, 

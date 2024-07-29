@@ -6,7 +6,7 @@ import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
 // Make sure to note rowData[column.value] must have a value 
 // which should be handled when parsing the incoming data. 
-export const KineticClientTable = ({columns, data, showPagination, customerFooter }) => {
+export const KineticClientTable = ({columns, data, showPagination }) => {
     const globalState = useContext(GlobalContext);
     const { isMobileDevice } = globalState;
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
@@ -16,10 +16,10 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
     const [ sortInfo, setSortInfo ] = useState({order: 'none'});
 
     const paginationOptions = useMemo(() => ([
-        { render: <button aria-label='Set number of rows shown to 10' className="pagination-options remove-padding" onClick={() => setTablePageCount(10)}>10</button> },
-        { render: <button aria-label='Set number of rows shown to 25' className="pagination-options remove-padding" onClick={() => setTablePageCount(25)}>25</button> },
-        { render: <button aria-label='Set number of rows shown to 50' className="pagination-options remove-padding" onClick={() => setTablePageCount(50)}>50</button> },
-        { render: <button aria-label='Set number of rows shown to 100' className="pagination-options remove-padding" onClick={() => setTablePageCount(100)}>100</button> },
+        <button aria-label='Set number of rows shown to 10' className="pagination-options remove-padding" onClick={() => setTablePageCount(10)}>10</button>,
+        <button aria-label='Set number of rows shown to 25' className="pagination-options remove-padding" onClick={() => setTablePageCount(25)}>25</button>,
+        <button aria-label='Set number of rows shown to 50' className="pagination-options remove-padding" onClick={() => setTablePageCount(50)}>50</button>,
+        <button aria-label='Set number of rows shown to 100' className="pagination-options remove-padding" onClick={() => setTablePageCount(100)}>100</button>,
     ]), []);
 
     // If the table is on the first page always use the actual first element
@@ -103,13 +103,13 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
 
     useEffect(() => {
         if (sortInfo.order === 'ASC') {
-            setPaginatedData([...data].sort((first,second) => (
+            setPaginatedData([...data].sort((first, second) => (
                 sortInfo.type === 'date' ?
                     moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
                     : sortAlpha(first, second)
                 )).slice(firstElement, lastElement));
         } else if (sortInfo.order === 'DESC') {
-            setPaginatedData([...data].sort((first,second) => (
+            setPaginatedData([...data].sort((first, second) => (
                 sortInfo.type === 'date' ?
                     moment(first[sortInfo.keyName].toSort) - moment(second[sortInfo.keyName].toSort)
                     : sortAlpha(first, second)
@@ -185,7 +185,6 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
                         />
                     </div>  
                 )}
-                {customerFooter && customerFooter}
             </div>
             {isMobileDevice && (
                 <div className='mobile-pagination-wrapper'>

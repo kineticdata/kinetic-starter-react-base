@@ -39,9 +39,19 @@ export const FormLanding = () => {
         )
     }, [])
 
+    const titleSubtext = useMemo(() => {
+        if (formData && formData.description) {
+            return (
+                <div className="form-landing-subtext">
+                    {formData.description}
+                </div>
+            )
+        }
+    }, [formData])
+
     return formData && !pageError ? (
         <>
-            <PageTitle title={formData.name} subtext={formData.description && formData.description} rightSide={pageTitleLink} />
+            <PageTitle title={formData.name} subtext={titleSubtext} rightSide={pageTitleLink} />
             <div className="form-page-wrapper">
                 <KineticForm
                     kappSlug={kappSlug}

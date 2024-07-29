@@ -5,7 +5,7 @@ import { GlobalContext } from "../../GlobalResources/GlobalContextWrapper";
 
 // Make sure to note rowData[column.value] must have a value 
 // which should be handled when parsing the incoming data. 
-export const KineticQueryTable = ({columns, data, customerFooter }) => {
+export const KineticQueryTable = ({columns, data }) => {
     const globalState = useContext(GlobalContext);
     const { isMobileDevice, tableQuery, setTableQuery, tablePagination, setTablePagination } = globalState;
     const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
@@ -13,7 +13,6 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
     const rowNumbers = [10, 25, 50, 100];
     const paginationOptions = useMemo(() => (
         rowNumbers.map(number => (
-            {render: 
                 <button 
                     aria-label={`Set number of rows shown to ${number}`}
                     className="pagination-options remove-padding" 
@@ -21,7 +20,6 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
                 >
                     {number}
                 </button> 
-            }
         ))
     ), [tableQuery]);
 
@@ -161,7 +159,6 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
                         {getPaginationButton('right')}
                     </div>  
                 )}
-                {customerFooter && customerFooter}
             </div>
             {/* Mobile pagination controls */}
             {isMobileDevice && (
