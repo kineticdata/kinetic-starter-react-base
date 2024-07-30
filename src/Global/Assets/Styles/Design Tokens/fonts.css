@@ -16,14 +16,6 @@
  * limitations under the License.
  */
  
- :root {
-  --font-family: PlusJakartaSans;;
-}
-
-body {
-  font-family: var(--font-family);
-}
- 
  @font-face {
     font-family: PlusJakartaSans;
     src: local(PlusJakartaSans-Light),
