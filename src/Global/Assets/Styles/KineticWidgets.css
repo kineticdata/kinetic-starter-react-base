@@ -22,7 +22,7 @@
 }
 
 .breadcrumb-wrapper .crumb-wrapper .crumb-divider {
-    color: (var--colors-greyscale-200);
+    color: var(--colors-greyscale-200);
     font-size: 1.25rem;
 }
 
@@ -39,12 +39,6 @@
 .page-title-wrapper .page-title {
     font-size: 2rem;
     font-weight: 800;
-}
-
-.page-title-wrapper .page-title .page-subtext {
-    font-size: .75rem;
-    margin-left: 1rem;
-    font-weight: normal;
 }
 
 .kinetic-card-wrapper {
@@ -234,11 +228,9 @@
 }
 
 .table-wrapper .pagination-wrapper .clickable:hover {
-    .clickable {
-        color: var(--colors-primary-100) !important;
-        background-color: var(--colors-primary-600) !important;
-        cursor: pointer;
-    }
+    color: var(--colors-primary-100) !important;
+    background-color: var(--colors-primary-600) !important;
+    cursor: pointer;
 }
 
 .table-wrapper .pagination-wrapper .table-dropdown-face {
