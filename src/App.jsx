@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import './Global/Assets/Styles/master.scss'
 import './Global/Assets/Styles/master.css'
 import { Route, Routes } from 'react-router-dom';
 import { LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
