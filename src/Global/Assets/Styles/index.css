@@ -2,8 +2,8 @@
  Desktop: > 1366px
  Vertical iPad: < 1366px
  Mobile: < 768px */
-@import './Design\ Tokens/colors';
-@import './Design\ Tokens/fonts';
+@import './Design Tokens/colors';
+@import './Design Tokens/fonts.css';
 
 :root {
     /* Base styling applied to the entire application */
