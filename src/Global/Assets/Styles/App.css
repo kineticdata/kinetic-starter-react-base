@@ -138,7 +138,7 @@ button:disabled,
 }
 
 .required-text {
-    color:  var(--colors-error-200);
+    color: var(--colors-error-200);
     font-size: .875rem;
     font-weight: 400;
 }
