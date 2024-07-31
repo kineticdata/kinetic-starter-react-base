@@ -1,5 +1,5 @@
+@charset "UTF-8";
 @import './Design Tokens/colors';
-
 
 .dropdown-content {
     position: absolute;
