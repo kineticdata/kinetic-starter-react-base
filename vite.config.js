@@ -15,19 +15,26 @@ export default defineConfig(({ command, mode }) => {
       exclude: [],
     },
     css: {
+      preprocessorOptions: {
+        scss: {
+          charset: false
+        },
+        less: {
+          charset: false,
+        },
+      },
+      charset: false,
       postcss: {
-        plugins: [
-            {
-              postcssPlugin: 'internal:charset-removal',
-              AtRule: {
-                charset: (atRule) => {
-                  if (atRule.name === 'charset') {
-                    atRule.remove();
-                  }
-                }
+        plugins: [{
+          postcssPlugin: 'internal:charset-removal',
+          AtRule: {
+            charset: (atRule) => {
+              if (atRule.name === 'charset') {
+                atRule.remove();
               }
             }
-        ],
+          }
+        }],
       },
     },
     optimizeDeps: {
