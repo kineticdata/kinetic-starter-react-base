@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import './Global/Assets/Styles/master.css'
+import '/node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css';
 import { Route, Routes } from 'react-router-dom';
 import { LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';

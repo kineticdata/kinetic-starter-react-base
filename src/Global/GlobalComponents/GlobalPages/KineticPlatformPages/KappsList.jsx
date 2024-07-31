@@ -49,7 +49,7 @@ export const KappsList = () => {
     
     return kappsList.length && !pageError ? (
         <div className='kapps-list-page-wrapper'>
-            <PageTitle title='TEST' rightSide={pageTitleLink} />
+            <PageTitle title='Kapps' rightSide={pageTitleLink} />
             <div className="kapp-cards-wrapper">
                 {generateKappCards}
             </div>
