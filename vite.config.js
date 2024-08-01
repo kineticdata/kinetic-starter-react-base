@@ -13,6 +13,7 @@ export default defineConfig(({ command, mode }) => {
       loader: 'jsx',
       include: /src\/.*\.jsx?$/,
       exclude: [],
+      charset: 'ascii'
     },
     optimizeDeps: {
       force: true,
