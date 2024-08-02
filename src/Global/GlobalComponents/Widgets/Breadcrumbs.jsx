@@ -9,7 +9,6 @@ export const Breadcrumbs = () => {
     return (
         <div className="breadcrumb-wrapper">
             {breadcrumbs.map((crumb, idx) => {
-                console.log('crumb.path', crumb.path);
                 return (
                     <div key={idx} className="crumb-wrapper">
                         <Link 
