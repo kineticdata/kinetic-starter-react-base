@@ -8,10 +8,8 @@ export function GlobalContextWrapper({children}) {
     // Create any static variables needed for the state
     // Be sure to define your default values here or update them in this component
     const [ isAuthorized, setIsAuthorized ] = useState(false);
-    const [ error, setError ] = useState(null);
     const [ userProfile, setUserProfile ] = useState(null);
     const [ kineticSpace, setKineticSpace ] = useState(null);
-    const [ globalCount, setGlobalCount ] = useState(0);
     const [ breadcrumbs, setBreadcrumbs ] = useState([]);
     const [ isMobileDevice, setIsMobileDevice ] = useState(false);
     const [ tableQuery, setTableQuery ] = useState();
@@ -93,7 +91,6 @@ export function GlobalContextWrapper({children}) {
     // useMemo is recommended for performance
     const GlobalContextData = useMemo(() => ({
         // GlobalContextData values
-            globalCount,
             isAuthorized,
             userProfile,
             kineticSpace,
@@ -102,7 +99,6 @@ export function GlobalContextWrapper({children}) {
             tableQuery,
             tablePagination,
         // GlobalContextData functions
-            setGlobalCount,
             setIsAuthorized,
             setUserProfile,
             setKineticSpace,
@@ -111,7 +107,6 @@ export function GlobalContextWrapper({children}) {
             setTablePagination
         // Make sure all values are added to the deps so that GlobalContextData is refreshed when they change
     }), [
-        globalCount, 
         isAuthorized, 
         userProfile, 
         kineticSpace, 
@@ -120,13 +115,6 @@ export function GlobalContextWrapper({children}) {
         tableQuery,
         tablePagination,
     ]);
-
-    // More robust error handling can be done here as the use case requires
-    useEffect(() => {
-        if (error) {
-            console.log('The following error has ocurred:', `\n`, `\n`, error)
-        }
-    }, [error])
     
     // Pass all children through, now imbued with Context access
     return (

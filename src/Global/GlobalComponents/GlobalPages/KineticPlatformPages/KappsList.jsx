@@ -33,7 +33,7 @@ export const KappsList = () => {
                         icon={kapp.attributesMap['Icon'] && kapp.attributesMap['Icon'][0] }
                         subtext={`Last Updated: ${formatDate(kapp.updatedAt, 'MMM Do YYYY')}`}
                         linkPath={kapp.slug}
-                        cardClassname='kapp-card' 
+                        cardClassName='kapp-card' 
                     />
         })
     }, [kappsList])

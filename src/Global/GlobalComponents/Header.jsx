@@ -4,9 +4,9 @@ import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './Widgets/Dropdown/Dropdown';
 import { logout } from '@kineticdata/react';
-import { getHelpLinks } from '../GlobalResources/Helpers';
 import { KineticModal } from './Widgets/KineticModal'
 import { ProfileChange } from './Widgets/ProfileChange';
+import { urlPrefix } from '../GlobalResources/Helpers';
 
 export const Header = ({ loggedIn, profile }) => {
   const globalState = useContext(GlobalContext);
@@ -17,7 +17,60 @@ export const Header = ({ loggedIn, profile }) => {
 
 const helpContent = useMemo(() => {
   if (userProfile) {
-  return getHelpLinks(userProfile.spaceAdmin);
+    return [
+      userProfile.spaceAdmin && 
+          <a 
+            id='platform-documentation'
+            href='https://docs.kineticdata.com/' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Platform Documentation
+            <i className='las la-external-link-alt console-icon-spacing'/>
+          </a>,
+      userProfile.spaceAdmin && 
+          <a 
+            id='documentation-lin'
+            href={`${urlPrefix}/app/docs/space/core`}
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            API Reference Docs        
+            <i className='las la-external-link-alt console-icon-spacing'/>
+          </a>,
+          <a 
+            id='bundle-documentation'
+            href='https://docs.kineticdata.com/docs/bundle-introduction' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Bundle Documentation
+            <i className='las la-external-link-alt console-icon-spacing'/>
+          </a>,
+          <a 
+            id='documentation-li'
+            href={`${urlPrefix}/app/console/#/space/about`}
+            className='external-header-dropdown-link'  
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            About Kinetic Platform
+            <i className='las la-external-link-alt console-icon-spacing'/>
+          </a>,
+          <a 
+            id='console-link'
+            href='app' 
+            className='external-header-dropdown-link'
+            target="_blank" 
+            rel="noopener noreferrer" 
+          >
+            Space Console
+            <i className='las la-external-link-alt console-icon-spacing'/>
+          </a>
+    ]
 }}, [userProfile])
 
 // Create the profile dropdown content
@@ -112,7 +165,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
       )}
       <KineticModal
         isModalOpen={isProfileModalOpen} 
-        closeModal={setIsProfileModalOpen} 
+        closeModal={() => setIsProfileModalOpen(false)} 
         modalTitle='Edit Your Profile'
         content={<ProfileChange setIsProfileModalOpen={setIsProfileModalOpen} />} 
       />

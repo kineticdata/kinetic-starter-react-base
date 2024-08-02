@@ -93,7 +93,7 @@ export const FormsList = () => {
         </Link>
     ), [kappSlug])
 
-    return (kappData && formsData) && !pageError ? (
+    return kappData && formsData && !pageError ? (
         <> 
             <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
             <KineticClientTable columns={columns} data={formsData} showPagination />

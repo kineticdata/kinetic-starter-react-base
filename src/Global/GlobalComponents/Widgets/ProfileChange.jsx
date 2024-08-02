@@ -5,7 +5,7 @@ import { LoadingSpinner } from "./LoadingSpinner";
 
 export const ProfileChange = ({ setIsProfileModalOpen }) => {
     const globalState = useContext(GlobalContext);
-    const { userProfile, setUserProfile } = globalState;
+    const { userProfile, setUserProfile, isAuthorized } = globalState;
     const [ changeData, setChangeData ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isPasswordOpen, setIsPasswordOpen ] = useState(false);
@@ -53,7 +53,7 @@ export const ProfileChange = ({ setIsProfileModalOpen }) => {
         });
     };
 
-    return changeData && !pageError && (
+    return changeData && !pageError && isAuthorized && (
       <div className='profile-modal-wrapper'>
             <div className='profile-modal-body'>
               {!isLoading ?

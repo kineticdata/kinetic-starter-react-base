@@ -33,12 +33,12 @@ export const KappSubmissionsList = () => {
 
     const columns = useMemo(() => ([
             { title: 'Handle', value: 'handle', sortBy: true },
-            { title: 'Label', value: 'label', sortBy: false },
-            { title: 'Form Name', value: 'name', sortBy: false },
+            { title: 'Label', value: 'label' },
+            { title: 'Form Name', value: 'name' },
             { title: 'Submitter', value: 'submittedBy', sortBy: true },
-            { title: 'State', value: 'state', sortBy: false },
+            { title: 'State', value: 'state' },
             { title: 'Created at', value: 'createdAt', sortBy: true }
-        ]));
+    ]));
 
     const getLink = ( name, formSlug, submissionId ) => {
         let url;

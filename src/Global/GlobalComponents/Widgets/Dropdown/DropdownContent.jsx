@@ -48,7 +48,7 @@ export const DropdownContent = ({
                     onClick={() => closeDropdown()}
                     key={key}
                 >
-                    {dropdownItem.render}        
+                    {dropdownItem.render || dropdownItem}        
                 </div>
             ))
     ), [dropdownContent])
