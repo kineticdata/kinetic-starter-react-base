@@ -68,7 +68,7 @@ export function GlobalContextWrapper({children}) {
     
                 breadcrumbsArr.push({
                     page: tmpName || component,
-                    path: tmpPath
+                    path: tmpPath.substring(0, tmpPath.length - 1)
                 })
             });
             
