@@ -165,7 +165,7 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
                         <>Rows per page</>
                         <DropdownMenu
                             isDropdownOpen={isDropdownOpen}
-                            setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                            closeDropdown={() => setIsDropdownOpen(false)}
                             dropdownFace={dropdownFace}
                             dropdownContent={paginationOptions}
                             contentClassName='pagination-options-dropdown'
@@ -206,7 +206,7 @@ export const KineticClientTable = ({columns, data, showPagination, customerFoote
                     </div>
                     <DropdownMenu
                         isDropdownOpen={isDropdownOpen}
-                        setIsDropdownOpen={() => setIsDropdownOpen(!isDropdownOpen)}
+                        closeDropdown={() => setIsDropdownOpen(false)}
                         dropdownFace={dropdownFace}
                         dropdownContent={paginationOptions}
                         faceStyle='mobile-pagination-options-dropdown'

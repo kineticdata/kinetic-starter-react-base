@@ -152,7 +152,7 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
                         <>Rows per page</>
                         <DropdownMenu
                             isDropdownOpen={isDropdownOpen}
-                            setIsDropdownOpen={() => setIsDropdownOpen(false)}
+                            closeDropdown={() => setIsDropdownOpen(false)}
                             dropdownFace={dropdownFace}
                             dropdownContent={paginationOptions}
                             contentClassName='pagination-options-dropdown'
@@ -170,7 +170,7 @@ export const KineticQueryTable = ({columns, data, customerFooter }) => {
                         {getPaginationButton('right')}
                         <DropdownMenu
                             isDropdownOpen={isDropdownOpen}
-                            setIsDropdownOpen={() => setIsDropdownOpen(false)}
+                            closeDropdown={() => setIsDropdownOpen(false)}
                             dropdownFace={dropdownFace}
                             dropdownContent={paginationOptions}
                             faceStyle='mobile-pagination-options-dropdown'
