@@ -29,7 +29,8 @@ form,
   section {
     h1,
     .section-title {
-      font-size: 2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
       line-height: 1.2;
       margin-bottom: 1rem;
       & ~ section h1,
@@ -112,6 +113,8 @@ form.modal-body,
   textarea {
     width: -webkit-fill-available;
     padding: .5rem 1rem;
+    border: 1px solid $colors-greyscale-400;
+    border-radius: .25rem;
 
     &:not(.form-control) {
       @extend .form-control !optional;
@@ -123,6 +126,11 @@ form.modal-body,
   // Buttons
   // This originally targetted 'button' as well
   // it was removed to avoid affecting buttons app wide
+  button {
+    width: 31.75rem;
+    align-self: center;
+  }
+
   button[data-button-type='save'],
   button[data-button-type='next-page'],
   button[data-button-type='previous-page'] {
@@ -153,7 +161,6 @@ form.modal-body,
     margin-bottom: 1rem;
     display: flex;
     flex-wrap: wrap;
-
     
     label:not(.field-label) {
       width: max-content;
@@ -378,6 +385,10 @@ form.modal-body,
   // Error Messages
   form,
   .form {
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+
     .errors {
       @extend .alert !optional;
       @extend .alert-danger !optional;
@@ -450,6 +461,7 @@ form.modal-body,
       }
     }
     .form-group {
+      
       .file-table {
         display: table;
         margin: 0;
@@ -461,30 +473,38 @@ form.modal-body,
 
         .file-header, .file-container {
           display: table-header-group;
+          
           .file-row {
             display: table-row;
   
             span {
-                display: table-cell;
-                padding: .5rem;
-                max-width: 30rem;
+              display: table-cell;
+              padding: .5rem;
+              max-width: 30rem;
+              overflow: auto;
+              
+              @media all and (max-width: 992px) {
+                max-width: 15rem;
                 overflow: auto;
-                
-                @media all and (max-width: 992px) {
-                  max-width: 15rem;
-                  overflow: auto;
+              }
+
+              &.file-actions {
+                a {
+                  padding: 0 .5rem;
                 }
-  
-                &.file-actions {
-                
-                    a {
-                        padding: 0 .5rem;
-                    }
-                }
+              }
             }
+          }
+        } 
+      }
+
+      &.empty {
+        .file-table {
+          .file-header {
+            display: none;
+          }
         }
       }
-    }
     }
   }
   // Deprecated - Legacy typeahead styling
