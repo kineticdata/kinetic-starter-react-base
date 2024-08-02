@@ -112,7 +112,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
       )}
       <KineticModal
         isModalOpen={isProfileModalOpen} 
-        setIsModalOpen={setIsProfileModalOpen} 
+        closeModal={setIsProfileModalOpen} 
         modalTitle='Edit Your Profile'
         content={<ProfileChange setIsProfileModalOpen={setIsProfileModalOpen} />} 
       />
