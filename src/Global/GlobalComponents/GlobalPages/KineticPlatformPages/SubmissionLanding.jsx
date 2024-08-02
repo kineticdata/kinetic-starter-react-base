@@ -118,7 +118,7 @@ export const SubmissionLanding = () => {
             </div>
             <KineticModal 
                 isModalOpen={isDeleteOpen} 
-                setIsModalOpen={setIsDeleteOpen(false)} 
+                closeModal={() => setIsDeleteOpen(false)} 
                 modalTitle='Are you sure you want to delete this Submission?'
                 content={deleteSubmissionModal} 
             />

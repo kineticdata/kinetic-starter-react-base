@@ -4,7 +4,7 @@ export const DropdownContent = ({
     dropdownContent, 
     contentClassName, 
     isDropdownOpen, 
-    setIsDropdownOpen, 
+    closeDropdown, 
     aboveListContent, 
     belowListContent
 }) => {
@@ -17,16 +17,16 @@ export const DropdownContent = ({
             // This prevents the open function from happening after this close call goes through
             if (dropdownRef.current.classList.contains("dropdown-content")) {
                 setTimeout(() => {
-                    setIsDropdownOpen()
+                    closeDropdown()
                 }, 100)
             }
-            setIsDropdownOpen()
+            closeDropdown()
         }
     };
 
     const handleEscapePress = event => {
         if (isDropdownOpen && event.key === 'Escape') {
-            setIsDropdownOpen();
+            closeDropdown();
         }
     };
 
@@ -45,7 +45,7 @@ export const DropdownContent = ({
                 // tabbing to not focus on this element and instead focus on the content
                 <div 
                     className={`${dropdownItem.className ? dropdownItem.className : ''} dropdown-links`}
-                    onClick={() => setIsDropdownOpen()}
+                    onClick={() => closeDropdown()}
                     key={key}
                 >
                     {dropdownItem.render || dropdownItem}        

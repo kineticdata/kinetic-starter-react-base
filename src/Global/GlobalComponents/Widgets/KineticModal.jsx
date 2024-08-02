@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { withClickOutside } from "../../GlobalResources/Helpers";
 
-export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content} ) => {
+export const KineticModal = ( {isModalOpen, closeModal, modalTitle, content} ) => {
     const buttonFocus = useRef(null);
 
     // When the modal is opened move focus to the close button
@@ -34,5 +34,5 @@ export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content}
             )
         })
 
-    return withClickOutside(refPortal, isModalOpen, setIsModalOpen)
+    return withClickOutside(refPortal, isModalOpen, closeModal)
 }
