@@ -74,7 +74,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
         <div className="header-logged-in">
           <DropdownMenu 
             isDropdownOpen={isHelpMenuOpen}
-            setIsDropdownOpen={() => setIsHelpMenuOpen(false)}
+            closeDropdown={() => setIsHelpMenuOpen(false)}
             dropdownFace={
               <button 
                 aria-label='Help Menu'
@@ -92,7 +92,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
           />
           <DropdownMenu 
             isDropdownOpen={isProfileMenuOpen}
-            setIsDropdownOpen={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            closeDropdown={() => setIsProfileMenuOpen(false)}
             dropdownFace={
               <button 
                 aria-label='Profile Menu'
@@ -112,7 +112,7 @@ const profileDropdownHeader = useMemo(() => ( userProfile &&
       )}
       <KineticModal
         isModalOpen={isProfileModalOpen} 
-        setIsModalOpen={setIsProfileModalOpen} 
+        closeModal={setIsProfileModalOpen} 
         modalTitle='Edit Your Profile'
         content={<ProfileChange setIsProfileModalOpen={setIsProfileModalOpen} />} 
       />

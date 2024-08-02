@@ -8,7 +8,7 @@ import { DropdownContent } from './DropdownContent';
 // should be controlled almost entirely from it's component of origin.
 export const DropdownMenu = ({
     isDropdownOpen, 
-    setIsDropdownOpen,
+    closeDropdown,
     dropdownFace, 
     faceStyle, 
     dropdownContent, 
@@ -22,7 +22,7 @@ export const DropdownMenu = ({
                 dropdownContent={dropdownContent || []}
                 contentClassName={contentClassName}
                 isDropdownOpen={isDropdownOpen}
-                setIsDropdownOpen={setIsDropdownOpen}
+                closeDropdown={closeDropdown}
                 aboveListContent={aboveListContent}
                 belowListContent={belowListContent}
             />

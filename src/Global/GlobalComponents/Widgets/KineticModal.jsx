@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { createPortal } from "react-dom";
 import { withClickOutside } from "../../GlobalResources/Helpers";
 
-export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content} ) => {
+export const KineticModal = ( {isModalOpen, closeModal, modalTitle, content} ) => {
     const refPortal = forwardRef(({ setIsOpen }, ref) => {
             return(
                 <>
@@ -23,5 +23,5 @@ export const KineticModal = ( {isModalOpen, setIsModalOpen, modalTitle, content}
             )
         })
 
-    return withClickOutside(refPortal, isModalOpen, setIsModalOpen)
+    return withClickOutside(refPortal, isModalOpen, closeModal)
 }
