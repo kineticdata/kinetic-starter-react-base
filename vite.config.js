@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const removeSecure = cookie => cookie.replace(/;\s*Secure/i, '');
+  const removeSameSiteNone = cookie => cookie.replace(/;\s*SameSite=None/i, '');
 
   return {
     build: {
@@ -37,6 +39,24 @@ export default defineConfig(({ command, mode }) => {
           target: env.REACT_APP_PROXY_HOST,
           changeOrigin: true,
           secure: false,
+          configure: proxy => {
+            proxy.on('error', err => {
+                console.log('proxy error', err);
+            });
+            proxy.on('proxyReq', proxyReq => {
+                if (proxyReq.getHeader('origin')) {
+                    proxyReq.setHeader('origin', env.REACT_APP_PROXY_HOST);
+                }
+            });
+            proxy.on('proxyRes', (proxyRes, req) => {
+                const setCookie = proxyRes.headers['set-cookie'];
+                if (setCookie && req.protocol === 'http') {
+                    proxyRes.headers['set-cookie'] = Array.isArray(setCookie)
+                        ? setCookie.map(removeSecure).map(removeSameSiteNone)
+                        : removeSameSiteNone(removeSecure(setCookie));
+                }
+            });
+        },
         },
       },
     },
