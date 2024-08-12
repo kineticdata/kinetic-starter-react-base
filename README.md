@@ -12,6 +12,7 @@ The Kinetic Data `kinetic-starter-react-base` is an agnostic foundation for new 
 * [Installation](#installation)
 * [Basic usage](#basic-usage)
 * [What's included](#whats-included)
+* [Kinetic Requirements](#kinetic-reqs)
 * [Documentation](#documentation)
 * [License](#copyright-and-license)
 
@@ -33,6 +34,9 @@ $ yarn install
 ### Basic usage
 
 ``` bash
+# This will prompt you for the Kinetic space URL
+$ yarn prestart
+
 # dev server with hot reload at http://localhost:3000
 $ yarn start
 ```
@@ -69,6 +73,22 @@ kinetic-starter-react-base
 ├── ...
 └── vite.config.mjs  # vite config
 ```
+
+## Kinetic Requirements
+
+Certain dependencies and files are required in order to establish a connection with the Kinetic Platform. In the case of removing items from the Starter Base please make sure these items are kept; or that they are added to new projects which may not be using the Base to begin development.
+
+`Dependencies`
+```bash
+"qs": "^6.11.2",
+"react-beautiful-dnd": "^11.0.5"
+```
+
+`setupEnv.cjs`
+While not technically required, the `setupEnv.cjs` file handles setting up the connection to the correct Kinetic space properly. This is only necessary once, prior to running the application locally. See [Basic usage](#basic-usage).
+
+`Proxy`
+Ensuring the proxy is working correctly is essential for local development and proper authentication with the Kinetic Platform. At the base level of the app is the `vite.config.js` file, which controls the proxy. We manually update certain proxy headers in `server.proxy.configure` to ensure that they are correct.
 
 ## Documentation
 
