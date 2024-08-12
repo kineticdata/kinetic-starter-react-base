@@ -1,9 +1,9 @@
 name: Deploy to AWS S3
 on:
   workflow_dispatch:
-  # push: <--- Remove workflow_dispatch once testing is done and uncomment this 
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
