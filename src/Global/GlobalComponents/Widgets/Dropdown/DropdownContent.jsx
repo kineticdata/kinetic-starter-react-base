@@ -19,8 +19,9 @@ export const DropdownContent = ({
                 setTimeout(() => {
                     closeDropdown()
                 }, 100)
+            } else {
+                closeDropdown()
             }
-            closeDropdown()
         }
     };
 
