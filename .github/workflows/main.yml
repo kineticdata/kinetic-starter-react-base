@@ -1,0 +1,48 @@
+name: Deploy to AWS S3
+on:
+  workflow_dispatch:
+  # push: <--- Remove workflow_dispatch once testing is done and uncomment this 
+  #   branches:
+  #     - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: get yarn cache directory path
+        id: yarn-cache-dir-path
+        run : echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build dependencies
+        run: yarn build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.S3_DEV_BUCKET_UPLOADS_KEY }}
+          aws-secret-access-key: ${{ secrets.S3_DEV_BUCKET_UPLOADS_SECRET }}
+          aws-region: us-east-2
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./${{vars.REPO_NAME}}/${{vars.BUILD_LOCATION}} s3://kinops.io-dev/bundles/kinetic-starter-react-base/branches/main/ ${{vars.AWS_S3_OPTIONS}}
