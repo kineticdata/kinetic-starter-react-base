@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import logo from '../Assets/Images/kinetic-data-logo-rgb.svg'
-import { logout } from '@kineticdata/react';
-import { urlPrefix } from '../GlobalResources/Helpers';
+import logo from '../../Assets/Images/kinetic-data-logo-rgb.svg'
+import { urlPrefix } from '../../GlobalResources/Helpers';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
@@ -11,10 +10,8 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import EditIcon from '@mui/icons-material/Edit';
 import Modal from '@mui/material/Modal';
+import { ProfileDropdown } from './ProfileDropdown';
 
 export const Header = ({ loggedIn, profile }) => {
   const [ profileAnchor, setProfileAnchor ] = useState(null);
@@ -22,7 +19,6 @@ export const Header = ({ loggedIn, profile }) => {
   const isProfileOpen = useMemo(() => Boolean(profileAnchor), [profileAnchor]);
   const isMenuOpen = useMemo(() => Boolean(menuAnchor), [menuAnchor]);
   const [ isModalOpen , setIsModalOpen ] = useState(false);
-
 
   const toggleDropdown = (type, event) => {
     if (type === 'profile') {
@@ -105,79 +101,6 @@ const helpContent = useMemo(() => {
           </Link>
     ]
 }}, [profile])
-
-// Create the profile dropdown content
-const profileDropdownHeader = useMemo(() => ( profile &&
-  <Box sx={{p: '.5rem 1rem'}}>
-    <Box sx={{width: '19.875rem', height: '4.625rem', bgcolor: 'primary.quaternary', borderRadius: '.5rem', mb: '2.375rem'}}>
-      <Avatar 
-        variant='circular' 
-        sx={{ 
-          bgcolor: 'secondary.secondary',
-          height: '4.563rem',
-          width: '4.563rem',
-          position: 'absolute',
-          top: '3.35rem',
-          left: '9rem',
-          fontSize: '2.25rem'
-        }}
-      >
-        {profile.displayName[0]}
-      </Avatar>
-    </Box>
-    <Box sx={{
-      display: 'flex', 
-      alignItems: 'center', 
-      flexDirection: 'column',
-      gap: '1rem',
-      pt: '1rem'
-    }}>
-      <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5rem'}}>
-        <Typography sx={{fontWeight: '800', fontSize: '1.5rem'}}>
-          {profile.displayName}
-        </Typography>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="profile"
-          onClick={() => {
-            setIsModalOpen(true);
-            setProfileAnchor(null);
-          }}
-          sx={{
-            color: 'primary.secondary', 
-            fontWeight: 'bold',
-            '&:hover': {
-              color: 'primary.main',
-              backgroundColor: 'primary.quaternary',
-            }
-          }}
-        >
-          <EditIcon />
-        </IconButton>
-      </Box>
-      <Typography>
-        {profile.email}
-      </Typography>
-      <Button 
-        variant='text'
-        href='/'
-        onClick={logout}
-        sx={{
-          color: 'primary.secondary', 
-          fontWeight: 'bold',
-          '&:hover': {
-            color: 'primary.main',
-            backgroundColor: 'primary.quaternary',
-          }
-        }}
-      >
-        Sign Out
-      </Button>
-    </Box>
-  </Box>
-  ), [profile]);
   
   return profile && (
     <Box>
@@ -242,7 +165,11 @@ const profileDropdownHeader = useMemo(() => ( profile &&
                   horizontal: 'right',
                 }}
               >
-                  {profileDropdownHeader}
+                  {profile && <ProfileDropdown 
+                    profile={profile}
+                    openModal={() => setIsModalOpen(true)}
+                    closeProfileAnchor={() => setProfileAnchor(false)}
+                  />}
               </Menu> 
             </Box>
           )}

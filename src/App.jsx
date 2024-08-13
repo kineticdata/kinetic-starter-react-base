@@ -3,7 +3,7 @@ import './Global/Assets/Styles/master.scss'
 import { Route, Routes } from 'react-router-dom';
 import { LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
 import { GlobalContext } from './Global/GlobalResources/GlobalContextWrapper';
-import { Header } from './Global/GlobalComponents/Header';
+import { Header } from './Global/GlobalComponents/Header/Header';
 import { Login } from './Global/GlobalComponents/GlobalPages/StandalonePages/Login';
 import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePages/LandingPage';
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
