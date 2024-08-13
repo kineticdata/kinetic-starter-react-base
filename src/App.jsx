@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import './Global/Assets/Styles/master.scss'
 import { Route, Routes } from 'react-router-dom';
 import { LoadingSpinner } from './Global/GlobalComponents/Widgets/LoadingSpinner';
@@ -9,11 +9,25 @@ import { LandingPage } from './Global/GlobalComponents/GlobalPages/StandalonePag
 import { KineticPlatformRouting } from './Global/GlobalComponents/GlobalPages/KineticPlatformPages/KineticPlatformRouting';
 import { Footer } from './Global/GlobalComponents/Footer';
 import { Breadcrumbs } from './Global/GlobalComponents/Widgets/Breadcrumbs';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { getDesignTokens } from './Global/Assets/Theme/Theme';
 
 export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
   // access the global state Context
   const globalState = useContext(GlobalContext);
   const { setIsAuthorized, kineticSpace, userProfile, breadcrumbs } = globalState;
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  // Remove the bang from this to get correct theme
+  // Developing in light mode right now
+  const getTheme = getDesignTokens(!prefersDarkMode ? 'dark' : 'light')
+
+  const theme = useMemo(
+    () =>
+      createTheme(getTheme),
+    [prefersDarkMode],
+  );
 
   useEffect(() => {
     setIsAuthorized(loggedIn)
@@ -21,6 +35,8 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       {!initialized && <LoadingSpinner />}
 
       {loggedIn &&
@@ -66,6 +82,7 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
           <Login {...loginProps} />
         </dialog>
       }
+      </ThemeProvider>
     </>
   )
 }

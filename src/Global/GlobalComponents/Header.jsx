@@ -1,174 +1,274 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import logo from '../Assets/Images/kinetic-data-logo-rgb.svg'
-import { GlobalContext } from '../GlobalResources/GlobalContextWrapper';
-import { Link } from 'react-router-dom';
-import { DropdownMenu } from './Widgets/Dropdown/Dropdown';
 import { logout } from '@kineticdata/react';
-import { KineticModal } from './Widgets/KineticModal'
-import { ProfileChange } from './Widgets/ProfileChange';
 import { urlPrefix } from '../GlobalResources/Helpers';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
 
 export const Header = ({ loggedIn, profile }) => {
-  const globalState = useContext(GlobalContext);
-  const { userProfile } = globalState;
-  const [ isHelpMenuOpen, setIsHelpMenuOpen ] = useState(false);
-  const [ isProfileMenuOpen, setIsProfileMenuOpen ] = useState(false);
-  const [ isProfileModalOpen, setIsProfileModalOpen ] = useState(false);
+  const [ profileAnchor, setProfileAnchor ] = useState(null);
+  const [ menuAnchor, setMenuAnchor ] = useState(null);
+  const isProfileOpen = useMemo(() => Boolean(profileAnchor), [profileAnchor]);
+  const isMenuOpen = useMemo(() => Boolean(menuAnchor), [menuAnchor]);
+  const [ isModalOpen , setIsModalOpen ] = useState(false);
+
+
+  const toggleDropdown = (type, event) => {
+    if (type === 'profile') {
+      if (isProfileOpen) {
+        setProfileAnchor(null);
+      } else {
+        setProfileAnchor(event.currentTarget)
+      }
+      return;
+    }
+    if (type === 'menu') {
+      if (isMenuOpen) {
+        setProfileAnchor(null);
+      } else {
+        setMenuAnchor(event.currentTarget)
+      }
+      return;
+    }
+  }
 
 const helpContent = useMemo(() => {
-  if (userProfile) {
+  if (profile) {
     return [
-      userProfile.spaceAdmin && 
-          <a 
+      profile.spaceAdmin && 
+          <Link
             id='platform-documentation'
             href='https://docs.kineticdata.com/' 
-            className='external-header-dropdown-link'
             target="_blank" 
             rel="noopener noreferrer" 
+            underline="none"
+            sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Platform Documentation
             <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>,
-      userProfile.spaceAdmin && 
-          <a 
+          </Link>,
+      profile.spaceAdmin && 
+          <Link
             id='documentation-lin'
             href={`${urlPrefix}/app/docs/space/core`}
-            className='external-header-dropdown-link'
             target="_blank" 
             rel="noopener noreferrer" 
+            underline="none"
+            sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             API Reference Docs        
             <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>,
-          <a 
+          </Link>,
+          <Link
             id='bundle-documentation'
             href='https://docs.kineticdata.com/docs/bundle-introduction' 
-            className='external-header-dropdown-link'
             target="_blank" 
             rel="noopener noreferrer" 
+            underline="none"
+            sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Bundle Documentation
             <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>,
-          <a 
+          </Link>,
+          <Link
             id='documentation-li'
-            href={`${urlPrefix}/app/console/#/space/about`}
-            className='external-header-dropdown-link'  
+            href={`${urlPrefix}/app/console/#/space/about`}  
             target="_blank" 
             rel="noopener noreferrer" 
+            underline="none"
+            sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             About Kinetic Platform
             <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>,
-          <a 
+          </Link>,
+          <Link
             id='console-link'
             href='app' 
-            className='external-header-dropdown-link'
             target="_blank" 
             rel="noopener noreferrer" 
+            underline="none"
+            sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Space Console
             <i className='las la-external-link-alt console-icon-spacing'/>
-          </a>
+          </Link>
     ]
-}}, [userProfile])
+}}, [profile])
 
 // Create the profile dropdown content
-const profileDropdownHeader = useMemo(() => ( userProfile &&
-    <>
-      <div className='user-info'>
-        <div className='user-info-top'>
-          <div className='user-icon-backing' >
-            <div className='header-dropdown-profile in-dropdown'>
-                  {userProfile.displayName[0]}
-            </div>
-          </div>
-        </div>
-        <div className='user-info-bottom'>
-          <div className='user-name'>
-            {userProfile.displayName}
-            <button 
-              aria-label='Update User Profile' 
-              onClick={() => {
-                setIsProfileModalOpen(true);
-                setIsProfileMenuOpen(false);
-              }} 
-              className='edit-icon-wrapper' 
-            >
-              <i 
-                className="las la-edit edit-icon" 
-                aria-hidden="true" 
-              />
-            </button>
-          </div>
-          <div>{userProfile.email}</div>
-          <a 
-            id='logout-link'
-            href='/' 
-            onClick={logout}
-            className=' button signout-button'
-          >
-            Sign Out
-          </a>
-        </div>
-      </div>
-    </>
-  ), [userProfile]);
+const profileDropdownHeader = useMemo(() => ( profile &&
+  <Box sx={{p: '.5rem 1rem'}}>
+    <Box sx={{width: '19.875rem', height: '4.625rem', bgcolor: 'primary.quaternary', borderRadius: '.5rem', mb: '2.375rem'}}>
+      <Avatar 
+        variant='circular' 
+        sx={{ 
+          bgcolor: 'secondary.secondary',
+          height: '4.563rem',
+          width: '4.563rem',
+          position: 'absolute',
+          top: '3.35rem',
+          left: '9rem',
+          fontSize: '2.25rem'
+        }}
+      >
+        {profile.displayName[0]}
+      </Avatar>
+    </Box>
+    <Box sx={{
+      display: 'flex', 
+      alignItems: 'center', 
+      flexDirection: 'column',
+      gap: '1rem',
+      pt: '1rem'
+    }}>
+      <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5rem'}}>
+        <Typography sx={{fontWeight: '800', fontSize: '1.5rem'}}>
+          {profile.displayName}
+        </Typography>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="profile"
+          onClick={() => {
+            setIsModalOpen(true);
+            setProfileAnchor(null);
+          }}
+          sx={{
+            color: 'primary.secondary', 
+            fontWeight: 'bold',
+            '&:hover': {
+              color: 'primary.main',
+              backgroundColor: 'primary.quaternary',
+            }
+          }}
+        >
+          <EditIcon />
+        </IconButton>
+      </Box>
+      <Typography>
+        {profile.email}
+      </Typography>
+      <Button 
+        variant='text'
+        href='/'
+        onClick={logout}
+        sx={{
+          color: 'primary.secondary', 
+          fontWeight: 'bold',
+          '&:hover': {
+            color: 'primary.main',
+            backgroundColor: 'primary.quaternary',
+          }
+        }}
+      >
+        Sign Out
+      </Button>
+    </Box>
+  </Box>
+  ), [profile]);
   
-  return (
-    <div className='header-containter'>
-      <Link to="/">
-        <img
-          alt="logo"
-          src={logo}
-        />
-      </Link>
-      {loggedIn && profile && (
-        <div className="header-logged-in">
-          <DropdownMenu 
-            isDropdownOpen={isHelpMenuOpen}
-            closeDropdown={() => setIsHelpMenuOpen(false)}
-            dropdownFace={
-              <button 
-                aria-label='Help Menu'
-                className='help-menu-btn'
-                onClick={() => {
-                    setIsProfileMenuOpen(false);
-                    setIsHelpMenuOpen(!isHelpMenuOpen);
+  return profile && (
+    <Box>
+      <AppBar position="static" sx={{bgcolor: 'greyscale.quaternary'}}>
+        <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <Link to="/">
+              <img
+                alt="logo"
+                src={logo}
+                />
+            </Link>
+          {loggedIn && profile && (
+            <Box>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={event => toggleDropdown('menu', event)}
+                >
+                  <MoreVertIcon sx={{ color: 'greyscale.main'}} />
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="profile"
+                onClick={event => toggleDropdown('profile', event)}
+              >
+                <Avatar variant='circular' sx={{ bgcolor: 'secondary.secondary'}}>{profile.displayName[0]}</Avatar>
+              </IconButton>
+              <Menu
+                open={isMenuOpen}
+                onClose={() => setMenuAnchor(null)}
+                anchorEl={menuAnchor}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
               >
-                <i className="las la-ellipsis-v standard-icon-size" aria-hidden='true' />
-              </button>
-            } 
-            dropdownContent={helpContent}
-            contentClassName='help-menu'
-          />
-          <DropdownMenu 
-            isDropdownOpen={isProfileMenuOpen}
-            closeDropdown={() => setIsProfileMenuOpen(false)}
-            dropdownFace={
-              <button 
-                aria-label='Profile Menu'
-                className='header-dropdown-profile'
-                onClick={() => {
-                    setIsHelpMenuOpen(false);
-                    setIsProfileMenuOpen(!isProfileMenuOpen);
+                {helpContent.map((link, idx) => (
+                    <MenuItem key={idx} >
+                      {link}
+                    </MenuItem>
+                ))}      
+              </Menu> 
+              <Menu
+                open={isProfileOpen}
+                onClose={() => setProfileAnchor(null)}
+                anchorEl={profileAnchor}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
               >
-                {userProfile.displayName[0]}
-              </button>
-            } 
-            aboveListContent={profileDropdownHeader}
-            contentClassName='profile-menu'
-          />
-        </div>
-      )}
-      <KineticModal
-        isModalOpen={isProfileModalOpen} 
-        closeModal={() => setIsProfileModalOpen(false)} 
-        modalTitle='Edit Your Profile'
-        content={<ProfileChange setIsProfileModalOpen={setIsProfileModalOpen} />} 
-      />
-    </div>
+                  {profileDropdownHeader}
+              </Menu> 
+            </Box>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Modal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        aria-labelledby="change-profile"
+        aria-describedby="update-user-info"
+      >
+        <Box
+          id='change-profile'
+          sx={{
+            position: 'absolute',
+            top: '20%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'greyscale.quaternary',
+            p: '1rem',
+            borderRadius: '.25rem'
+          }}
+        >
+          PROFILE CHANGE GOES HERE
+        </Box>
+      </Modal>
+    </Box>
   );
 }
