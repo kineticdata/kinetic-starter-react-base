@@ -16,9 +16,9 @@ import { ProfileDropdown } from './ProfileDropdown';
 export const Header = ({ loggedIn, profile }) => {
   const [ profileAnchor, setProfileAnchor ] = useState(null);
   const [ menuAnchor, setMenuAnchor ] = useState(null);
+  const [ isModalOpen , setIsModalOpen ] = useState(false);
   const isProfileOpen = useMemo(() => Boolean(profileAnchor), [profileAnchor]);
   const isMenuOpen = useMemo(() => Boolean(menuAnchor), [menuAnchor]);
-  const [ isModalOpen , setIsModalOpen ] = useState(false);
 
   const toggleDropdown = (type, event) => {
     if (type === 'profile') {
@@ -115,17 +115,15 @@ const helpContent = useMemo(() => {
           {loggedIn && profile && (
             <Box>
               <IconButton
-                size="large"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
                 onClick={event => toggleDropdown('menu', event)}
                 >
-                  <MoreVertIcon sx={{ color: 'greyscale.main'}} />
+                  <MoreVertIcon sx={{ color: 'greyscale.main', m: '.5rem'}} />
               </IconButton>
               <IconButton
-                size="large"
                 edge="start"
                 color="inherit"
                 aria-label="profile"
