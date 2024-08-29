@@ -1,5 +1,8 @@
 import React, { useMemo } from "react";
-import { formatDate } from "../../../GlobalResources/Helpers";
+import { formatDate, getStatusColors } from "../../../GlobalResources/Helpers";
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 
 export const ActivitiesCard = ({ activity }) => {
 
@@ -11,36 +14,38 @@ export const ActivitiesCard = ({ activity }) => {
         }
     })
 
-    const getBadgeColors = () => {
-        switch (activity.type) {
-            case 'Approval':
-                return 'badge-approval';
-            case 'Submission Submitted':
-                return 'badge-submitted';
-            default: 
-                return 'badge-approval';
-        }
-    }
+    const getChipStyle = useMemo(() => {
+        return getStatusColors(activity.type);
+    }, [activity])
 
     return (
-        <div className="activity-card-wrapper">
-            <div className="space-between-row">
-                <div className="activity-title">{activity.label}</div>
-                <div className={`activity-type ${getBadgeColors()}`}>{activity.type}</div>
-            </div>
+        <Card 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5rem',
+                p: '.75rem',
+                borderRadius: '.25rem',
+                bgcolor: 'greyscale.quaternary'
+            }}
+        >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                <Box sx={{ fontSize: '1.25rem', fontWeight: '600' }}>{activity.label}</Box>
+                <Chip label={activity.type} sx={getChipStyle} />
+            </Box>
             <>
             {typeof parsedData === 'object' ?
                 <ul>
                     {Object.keys(parsedData).map((dataKey, idx) => <li key={idx}>{dataKey}: {parsedData[dataKey] || 'N/A'}</li>)}
                 </ul>
             :
-                <div className="activity-body">{parsedData}</div>
+                <Box>{parsedData}</Box>
             }
             </>
-            <div className="space-between-row">
-                <div className="activity-date"><div className="activity-date-title">Created:</div>  {formatDate(activity.createdAt, 'MM/DD/YYYY')}</div>
-                <div className="activity-date"><div className="activity-date-title">Last Update:</div>  {formatDate(activity.updatedAt, 'MM/DD/YYYY')}</div>
-            </div>
-        </div>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                <Box sx={{ display: 'flex'}}><Box sx={{ fontSize: '1rem', fontWeight: 'bold', lineHeight: '1.5', mr: '.25rem'}}>Created:</Box>  {formatDate(activity.createdAt, 'MM/DD/YYYY')}</Box>
+                <Box sx={{ display: 'flex'}}><Box sx={{ fontSize: '1rem', fontWeight: 'bold', lineHeight: '1.5', mr: '.25rem'}}>Last Update:</Box>  {formatDate(activity.updatedAt, 'MM/DD/YYYY')}</Box>
+            </Box>
+        </Card>
     )
 };

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import logo from '../../../Assets/Images/kinetic-data-logo-rgb.svg'
 import { history } from '../../../../index';
+import logo from '../../../Assets/Images/kinetic-data-logo-rgb.svg'
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';

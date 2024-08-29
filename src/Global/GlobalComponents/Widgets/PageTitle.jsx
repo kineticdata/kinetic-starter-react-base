@@ -1,21 +1,26 @@
 import React from "react";
+import Box from '@mui/material/Box';
 
-// PageTitle is meant to be used on pages within the app-content-container
-// The rightSide argument should be passed in as it's own component.
 export const PageTitle = ({ title, subtext, rightSide }) => (
-    <div className='page-title-wrapper'>
+    <Box 
+        sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mb: '.75rem'
+        }}
+    >
         <>
-            <div className="page-title">
+            <Box sx={{ fontSize: '2rem', fontWeight: '800' }}>
                 {title}
             {subtext && 
                 <>
                     {subtext}
                 </>
             }
-            </div>
+            </Box>
         </>
         <>
             {rightSide && rightSide}
         </>
-    </div>
+    </Box>
 );

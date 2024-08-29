@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-
 // Helper.js is a global file that provides mutli use 
 // helper functions for within the application.
 
@@ -20,35 +18,20 @@ export const valuesFromQueryParams = queryParams => {
         return values;
     }, {});
 };
-
-// Builds the modal content, adding in a ref hook and event listener for any 
-// mouseclicks outside the modal, which will close it
-export const withClickOutside = (ModalContent, isOpen, setIsOpen) => {
-  const Component = (props) => {
-    const ref = useRef();
-    
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (ref.current !== null && 
-          ref.current !== undefined && 
-          !ref.current.contains(event.target)) {
-          setIsOpen();
-        }
-      };
-
-      const handleEscapePress = event => {
-        if (isOpen && event.key === 'Escape') {
-          setIsOpen();
-        }
-      };
-
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscapePress);
-    }, [ref]);
   
-      return <ModalContent isOpen={isOpen} setIsOpen={setIsOpen} ref={ref} />;
-    };
-  
-    return <Component />;
+  export const getStatusColors = type => {
+    switch (type.toLowerCase()) {
+      case 'draft':
+          return {color: 'warning.main', bgcolor: 'warning.quaternary'};
+      case 'closed':
+          return {color: 'success.main', bgcolor: 'success.quaternary'};
+      case 'submitted':
+          return {color: 'greyscale.main', bgcolor: 'primary.quaternary'};
+      case 'approval':
+        return {color: 'warning.main', bgcolor: 'warning.quaternary'};
+      case 'submission submitted':
+          return {color: 'success.main', bgcolor: 'success.quaternary'};
+      default: 
+          return {color: 'warning.main', bgcolor: 'warning.quaternary'};
   }
-  
+}

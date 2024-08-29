@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import logo from '../../Assets/Images/kinetic-data-logo-rgb.svg'
 import { urlPrefix } from '../../GlobalResources/Helpers';
+import { ProfileDropdown } from './ProfileDropdown';
+import { ProfileChange } from '../Widgets/ProfileChange';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
@@ -8,10 +10,10 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import LaunchIcon from '@mui/icons-material/Launch';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Link from '@mui/material/Link';
 import Modal from '@mui/material/Modal';
-import { ProfileDropdown } from './ProfileDropdown';
 
 export const Header = ({ loggedIn, profile }) => {
   const [ profileAnchor, setProfileAnchor ] = useState(null);
@@ -52,7 +54,7 @@ const helpContent = useMemo(() => {
             sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Platform Documentation
-            <i className='las la-external-link-alt console-icon-spacing'/>
+            <LaunchIcon sx={{ color: 'greyscale.main', fontSize: '1rem' }} />
           </Link>,
       profile.spaceAdmin && 
           <Link
@@ -64,7 +66,7 @@ const helpContent = useMemo(() => {
             sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             API Reference Docs        
-            <i className='las la-external-link-alt console-icon-spacing'/>
+            <LaunchIcon sx={{ color: 'greyscale.main', fontSize: '1rem' }} />
           </Link>,
           <Link
             id='bundle-documentation'
@@ -75,7 +77,7 @@ const helpContent = useMemo(() => {
             sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Bundle Documentation
-            <i className='las la-external-link-alt console-icon-spacing'/>
+            <LaunchIcon sx={{ color: 'greyscale.main', fontSize: '1rem' }} />
           </Link>,
           <Link
             id='documentation-li'
@@ -86,7 +88,7 @@ const helpContent = useMemo(() => {
             sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             About Kinetic Platform
-            <i className='las la-external-link-alt console-icon-spacing'/>
+            <LaunchIcon sx={{ color: 'greyscale.main', fontSize: '1rem' }} />
           </Link>,
           <Link
             id='console-link'
@@ -97,16 +99,16 @@ const helpContent = useMemo(() => {
             sx={{ width: '15.625rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             Space Console
-            <i className='las la-external-link-alt console-icon-spacing'/>
+            <LaunchIcon sx={{ color: 'greyscale.main', fontSize: '1rem' }} />
           </Link>
     ]
 }}, [profile])
   
-  return profile && (
+  return (
     <Box>
       <AppBar position="static" sx={{bgcolor: 'greyscale.quaternary'}}>
         <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
-            <Link to="/">
+            <Link href="/">
               <img
                 alt="logo"
                 src={logo}
@@ -178,20 +180,21 @@ const helpContent = useMemo(() => {
         onClose={() => setIsModalOpen(false)}
         aria-labelledby="change-profile"
         aria-describedby="update-user-info"
-      >
+        >
         <Box
           id='change-profile'
           sx={{
+            width: '38.125rem',
             position: 'absolute',
-            top: '20%',
+            top: '30%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             bgcolor: 'greyscale.quaternary',
-            p: '1rem',
+            p: '2.5rem',
             borderRadius: '.25rem'
           }}
         >
-          PROFILE CHANGE GOES HERE
+          <ProfileChange closeModal={() => setIsModalOpen(false)} />
         </Box>
       </Modal>
     </Box>

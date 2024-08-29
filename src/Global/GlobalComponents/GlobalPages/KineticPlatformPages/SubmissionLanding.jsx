@@ -4,10 +4,14 @@ import { PageTitle } from "../../Widgets/PageTitle";
 import { fetchSubmission, deleteSubmission } from '@kineticdata/react';
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
-import { formatDate } from "../../../GlobalResources/Helpers";
-import { KineticModal } from "../../Widgets/KineticModal";
-import {KineticForm} from "../../Widgets/KineticForm"
+import { formatDate, getStatusColors } from "../../../GlobalResources/Helpers";
+import { KineticForm } from "../../Widgets/KineticForm"
 import { ActivitiesList } from "../../Widgets/Activities/ActivitiesList";
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
+import Chip from '@mui/material/Chip';
 
 export const SubmissionLanding = () => {
     const globalState = useContext(GlobalContext);
@@ -52,76 +56,159 @@ export const SubmissionLanding = () => {
         });  
     }, [kappSlug, formSlug, submissionsId]);
 
+    const getChipStyle = useMemo(() => {
+        return submissionData && getStatusColors(submissionData.coreState);
+    }, [submissionData])
+
     const confirmDeleteSubmission = () => {
         deleteSubmission({ id: submissionsId }).then(({error}) => !error ? navigate(`/kapps/${kappSlug}/forms/${formSlug}/submissions`) : setPageError(error));
     }
 
     const submissionsFooter = useMemo(() => {
         return (
-            <div className="submissions-footer-wrapper with-border">
-                <button 
-                    onClick={() => setIsEditMode(!isEditMode)}
-                    className={`${isEditMode ? 'tertiary-btn' : 'edit-btn with-icon'}`}
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: '1.25rem 2.4rem', maxHeight: '2rem', m: '.5rem 0'}}>
+                <Button 
+                    variant={isEditMode ? 'text' : 'contained'}
+                    onClick={() => setIsEditMode(!isEditMode)} 
+                    sx={isEditMode ? { color: 'primary.secondary' } : 
+                        {
+                            color: 'greyscale.quinary',
+                            bgcolor: 'primary.secondary',
+                            fontWeight: 'bold',
+                            '&:hover': {
+                                bgcolor: 'primary.main',
+                                },
+                        }
+                    } 
+                    aria-label="Close Modal."
                 >
                     {isEditMode ? 'Cancel' : 'Edit'}
-                </button>
-                <button 
-                    onClick={() => setIsDeleteOpen(!isDeleteOpen)}
-                    className="delete"
+                </Button>
+                <Button 
+                    variant='contained'
+                    onClick={() => setIsDeleteOpen(true)} 
+                    sx={{
+                        color: 'greyscale.quinary',
+                        bgcolor: 'error.secondary',
+                        fontWeight: 'bold',
+                        '&:hover': {
+                            bgcolor: 'error.main',
+                            },
+                    }} 
+                    aria-label="Close Modal."
                 >
                     Delete
-                </button>
-            </div>
+                </Button>
+            </Box>
         )
     }, [isDeleteOpen, isEditMode]);
-
-    const deleteSubmissionModal = useMemo(() => {
-        return (
-            <div>
-                <div>Are you sure you want to proceed?</div>
-                <div className="modal-buttons-wrapper">
-                    <button 
-                        aria-label="Delete submission."
-                        onClick={() => confirmDeleteSubmission()}
-                        className="delete-red-bg"
-                    >
-                        Delete Submission
-                    </button>
-                </div>
-            </div>
-        )
-    }, []);
 
     return submissionData && !pageError ? (
         <>
             <PageTitle title={`Submission: ${submissionData.label}`} />
-            <div className="submission-information">
-                <div className="spacer"><b>State: </b><div className={`state ${submissionData.coreState.toLowerCase()} left-space`}>{submissionData.coreState}</div></div>
-                <div className="spacer"><b>Created at: </b>{formatDate(submissionData.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>
-                <div className="spacer"><b>Updated at at: </b>{formatDate(submissionData.updatedAt, 'MMMM Do, YYYY - h:mm:ss a')}</div>
-                <div className="spacer"><b>Submitted at: </b>{submissionData.submittedAt ? 
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
+                <Box sx={{ mr: '1rem' }}><b>State: </b><Chip label={submissionData.coreState} sx={{ ml: '1rem', p: '.25rem .75rem', ...getChipStyle }} /></Box>
+                <Box sx={{ mr: '1rem' }}><b>Created at: </b>{formatDate(submissionData.createdAt, 'MMMM Do, YYYY - h:mm:ss a')}</Box>
+                <Box sx={{ mr: '1rem' }}><b>Updated at at: </b>{formatDate(submissionData.updatedAt, 'MMMM Do, YYYY - h:mm:ss a')}</Box>
+                <Box sx={{ mr: '1rem' }}><b>Submitted at: </b>{submissionData.submittedAt ? 
                     formatDate(submissionData.submittedAt, 'MMMM Do, YYYY - h:mm:ss a') 
-                    : 'Not submitted'}</div>
-                <div className="spacer"><b>Closed at: </b>{submissionData.closedAt ? 
+                    : 'Not submitted'}</Box>
+                <Box sx={{ mr: '1rem' }}><b>Closed at: </b>{submissionData.closedAt ? 
                     formatDate(submissionData.closedAt, 'MMMM Do, YYYY - h:mm:ss a') 
-                    : 'Not closed'}</div>
-            </div>
-            <div className="with-activities-wrapper">
-                <div className={`form-page-wrapper ${activityData ? 'add-flex-3' : ''}`}>
+                    : 'Not closed'}</Box>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: '2rem' }}>
+                <Box 
+                    sx={{
+                        mb: '3rem',
+                        borderRadius: '.75rem',
+                        boxShadow: '0 .25rem .375rem -.125rem rgba(0, 0, 0, 0.05), 0 .625rem 1rem -3px rgba(0, 0, 0, 0.1)',
+                        border: '1px solid',
+                        borderColor: 'greyscale.tertiary',
+                        bgcolor: 'greyscale.quinary',
+                        flex: activityData ? '2' : '',
+                    }}
+                >
                     <KineticForm        
                         submissionId={submissionsId}
                         isEditMode={!isEditMode}
                     />
                     {canEdit && submissionsFooter}
-                </div>
-                {activityData && <ActivitiesList activities={activityData} styling='activities-list-wrapper' />}
-            </div>
-            <KineticModal 
-                isModalOpen={isDeleteOpen} 
-                closeModal={() => setIsDeleteOpen(false)} 
-                modalTitle='Are you sure you want to delete this Submission?'
-                content={deleteSubmissionModal} 
-            />
+                </Box>
+                {activityData && <ActivitiesList activities={activityData} />}
+            </Box>
+            <Modal
+                open={isDeleteOpen}
+                onClose={() => setIsDeleteOpen(false)}
+                aria-labelledby="delete-submission"
+                aria-describedby="delete-this-submission"
+            >
+                <Box
+                id='delete-submission-modal-wrapper'
+                sx={{
+                    width: '38.125rem',
+                    position: 'absolute',
+                    top: '30%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    bgcolor: 'greyscale.quaternary',
+                    p: '2.5rem',
+                    borderRadius: '.25rem'
+                }}
+                >
+                    <>
+                        <Box 
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                lineHeight: '1.25',
+                                fontSize: '1.5rem',
+                                fontWeight: '600',
+                                borderBottom: '1px solid',
+                                borderColor: 'secondary.secondary',
+                                mb: '1.5rem',
+                                pb: '1.5rem'
+                            }}
+                            >
+                                Delete Submission
+                            <Button 
+                                onClick={() => closeModal()} 
+                                sx={{ 
+                                minWidth: '0',
+                                color: 'primary.secondary',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    color: 'primary.main',
+                                    backgroundColor: 'primary.quaternary',
+                                },
+                                }} 
+                                aria-label="Close Modal."
+                            >
+                                <CloseIcon sx={{p: '.5rem', fontSize: '2.5rem'}} />
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Box>Are you sure you want to delete this Submission?</Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1.5rem', mt: '1.5rem', pt: '1.5rem', borderTop: '1px solid', borderTopColor: 'secondary.secondary'}}>
+                                <Button 
+                                    aria-label="Delete submission."
+                                    onClick={() => confirmDeleteSubmission()}
+                                    sx={{ 
+                                        bgcolor: 'error.secondary', 
+                                        color: 'greyscale.quinary', 
+                                        '&:hover': {
+                                          backgroundColor: 'error.main',
+                                        },
+                                    }}
+                                >
+                                    Delete Submission
+                                </Button>
+                            </Box>
+                        </Box>
+                    </>
+                </Box>
+            </Modal>
         </>
     ) : <LoadingSpinner error={pageError} />
 };

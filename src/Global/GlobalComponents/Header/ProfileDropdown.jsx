@@ -78,7 +78,7 @@ export const ProfileDropdown = ({profile, openModal, closeProfileAnchor}) => (
       <Button
         variant="text"
         href="/"
-        onClick={logout()}
+        onClick={logout}
         sx={{
           color: 'primary.secondary',
           fontWeight: 'bold',

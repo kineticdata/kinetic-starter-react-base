@@ -4,7 +4,7 @@ export const getDesignTokens = mode => {
         fontFamily: [
           '-apple-system',
           'BlinkMacSystemFont',
-          'PlusJakartaSans'
+          'PlusJakartaSans',
         ].join(','),
       },
       shape: {

@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { fetchForm, searchSubmissions, defineKqlQuery } from '@kineticdata/react';
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { fetchForm, searchSubmissions } from '@kineticdata/react';
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { KineticClientTable } from "../../Widgets/KineticClientTable";
-import { formatDate } from "../../../GlobalResources/Helpers";
+import { formatDate, getStatusColors } from "../../../GlobalResources/Helpers";
+import { DataGrid } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Chip from '@mui/material/Chip';
 
 export const FormSubmissionsList = () => {
     const globalState = useContext(GlobalContext);
@@ -14,64 +17,6 @@ export const FormSubmissionsList = () => {
     const [ formData, setFormData ] = useState();
     const [ submissionsData, setsubmissionsData ] = useState();
     const [ pageError, setPageError ] = useState();
-
-    const columns = useMemo(() => {
-        return [{
-            title: 'Handle', 
-            value: 'handle', 
-            sortBy: 'string',
-        }, 
-        {
-            title: 'Label', 
-            value: 'label', 
-            sortBy: 'string',
-        },
-        {
-            title: 'State', 
-            value: 'state', 
-            sortBy: 'string',
-        }, 
-        {
-            title: 'Created at', 
-            value: 'createdAt', 
-            sortBy: 'date',
-        },
-        {
-            title: 'Updated at', 
-            value: 'updatedAt', 
-            sortBy: 'date',
-        }];
-    }) 
-
-    const getState = state =>  {
-        return (
-            <div className={`state ${state.toLowerCase()}`}>
-                {state}
-            </div>
-        )
-    };
-
-    const getSubmissionLink = ( handle, submissionId ) => {
-        return (
-            <Link   
-                to={`${submissionId}`}
-                className="link"
-            >
-                {handle}
-            </Link>
-        )
-    };    
-    
-    const pageTitleLink = useMemo(() => {
-            return (
-                <Link 
-                    to={`/kapps/${kappSlug}/forms/${formSlug}`}
-                    className="button tertiary-btn support-docs-link link"
-                >
-                    Create Submission
-                </Link>
-            )
-    }, [])
 
     useEffect(() => {
         if(formData) {
@@ -93,24 +38,13 @@ export const FormSubmissionsList = () => {
             }
             }).then(({ submissions, error }) => {
                 if (!error) {
-                    const parsedData = submissions.map(submission => ({
-                        handle: {
-                            toDisplay: getSubmissionLink(submission.handle, submission.id),
-                            toSort: submission.handle,
-                        },
+                    const parsedData = submissions.map((submission, idx) => ({
+                        handle: submission,
                         label: submission.label,
-                        state: {
-                            toDisplay: getState(submission.coreState),
-                            toSort: submission.coreState,
-                        },
-                        createdAt: {
-                            toDisplay: formatDate(submission.createdAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                            toSort: submission.createdAt,
-                        },
-                        updatedAt: {
-                            toDisplay: formatDate(submission.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                            toSort: submission.updatedAt,
-                        },
+                        state: submission.coreState,
+                        createdAt: submission.createdAt,
+                        updatedAt: submission.updatedAt,
+                        id: idx
                     }));
                     setsubmissionsData(parsedData);
                 } else {
@@ -120,10 +54,107 @@ export const FormSubmissionsList = () => {
         );
     }, [kappSlug, formSlug]);
 
+    const getState = props =>  <Chip label={props.value} sx={getStatusColors(props.value)} />;
+
+    const getSubmissionLink = props => (
+        <Link  
+            component={RouterLink} 
+            to={`${props.value.id}`}
+            sx ={{ 
+                fontWeight: 'bold',
+                color: 'primary.secondary',
+                textDecoration: 'none',
+                '&:hover': {
+                    textDecoration: 'underline',
+                }
+            }} 
+        >
+            {props.value.handle}
+        </Link>
+    ); 
+    
+    const sortAlpha = ( first, second ) => {          
+        const compare1 = first.handle.toLowerCase();
+        const compare2 = second.handle.toLowerCase();
+
+        return compare1.localeCompare(compare2);
+    };
+
+    const columns = useMemo(() => {
+        return [{
+            headerName: 'Handle', 
+            field: 'handle', 
+            renderCell: getSubmissionLink,
+            type: 'string',
+            sortComparator: sortAlpha,
+            flex: 1
+        }, 
+        {
+            headerName: 'Label', 
+            field: 'label', 
+            flex: 1
+        },
+        {
+            headerName: 'State', 
+            field: 'state', 
+            renderCell: getState,
+            flex: 1
+        }, 
+        {
+            headerName: 'Created at', 
+            field: 'createdAt', 
+            renderCell: props => formatDate(props.value, 'MMMM Do, YYYY - h:mm:ss a'),
+            flex: 1
+        },
+        {
+            headerName: 'Updated at', 
+            field: 'updatedAt',             
+            renderCell: props => formatDate(props.value, 'MMMM Do, YYYY - h:mm:ss a'),
+            flex: 1
+        }];
+    }) 
+    
+    const pageTitleLink = useMemo(() => {
+            return (
+                <Link 
+                    component={RouterLink}
+                    to={`/kapps/${kappSlug}/forms/${formSlug}`}
+                    sx ={{ 
+                        display: 'flex',
+                        alignItems: 'center',
+                        ml: '1rem',
+                        borderRadius: '.25rem',
+                        fontWeight: 'bold',
+                        color: 'primary.secondary',
+                        textDecoration: 'none',
+                        p: '0.5rem 0.75rem',
+                        '&:hover': {
+                            color: 'primary.primary',
+                            bgcolor: 'primary.quaternary',
+                            cursor: 'pointer'
+                        }
+                    }} 
+                >
+                    Create Submission
+                </Link>
+            )
+    }, [])
+
     return formData && submissionsData && !pageError ? (
         <>
             <PageTitle title={`${formData.name} Submissions`} rightSide={pageTitleLink} />
-            <KineticClientTable columns={columns} data={submissionsData} showPagination />
+            <Box>
+                <DataGrid 
+                    columns={columns} 
+                    rows={submissionsData} 
+                    autoHeight={true}
+                    pageSizeOptions={[ 10, 25, 50, 100]} 
+                    initialState={{
+                        pagination: { paginationModel: { pageSize: 10 } },
+                        }}
+                    sx={{ mb: '1.5rem'}}
+                />
+            </Box>
         </>
     ) : <LoadingSpinner error={pageError} />
 };

@@ -1,59 +1,21 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { fetchKapp, fetchForms } from '@kineticdata/react';
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { KineticClientTable } from "../../Widgets/KineticClientTable";
 import { formatDate } from "../../../GlobalResources/Helpers";
+import { DataGrid } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 
 export const FormsList = () => {
     const globalState = useContext(GlobalContext);
     const { updateBreadcrumbs } = globalState;
     const { kappSlug } = useParams();
-    const [kappData, setKappData ] = useState();
-    const [formsData, setFormsData ] = useState();
+    const [ kappData, setKappData ] = useState();
+    const [ formsData, setFormsData ] = useState();
     const [ pageError, setPageError ] = useState();
-
-    const columns = useMemo(() => {
-        return [{
-            title: 'Form Name', 
-            value: 'name', 
-            sortBy: 'string',
-        }, {
-            title: 'Description', 
-            value: 'description', 
-        },{
-            title: 'Updated at', 
-            value: 'updatedAt', 
-            sortBy: 'date',
-        },{
-            title: ' ', 
-            value: 'submissionsLink', 
-        }];
-    }) 
-
-    const getViewSubmissionsLink = formSlug =>  {
-        return (
-            <Link 
-                to={`${formSlug}/submissions`} 
-                className="link"
-            >
-                View Form Submissions
-            </Link>
-        )
-    };
-
-    const getFormLink = ( formName, formSlug ) => {
-        return (
-            <Link   
-                to={`${formSlug}`}
-                className="link"
-            >
-                {formName}
-            </Link>
-        )
-    }
 
     useEffect(() => {
         if(kappData) {
@@ -68,27 +30,106 @@ export const FormsList = () => {
             .then(({ kapp, error }) => !error ? setKappData(kapp) : setPageError(error));
         fetchForms({ kappSlug, include: 'details' }).then(({ forms, error }) => {
             if (!error) {
-                const parsedData = forms.map(form => ({
-                    name: {
-                        toDisplay: getFormLink(form.name, form.slug),
-                        toSort: form.name,
-                    }, 
+                const parsedData = forms.map((form, idx) => ({
+                    name: form, 
                     description: form.description, 
-                    updatedAt: {
-                        toDisplay: formatDate(form.updatedAt, 'MMMM Do, YYYY - h:mm:ss a'),
-                        toSort: form.updatedAt,
-                    },
-                    submissionsLink: getViewSubmissionsLink(form.slug)
+                    updatedAt: form.updatedAt,
+                    submissionsLink: form,
+                    id: idx
                 }))
                 setFormsData(parsedData)
             } else {
                 setPageError(error)
             }
         });
-    }, [kappSlug])
+    }, [kappSlug])    
+    
+    const sortAlpha = ( first, second ) => {          
+        const compare1 = first.name.toLowerCase();
+        const compare2 = second.name.toLowerCase();
+
+        return compare1.localeCompare(compare2);
+    };
+
+    const getFormLink = props => (
+        <Link  
+            component={RouterLink} 
+            to={`${props.value.slug}`}
+            sx ={{ 
+                fontWeight: 'bold',
+                color: 'primary.secondary',
+                textDecoration: 'none',
+                '&:hover': {
+                    textDecoration: 'underline',
+                }
+            }} 
+        >
+            {props.value.name}
+        </Link>
+    );
+
+    const getViewSubmissionsLink = props =>  (
+        <Link 
+            component={RouterLink}
+            to={`${props.value.slug}/submissions`} 
+            sx ={{ 
+                fontWeight: 'bold',
+                color: 'primary.secondary',
+                textDecoration: 'none',
+                '&:hover': {
+                    textDecoration: 'underline',
+                }
+            }} 
+        >
+            View Form Submissions
+        </Link>
+    );
+
+    const columns = useMemo(() => {
+        return [{
+            headerName: 'Form Name', 
+            field: 'name', 
+            renderCell: getFormLink,
+            type: 'string',
+            sortComparator: sortAlpha,
+            flex: 1
+        }, {
+            headerName: 'Description', 
+            field: 'description', 
+            flex: 2
+        },{
+            headerName: 'Updated at', 
+            field: 'updatedAt', 
+            renderCell: props => formatDate(props.value, 'MMMM Do, YYYY - h:mm:ss a'),
+            flex: 1
+        },{
+            headerName: ' ',
+            field: 'submissionsLink', 
+            renderCell: getViewSubmissionsLink,
+            flex: 1
+        }];
+    }) 
 
     const kappSubmissionsLink = useMemo(() => (
-        <Link className="button primary-no-border support-docs-link" to={`/kapps/${kappSlug}/submissions`}>
+        <Link 
+            component={RouterLink} 
+            to={`/kapps/${kappSlug}/submissions`}
+            sx ={{ 
+                display: 'flex',
+                alignItems: 'center',
+                ml: '1rem',
+                borderRadius: '.25rem',
+                fontWeight: 'bold',
+                color: 'primary.secondary',
+                textDecoration: 'none',
+                p: '0.5rem 0.75rem',
+                '&:hover': {
+                    color: 'primary.primary',
+                    bgcolor: 'primary.quaternary',
+                    cursor: 'pointer'
+                }
+            }} 
+        >
             View Kapp Submissions
         </Link>
     ), [kappSlug])
@@ -96,7 +137,18 @@ export const FormsList = () => {
     return kappData && formsData && !pageError ? (
         <> 
             <PageTitle title={kappData.name} rightSide={kappSubmissionsLink} />
-            <KineticClientTable columns={columns} data={formsData} showPagination />
+            <Box>
+                <DataGrid 
+                    columns={columns} 
+                    rows={formsData} 
+                    autoHeight={true}
+                    pageSizeOptions={[ 10, 25, 50, 100]} 
+                    initialState={{
+                        pagination: { paginationModel: { pageSize: 10 } },
+                        }}
+                    sx={{ mb: '1.5rem'}}
+                />
+            </Box>
         </>
     ) : <LoadingSpinner error={pageError} />
 };
