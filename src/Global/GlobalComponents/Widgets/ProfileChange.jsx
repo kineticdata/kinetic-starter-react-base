@@ -116,7 +116,8 @@ export const ProfileChange = ({ closeModal }) => {
                   borderRadius: '.25rem',
                 }}
               />
-              <Box sx={isPasswordOpen && {border: '1px solid', borderColor: 'greyscale.tertiary', borderRadius: '.25rem', p: '1rem', display: 'flex', flexDirection: 'column', gap: '2.5rem'}}>
+              {/* Turnery prevents a console error that occurs when using a && safety check */}
+              <Box sx={isPasswordOpen ? {border: '1px solid', borderColor: 'greyscale.tertiary', borderRadius: '.25rem', p: '1rem', display: 'flex', flexDirection: 'column', gap: '2.5rem'} : {}}>
                 {isPasswordOpen && 
                   <>
                     <TextField
