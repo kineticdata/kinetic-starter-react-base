@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { Editor, Viewer } from '@toast-ui/react-editor';
-import classNames from 'classnames';
 import { createRoot } from 'react-dom/client';
+import classNames from 'classnames';
+import Box from '@mui/material/Box';
 
 /**
  * Widget function that renders the MarkdownField component defined below.
@@ -27,7 +28,7 @@ const MarkdownField = props => {
     props.field.value(ref.current.getInstance().getMarkdown());
   };
     return (
-      <div
+      <Box
         className={classNames(className, {
           'markdown-editor': !isDisabled,
           'markdown-viewer': !!isDisabled,
@@ -56,6 +57,6 @@ const MarkdownField = props => {
             initialValue={props.field.value() || ''}
           />
         )}
-      </div>
+      </Box>
     );
 }

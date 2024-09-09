@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CoreForm } from '@kineticdata/react/lib/components';
-import {valuesFromQueryParams} from '../../GlobalResources/Helpers'
+import { valuesFromQueryParams } from '../../GlobalResources/Helpers'
 import { LoadingSpinner } from './LoadingSpinner';
+import Box from '@mui/material/Box';
 
 export const KineticForm = props => {
     const { kappSlug, formSlug, submissionId, isEditMode } = props;
@@ -20,9 +21,17 @@ export const KineticForm = props => {
     };
 
     const Pending = () => (
-        <div className="cm-form-loading">
+        <Box
+            sx={{
+                height: '30rem',
+                width: '50rem',
+                ml: 'auto',
+                mr: 'auto',
+                transform: 'translateY(.125rem)'
+            }} 
+        >
             <LoadingSpinner />
-        </div>
+        </Box>
       );
       
 

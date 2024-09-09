@@ -1,0 +1,91 @@
+@import './Design\ Tokens/colors.scss';
+@import './Design\ Tokens/fonts.scss';
+@import '/node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css';
+
+// Break Points:
+// Desktop: > 1366px
+// Vertical iPad: < 1366px
+// Mobile: < 768px
+
+:root {
+    // font-family: PlusJakartaSans;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    flex-grow: 0;
+    overflow-x: hidden;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  
+    @media screen and (min-width: 1024px) and (max-width: 1366px) {
+      width: 100%;
+    }
+  }
+  
+  ::-webkit-scrollbar {
+    width: .625rem;
+    height: .625rem;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #8a8b9d;
+    border-radius: .75rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  // Coreform Styling
+    // Form
+    $form-primary-text-color: black;
+    $form-bg: $colors-greyscale-800;
+    $form-bg-light: $colors-greyscale-800;
+    $form-border-radius: .75rem;
+    $form-padding: 1rem;
+    $form-shadow-enabled: true;
+    $form-focus-color: $colors-primary-200;
+    $form-text-muted: $colors-primary-100;
+    $input-border-color: $colors-primary-200;
+
+    // Form Buttons
+    $btn-text-color: $colors-greyscale-800;
+    $btn-background-color: $colors-primary-200;
+    $btn-hover-color: $colors-primary-100;
+    $btn-focus-width: 100%;
+    $btn-disabled-background: $colors-greyscale-200;
+    $btn-icon-font-weight: 1rem;
+    $btn-icon-color: $colors-greyscale-600;
+    $btn-icon-color-light: $colors-greyscale-100;
+    $btn-icon-primary-color: $colors-primary-200;
+    $btn-font-family: inherit;
+    $btn-font-weight: bold;
+    $btn-white-space: none;
+    $btn-border-width: .125rem;
+    $btn-padding-y: .25rem;
+    $btn-padding-x: .5rem;
+    $btn-font-size: inherit;
+    $btn-border-radius: .25rem;
+    $btn-focus-box-shadow: none;
+    $btn-disabled-opacity: inherit;
+
+    // Form Checkbox and Radio 
+    $chk-radio-text-color: $colors-primary-100;
+    $chk-radio-background-color: $colors-greyscale-600;
+    
+    // Common color names
+    $danger: $colors-error-200;
+    $success: $colors-success-200;
+    $warning: $colors-warning-200;
+
+  @import './CoreForm/forms';
+  @import './CoreForm/buttons';
+  @import './CoreForm/focus';
+  
