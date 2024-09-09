@@ -24,31 +24,31 @@ export const BreadcrumbHandler = () => {
             >
                 {breadcrumbs.map((crumb, idx) => {
                     return (
-                            <Link 
-                                key={idx}
-                                component={RouterLink}
-                                to={crumb.path} 
-                                sx={{
-                                    p: '.25rem .75rem',
-                                    borderRadius: '.25rem',
-                                    textDecoration: 'none',
-                                    color: 'primary.secondary',
-                                    fontWeight: 'bold',
-                                    '&:hover': {
-                                        color: 'primary.primary',
-                                        bgcolor: 'primary.quaternary',
-                                        textDecoration: 'underline',
-                                        cursor: 'pointer'
-                                    },
-                                    '&:focus': {
-                                        color: 'primary.primary',
-                                        bgcolor: 'primary.quaternary',
-                                        textDecoration: 'underline',
-                                    }
-                                }}
-                            >
-                                {crumb.page}
-                            </Link>
+                        <Link 
+                            key={idx}
+                            component={RouterLink}
+                            to={crumb.path} 
+                            sx={{
+                                p: '.25rem .75rem',
+                                borderRadius: '.25rem',
+                                textDecoration: 'none',
+                                color: 'primary.secondary',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    color: 'primary.primary',
+                                    bgcolor: 'primary.quaternary',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer'
+                                },
+                                '&:focus': {
+                                    color: 'primary.primary',
+                                    bgcolor: 'primary.quaternary',
+                                    textDecoration: 'underline',
+                                }
+                            }}
+                        >
+                            {crumb.page}
+                        </Link>
                     )
                 })}
             </Breadcrumbs>

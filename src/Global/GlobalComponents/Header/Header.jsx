@@ -112,7 +112,7 @@ const helpContent = useMemo(() => {
               <img
                 alt="logo"
                 src={logo}
-                />
+              />
             </Link>
           {loggedIn && profile && (
             <Box>
@@ -122,8 +122,8 @@ const helpContent = useMemo(() => {
                 aria-label="menu"
                 sx={{ mr: 2 }}
                 onClick={event => toggleDropdown('menu', event)}
-                >
-                  <MoreVertIcon sx={{ color: 'greyscale.main', m: '.5rem'}} />
+              >
+                <MoreVertIcon sx={{ color: 'greyscale.main', m: '.5rem'}} />
               </IconButton>
               <IconButton
                 edge="start"
@@ -165,11 +165,11 @@ const helpContent = useMemo(() => {
                   horizontal: 'right',
                 }}
               >
-                  {profile && <ProfileDropdown 
-                    profile={profile}
-                    openModal={() => setIsModalOpen(true)}
-                    closeProfileAnchor={() => setProfileAnchor(false)}
-                  />}
+                {profile && <ProfileDropdown 
+                  profile={profile}
+                  openModal={() => setIsModalOpen(true)}
+                  closeProfileAnchor={() => setProfileAnchor(false)}
+                />}
               </Menu> 
             </Box>
           )}
@@ -180,7 +180,7 @@ const helpContent = useMemo(() => {
         onClose={() => setIsModalOpen(false)}
         aria-labelledby="change-profile"
         aria-describedby="update-user-info"
-        >
+      >
         <Box
           id='change-profile'
           sx={{

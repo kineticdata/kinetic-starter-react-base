@@ -77,7 +77,7 @@ export const SubmissionLanding = () => {
                             fontWeight: 'bold',
                             '&:hover': {
                                 bgcolor: 'primary.main',
-                                },
+                            },
                         }
                     } 
                     aria-label="Close Modal."
@@ -93,7 +93,7 @@ export const SubmissionLanding = () => {
                         fontWeight: 'bold',
                         '&:hover': {
                             bgcolor: 'error.main',
-                            },
+                        },
                     }} 
                     aria-label="Close Modal."
                 >
@@ -190,7 +190,15 @@ export const SubmissionLanding = () => {
                         </Box>
                         <Box>
                             <Box>Are you sure you want to delete this Submission?</Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1.5rem', mt: '1.5rem', pt: '1.5rem', borderTop: '1px solid', borderTopColor: 'secondary.secondary'}}>
+                            <Box sx={{ 
+                                display: 'flex', 
+                                justifyContent: 'flex-end', 
+                                gap: '1.5rem', 
+                                mt: '1.5rem', 
+                                pt: '1.5rem', 
+                                borderTop: '1px solid', 
+                                borderTopColor: 'secondary.secondary' 
+                            }}>
                                 <Button 
                                     aria-label="Delete submission."
                                     onClick={() => confirmDeleteSubmission()}

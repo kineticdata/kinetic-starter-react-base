@@ -35,3 +35,10 @@ export const valuesFromQueryParams = queryParams => {
           return {color: 'warning.main', bgcolor: 'warning.quaternary'};
   }
 }
+
+export const sortAlpha = ( first, second ) => {          
+    const compare1 = first.name.toLowerCase();
+    const compare2 = second.name.toLowerCase();
+
+    return compare1.localeCompare(compare2);
+};

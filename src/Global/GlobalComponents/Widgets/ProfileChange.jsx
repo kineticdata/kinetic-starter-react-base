@@ -88,7 +88,7 @@ export const ProfileChange = ({ closeModal }) => {
             }} 
             aria-label="Close Modal."
           >
-              <CloseIcon sx={{p: '.5rem', fontSize: '2.5rem'}} />
+            <CloseIcon sx={{p: '.5rem', fontSize: '2.5rem'}} />
           </Button>
         </Box>
         <Box>
@@ -117,7 +117,17 @@ export const ProfileChange = ({ closeModal }) => {
                 }}
               />
               {/* Turnery prevents a console error that occurs when using a && safety check */}
-              <Box sx={isPasswordOpen ? {border: '1px solid', borderColor: 'greyscale.tertiary', borderRadius: '.25rem', p: '1rem', display: 'flex', flexDirection: 'column', gap: '2.5rem'} : {}}>
+              <Box sx={
+                isPasswordOpen ? {
+                  border: '1px solid', 
+                  borderColor: 'greyscale.tertiary', 
+                  borderRadius: '.25rem', 
+                  p: '1rem', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '2.5rem'
+                } : {}}
+              >
                 {isPasswordOpen && 
                   <>
                     <TextField

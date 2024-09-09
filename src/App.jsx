@@ -64,24 +64,24 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
       {loggedIn &&
         <>
           {breadcrumbs && <BreadcrumbHandler />}
-            <Routes>
-              <Route  
-                path='/'
-                element={<LandingPage />}
-                exact
-              />
-              <Route  
-                path='/login'
-                element={<Login {...loginProps} />}
-                exact
-              />
+          <Routes>
+            <Route  
+              path='/'
+              element={<LandingPage />}
+              exact
+            />
+            <Route  
+              path='/login'
+              element={<Login {...loginProps} />}
+              exact
+            />
 
-              <Route  
-                path='/kapps/*'
-                element={<KineticPlatformRouting />}
-                exact
-              />
-            </Routes>
+            <Route  
+              path='/kapps/*'
+              element={<KineticPlatformRouting />}
+              exact
+            />
+          </Routes>
         </>
       }
 
@@ -94,6 +94,6 @@ export const App = ({ initialized, loggedIn, loginProps, timedOut }) => {
         <Login {...loginProps} />
       }
       </ThemeProvider>
-      </Container> 
+    </Container> 
   )
 }

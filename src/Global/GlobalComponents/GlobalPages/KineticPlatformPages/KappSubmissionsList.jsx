@@ -4,7 +4,7 @@ import { fetchKapp, searchSubmissions } from '@kineticdata/react';
 import { LoadingSpinner } from "../../Widgets/LoadingSpinner";
 import { PageTitle } from "../../Widgets/PageTitle";
 import { GlobalContext } from "../../../GlobalResources/GlobalContextWrapper";
-import { formatDate, getStatusColors } from "../../../GlobalResources/Helpers";
+import { formatDate, getStatusColors, sortAlpha } from "../../../GlobalResources/Helpers";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -75,13 +75,6 @@ export const KappSubmissionsList = () => {
 
     const getState = props =>  <Chip label={props.value} sx={getStatusColors(props.value)} />;
 
-    const sortAlpha = ( first, second ) => {          
-        const compare1 = first.handle.toLowerCase();
-        const compare2 = second.handle.toLowerCase();
-
-        return compare1.localeCompare(compare2);
-    };
-
     const columns = useMemo(() => ([
             { 
                 headerName: 'Handle', 
@@ -133,7 +126,7 @@ export const KappSubmissionsList = () => {
                     pageSizeOptions={[ 10, 25, 50, 100]} 
                     initialState={{
                         pagination: { paginationModel: { pageSize: 10 } },
-                        }}
+                    }}
                     sx={{ mb: '1.5rem'}}
                 />
             </Box>
