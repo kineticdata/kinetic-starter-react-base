@@ -10,7 +10,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 export const ProfileDropdown = ({profile, openModal, closeProfileAnchor}) => {
   const navigate = useNavigate();
-  console.log('OPE', navigate)
 
   return (
     <Box sx={{ p: '.5rem 1rem' }}>
